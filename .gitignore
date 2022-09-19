@@ -8,7 +8,6 @@
 .buildlog/
 .history
 .svn/
-migrate_working_dir/
 
 # IntelliJ related
 *.iml
@@ -31,16 +30,9 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-ios/
-android/
-linux/
-macos/
-web/
-windows/
-test/
-pubspec.*
-.metadata
-analysis_options.yaml
+
+# Web related
+lib/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols
