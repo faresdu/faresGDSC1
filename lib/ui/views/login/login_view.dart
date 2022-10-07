@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/ui/views/startup/bb.dart';
 import 'package:stacked/stacked.dart';
 import 'login_viewmodel.dart';
 
@@ -21,7 +22,11 @@ class LoginView extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text('login')],
+                    children: [
+                      CustomButton(
+                          onPressed: viewmodel.navigateToNavigation,
+                          text: 'dddd')
+                    ],
                   )
                 ],
               ));

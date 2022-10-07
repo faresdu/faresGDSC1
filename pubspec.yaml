@@ -16,6 +16,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   provider: ^6.0.2
+  flutter_svg: ^1.0.3
   # Stacked
   stacked: ^2.2.8
   stacked_services: ^0.8.16
@@ -37,6 +38,8 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/icons/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
