@@ -16,34 +16,24 @@ import '../../ui/views/startup/startup_view.dart';
 class Routes {
   static const String startUpView = '/';
   static const String loginView = '/login-view';
-  static const all = <String>{
-    startUpView,
-    loginView,
-  };
+  static const all = <String>{startUpView, loginView};
 }
 
 class StackedRouter extends RouterBase {
   @override
   List<RouteDef> get routes => _routes;
+
   final _routes = <RouteDef>[
     RouteDef(Routes.startUpView, page: StartUpView),
     RouteDef(Routes.loginView, page: LoginView),
   ];
+
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+
   final _pagesMap = <Type, StackedRouteFactory>{
-    StartUpView: (data) {
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => const StartUpView(),
-        settings: data,
-      );
-    },
-    LoginView: (data) {
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => const LoginView(),
-        settings: data,
-      );
-    },
+    StartUpView: (data) => MaterialPageRoute<dynamic>(builder: (context) => const StartUpView(), settings: data),
+    LoginView: (data) => MaterialPageRoute<dynamic>(builder: (context) => const LoginView(), settings: data),
   };
 }
 
@@ -56,8 +46,7 @@ extension NavigatorStateExtension on NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo(
       Routes.startUpView,
@@ -72,8 +61,7 @@ extension NavigatorStateExtension on NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
   }) async {
     return navigateTo(
       Routes.loginView,
