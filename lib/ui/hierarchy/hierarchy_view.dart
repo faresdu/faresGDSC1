@@ -11,7 +11,7 @@ class HierarchyView extends StatelessWidget {
         viewModelBuilder: () => HierarchyViewModel(),
         builder: (context, viewmodel, _) {
           return Scaffold(
-            appBar: AppBar(title: Text('Hierarchy')),
+            appBar: AppBar(title: const Text('Hierarchy')),
           );
         });
   }

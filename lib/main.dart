@@ -6,21 +6,25 @@ import 'core/app/app.router.dart';
 
 Future<void> main() async {
   setupLocator();
-  runApp(const MyApp());
+  runApp(const GDCSApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class GDCSApp extends StatelessWidget {
+  const GDCSApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-          primarySwatch: Colors.green,
-          visualDensity: VisualDensity.adaptivePlatformDensity),
+      debugShowCheckedModeBanner: false,
       navigatorKey: StackedService.navigatorKey,
       onGenerateRoute: StackedRouter().onGenerateRoute,
+      // localizationsDelegates: const [
+      //   GlobalCupertinoLocalizations.delegate,
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate,
+      // ],
+      // supportedLocales: const [Locale("ar", "AE")],
+      // locale: const Locale("ar", "AE"),
     );
   }
 }

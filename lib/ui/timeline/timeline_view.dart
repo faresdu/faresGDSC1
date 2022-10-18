@@ -13,11 +13,12 @@ class _TimeLineViewState extends State<TimeLineView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<TimeLineViewModel>.reactive(
-        viewModelBuilder: () => TimeLineViewModel(),
-        builder: (context, viewmodel, _) {
-          return Scaffold(
-            appBar: AppBar(title: Text('Timeline')),
-          );
-        });
+      viewModelBuilder: () => TimeLineViewModel(),
+      builder: (context, viewmodel, _) {
+        return Scaffold(
+          appBar: AppBar(title: const Text('Timeline')),
+        );
+      },
+    );
   }
 }

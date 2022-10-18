@@ -8,17 +8,18 @@ import '../../ui/timeline/timeline_view.dart';
 import '../../ui/views/login/login_view.dart';
 import '../../ui/views/startup/startup_view.dart';
 
-@StackedApp(routes: [
-  // Register all views
-  MaterialRoute(page: StartUpView, initial: true),
-  MaterialRoute(page: LoginView),
-  MaterialRoute(page: NavigationView),
-  MaterialRoute(page: TimeLineView),
-  MaterialRoute(page: EventsView),
-  MaterialRoute(page: HierarchyView),
-  MaterialRoute(page: ProfileView)
-], dependencies: [
+@StackedApp(
+  routes: [
+    // Register all views
+    MaterialRoute(page: StartUpView, initial: true),
+    MaterialRoute(page: LoginView),
+    MaterialRoute(page: NavigationView),
+    MaterialRoute(page: TimeLineView),
+    MaterialRoute(page: EventsView),
+    MaterialRoute(page: HierarchyView),
+    MaterialRoute(page: ProfileView)
+  ],
   // Register all Services
-  LazySingleton<NavigationService>(classType: NavigationService),
-])
+  dependencies: [LazySingleton<NavigationService>(classType: NavigationService)],
+)
 class AppSetup {}
