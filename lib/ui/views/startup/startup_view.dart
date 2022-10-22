@@ -10,7 +10,8 @@ class StartUpView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<StartUpViewModel>.reactive(
         viewModelBuilder: () => StartUpViewModel(),
-        builder: (context, viewmodel, _) {
+        onModelReady: (viewModel) => viewModel.checkUser(),
+        builder: (context, viewModel, _) {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.green,
@@ -24,8 +25,8 @@ class StartUpView extends StatelessWidget {
                   children: [
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       CustomButton(
-                        onPressed: viewmodel.navigateToLogin,
-                        text: 'login',
+                        onPressed: viewModel.navigateToLogin,
+                        text: 'StartUp',
                       ),
                     ]),
                   ],
