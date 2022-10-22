@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/form_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stacked/stacked.dart';
 
 import 'login_viewmodel.dart';
 
-class LoginView extends HookConsumerWidget {
-  const LoginView({Key? key}) : super(key: key);
-
+class LoginView extends StatelessWidget {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return _getContentWidget();
-  }
-
-  Widget _getContentWidget() {
+  Widget build(BuildContext context) {
     return ViewModelBuilder<LoginViewModel>.reactive(
         viewModelBuilder: () => LoginViewModel(),
         builder: (context, viewmodel, _) {
