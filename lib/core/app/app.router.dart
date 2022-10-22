@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/navigation/navigation_view.dart' as _i4;
 import 'package:gdsc_app/ui/events/events_view.dart' as _i6;
 import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart' as _i7;
+import 'package:gdsc_app/ui/login/login_view.dart' as _i3;
 import 'package:gdsc_app/ui/profile/profile_view.dart' as _i8;
+import 'package:gdsc_app/ui/startup/startup_view.dart' as _i2;
 import 'package:gdsc_app/ui/timeline/timeline_view.dart' as _i5;
-import 'package:gdsc_app/ui/views/login/login_view.dart' as _i3;
-import 'package:gdsc_app/ui/views/startup/startup_view.dart' as _i2;
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i9;
 

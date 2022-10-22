@@ -11,7 +11,7 @@ class EventsView extends StatelessWidget {
         viewModelBuilder: () => EventsViewModel(),
         builder: (context, viewmodel, _) {
           return Scaffold(
-            appBar: AppBar(title: Text('Events')),
+            appBar: AppBar(title: const Text('Events')),
           );
         });
   }
