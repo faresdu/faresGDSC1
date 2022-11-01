@@ -15,6 +15,8 @@ class StartUpViewModel extends BaseViewModel {
   checkUser() async {
     if (await supabaseService.getCurrentUser() != null) {
       navService.navigateTo(Routes.navigationView);
+    } else {
+      navigateToLogin();
     }
   }
 }

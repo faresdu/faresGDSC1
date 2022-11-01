@@ -21,6 +21,8 @@ class SupabaseService {
     } catch (e) {
       print('No Current User : $e');
     }
+
+    print(await getEvents());
   }
 
   Future<void> _restoreCurrentUser() async {
@@ -45,10 +47,8 @@ class SupabaseService {
     }
   }
 
-  Future<void> loginWithEmail({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> loginWithEmail(
+      {required String email, required String password}) async {
     try {
       GotrueSessionResponse response = await supabaseClient.auth.signIn(
         email: email,
@@ -75,10 +75,11 @@ class SupabaseService {
 
       //Authentication Error Catch
     } on GotrueError catch (e) {
-      print('Login Failed : ${e.message}');
+      throw 'Authentication Failed : ${e.message}';
+
       //Unknown Error
     } catch (e) {
-      print('Login Failed : ${e}');
+      throw 'Unknown Authentication, ERROR : ${e}';
     }
   }
 
@@ -88,10 +89,22 @@ class SupabaseService {
 
   Future<void> signOut() async {
     try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.remove('PERSIST_SESSION_KEY');
       await supabaseClient.auth.signOut();
       print('Signed out Successfully');
     } catch (e) {
       throw 'Failed to sign out, ERROR : $e';
+    }
+  }
+
+  Future<dynamic> getEvents() async {
+    try {
+      final PostgrestResponse<dynamic> res =
+          await supabaseClient.from('Events').select().execute();
+      return res.data;
+    } catch (e) {
+      throw 'Failed to get Events, ERROR : $e';
     }
   }
 }

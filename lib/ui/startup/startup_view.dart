@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/ui/startup/startup_viewmodel%20.dart';
+import 'package:gdsc_app/ui/startup/startup_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -15,8 +15,11 @@ class StartUpView extends StatelessWidget {
       onModelReady: (viewmodel) => viewmodel.checkUser(),
       builder: (context, viewmodel, _) {
         return const Scaffold(
-          body:
-              Center(child: Image(image: AssetImage('assets/images/logo.png'))),
+          body: Center(
+            child: Image(
+              image: AssetImage('assets/images/logo.png'),
+            ),
+          ),
         );
       },
     );
