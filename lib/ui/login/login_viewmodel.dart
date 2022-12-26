@@ -1,13 +1,48 @@
+import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/app/app.locator.dart';
 import 'package:gdsc_app/core/app/app.router.dart';
+import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import '../../core/app/app.locator.dart';
-
 class LoginViewModel extends BaseViewModel {
   final navService = locator<NavigationService>();
+  final supabaseService = locator<SupabaseService>();
 
-  navigateToNavigation() {
-    navService.navigateTo(Routes.navigationView);
+  //Form data
+  String? email;
+  String? password;
+  bool isNumber = false;
+
+  final formKey = GlobalKey<FormState>();
+
+  loginAndNavigate(context) async {
+    try {
+      await supabaseService.loginWithEmail(email: email!, password: password!);
+      navService.navigateTo(Routes.navigationView);
+    } catch (e) {
+      //TODO SHOW ERROR PopUp Window
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(
+                'تاكد من صحة المعلومات',
+                textAlign: TextAlign.center,
+              ),
+            );
+          });
+    }
+  }
+
+  submitLogin(context) {
+    if (!formKey.currentState!.validate()) {
+      print('Login Failed : invalid login information');
+      return;
+    }
+    //Success
+    formKey.currentState?.save();
+
+    loginAndNavigate(context);
   }
 }

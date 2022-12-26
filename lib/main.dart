@@ -5,17 +5,22 @@ import 'core/app/app.locator.dart';
 import 'core/app/app.router.dart';
 
 Future<void> main() async {
-  setupLocator();
-  runApp(const GDCSApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  await setupLocator();
+  runApp(const MyApp());
 }
 
-class GDCSApp extends StatelessWidget {
-  const GDCSApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
       navigatorKey: StackedService.navigatorKey,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       // localizationsDelegates: const [

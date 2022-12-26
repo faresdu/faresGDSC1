@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/navigation/navigation_view.dart' as _i4;
 import 'package:gdsc_app/ui/events/events_view.dart' as _i6;
 import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart' as _i7;
-import 'package:gdsc_app/ui/profile/profile_view.dart' as _i8;
-import 'package:gdsc_app/ui/timeline/timeline_view.dart' as _i5;
 import 'package:gdsc_app/ui/login/login_view.dart' as _i3;
+import 'package:gdsc_app/ui/profile/profile_view.dart' as _i8;
 import 'package:gdsc_app/ui/startup/startup_view.dart' as _i2;
+import 'package:gdsc_app/ui/timeline/timeline_view.dart' as _i5;
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i9;
 
@@ -77,13 +77,13 @@ class StackedRouter extends _i1.RouterBase {
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.StartUpView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const _i2.StartUpView(),
+        builder: (context) => _i2.StartUpView(),
         settings: data,
       );
     },
     _i3.LoginView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const _i3.LoginView(),
+        builder: (context) => _i3.LoginView(),
         settings: data,
       );
     },
@@ -130,62 +130,97 @@ extension NavigatorStateExtension on _i9.NavigationService {
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.startUpView, id: routerId, preventDuplicates: preventDuplicates, parameters: parameters, transition: transition);
+    return navigateTo<dynamic>(Routes.startUpView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
   }
 
   Future<dynamic> navigateToLoginView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.loginView, id: routerId, preventDuplicates: preventDuplicates, parameters: parameters, transition: transition);
+    return navigateTo<dynamic>(Routes.loginView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
   }
 
   Future<dynamic> navigateToNavigationView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.navigationView, id: routerId, preventDuplicates: preventDuplicates, parameters: parameters, transition: transition);
+    return navigateTo<dynamic>(Routes.navigationView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
   }
 
   Future<dynamic> navigateToTimeLineView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.timeLineView, id: routerId, preventDuplicates: preventDuplicates, parameters: parameters, transition: transition);
+    return navigateTo<dynamic>(Routes.timeLineView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
   }
 
   Future<dynamic> navigateToEventsView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.eventsView, id: routerId, preventDuplicates: preventDuplicates, parameters: parameters, transition: transition);
+    return navigateTo<dynamic>(Routes.eventsView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
   }
 
   Future<dynamic> navigateToHierarchyView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.hierarchyView, id: routerId, preventDuplicates: preventDuplicates, parameters: parameters, transition: transition);
+    return navigateTo<dynamic>(Routes.hierarchyView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
   }
 
   Future<dynamic> navigateToProfileView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.profileView, id: routerId, preventDuplicates: preventDuplicates, parameters: parameters, transition: transition);
+    return navigateTo<dynamic>(Routes.profileView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
   }
 }
