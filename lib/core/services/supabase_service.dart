@@ -1,9 +1,15 @@
+import 'dart:convert';
+
+import 'package:gdsc_app/core/models/committee.dart';
+import 'package:gdsc_app/core/models/gdsc_user.dart';
+import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase/supabase.dart';
 
+import '../app/app.locator.dart';
+
 class SupabaseService {
   late SupabaseClient supabaseClient;
-
   static Future<SupabaseService> getInstance() async {
     final service = SupabaseService();
     await service._initializeSupabase();
@@ -69,6 +75,7 @@ class SupabaseService {
           'PERSIST_SESSION_KEY',
           response.data!.persistSessionString,
         );
+        // _userService.initUser(supabaseClient.auth.currentUser!.id);
 
         print('Login Successfully : ${response.user?.email}');
       }
@@ -105,6 +112,40 @@ class SupabaseService {
       return res.data;
     } catch (e) {
       throw 'Failed to get Events, ERROR : $e';
+    }
+  }
+
+  Future<List<Committee>> getCommittees() async {
+    try {
+      final PostgrestResponse<dynamic> res =
+          await supabaseClient.from('Committees').select('*').execute();
+      return (res.data as List).map((e) => Committee.fromJson(e)).toList();
+    } catch (e) {
+      throw 'Failed to get Committees, ERROR : $e';
+    }
+  }
+
+  subscribeToUser(String id) {
+    return supabaseClient
+        .from('Users')
+        .stream([id])
+        .execute()
+        .asyncMap<GDSCUser>((event) {
+          return getUser(id);
+        });
+  }
+
+  Future<GDSCUser> getUser(String id) async {
+    try {
+      final res = await supabaseClient
+          .from('Users')
+          .select('*')
+          .eq('user_id', id)
+          .execute();
+      return (res.data as List).map((e) => GDSCUser.fromJson(e)).toList().first;
+      // return GDSCUser.fromJson(res.data);
+    } catch (e) {
+      throw 'Failed to get User with id $id, ERROR : $e';
     }
   }
 }
