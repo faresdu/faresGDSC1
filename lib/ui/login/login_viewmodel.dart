@@ -5,9 +5,11 @@ import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../core/services/authentication_service.dart';
+
 class LoginViewModel extends BaseViewModel {
   final navService = locator<NavigationService>();
-  final supabaseService = locator<SupabaseService>();
+  final authService = locator<AuthenticationService>();
 
   //Form data
   String? email;
@@ -18,7 +20,7 @@ class LoginViewModel extends BaseViewModel {
 
   loginAndNavigate(context) async {
     try {
-      await supabaseService.loginWithEmail(email: email!, password: password!);
+      await authService.loginWithEmail(email: email!, password: password!);
       navService.navigateTo(Routes.navigationView);
     } catch (e) {
       //TODO SHOW ERROR PopUp Window

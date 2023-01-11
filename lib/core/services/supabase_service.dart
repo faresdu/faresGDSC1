@@ -53,58 +53,6 @@ class SupabaseService {
     }
   }
 
-  Future<void> loginWithEmail(
-      {required String email, required String password}) async {
-    try {
-      GotrueSessionResponse response = await supabaseClient.auth.signIn(
-        email: email,
-        password: password,
-      );
-
-      bool errorOccurred = response.error != null;
-
-      //Authentication Error Occurred
-      if (errorOccurred) {
-        throw response.error!;
-
-        //SignIn Successfully
-      } else {
-        //Store Current Session
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString(
-          'PERSIST_SESSION_KEY',
-          response.data!.persistSessionString,
-        );
-        // _userService.initUser(supabaseClient.auth.currentUser!.id);
-
-        print('Login Successfully : ${response.user?.email}');
-      }
-
-      //Authentication Error Catch
-    } on GotrueError catch (e) {
-      throw 'Authentication Failed : ${e.message}';
-
-      //Unknown Error
-    } catch (e) {
-      throw 'Unknown Authentication, ERROR : ${e}';
-    }
-  }
-
-  Future<User?> getCurrentUser() async {
-    return await supabaseClient.auth.currentUser;
-  }
-
-  Future<void> signOut() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.remove('PERSIST_SESSION_KEY');
-      await supabaseClient.auth.signOut();
-      print('Signed out Successfully');
-    } catch (e) {
-      throw 'Failed to sign out, ERROR : $e';
-    }
-  }
-
   Future<dynamic> getEvents() async {
     try {
       final PostgrestResponse<dynamic> res =
@@ -125,7 +73,7 @@ class SupabaseService {
     }
   }
 
-  subscribeToUser(String id) {
+  Stream<GDSCUser> subscribeToUser(String id) {
     return supabaseClient
         .from('Users')
         .stream([id])
