@@ -1,15 +1,16 @@
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
+import 'package:gdsc_app/ui/committee_members/committe_members_view.dart';
 import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart';
 import 'package:gdsc_app/ui/login/login_view.dart';
 import 'package:gdsc_app/ui/profile/profile_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
-import '../../ui/events/events_view.dart';
-import '../../ui/navigation/navigation_view.dart';
-import '../../ui/startup/startup_view.dart';
-import '../../ui/timeline/timeline_view.dart';
-import '../services/authentication_service.dart';
+import 'package:gdsc_app/ui/events/events_view.dart';
+import 'package:gdsc_app/ui/navigation/navigation_view.dart';
+import 'package:gdsc_app/ui/startup/startup_view.dart';
+import 'package:gdsc_app/ui/timeline/timeline_view.dart';
+import 'package:gdsc_app/core/services/authentication_service.dart';
 
 @StackedApp(
   routes: [
@@ -20,7 +21,8 @@ import '../services/authentication_service.dart';
     MaterialRoute(page: TimeLineView),
     MaterialRoute(page: EventsView),
     MaterialRoute(page: HierarchyView),
-    MaterialRoute(page: ProfileView)
+    MaterialRoute(page: ProfileView),
+    MaterialRoute(page: CommitteeMembersView)
   ],
   // Register all Services
   dependencies: [

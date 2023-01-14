@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:gdsc_app/core/models/committee.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
+import 'package:gdsc_app/core/models/member.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase/supabase.dart';
@@ -70,6 +71,20 @@ class SupabaseService {
       return (res.data as List).map((e) => Committee.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Committees, ERROR : $e';
+    }
+  }
+
+  Future<List<Member>> getCommitteeMembers(String cId) async {
+    try {
+      final PostgrestResponse<dynamic> res = await supabaseClient
+          .from('Users')
+          .select('*')
+          .eq('committee_id', cId)
+          .execute();
+      // print(res.data);
+      return (res.data as List).map((e) => Member.fromJson(e)).toList();
+    } catch (e) {
+      throw 'Failed to get Committee Members, ERROR : $e';
     }
   }
 

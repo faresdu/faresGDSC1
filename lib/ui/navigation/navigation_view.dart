@@ -13,7 +13,12 @@ class NavigationView extends StatefulWidget {
 }
 
 class _NavigationViewState extends State<NavigationView> {
-  final List<Widget> pages = [const TimeLineView(), const HierarchyView(), const EventsView(), const ProfileView()];
+  final List<Widget> pages = [
+    const TimeLineView(),
+    const HierarchyView(),
+    const EventsView(),
+    const ProfileView()
+  ];
   int ind = 0;
   @override
   Widget build(BuildContext context) {
@@ -34,10 +39,23 @@ class _NavigationViewState extends State<NavigationView> {
           unselectedItemColor: Colors.green,
           backgroundColor: Colors.indigoAccent,
           items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(label: 'TimeLine', icon: SvgPicture.asset("assets/icons/ETH_icon.svg")),
-            BottomNavigationBarItem(label: 'Hierarchy', icon: SvgPicture.asset("assets/icons/ETH_icon.svg")),
-            BottomNavigationBarItem(label: 'Events', icon: SvgPicture.asset("assets/icons/ETH_icon.svg")),
-            BottomNavigationBarItem(label: 'Profile', icon: SvgPicture.asset("assets/icons/ETH_icon.svg")),
+            BottomNavigationBarItem(
+                label: 'TimeLine',
+                icon: ClipOval(
+                  child: Image.asset(
+                    "assets/images/logo.png",
+                    height: 50,
+                  ),
+                )),
+            BottomNavigationBarItem(
+                label: 'Hierarchy',
+                icon: SvgPicture.asset("assets/icons/ETH_icon.svg")),
+            BottomNavigationBarItem(
+                label: 'Events',
+                icon: SvgPicture.asset("assets/icons/ETH_icon.svg")),
+            BottomNavigationBarItem(
+                label: 'Profile',
+                icon: SvgPicture.asset("assets/icons/ETH_icon.svg")),
           ],
           currentIndex: ind,
           onTap: (index) {

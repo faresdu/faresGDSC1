@@ -21,7 +21,7 @@ class LoginViewModel extends BaseViewModel {
   loginAndNavigate(context) async {
     try {
       await authService.loginWithEmail(email: email!, password: password!);
-      navService.navigateTo(Routes.navigationView);
+      navService.clearStackAndShow(Routes.navigationView);
     } catch (e) {
       //TODO SHOW ERROR PopUp Window
       showDialog(

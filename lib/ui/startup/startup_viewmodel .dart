@@ -18,7 +18,7 @@ class StartUpViewModel extends BaseViewModel {
   checkUser() async {
     try {
       await authService.setUser();
-      navService.navigateTo(Routes.navigationView);
+      navService.clearStackAndShow(Routes.navigationView);
     } catch (e) {
       navigateToLogin();
     }

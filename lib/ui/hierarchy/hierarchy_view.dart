@@ -19,15 +19,19 @@ class _HierarchyViewState extends State<HierarchyView> {
         builder: (context, viewmodel, _) {
           return Scaffold(
             appBar: AppBar(
-                title: const Text('Hierarchy'),
+                centerTitle: true,
+                title: const Text('الهيكلة'),
                 automaticallyImplyLeading: false),
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Column(
                   children: viewmodel.comms
-                      .map((e) =>
-                          HierarchyButton(onPressed: () {}, name: e.name))
+                      .map((e) => HierarchyButton(
+                          onPressed: () {
+                            viewmodel.navigateToCommittee(e);
+                          },
+                          name: e.name))
                       .toList(),
                 )
               ],

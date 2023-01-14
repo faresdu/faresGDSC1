@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -25,9 +26,14 @@ class MyApp extends StatelessWidget {
             initialData: GDSCUser.anonymous())
       ],
       child: MaterialApp(
+        builder: (context, child) {
+          return Directionality(
+              textDirection: TextDirection.rtl, child: child!);
+        },
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.green,
+          fontFamily: GoogleFonts.cairo().fontFamily,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         navigatorKey: StackedService.navigatorKey,
