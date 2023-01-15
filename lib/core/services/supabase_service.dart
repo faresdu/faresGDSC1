@@ -106,7 +106,6 @@ class SupabaseService {
           .eq('user_id', id)
           .execute();
       return (res.data as List).map((e) => GDSCUser.fromJson(e)).toList().first;
-      // return GDSCUser.fromJson(res.data);
     } catch (e) {
       throw 'Failed to get User with id $id, ERROR : $e';
     }

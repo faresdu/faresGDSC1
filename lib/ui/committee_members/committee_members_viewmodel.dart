@@ -11,19 +11,18 @@ class CommitteeMembersViewModel extends BaseViewModel {
   List<Member> members = [];
 
   setMembers(BuildContext context) {
-    List<Member> members =
+    List<Member> tempMembers =
         (ModalRoute.of(context)!.settings.arguments! as List).first;
+
     committee = (ModalRoute.of(context)!.settings.arguments! as List).last;
 
-    for (var i = 0; i < members.length; i++) {
-      if (members[i].id == committee.leaderID) {
-        leader = members[i];
-        members.removeAt(i);
-      } else if (members[i].id == committee.coLeaderID) {
-        coLeader = members[i];
-        members.removeAt(i);
+    for (var i = 0; i < tempMembers.length; i++) {
+      if (tempMembers[i].id == committee.leaderID) {
+        leader = tempMembers[i];
+      } else if (tempMembers[i].id == committee.coLeaderID) {
+        coLeader = tempMembers[i];
       } else {
-        this.members.add(members[i]);
+        members.add(tempMembers[i]);
       }
     }
   }

@@ -13,17 +13,6 @@ class HierarchyViewModel extends BaseViewModel {
   final userService = locator<SupabaseService>();
   List<Committee> comms = [];
 
-  getCommittees() async {
-    // Map<String, dynamic> com1 = {
-    //   "name": "Tech committee",
-    // };
-    // Map<String, dynamic> com2 = {
-    //   "name": "Logistics committee",
-    // };
-    // return [com1, com2, com1];
-    // final temp =
-    // return temp;
-  }
   getMembers(String id) async {
     // final res=await userService.getCommitteeMembers(id);
     // return

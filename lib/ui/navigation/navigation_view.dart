@@ -41,12 +41,7 @@ class _NavigationViewState extends State<NavigationView> {
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 label: 'TimeLine',
-                icon: ClipOval(
-                  child: Image.asset(
-                    "assets/images/logo.png",
-                    height: 50,
-                  ),
-                )),
+                icon: SvgPicture.asset("assets/icons/ETH_icon.svg")),
             BottomNavigationBarItem(
                 label: 'Hierarchy',
                 icon: SvgPicture.asset("assets/icons/ETH_icon.svg")),
