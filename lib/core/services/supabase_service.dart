@@ -1,16 +1,12 @@
-import 'dart:convert';
-
 import 'package:gdsc_app/core/models/committee.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/models/member.dart';
-import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase/supabase.dart';
 
-import '../app/app.locator.dart';
-
 class SupabaseService {
   late SupabaseClient supabaseClient;
+
   static Future<SupabaseService> getInstance() async {
     final service = SupabaseService();
     await service._initializeSupabase();
@@ -77,7 +73,7 @@ class SupabaseService {
   Future<List<Member>> getCommitteeMembers(String cId) async {
     try {
       final PostgrestResponse<dynamic> res = await supabaseClient
-          .from('Users')
+          .from('member_view')
           .select('*')
           .eq('committee_id', cId)
           .execute();

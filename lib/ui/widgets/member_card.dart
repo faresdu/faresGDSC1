@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../core/models/member.dart';
 
 class MemberCard extends StatelessWidget {
@@ -13,33 +12,6 @@ class MemberCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getImage() {
-      try {
-        if (member.photo == null || member.photo!.isEmpty) {
-          return Image.asset(
-            "assets/images/man.png",
-            width: 50,
-            height: 50,
-            fit: BoxFit.cover,
-          );
-        } else {
-          return Image.network(
-            member.photo!,
-            height: 50,
-            width: 50,
-            fit: BoxFit.cover,
-          );
-        }
-      } catch (e) {
-        return Image.asset(
-          "assets/images/man.png",
-          width: 50,
-          height: 50,
-          fit: BoxFit.cover,
-        );
-      }
-    }
-
     return Container(
       margin: EdgeInsets.all(10),
       decoration:
@@ -52,24 +24,68 @@ class MemberCard extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 12),
               backgroundColor: Colors.grey),
           onPressed: onPressed,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ClipOval(child: getImage()),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(member.name,
-                      style: TextStyle(fontSize: 18, color: Colors.black)),
-                  Text(role ?? 'عضو',
-                      style: TextStyle(fontSize: 13, color: Colors.white))
+                  ///Profile Image
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ClipOval(child: profileImage()),
+                  ),
+
+                  /// Member Info
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(member.name,
+                          style: TextStyle(fontSize: 18, color: Colors.black)),
+                      Text(role ?? 'عضو',
+                          style: TextStyle(fontSize: 13, color: Colors.white)),
+                      Text(member.major,
+                          style: TextStyle(fontSize: 13, color: Colors.white))
+                    ],
+                  )
                 ],
-              )
+              ),
+
+              /// Social Media icons
+              if (member.socials != null)
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: member.socials!
+                        .map((e) => socialImage(e.image))
+                        .toList())
             ],
           )),
+    );
+  }
+
+  Widget socialImage(image) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 5),
+      child: Image.network(
+        image,
+        height: 30,
+      ),
+    );
+  }
+
+  Widget profileImage() {
+    if (member.photo != null && member.photo!.isNotEmpty) {
+      return Image.network(
+        member.photo!,
+        height: 50,
+        width: 50,
+        fit: BoxFit.cover,
+      );
+    }
+    return Image.asset(
+      "assets/images/man.png",
+      height: 50,
+      width: 50,
+      fit: BoxFit.cover,
     );
   }
 }
