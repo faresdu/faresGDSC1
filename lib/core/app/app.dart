@@ -12,6 +12,8 @@ import 'package:gdsc_app/ui/startup/startup_view.dart';
 import 'package:gdsc_app/ui/timeline/timeline_view.dart';
 import 'package:gdsc_app/core/services/authentication_service.dart';
 
+import '../../ui/leaderboard/leaderboard_view.dart';
+
 @StackedApp(
   routes: [
     // Register all views
@@ -22,7 +24,8 @@ import 'package:gdsc_app/core/services/authentication_service.dart';
     MaterialRoute(page: EventsView),
     MaterialRoute(page: HierarchyView),
     MaterialRoute(page: ProfileView),
-    MaterialRoute(page: CommitteeMembersView)
+    MaterialRoute(page: CommitteeMembersView),
+    MaterialRoute(page: LeaderboardView)
   ],
   // Register all Services
   dependencies: [

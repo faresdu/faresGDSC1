@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gdsc_app/ui/events/events_view.dart';
 import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart';
+import 'package:gdsc_app/ui/leaderboard/leaderboard_view.dart';
 import 'package:gdsc_app/ui/profile/profile_view.dart';
 import 'package:gdsc_app/ui/timeline/timeline_view.dart';
 
@@ -17,7 +18,8 @@ class _NavigationViewState extends State<NavigationView> {
     const TimeLineView(),
     const HierarchyView(),
     const EventsView(),
-    const ProfileView()
+    const ProfileView(),
+    const LeaderboardView()
   ];
   int ind = 0;
   @override
@@ -50,6 +52,9 @@ class _NavigationViewState extends State<NavigationView> {
                 icon: SvgPicture.asset("assets/icons/ETH_icon.svg")),
             BottomNavigationBarItem(
                 label: 'Profile',
+                icon: SvgPicture.asset("assets/icons/ETH_icon.svg")),
+            BottomNavigationBarItem(
+                label: 'Leaderboard',
                 icon: SvgPicture.asset("assets/icons/ETH_icon.svg")),
           ],
           currentIndex: ind,
