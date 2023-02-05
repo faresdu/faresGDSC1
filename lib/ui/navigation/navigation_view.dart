@@ -51,7 +51,7 @@ class _NavigationViewState extends State<NavigationView> {
             selectedItemColor: Color(0xFF547DBF),
             unselectedItemColor: Color(0x99547DBF),
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white,
+            backgroundColor: Color(0xFFF5FCFF),
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 label: '',
