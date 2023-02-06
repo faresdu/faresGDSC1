@@ -5,6 +5,7 @@ import 'package:gdsc_app/ui/leaderboard/leaderboard_view.dart';
 import 'package:gdsc_app/ui/profile/profile_view.dart';
 import 'package:gdsc_app/ui/timeline/timeline_view.dart';
 import 'package:gdsc_app/ui/widgets/navigation_bar_icon.dart';
+import 'package:gdsc_app/core/utils/constants.dart';
 
 class NavigationView extends StatefulWidget {
   const NavigationView({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class _NavigationViewState extends State<NavigationView> {
       bottomNavigationBar: Theme(
         data: ThemeData(
           primarySwatch: Colors.lightGreen,
-          highlightColor: Color(0x33547DBF),
+          highlightColor: blue.withOpacity(.2),
         ),
         child: Container(
           height: 78,
@@ -48,8 +49,8 @@ class _NavigationViewState extends State<NavigationView> {
             ],
           ),
           child: BottomNavigationBar(
-            selectedItemColor: Color(0xFF547DBF),
-            unselectedItemColor: Color(0x99547DBF),
+            selectedItemColor: blue,
+            unselectedItemColor: blue.withOpacity(.6),
             type: BottomNavigationBarType.fixed,
             backgroundColor: Color(0xFFF5FCFF),
             items: <BottomNavigationBarItem>[
