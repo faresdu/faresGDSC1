@@ -39,23 +39,18 @@ class _NavigationViewState extends State<NavigationView> {
           height: 78,
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(21),
-              topRight: Radius.circular(21),
-            ),
-            boxShadow: [
-              BoxShadow(color: Colors.black26, spreadRadius: 0, blurRadius: 8),
-            ],
+            borderRadius: BorderRadius.vertical(top: Radius.circular(21)),
+            boxShadow: shadow,
           ),
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Color(0xFFF5FCFF),
+            backgroundColor: navigationBackground,
             items: <BottomNavigationBarItem>[
               buildBottomNavigationBarItem("members"),
               buildBottomNavigationBarItem("events"),
               buildBottomNavigationBarItem("members"),
               buildBottomNavigationBarItem("hierarchy"),
-              buildBottomNavigationBarItem("timeline")
+              buildBottomNavigationBarItem("timeline"),
             ],
             currentIndex: ind,
             onTap: (index) {
@@ -72,8 +67,8 @@ class _NavigationViewState extends State<NavigationView> {
   BottomNavigationBarItem buildBottomNavigationBarItem(String name) {
     return BottomNavigationBarItem(
       label: '',
-      icon: SvgPicture.asset("assets/icons/navigation/${name}.svg", color: blue),
       activeIcon: SvgPicture.asset("assets/icons/navigation/${name}_active.svg", color: blue),
+      icon: SvgPicture.asset("assets/icons/navigation/${name}.svg", color: blue),
     );
   }
 }

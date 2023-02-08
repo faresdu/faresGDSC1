@@ -12,3 +12,8 @@ const Color blue = Color(0xFF547DBF);
 const Color purple = Color(0xFF212A40);
 const Color lightBlue = Color(0xFF0682BC);
 const Color cyan = Color(0xFF7CB9E5);
+const Color navigationBackground = Color(0xFFF5FCFF);
+
+List<BoxShadow> shadow = [
+  BoxShadow(color: Colors.black.withOpacity(.3), blurRadius: 8),
+];
