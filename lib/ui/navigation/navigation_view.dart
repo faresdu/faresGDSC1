@@ -4,8 +4,8 @@ import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart';
 import 'package:gdsc_app/ui/leaderboard/leaderboard_view.dart';
 import 'package:gdsc_app/ui/profile/profile_view.dart';
 import 'package:gdsc_app/ui/timeline/timeline_view.dart';
-import 'package:gdsc_app/ui/widgets/navigation_bar_icon.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
+import 'package:flutter_svg/svg.dart';
 
 class NavigationView extends StatefulWidget {
   const NavigationView({Key? key}) : super(key: key);
@@ -33,7 +33,6 @@ class _NavigationViewState extends State<NavigationView> {
       ),
       bottomNavigationBar: Theme(
         data: ThemeData(
-          primarySwatch: Colors.lightGreen,
           highlightColor: blue.withOpacity(.2),
         ),
         child: Container(
@@ -49,31 +48,14 @@ class _NavigationViewState extends State<NavigationView> {
             ],
           ),
           child: BottomNavigationBar(
-            selectedItemColor: blue,
-            unselectedItemColor: blue.withOpacity(.6),
             type: BottomNavigationBarType.fixed,
             backgroundColor: Color(0xFFF5FCFF),
             items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                label: '',
-                icon: NavigationBarIcon(filename: "assets/icons/members.svg"),
-              ),
-              BottomNavigationBarItem(
-                label: '',
-                icon: NavigationBarIcon(filename: "assets/icons/events.svg"),
-              ),
-              BottomNavigationBarItem(
-                label: '',
-                icon: NavigationBarIcon(filename: "assets/icons/members.svg"),
-              ),
-              BottomNavigationBarItem(
-                label: '',
-                icon: NavigationBarIcon(filename: "assets/icons/club hierarchy.svg"),
-              ),
-              BottomNavigationBarItem(
-                label: '',
-                icon: NavigationBarIcon(filename: "assets/icons/timeline.svg"),
-              ),
+              buildBottomNavigationBarItem("members"),
+              buildBottomNavigationBarItem("events"),
+              buildBottomNavigationBarItem("members"),
+              buildBottomNavigationBarItem("hierarchy"),
+              buildBottomNavigationBarItem("timeline")
             ],
             currentIndex: ind,
             onTap: (index) {
@@ -84,6 +66,14 @@ class _NavigationViewState extends State<NavigationView> {
           ),
         ),
       ),
+    );
+  }
+
+  BottomNavigationBarItem buildBottomNavigationBarItem(String name) {
+    return BottomNavigationBarItem(
+      label: '',
+      icon: SvgPicture.asset("assets/icons/navigation/${name}.svg", color: blue),
+      activeIcon: SvgPicture.asset("assets/icons/navigation/${name}_active.svg", color: blue),
     );
   }
 }
