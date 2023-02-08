@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+@immutable
 class Constants {
+  const Constants._();
+
   static const Color grey = Color(0xFF666C74);
   static const Color darkGrey = Color(0xFF303030);
   static const Color red = Color(0xFFD93F37);
