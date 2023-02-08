@@ -33,18 +33,18 @@ class _NavigationViewState extends State<NavigationView> {
       ),
       bottomNavigationBar: Theme(
         data: ThemeData(
-          highlightColor: blue.withOpacity(.2),
+          highlightColor: Constants.blue.withOpacity(.2),
         ),
         child: Container(
           height: 78,
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.vertical(top: Radius.circular(21)),
-            boxShadow: shadow,
+            boxShadow: Constants.shadow,
           ),
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: navigationBackground,
+            backgroundColor: Constants.navigationBackground,
             items: <BottomNavigationBarItem>[
               buildBottomNavigationBarItem("members"),
               buildBottomNavigationBarItem("events"),
@@ -67,8 +67,8 @@ class _NavigationViewState extends State<NavigationView> {
   BottomNavigationBarItem buildBottomNavigationBarItem(String name) {
     return BottomNavigationBarItem(
       label: '',
-      activeIcon: SvgPicture.asset("assets/icons/navigation/${name}_active.svg", color: blue),
-      icon: SvgPicture.asset("assets/icons/navigation/${name}.svg", color: blue),
+      activeIcon: SvgPicture.asset("assets/icons/navigation/${name}_active.svg", color: Constants.blue),
+      icon: SvgPicture.asset("assets/icons/navigation/${name}.svg", color: Constants.blue),
     );
   }
 }
