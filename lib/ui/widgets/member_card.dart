@@ -23,22 +23,20 @@ class MemberCard extends StatelessWidget {
             BorderRadius.all(
               Radius.circular(12),//was 20
               ),
-            color:(role=="قائد")? Color(0xFFF9EEED):(role=="نائب القائد")? Color(0xFFFDF9EE): Color(0xFFF6FAFC),
+            color:cardBackgroundColor(),//(role=="قائد")? Color(0xFFF9EEED):(role=="نائب القائد")? Color(0xFFFDF9EE): Color(0xFFF6FAFC),
             border: Border.all(
-                          color:(role=="قائد")? Color(0xFFA0461A):(role=="نائب القائد")? Color(0xFFE7B94A): Color(0xFF0682BC),
+                          color:borderColor(),//(role=="قائد")? Color(0xFFA0461A):(role=="نائب القائد")? Color(0xFFE7B94A): Color(0xFF0682BC),
                           width: 0.5,
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey,//.withOpacity(0.5),
+                            color: Colors.grey,
                             spreadRadius: 0.25,
                             blurRadius: 7,
                           ),
                         ],
           ),
-          //child: Padding(//replacment of text button padding
-      //padding: const EdgeInsets.symmetric(vertical: 12),//replacment of text button padding
-      child: TextButton(//was TextButton
+      child: TextButton(
       
           style: TextButton.styleFrom(
             
@@ -60,7 +58,7 @@ class MemberCard extends StatelessWidget {
                     child: Container(//container to add the colored border with shadow
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color:(role=="قائد")? Color(0xFFA0461A):(role=="نائب القائد")? Color(0xFFE7B94A): Color(0xFF0682BC),
+                          color:borderColor(),//(role=="قائد")? Color(0xFFA0461A):(role=="نائب القائد")? Color(0xFFE7B94A): Color(0xFF0682BC),
                           width: 0.5,
                         ),
                         shape: BoxShape.circle,
@@ -97,7 +95,7 @@ class MemberCard extends StatelessWidget {
               ),
 
 
-              if(member.socials!=null)
+              if(member.socials!=null|| member.socials!.isEmpty)
               Padding( padding: const EdgeInsets.symmetric(horizontal: 36),
               child: Divider(
               color: Color.fromARGB(191, 217, 217, 217)
@@ -109,9 +107,9 @@ class MemberCard extends StatelessWidget {
               
 
               /// Social Media icons
-              if (member.socials != null)
+              if (member.socials != null|| member.socials!.isEmpty)
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                     children: 
                     member.socials!
                         .map((e) => socialImage(e.image))
@@ -120,7 +118,6 @@ class MemberCard extends StatelessWidget {
             ],
           ),
       ),
-    //),//replacment of text button padding
     );
   }
 
@@ -128,6 +125,7 @@ class MemberCard extends StatelessWidget {
     return GestureDetector(
     child:Container(
       margin: EdgeInsets.symmetric(horizontal: 5),
+      padding: EdgeInsets.all(8.0),
       child: Image.network(
         image,
         height: 30,
@@ -135,9 +133,11 @@ class MemberCard extends StatelessWidget {
     ),
     onTap: () async {
       //launchUrl(Uri.parse('https://www.google.com'));
-      if (!await launchUrl(Uri.parse('https://www.google.com'))) {
-    throw Exception('Could not launch link');
-  }
+      print('reached sovials');
+      if (!await launchUrl(Uri.parse('https://www.google.com')))
+      {
+        throw Exception('Could not launch link');
+        }
     },
     );
   }
@@ -157,5 +157,13 @@ class MemberCard extends StatelessWidget {
       width: 65,
       fit: BoxFit.cover,
     );
+  }
+
+  Color cardBackgroundColor(){
+    return (role=="قائد")? Color(0xFFF9EEED):(role=="نائب القائد")? Color(0xFFFDF9EE): Color(0xFFF6FAFC);
+  }
+
+  Color borderColor(){
+    return (role=="قائد")? Color(0xFFA0461A):(role=="نائب القائد")? Color(0xFFE7B94A): Color(0xFF0682BC);
   }
 }
