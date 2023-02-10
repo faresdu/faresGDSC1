@@ -9,7 +9,9 @@
 import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_services/src/navigation/navigation_service.dart';
 
+import '../services/authentication_service.dart';
 import '../services/supabase_service.dart';
+import '../services/user_service.dart';
 
 final locator = StackedLocator.instance;
 
@@ -21,6 +23,8 @@ Future<void> setupLocator(
 
 // Register dependencies
   locator.registerLazySingleton(() => NavigationService());
+  locator.registerLazySingleton(() => UserService());
+  locator.registerLazySingleton(() => AuthenticationService());
   final supabaseService = await SupabaseService.getInstance();
   locator.registerSingleton(supabaseService);
 }

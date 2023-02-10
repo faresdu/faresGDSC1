@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/ui/startup/startup_viewmodel.dart';
+import 'package:gdsc_app/ui/startup/startup_viewmodel .dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 

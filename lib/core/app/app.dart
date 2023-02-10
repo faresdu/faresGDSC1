@@ -1,14 +1,18 @@
 import 'package:gdsc_app/core/services/supabase_service.dart';
+import 'package:gdsc_app/core/services/user_service.dart';
+import 'package:gdsc_app/ui/committee_members/committe_members_view.dart';
 import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart';
 import 'package:gdsc_app/ui/login/login_view.dart';
 import 'package:gdsc_app/ui/profile/profile_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:gdsc_app/ui/events/events_view.dart';
+import 'package:gdsc_app/ui/navigation/navigation_view.dart';
+import 'package:gdsc_app/ui/startup/startup_view.dart';
+import 'package:gdsc_app/ui/timeline/timeline_view.dart';
+import 'package:gdsc_app/core/services/authentication_service.dart';
 
-import '../../navigation/navigation_view.dart';
-import '../../ui/events/events_view.dart';
-import '../../ui/startup/startup_view.dart';
-import '../../ui/timeline/timeline_view.dart';
+import '../../ui/leaderboard/leaderboard_view.dart';
 
 @StackedApp(
   routes: [
@@ -19,11 +23,15 @@ import '../../ui/timeline/timeline_view.dart';
     MaterialRoute(page: TimeLineView),
     MaterialRoute(page: EventsView),
     MaterialRoute(page: HierarchyView),
-    MaterialRoute(page: ProfileView)
+    MaterialRoute(page: ProfileView),
+    MaterialRoute(page: CommitteeMembersView),
+    MaterialRoute(page: LeaderboardView)
   ],
   // Register all Services
   dependencies: [
     LazySingleton<NavigationService>(classType: NavigationService),
+    LazySingleton<UserService>(classType: UserService),
+    LazySingleton<AuthenticationService>(classType: AuthenticationService),
     Presolve(
       classType: SupabaseService,
       presolveUsing: SupabaseService.getInstance,

@@ -6,7 +6,7 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.18.2 <3.0.0"
+  sdk: ">=2.17.0-51.0.dev <3.0.0"
 
 dependencies:
   cupertino_icons: ^1.0.2
@@ -23,7 +23,8 @@ dependencies:
   stacked: ^3.0.0
   stacked_core: ^1.2.4
   stacked_services: ^0.9.5
-
+  rxdart:
+  provider:
   # Supabase
   supabase: ^0.3.6
   shared_preferences: ^2.0.15
@@ -39,4 +40,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/icons/
+    - assets/icons/navigation/
     - assets/images/

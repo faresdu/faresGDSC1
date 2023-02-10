@@ -1,3 +1,6 @@
+import 'package:gdsc_app/core/models/committee.dart';
+import 'package:gdsc_app/core/models/gdsc_user.dart';
+import 'package:gdsc_app/core/models/member.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase/supabase.dart';
 
@@ -47,57 +50,6 @@ class SupabaseService {
     }
   }
 
-  Future<void> loginWithEmail(
-      {required String email, required String password}) async {
-    try {
-      GotrueSessionResponse response = await supabaseClient.auth.signIn(
-        email: email,
-        password: password,
-      );
-
-      bool errorOccurred = response.error != null;
-
-      //Authentication Error Occurred
-      if (errorOccurred) {
-        throw response.error!;
-
-        //SignIn Successfully
-      } else {
-        //Store Current Session
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString(
-          'PERSIST_SESSION_KEY',
-          response.data!.persistSessionString,
-        );
-
-        print('Login Successfully : ${response.user?.email}');
-      }
-
-      //Authentication Error Catch
-    } on GotrueError catch (e) {
-      throw 'Authentication Failed : ${e.message}';
-
-      //Unknown Error
-    } catch (e) {
-      throw 'Unknown Authentication, ERROR : ${e}';
-    }
-  }
-
-  Future<User?> getCurrentUser() async {
-    return await supabaseClient.auth.currentUser;
-  }
-
-  Future<void> signOut() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.remove('PERSIST_SESSION_KEY');
-      await supabaseClient.auth.signOut();
-      print('Signed out Successfully');
-    } catch (e) {
-      throw 'Failed to sign out, ERROR : $e';
-    }
-  }
-
   Future<dynamic> getEvents() async {
     try {
       final PostgrestResponse<dynamic> res =
@@ -105,6 +57,64 @@ class SupabaseService {
       return res.data;
     } catch (e) {
       throw 'Failed to get Events, ERROR : $e';
+    }
+  }
+
+  Future<List<Committee>> getCommittees() async {
+    try {
+      final PostgrestResponse<dynamic> res =
+          await supabaseClient.from('Committees').select('*').execute();
+      return (res.data as List).map((e) => Committee.fromJson(e)).toList();
+    } catch (e) {
+      throw 'Failed to get Committees, ERROR : $e';
+    }
+  }
+
+  Future<List<Member>> getLeaderboardMembers() async {
+    try {
+      final PostgrestResponse<dynamic> res =
+          await supabaseClient.from('leaderboard_view').select('*').execute();
+      print('${res.data} ssssssssssss');
+      return (res.data as List).map((e) => Member.fromJson(e)).toList();
+    } catch (e) {
+      throw 'Failed to get Leaderboard : $e';
+    }
+  }
+
+  Future<List<Member>> getCommitteeMembers(String cId) async {
+    try {
+      final PostgrestResponse<dynamic> res = await supabaseClient
+          .from('member_view')
+          .select('*')
+          .eq('committee_id', cId)
+          .execute();
+      // print(res.data);
+      return (res.data as List).map((e) => Member.fromJson(e)).toList();
+    } catch (e) {
+      throw 'Failed to get Committee Members, ERROR : $e';
+    }
+  }
+
+  Stream<GDSCUser> subscribeToUser(String id) {
+    return supabaseClient
+        .from('Users')
+        .stream([id])
+        .execute()
+        .asyncMap<GDSCUser>((event) {
+          return getUser(id);
+        });
+  }
+
+  Future<GDSCUser> getUser(String id) async {
+    try {
+      final res = await supabaseClient
+          .from('Users')
+          .select('*')
+          .eq('user_id', id)
+          .execute();
+      return (res.data as List).map((e) => GDSCUser.fromJson(e)).toList().first;
+    } catch (e) {
+      throw 'Failed to get User with id $id, ERROR : $e';
     }
   }
 }
