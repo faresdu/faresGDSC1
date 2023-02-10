@@ -22,6 +22,13 @@ class _NavigationViewState extends State<NavigationView> {
     const HierarchyView(),
     const TimeLineView(),
   ];
+  final List<BottomNavigationBarItem> items = [
+    buildBottomNavigationBarItem("profile"),
+    buildBottomNavigationBarItem("events"),
+    buildBottomNavigationBarItem("leaderboard"),
+    buildBottomNavigationBarItem("hierarchy"),
+    buildBottomNavigationBarItem("timeline"),
+  ];
   int ind = 0;
 
   @override
@@ -45,13 +52,7 @@ class _NavigationViewState extends State<NavigationView> {
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             backgroundColor: Constants.navigationBackground,
-            items: <BottomNavigationBarItem>[
-              buildBottomNavigationBarItem("members"),
-              buildBottomNavigationBarItem("events"),
-              buildBottomNavigationBarItem("members"),
-              buildBottomNavigationBarItem("hierarchy"),
-              buildBottomNavigationBarItem("timeline"),
-            ],
+            items: items,
             currentIndex: ind,
             onTap: (index) {
               setState(() {
@@ -63,12 +64,12 @@ class _NavigationViewState extends State<NavigationView> {
       ),
     );
   }
+}
 
-  BottomNavigationBarItem buildBottomNavigationBarItem(String name) {
-    return BottomNavigationBarItem(
-      label: '',
-      activeIcon: SvgPicture.asset("assets/icons/navigation/${name}_active.svg", color: Constants.blue),
-      icon: SvgPicture.asset("assets/icons/navigation/${name}.svg", color: Constants.blue),
-    );
-  }
+BottomNavigationBarItem buildBottomNavigationBarItem(String name) {
+  return BottomNavigationBarItem(
+    label: '',
+    activeIcon: SvgPicture.asset("assets/icons/navigation/${name}_active.svg", color: Constants.blue),
+    icon: SvgPicture.asset("assets/icons/navigation/${name}.svg", color: Constants.blue),
+  );
 }
