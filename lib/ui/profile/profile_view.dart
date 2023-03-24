@@ -11,7 +11,7 @@ class ProfileView extends StatelessWidget {
         viewModelBuilder: () => ProfileViewModel(),
         builder: (context, viewmodel, _) {
           return Scaffold(
-            appBar: AppBar(title: Text('Profile')),
+            appBar: AppBar(title: Text('File modified by fares')),
           );
         });
   }
