@@ -16,14 +16,14 @@ class HierarchyButton extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12), // <-- Radius
+              borderRadius: BorderRadius.circular(15), // <-- Radius
             ),
             padding: EdgeInsets.symmetric(vertical: 12),
-            backgroundColor: Colors.blue),
+            backgroundColor: Colors.grey),
         onPressed: onPressed,
         child: Center(
           child:
-              Text(name, style: TextStyle(fontSize: 30, color: Colors.black)),
+              Text(name, style: TextStyle(fontSize: 30, color: Colors.white)),
         ),
       ),
     );
