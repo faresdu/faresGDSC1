@@ -28,6 +28,7 @@ class _HierarchyViewState extends State<HierarchyView> {
                 Column(
                   children: viewmodel.comms
                       .map((e) => HierarchyButton(
+
                           onPressed: () {
                             viewmodel.navigateToCommittee(e);
                           },
