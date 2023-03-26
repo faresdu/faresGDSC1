@@ -70,6 +70,17 @@ class SupabaseService {
     }
   }
 
+  Future<List<Member>> getLeaderboardMembers() async {
+    try {
+      final PostgrestResponse<dynamic> res =
+          await supabaseClient.from('leaderboard_view').select('*').execute();
+      print('${res.data} ssssssssssss');
+      return (res.data as List).map((e) => Member.fromJson(e)).toList();
+    } catch (e) {
+      throw 'Failed to get Leaderboard : $e';
+    }
+  }
+
   Future<List<Member>> getCommitteeMembers(String cId) async {
     try {
       final PostgrestResponse<dynamic> res = await supabaseClient
