@@ -28,6 +28,7 @@ dependencies:
   # Supabase
   supabase: ^0.3.6
   shared_preferences: ^2.0.15
+  url_launcher: ^6.1.8
 
 dev_dependencies:
   flutter_lints: ^2.0.0
