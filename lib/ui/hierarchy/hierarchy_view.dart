@@ -22,20 +22,21 @@ class _HierarchyViewState extends State<HierarchyView> {
                 centerTitle: true,
                 title: const Text('الهيكلة'),
                 automaticallyImplyLeading: false),
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: viewmodel.comms
-                      .map((e) => HierarchyButton(
-
-                          onPressed: () {
-                            viewmodel.navigateToCommittee(e);
-                          },
-                          name: e.name))
-                      .toList(),
-                )
-              ],
+            body: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: viewmodel.comms
+                        .map((e) => HierarchyButton(
+                            onPressed: () {
+                              viewmodel.navigateToCommittee(e);
+                            },
+                            name: e.name))
+                        .toList(),
+                  )
+                ],
+              ),
             ),
           );
         });

@@ -10,7 +10,7 @@ class HierarchyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
+      margin: EdgeInsets.symmetric(vertical: 12, horizontal: 25),
       decoration:
           BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20))),
       child: TextButton(
