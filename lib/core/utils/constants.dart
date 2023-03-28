@@ -22,4 +22,10 @@ class Constants {
   static List<BoxShadow> shadow = [
     BoxShadow(color: Colors.black.withOpacity(.3), blurRadius: 8),
   ];
+  static List<BoxShadow> shadow2 = [
+    BoxShadow(color: Colors.black.withOpacity(.25), blurRadius: 4,offset: const Offset(0, 4)),
+  ];
+  static List<BoxShadow> shadow3 = [
+    BoxShadow(color: Colors.black.withOpacity(.25), blurRadius: 10,offset: const Offset(0, 2)),
+  ];
 }
