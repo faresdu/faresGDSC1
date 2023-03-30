@@ -45,7 +45,7 @@ class Event {
       description: map['description'],
       startDate: DateTime.tryParse(map['start_date']) ?? DateTime.utc(1900),
       endDate: DateTime.tryParse(map['end_date'])  ?? DateTime.utc(1900),
-      location: map['place'] ?? '',
+      location: map['location'] ?? '',
       attendees: members,
       numAttendees: map['num_attendees'] ?? 0,
       maxAttendees: map['max_attendees'] ?? 0,
