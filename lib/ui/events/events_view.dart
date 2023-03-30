@@ -1,63 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/core/models/member.dart';
+import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/ui/events/events_viewmodel.dart';
 import 'package:stacked/stacked.dart';
-import 'events_details_view.dart';
 
-class EventsView extends StatelessWidget {
+class EventsView extends StatefulWidget {
   const EventsView({Key? key}) : super(key: key);
 
+  @override
+  State<EventsView> createState() => _EventsViewState();
+}
+
+class _EventsViewState extends State<EventsView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<EventsViewModel>.reactive(
         viewModelBuilder: () => EventsViewModel(),
+        onViewModelReady: (model) => model.getEvents(),
         builder: (context, viewmodel, _) {
           return Scaffold(
             appBar: AppBar(title: const Text('Events')),
-            body: TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EventsDetailsView(
-                      title: 'مقدمة في علم البيانات',
-                      day: 'الاربعاء',
-                      description:
-                          'ما أصله؟ خلافاَ للاعتقاد السائد فإن لوريم إيبسوم ليس نصاَ عشوائياً، بل إن له جذور في الأدب اللاتيني الكلاسيكي منذ العام 45 قبل الميلاد، مما يجعله أكثر من عام في',
-                      location: 'بهو الجامعة',
-                      attendees: [
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                        Member.anonymous(),
-                      ],
-                      time: '3:00PM',
-                      date: '2022-1-21',
-                      instructor: 'بسام البسام',
-                      maxAttendees: 37,
-                      flyer: 'assets/images/temp-events-img.png',
+            body: Column(
+              children: viewmodel.events
+                  .map(
+                    (e) => EventCard(
+                      event: e,
+                      onPressed: () {
+                        viewmodel.navigateToEvent(e);
+                      },
                     ),
-                  ),
-                );
-              },
-              child: const Text('window'),
+                  )
+                  .toList(),
             ),
           );
         });
+  }
+}
+
+class EventCard extends StatelessWidget {
+  const EventCard({Key? key, required this.event, required this.onPressed})
+      : super(key: key);
+  final Event event;
+  final Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Text(event.title),
+    );
   }
 }
