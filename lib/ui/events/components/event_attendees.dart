@@ -4,11 +4,8 @@ import '../../../core/models/member.dart';
 import '../../../core/utils/constants.dart';
 
 class EventAttendees extends StatelessWidget {
-  const EventAttendees(
-      {Key? key, required this.attendees, required this.remainingSeats})
-      : super(key: key);
+  const EventAttendees({Key? key, required this.attendees}) : super(key: key);
   final List<Member> attendees;
-  final int remainingSeats;
 
   @override
   Widget build(BuildContext context) {
@@ -47,27 +44,18 @@ class EventAttendees extends StatelessWidget {
         ),
       );
     }
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Image(image: AssetImage('assets/images/event-attendees.png')),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Text(
-                'المشاركين',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-              ),
-            ),
-            Row(textDirection: TextDirection.ltr, children: images),
-          ],
+        const Image(image: AssetImage('assets/images/event-attendees.png')),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            'المشاركين',
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+          ),
         ),
-        Text(
-          'المقاعد المتبقية $remainingSeats',
-          style: const TextStyle(
-              fontSize: 12, fontWeight: FontWeight.w700, color: Constants.grey),
-        )
+        Row(textDirection: TextDirection.ltr, children: images),
       ],
     );
   }

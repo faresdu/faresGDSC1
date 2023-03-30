@@ -54,7 +54,7 @@ class EventsDetailsView extends StatelessWidget {
                             bottomText: viewmodel.eventDetails.location),
                         EventInfoBox(
                             topText: 'المحاضر',
-                            bottomText: viewmodel.eventDetails.instructor)
+                            bottomText: viewmodel.eventDetails.instructorName)
                       ],
                     ),
                     Divider(
@@ -77,10 +77,19 @@ class EventsDetailsView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         EventSignupButton(onPressed: () {}),
-                        EventAttendees(
-                          remainingSeats: viewmodel.eventDetails.maxAttendees -
-                              viewmodel.eventDetails.numAttendees,
-                          attendees: viewmodel.eventDetails.attendees,
+                        Column(
+                          children: [
+                            EventAttendees(
+                              attendees: viewmodel.eventDetails.attendees,
+                            ),
+                            Text(
+                              'المقاعد المتبقية ${viewmodel.eventDetails.maxAttendees - viewmodel.eventDetails.numAttendees}',
+                              style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: Constants.grey),
+                            )
+                          ],
                         ),
                       ],
                     ),
