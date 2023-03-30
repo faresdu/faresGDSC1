@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../core/models/member.dart';
 import '../../../core/utils/constants.dart';
 
-
 class EventAttendees extends StatelessWidget {
   const EventAttendees(
       {Key? key, required this.attendees, required this.remainingSeats})
@@ -20,10 +19,9 @@ class EventAttendees extends StatelessWidget {
           widthFactor: .75,
           child: CircleAvatar(
             radius: 11,
-            backgroundColor: Colors.white,
+            backgroundColor: Constants.white,
             child: CircleAvatar(
-              backgroundImage: NetworkImage(
-                  attendees[i].photo ?? ''),
+              backgroundImage: NetworkImage(attendees[i].photo ?? ''),
               backgroundColor: Constants.red,
               radius: 10,
             ),
@@ -36,14 +34,14 @@ class EventAttendees extends StatelessWidget {
         Container(
           decoration: BoxDecoration(boxShadow: Constants.shadow3),
           child: CircleAvatar(
-            backgroundColor: Colors.white,
+            backgroundColor: Constants.white,
             radius: 11,
             child: Text(
               '+${attendees.length - 3}',
               style: const TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
-                  color: Colors.black),
+                  color: Constants.black),
             ),
           ),
         ),
@@ -68,9 +66,7 @@ class EventAttendees extends StatelessWidget {
         Text(
           'المقاعد المتبقية $remainingSeats',
           style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: Color(0xFF666C74)),
+              fontSize: 12, fontWeight: FontWeight.w700, color: Constants.grey),
         )
       ],
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/utils/constants.dart';
+
 class EventInfoBox extends StatelessWidget {
   const EventInfoBox(
       {Key? key, required this.topText, required this.bottomText})
@@ -22,7 +24,7 @@ class EventInfoBox extends StatelessWidget {
             style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w700,
-                color: Color(0xFF666C74)))
+                color: Constants.grey))
       ],
     );
   }

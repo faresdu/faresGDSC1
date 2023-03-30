@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:stacked/stacked.dart';
+import '../../core/utils/constants.dart';
 import 'components/event_attendees.dart';
 import 'components/event_date_box.dart';
 import 'components/event_info_box.dart';
@@ -27,7 +28,8 @@ class EventsDetailsView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.network(viewmodel.eventDetails.flyer ?? 'https://hackr.io/blog/best-way-to-learn-java/thumbnail/large'),
+                    Image.network(viewmodel.eventDetails.flyer ??
+                        'https://hackr.io/blog/best-way-to-learn-java/thumbnail/large'),
                     Text(
                       viewmodel.eventDetails.title,
                       style: titleStyle,
@@ -57,7 +59,7 @@ class EventsDetailsView extends StatelessWidget {
                     ),
                     Divider(
                       height: 1,
-                      color: const Color(0xFF666C74).withOpacity(.5),
+                      color: Constants.grey.withOpacity(.5),
                     ),
                     Text(
                       'عن الفعالية',
@@ -68,7 +70,7 @@ class EventsDetailsView extends StatelessWidget {
                       style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF666C74)),
+                          color: Constants.grey),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

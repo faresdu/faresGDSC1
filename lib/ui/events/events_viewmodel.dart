@@ -12,41 +12,7 @@ class EventsViewModel extends BaseViewModel {
   final navService = locator<NavigationService>();
   final userService = locator<SupabaseService>();
   List<Event> events = [];
-  Event eventDetails = Event(
-    instructorID: '123',
-    title: 'مقدمة في علم البيانات',
-    description:
-        'ما أصله؟ خلافاَ للاعتقاد السائد فإن لوريم إيبسوم ليس نصاَ عشوائياً، بل إن له جذور في الأدب اللاتيني الكلاسيكي منذ العام 45 قبل الميلاد، مما يجعله أكثر من عام في',
-    location: 'بهو الجامعة',
-    attendees: [
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-      Member.anonymous(),
-    ],
-    startDate: DateTime.tryParse('2022-01-21 07:00:00+00') ?? DateTime.utc(1900),
-    endDate: DateTime.utc(1900),
-    instructor: 'بسام البسام',
-    maxAttendees: 37,
-    flyer: 'assets/images/temp-events-img.png',
-    numAttendees: 2,
-    eventID: '12',
-  );
+  Event eventDetails = Event.placeholder();
 
   getEvents() async {
     await userService.getEvents().then((value) => events = value);
