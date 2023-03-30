@@ -37,15 +37,15 @@ class EventsDetailsView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         EventDateBox(
-                          day: viewmodel.eventDetails.date.day,
+                          day: viewmodel.eventDetails.startDate.day,
                           month: DateHelper.getMonth(
-                              viewmodel.eventDetails.date),
+                              viewmodel.eventDetails.startDate),
                         ),
                         EventInfoBox(
                           topText: DateHelper.getWeekDay(
-                              viewmodel.eventDetails.date),
+                              viewmodel.eventDetails.startDate),
                           bottomText:
-                              '${DateHelper.getHour(viewmodel.eventDetails.startTime)} - ${DateHelper.getHour(viewmodel.eventDetails.endTime)}',
+                              '${DateHelper.getHour(viewmodel.eventDetails.startDate)} - ${DateHelper.getHour(viewmodel.eventDetails.endDate)}',
                         ),
                         EventInfoBox(
                             topText: 'الموقع',
