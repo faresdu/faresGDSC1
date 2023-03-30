@@ -54,7 +54,7 @@ class EventsDetailsView extends StatelessWidget {
                             bottomText: viewmodel.eventDetails.location),
                         EventInfoBox(
                             topText: 'المحاضر',
-                            bottomText: viewmodel.eventDetails.instructor)
+                            bottomText: viewmodel.eventDetails.instructorName)
                       ],
                     ),
                     Divider(
