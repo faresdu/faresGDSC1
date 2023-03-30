@@ -17,14 +17,16 @@ class EventSignupButton extends StatelessWidget {
         height: 50,
         width: 150,
         decoration: BoxDecoration(
-            color: const Color(0xFF212A40).withOpacity(.9),
+            color: Constants.darkBlue.withOpacity(.9),
             boxShadow: Constants.shadow2,
             borderRadius: BorderRadius.circular(10)),
         child: const Center(
           child: Text(
             'احجز مقعدك',
             style: TextStyle(
-                fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white),
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: Constants.white),
           ),
         ),
       ),
