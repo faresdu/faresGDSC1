@@ -1,6 +1,7 @@
 import 'package:gdsc_app/core/models/committee.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/models/member.dart';
+import 'package:gdsc_app/core/models/event.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase/supabase.dart';
 
@@ -50,11 +51,11 @@ class SupabaseService {
     }
   }
 
-  Future<dynamic> getEvents() async {
+  Future<List<Event>> getEvents() async {
     try {
       final PostgrestResponse<dynamic> res =
-          await supabaseClient.from('Events').select().execute();
-      return res.data;
+          await supabaseClient.from('events_view').select().execute();
+      return (res.data as List).map((e) => Event.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Events, ERROR : $e';
     }
