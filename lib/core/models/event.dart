@@ -7,9 +7,8 @@ class Event {
   final String title;
   final String? flyer;
   final String? description;
-  final DateTime date;
-  final DateTime startTime;
-  final DateTime endTime;
+  final DateTime startDate;
+  final DateTime endDate;
   final String location;
   final List<Member> attendees;
   final int numAttendees;
@@ -21,9 +20,8 @@ class Event {
     required this.title,
     required this.flyer,
     required this.description,
-    required this.date,
-    required this.startTime,
-    required this.endTime,
+    required this.startDate,
+    required this.endDate,
     required this.location,
     required this.attendees,
     required this.numAttendees,
@@ -45,9 +43,8 @@ class Event {
       title: map['title'] ?? '',
       flyer: map['flyer'],
       description: map['description'],
-      date: DateTime.tryParse(map['start_date']) ?? DateTime.utc(1900),
-      startTime: DateTime.tryParse('${map['start_date']} ${map['start_time']}') ?? DateTime.utc(1900),
-      endTime: DateTime.tryParse('${map['start_date']} ${map['end_time']}') ?? DateTime.utc(1900),
+      startDate: DateTime.tryParse(map['start_date']) ?? DateTime.utc(1900),
+      endDate: DateTime.tryParse(map['end_date'])  ?? DateTime.utc(1900),
       location: map['place'] ?? '',
       attendees: members,
       numAttendees: map['num_attendees'] ?? 0,
