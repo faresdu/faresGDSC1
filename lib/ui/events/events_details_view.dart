@@ -5,7 +5,6 @@ import '../../core/utils/constants.dart';
 import 'components/event_attendees.dart';
 import 'components/event_date_box.dart';
 import 'components/event_info_box.dart';
-import 'components/event_signup_button.dart';
 import 'events_viewmodel.dart';
 
 TextStyle titleStyle =
@@ -70,7 +69,7 @@ class EventsDetailsView extends StatelessWidget {
                             bottomText: viewmodel.eventDetails.location),
                         EventInfoBox(
                             topText: 'المحاضر',
-                            bottomText: viewmodel.eventDetails.instructorName)
+                            bottomText: viewmodel.eventDetails.host ?? viewmodel.eventDetails.instructorName)
                       ],
                     ),
                     Padding(
@@ -101,21 +100,7 @@ class EventsDetailsView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        EventSignupButton(
-                          onPressed: viewmodel.eventDetails.canSignUp()
-                              ? () {}
-                              : () {
-                                  if (viewmodel.eventDetails.signedUp()) {
-                                    print('already signed up');
-                                  }
-                                  if (viewmodel.eventDetails.isFull()) {
-                                    print('event full');
-                                  }
-                                },
-                          color: viewmodel.eventDetails.canSignUp()
-                              ? Constants.darkBlue.withOpacity(.9)
-                              : Constants.grey.withOpacity(.9),
-                        ),
+                        viewmodel.getSignUpButton(viewmodel.eventDetails),
                         const SizedBox(
                           width: 45,
                         ),

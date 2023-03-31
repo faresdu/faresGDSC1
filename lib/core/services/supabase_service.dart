@@ -61,6 +61,36 @@ class SupabaseService {
     }
   }
 
+  Future<void> signUpToEvent(String eId, String id) async {
+    print('signing up, event id: $eId, id: $id');
+    try {
+      final PostgrestResponse<dynamic> res =
+          await supabaseClient.from('event_attendees').insert({
+        'event_id': eId,
+        'user_id': id,
+      }).execute();
+      print('event code: ${res.status}');
+    } catch (e) {
+      throw 'Failed to sign up to Event, ERROR : $e';
+    }
+  }
+
+  Future<void> signOutFromEvent(String eId, String id) async {
+    print('signing out, event id: $eId, id: $id');
+    try {
+      final payload = {'event_id': eId, 'user_id': id};
+      final PostgrestResponse<dynamic> res =
+      await supabaseClient
+          .from('event_attendees')
+          .delete()
+          .match(payload)
+          .execute();
+      print('signed out from event: ${res.status}');
+    } catch (e) {
+      throw 'Failed to sign up to Event, ERROR : $e';
+    }
+  }
+
   Future<List<Committee>> getCommittees() async {
     try {
       final PostgrestResponse<dynamic> res =

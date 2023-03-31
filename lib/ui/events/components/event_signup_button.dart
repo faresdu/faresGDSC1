@@ -7,9 +7,11 @@ class EventSignupButton extends StatelessWidget {
     Key? key,
     this.onPressed,
     required this.color,
+    required this.text,
   }) : super(key: key);
   final Function()? onPressed;
   final Color color;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +24,10 @@ class EventSignupButton extends StatelessWidget {
             color: color,
             boxShadow: Constants.shadow2,
             borderRadius: BorderRadius.circular(10)),
-        child: const Center(
+        child: Center(
           child: Text(
-            'احجز مقعدك',
-            style: TextStyle(
+            text,
+            style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w700,
                 color: Constants.white),

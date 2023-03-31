@@ -11,9 +11,14 @@ class Member {
   final List<SocialMedia>? socials;
   final String? hours;
 
+  @override
+  String toString() {
+    return id;
+  }
+
   Member(
       {required this.id,
-      required this.sID,
+      this.sID,
       required this.name,
       this.major,
       this.photo,
@@ -43,7 +48,7 @@ class Member {
         sID: map['student_id'].toString() ?? '',
         name: map['name'] ?? '',
         major: map['major'] ?? '',
-        photo: map['profile_picture'] ?? '',
+        photo: map['profile_picture'],
         committee: Committee.fromJson(map),
         socials: socials,
         hours: map['hours'].toString() ?? '');

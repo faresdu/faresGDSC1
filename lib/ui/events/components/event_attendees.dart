@@ -21,7 +21,7 @@ class EventAttendees extends StatelessWidget {
             radius: 11,
             backgroundColor: Constants.white,
             child: CircleAvatar(
-              backgroundImage: NetworkImage(attendees[i].photo ?? ''),
+              backgroundImage: attendees[i].photo != null ? NetworkImage(attendees[i].photo!) : const AssetImage('assets/images/event-attendees.png') as ImageProvider,
               backgroundColor: Constants.red,
               radius: 10,
             ),

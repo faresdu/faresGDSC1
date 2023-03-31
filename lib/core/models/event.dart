@@ -1,6 +1,3 @@
-import 'package:gdsc_app/core/app/app.locator.dart';
-
-import '../services/user_service.dart';
 import 'member.dart';
 
 class Event {
@@ -13,10 +10,11 @@ class Event {
   final String? description;
   final DateTime startDate;
   final DateTime endDate;
-  final List<Member> attendees;
-  final int numAttendees;
+  List<Member> attendees;
+  int numAttendees;
   final int maxAttendees;
   final String location;
+  final String? host;
   final bool isOnline;
 
   Event({
@@ -33,6 +31,7 @@ class Event {
     required this.numAttendees,
     required this.maxAttendees,
     required this.location,
+    this.host,
     required this.isOnline,
   });
 
@@ -40,22 +39,13 @@ class Event {
     return maxAttendees - numAttendees;
   }
 
+  double getPercentage() {
+    if (numAttendees == 0) return 0;
+    return 100.0 * numAttendees / maxAttendees;
+  }
+
   bool isFull() {
     return numAttendees >= maxAttendees;
-  }
-
-  bool signedUp() {
-    UserService userService = locator<UserService>();
-    for (Member m in attendees) {
-      if (m.id == userService.user.id) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  bool canSignUp() {
-    return !(signedUp() || isFull());
   }
 
   factory Event.placeholder() {
@@ -101,7 +91,7 @@ class Event {
 
   factory Event.fromJson(Map<String, dynamic> map) {
     List<Member> members = [];
-    if (((map["attendees"] as List).first as Map)['id'] != null) {
+    if (((map["attendees"] as List).first as Map)['user_id'] != null) {
       members = (map["attendees"] as List).map((e) {
         return Member.fromJson(e);
       }).toList();
@@ -120,6 +110,7 @@ class Event {
       numAttendees: map['num_attendees'] ?? 0,
       maxAttendees: map['max_attendees'] ?? 0,
       location: map['location'] ?? '',
+      host: map['event_host'],
       isOnline: map['is_online'] ?? false,
     );
   }
