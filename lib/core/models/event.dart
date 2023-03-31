@@ -35,42 +35,43 @@ class Event {
 
   factory Event.placeholder() {
     return Event(
-        eventID: '1234',
-        instructorID: '123',
-        instructorName: 'بسام البسام',
-        title: 'مقدمة في علم البيانات',
-        flyer: 'assets/images/temp-events-img.png',
-        description:
-            'ما أصله؟ خلافاَ للاعتقاد السائد فإن لوريم إيبسوم ليس نصاَ عشوائياً، بل إن له جذور في الأدب اللاتيني الكلاسيكي منذ العام 45 قبل الميلاد، مما يجعله أكثر من عام في',
-        startDate:
-            DateTime.tryParse('2022-01-21 07:00:00+00') ?? DateTime.utc(1900),
-        endDate:
-            DateTime.tryParse('2022-01-21 11:00:00+00') ?? DateTime.utc(1900),
-        attendees: [
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-          Member.anonymous(),
-        ],
-        numAttendees: 2,
-        maxAttendees: 37,
-        location: 'بهو الجامعة',
-        isOnline: false);
+      eventID: '1234',
+      instructorID: '123',
+      instructorName: 'بسام البسام',
+      title: 'مقدمة في علم البيانات',
+      flyer: 'assets/images/temp-events-img.png',
+      description:
+          'ما أصله؟ خلافاَ للاعتقاد السائد فإن لوريم إيبسوم ليس نصاَ عشوائياً، بل إن له جذور في الأدب اللاتيني الكلاسيكي منذ العام 45 قبل الميلاد، مما يجعله أكثر من عام في',
+      startDate:
+          DateTime.tryParse('2022-01-21 07:00:00+00') ?? DateTime.utc(1900),
+      endDate:
+          DateTime.tryParse('2022-01-21 11:00:00+00') ?? DateTime.utc(1900),
+      attendees: [
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+        Member.anonymous(),
+      ],
+      numAttendees: 2,
+      maxAttendees: 37,
+      location: 'بهو الجامعة',
+      isOnline: false,
+    );
   }
 
   factory Event.fromJson(Map<String, dynamic> map) {

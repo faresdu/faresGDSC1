@@ -28,6 +28,10 @@ class DateHelper {
     return day[d.weekday]!;
   }
 
+  static String getDate(DateTime d) {
+    return '${d.year}/${d.month}/${d.day}';
+  }
+
   static String getMonth(DateTime d) {
     return month[d.month]!;
   }
