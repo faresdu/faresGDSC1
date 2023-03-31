@@ -6,7 +6,7 @@ class EventSignupButton extends StatelessWidget {
   const EventSignupButton({
     Key? key,
     this.onPressed,
-    required this.color
+    required this.color,
   }) : super(key: key);
   final Function()? onPressed;
   final Color color;

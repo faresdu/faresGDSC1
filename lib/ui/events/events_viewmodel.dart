@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-
 import '../../core/app/app.locator.dart';
 import '../../core/app/app.router.dart';
-import '../../core/models/member.dart';
 import '../../core/services/supabase_service.dart';
 
 class EventsViewModel extends BaseViewModel {
@@ -24,8 +22,6 @@ class EventsViewModel extends BaseViewModel {
   }
 
   navigateToEvent(Event event) async {
-    // Event event = await userService.getEvent(id);
-    // print(members.toString());
     navService.navigateTo(Routes.eventsDetailsView, arguments: event);
   }
 }

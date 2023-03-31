@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../core/utils/constants.dart';
 
 class EventDateBox extends StatelessWidget {
-  const EventDateBox({Key? key, required this.day, required this.month})
-      : super(key: key);
+  const EventDateBox({
+    Key? key,
+    required this.day,
+    required this.month,
+  }) : super(key: key);
   final int day;
   final String month;
 

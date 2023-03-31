@@ -4,7 +4,10 @@ import '../../../core/models/member.dart';
 import '../../../core/utils/constants.dart';
 
 class EventAttendees extends StatelessWidget {
-  const EventAttendees({Key? key, required this.attendees}) : super(key: key);
+  const EventAttendees({
+    Key? key,
+    required this.attendees,
+  }) : super(key: key);
   final List<Member> attendees;
 
   @override
@@ -45,7 +48,8 @@ class EventAttendees extends StatelessWidget {
       );
     }
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Image(image: AssetImage('assets/images/event-attendees.png')),
         const Padding(

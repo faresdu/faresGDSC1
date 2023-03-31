@@ -9,7 +9,7 @@ import 'components/event_signup_button.dart';
 import 'events_viewmodel.dart';
 
 TextStyle titleStyle =
-    const TextStyle(fontSize: 24, fontWeight: FontWeight.w700);
+    const TextStyle(fontSize: 24, fontWeight: FontWeight.w700, height: 3);
 
 class EventsDetailsView extends StatelessWidget {
   const EventsDetailsView({Key? key}) : super(key: key);
@@ -23,16 +23,32 @@ class EventsDetailsView extends StatelessWidget {
           return Scaffold(
             body: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(35),
+                padding: const EdgeInsets.all(30),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.network(viewmodel.eventDetails.flyer ??
-                        'https://hackr.io/blog/best-way-to-learn-java/thumbnail/large'),
-                    Text(
-                      viewmodel.eventDetails.title,
-                      style: titleStyle,
+                    Expanded(
+                      flex: 5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Constants.grey.withOpacity(.05),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: viewmodel.eventDetails.flyer != null
+                            ? Image.network(
+                                viewmodel.eventDetails.flyer!,
+                                fit: BoxFit.contain,
+                              )
+                            : Image.asset('assets/images/temp-events-img.png'),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        viewmodel.eventDetails.title,
+                        style: titleStyle,
+                      ),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,20 +73,29 @@ class EventsDetailsView extends StatelessWidget {
                             bottomText: viewmodel.eventDetails.instructorName)
                       ],
                     ),
-                    Divider(
-                      height: 1,
-                      color: Constants.grey.withOpacity(.5),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15.0),
+                      child: Divider(
+                        height: 1,
+                        color: Constants.grey.withOpacity(.5),
+                      ),
                     ),
-                    Text(
-                      'عن الفعالية',
-                      style: titleStyle,
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        'عن الفعالية',
+                        style: titleStyle,
+                      ),
                     ),
-                    Text(
-                      viewmodel.eventDetails.description ?? 'لا يوجد وصف',
-                      style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Constants.grey),
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        viewmodel.eventDetails.description ?? 'لا يوجد وصف',
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: Constants.grey),
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,19 +116,29 @@ class EventsDetailsView extends StatelessWidget {
                               ? Constants.darkBlue.withOpacity(.9)
                               : Constants.grey.withOpacity(.9),
                         ),
-                        Column(
-                          children: [
-                            EventAttendees(
-                              attendees: viewmodel.eventDetails.attendees,
-                            ),
-                            Text(
-                              'المقاعد المتبقية ${viewmodel.eventDetails.getRemainingSeats()}',
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: Constants.grey),
-                            )
-                          ],
+                        const SizedBox(
+                          width: 45,
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              EventAttendees(
+                                attendees: viewmodel.eventDetails.attendees,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 30),
+                                child: Text(
+                                  'المقاعد المتبقية ${viewmodel.eventDetails.getRemainingSeats()}',
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                      color: Constants.grey),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),

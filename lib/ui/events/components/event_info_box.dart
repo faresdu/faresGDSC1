@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../../../core/utils/constants.dart';
 
 class EventInfoBox extends StatelessWidget {
-  const EventInfoBox(
-      {Key? key,
-      required this.topText,
-      required this.bottomText,
-      this.onPressed})
-      : super(key: key);
+  const EventInfoBox({
+    Key? key,
+    required this.topText,
+    required this.bottomText,
+    this.onPressed,
+  }) : super(key: key);
   final String topText;
   final String bottomText;
   final Function()? onPressed;
