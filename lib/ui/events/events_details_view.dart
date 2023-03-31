@@ -76,14 +76,28 @@ class EventsDetailsView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        EventSignupButton(onPressed: () {}),
+                        EventSignupButton(
+                          onPressed: viewmodel.eventDetails.canSignUp()
+                              ? () {}
+                              : () {
+                                  if (viewmodel.eventDetails.signedUp()) {
+                                    print('already signed up');
+                                  }
+                                  if (viewmodel.eventDetails.isFull()) {
+                                    print('event full');
+                                  }
+                                },
+                          color: viewmodel.eventDetails.canSignUp()
+                              ? Constants.darkBlue.withOpacity(.9)
+                              : Constants.grey.withOpacity(.9),
+                        ),
                         Column(
                           children: [
                             EventAttendees(
                               attendees: viewmodel.eventDetails.attendees,
                             ),
                             Text(
-                              'المقاعد المتبقية ${viewmodel.eventDetails.maxAttendees - viewmodel.eventDetails.numAttendees}',
+                              'المقاعد المتبقية ${viewmodel.eventDetails.getRemainingSeats()}',
                               style: const TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w700,

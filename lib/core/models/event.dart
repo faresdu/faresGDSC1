@@ -1,3 +1,6 @@
+import 'package:gdsc_app/core/app/app.locator.dart';
+
+import '../services/user_service.dart';
 import 'member.dart';
 
 class Event {
@@ -32,6 +35,28 @@ class Event {
     required this.location,
     required this.isOnline,
   });
+
+  int getRemainingSeats() {
+    return maxAttendees - numAttendees;
+  }
+
+  bool isFull() {
+    return numAttendees >= maxAttendees;
+  }
+
+  bool signedUp() {
+    UserService userService = locator<UserService>();
+    for (Member m in attendees) {
+      if (m.id == userService.user.id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool canSignUp() {
+    return !(signedUp() || isFull());
+  }
 
   factory Event.placeholder() {
     return Event(

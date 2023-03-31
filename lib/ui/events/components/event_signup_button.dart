@@ -5,9 +5,11 @@ import '../../../core/utils/constants.dart';
 class EventSignupButton extends StatelessWidget {
   const EventSignupButton({
     Key? key,
-    required this.onPressed,
+    this.onPressed,
+    required this.color
   }) : super(key: key);
-  final Function() onPressed;
+  final Function()? onPressed;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class EventSignupButton extends StatelessWidget {
         height: 50,
         width: 150,
         decoration: BoxDecoration(
-            color: Constants.darkBlue.withOpacity(.9),
+            color: color,
             boxShadow: Constants.shadow2,
             borderRadius: BorderRadius.circular(10)),
         child: const Center(
