@@ -34,9 +34,9 @@ class _EventsViewState extends State<EventsView> {
                           ],
                         ),
                         Column(
-                          children: [
+                          children: const [
                             Padding(
-                              padding: const EdgeInsets.only(top: 50),
+                              padding: EdgeInsets.only(top: 50),
                               child: Text(
                                 "الفعاليات",
                                 style: TextStyle(
@@ -46,7 +46,7 @@ class _EventsViewState extends State<EventsView> {
                           ],
                         ),
                         Column(
-                          children: [
+                          children: const [
                             SizedBox(
                               width: 110,
                             )
@@ -58,6 +58,7 @@ class _EventsViewState extends State<EventsView> {
                         .map(
                           (e) => EventCard(
                             event: e,
+                            signUpButton: viewmodel.getSignUpCardButton(e),
                             onPressed: () {
                               viewmodel.navigateToEvent(e);
                             },
@@ -72,8 +73,6 @@ class _EventsViewState extends State<EventsView> {
         });
   }
 }
-
-
 
 // Widget eventCard(Event event, Function() onPressed) {
 //   return

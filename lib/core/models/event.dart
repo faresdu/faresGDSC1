@@ -36,6 +36,7 @@ class Event {
   });
 
   int getRemainingSeats() {
+    if (isFull()) return 0;
     return maxAttendees - numAttendees;
   }
 

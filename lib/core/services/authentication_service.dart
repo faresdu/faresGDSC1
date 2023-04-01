@@ -53,8 +53,9 @@ class AuthenticationService {
 
   setUser() async {
     try {
-      if ((await getCurrentUser()) != null) {
-        _userService.initUser((await getCurrentUser())!.id);
+      User? u = await getCurrentUser();
+      if (u != null) {
+        _userService.initUser(u.id);
       } else {
         print('sssssssss');
         throw '';

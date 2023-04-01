@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../core/utils/constants.dart';
 
-class EventSignupButton extends StatelessWidget {
-  const EventSignupButton({
+class EventDetailsSignupButton extends StatelessWidget {
+  const EventDetailsSignupButton({
     Key? key,
     this.onPressed,
     required this.color,
