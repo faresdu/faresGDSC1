@@ -9,17 +9,18 @@ import '../../core/models/member.dart';
 import '../../core/services/supabase_service.dart';
 import '../../core/utils/constants.dart';
 import 'components/event_signup_button.dart';
-import 'components/event_signup_cardbutton.dart';
+import 'package:gdsc_app/ui/events/components/event_signup_cardbutton.dart';
 
 class EventsViewModel extends BaseViewModel {
   final navService = locator<NavigationService>();
   final supabaseService = locator<SupabaseService>();
   final userService = locator<UserService>();
   List<Event> events = [];
-  Event eventDetails = Event.placeholder();
+  late final Event eventDetails;
 
   getEvents() async {
     await supabaseService.getEvents().then((value) => events = value);
+    print('fetched events, $events');
     notifyListeners();
   }
 
@@ -45,7 +46,7 @@ class EventsViewModel extends BaseViewModel {
         },
         color: Constants.grey.withOpacity(.9),
       );
-    } else if (eventDetails.isFull()) {
+    } else if (event.isFull()) {
       return EventSignupButton(
         text: 'المقاعد ممتلئة',
         onPressed: () {
@@ -104,12 +105,10 @@ class EventsViewModel extends BaseViewModel {
   }
 
   signUpToEvent(Event event) {
-    print('signing up to event');
     try {
       supabaseService.signUpToEvent(event.eventID, userService.user.id);
-      eventDetails.attendees
-          .add(Member(id: userService.user.id, name: userService.user.name));
-      eventDetails.numAttendees++;
+      event.attendees.add(userService.user);
+      event.numAttendees++;
       notifyListeners();
     } catch (e) {
       print('error signing up: $e');
@@ -117,13 +116,12 @@ class EventsViewModel extends BaseViewModel {
   }
 
   signOutFromEvent(Event event) {
-    print('signing out from event');
     try {
       supabaseService.signOutFromEvent(event.eventID, userService.user.id);
       for (Member m in event.attendees) {
         if (m.id == userService.user.id) {
-          eventDetails.attendees.remove(m);
-          eventDetails.numAttendees--;
+          event.attendees.remove(m);
+          event.numAttendees--;
           notifyListeners();
           break;
         }
@@ -137,7 +135,7 @@ class EventsViewModel extends BaseViewModel {
     navService.navigateTo(Routes.eventsDetailsView, arguments: event);
   }
 
-// for loaction name on Eventcard to avoid layout overflow made by long loaction name
+  // for loaction name on Eventcard to avoid layout overflow made by long loaction name
   String locationEventName(String locationName) {
     int j = 0;
     for (int i = 0; i < locationName.length; i++) {
