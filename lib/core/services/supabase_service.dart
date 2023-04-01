@@ -25,8 +25,6 @@ class SupabaseService {
     } catch (e) {
       print('No Current User : $e');
     }
-
-    print(await getEvents());
   }
 
   Future<void> _restoreCurrentUser() async {
@@ -77,22 +75,21 @@ class SupabaseService {
   Future<void> signOutFromEvent(String eId, String id) async {
     try {
       final payload = {'event_id': eId, 'user_id': id};
-      final PostgrestResponse<dynamic> res =
-      await supabaseClient
+      final PostgrestResponse<dynamic> res = await supabaseClient
           .from('event_attendees')
           .delete()
           .match(payload)
           .execute();
       print('signout code: ${res.status}');
     } catch (e) {
-      throw 'Failed to sign up to Event, ERROR : $e';
+      throw 'Failed to sign out from Event, ERROR : $e';
     }
   }
 
   Future<List<Committee>> getCommittees() async {
     try {
       final PostgrestResponse<dynamic> res =
-          await supabaseClient.from('Committees').select('*').execute();
+          await supabaseClient.from('Committees').select().execute();
       return (res.data as List).map((e) => Committee.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Committees, ERROR : $e';
@@ -102,8 +99,7 @@ class SupabaseService {
   Future<List<Member>> getLeaderboardMembers() async {
     try {
       final PostgrestResponse<dynamic> res =
-          await supabaseClient.from('leaderboard_view').select('*').execute();
-      print('${res.data} ssssssssssss');
+          await supabaseClient.from('leaderboard_view').select().execute();
       return (res.data as List).map((e) => Member.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Leaderboard : $e';

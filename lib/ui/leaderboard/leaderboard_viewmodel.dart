@@ -10,6 +10,7 @@ class LeaderboardViewModel extends BaseViewModel {
 
   getLeaderboard() async {
     members = await userService.getLeaderboardMembers();
+    print('fetched leaderboard members, $members');
     notifyListeners();
   }
 }

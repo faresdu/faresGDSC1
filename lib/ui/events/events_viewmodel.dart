@@ -19,6 +19,7 @@ class EventsViewModel extends BaseViewModel {
 
   getEvents() async {
     await supabaseService.getEvents().then((value) => events = value);
+    print('fetched events, $events');
     notifyListeners();
   }
 

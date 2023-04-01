@@ -5,26 +5,21 @@ class Member {
   final String id;
   final String sID;
   final String name;
+  final String major;
+  final int hours;
   final String? photo;
-  final String? major;
   final Committee? committee;
   final List<SocialMedia>? socials;
-  final int? hours;
-
-  @override
-  String toString() {
-    return id;
-  }
 
   Member({
     required this.id,
     required this.sID,
     required this.name,
-    this.major,
+    required this.major,
+    required this.hours,
     this.photo,
     this.committee,
     this.socials,
-    this.hours,
   });
 
   factory Member.anonymous() {
@@ -33,8 +28,6 @@ class Member {
       sID: '',
       name: '',
       major: '',
-      committee: Committee.anonymous(),
-      socials: [],
       hours: 0,
     );
   }
@@ -48,13 +41,13 @@ class Member {
     }
     return Member(
       id: map['user_id'] ?? '',
-      sID: map['student_id'].toString() ?? '',
+      sID: map['student_id'] ?? '',
       name: map['name'] ?? '',
       major: map['major'] ?? '',
+      hours: map['hours'] ?? 0,
       photo: map['profile_picture'],
       committee: Committee.fromJson(map),
       socials: socials,
-      hours: map['hours'] ?? 0,
     );
   }
 }

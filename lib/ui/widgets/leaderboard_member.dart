@@ -14,7 +14,7 @@ class LeaderboardMember extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       child: Row(
-        children: [Text(member.name), Text(member.hours!.toString())],
+        children: [Text(member.name), Text(member.hours.toString())],
       ),
     );
   }

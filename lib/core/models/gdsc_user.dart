@@ -10,11 +10,11 @@ class GDSCUser extends Member {
     required String id,
     required String sID,
     required String name,
+    required String major,
+    required int hours,
     String? photo,
-    String? major,
     Committee? committee,
     List<SocialMedia>? socials,
-    int? hours,
     this.email,
   }) : super(
           id: id,
@@ -22,9 +22,9 @@ class GDSCUser extends Member {
           name: name,
           photo: photo,
           major: major,
+          hours: hours,
           committee: committee,
           socials: socials,
-          hours: hours,
         );
 
   factory GDSCUser.anonymous() {
@@ -34,10 +34,10 @@ class GDSCUser extends Member {
       sID: m.sID,
       name: m.name,
       major: m.major,
+      hours: m.hours,
       photo: m.photo,
       committee: m.committee,
       socials: m.socials,
-      hours: m.hours,
     );
   }
 
@@ -48,10 +48,10 @@ class GDSCUser extends Member {
       sID: m.sID,
       name: m.name,
       major: m.major,
+      hours: m.hours,
       photo: m.photo,
       committee: m.committee,
       socials: m.socials,
-      hours: m.hours,
       email: map['email'],
     );
   }
