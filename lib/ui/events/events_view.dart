@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+import 'package:gdsc_app/ui/events/components/events_card.dart';
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/ui/events/events_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -18,35 +19,62 @@ class _EventsViewState extends State<EventsView> {
         onViewModelReady: (model) => model.getEvents(),
         builder: (context, viewmodel, _) {
           return Scaffold(
-            appBar: AppBar(title: const Text('Events')),
-            body: Column(
-              children: viewmodel.events
-                  .map(
-                    (e) => EventCard(
-                      event: e,
-                      onPressed: () {
-                        viewmodel.navigateToEvent(e);
-                      },
-                    ),
+            body: SingleChildScrollView(
+              child: SafeArea(
+                child: Column(children: [
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 20),
+                              child: Image.asset("./assets/images/BarLogo.png"),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 50),
+                              child: Text(
+                                "الفعاليات",
+                                style: TextStyle(
+                                    fontSize: 32, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            SizedBox(
+                              width: 110,
+                            )
+                          ],
+                        ),
+                      ]),
+                  Column(
+                    children: viewmodel.events
+                        .map(
+                          (e) => EventCard(
+                            event: e,
+                            onPressed: () {
+                              viewmodel.navigateToEvent(e);
+                            },
+                          ),
+                        )
+                        .toList(),
                   )
-                  .toList(),
+                ]),
+              ),
             ),
           );
         });
   }
 }
 
-class EventCard extends StatelessWidget {
-  const EventCard({Key? key, required this.event, required this.onPressed})
-      : super(key: key);
-  final Event event;
-  final Function() onPressed;
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Text(event.title),
-    );
-  }
-}
+
+// Widget eventCard(Event event, Function() onPressed) {
+//   return
+// }

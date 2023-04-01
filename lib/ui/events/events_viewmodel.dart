@@ -9,6 +9,7 @@ import '../../core/models/member.dart';
 import '../../core/services/supabase_service.dart';
 import '../../core/utils/constants.dart';
 import 'components/event_signup_button.dart';
+import 'package:gdsc_app/ui/events/components/event_signup_cardbutton.dart';
 
 class EventsViewModel extends BaseViewModel {
   final navService = locator<NavigationService>();
@@ -71,6 +72,30 @@ class EventsViewModel extends BaseViewModel {
     );
   }
 
+  //same as the above function but for the Card button color
+  Widget getSignUpCardButton(Event event) {
+    if (signedUp(event)) {
+      return EventCardButton(
+        text: 'سجل خروج',
+        color: Constants.grey.withOpacity(.9),
+      );
+    } else if (eventDetails.isFull()) {
+      return EventCardButton(
+        text: 'المقاعد ممتلئة',
+        color: Constants.red.withOpacity(.9),
+      );
+    } else if (event.getPercentage() >= 75) {
+      return EventCardButton(
+        text: 'احجز مقعدك',
+        color: Constants.yellow.withOpacity(.9),
+      );
+    }
+    return EventCardButton(
+      text: 'احجز مقعدك',
+      color: Constants.green.withOpacity(.9),
+    );
+  }
+
   bool isOwner(Event event) {
     return event.instructorID == userService.user.id;
   }
@@ -108,5 +133,18 @@ class EventsViewModel extends BaseViewModel {
 
   navigateToEvent(Event event) async {
     navService.navigateTo(Routes.eventsDetailsView, arguments: event);
+  }
+
+  // for loaction name on Eventcard to avoid layout overflow made by long loaction name
+  String locationEventName(String locationName) {
+    int j = 0;
+    for (int i = 0; i < locationName.length; i++) {
+      locationName[i];
+      j++;
+    }
+    if (j > 10)
+      return '...${locationName.substring(0, 12)}';
+    else
+      return locationName;
   }
 }
