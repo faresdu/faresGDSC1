@@ -79,11 +79,9 @@ class EventsViewModel extends BaseViewModel {
   }
 
   signUpToEvent(Event event) {
-    print('signing up to event');
     try {
       supabaseService.signUpToEvent(event.eventID, userService.user.id);
-      event.attendees
-          .add(Member(id: userService.user.id, name: userService.user.name));
+      event.attendees.add(userService.user);
       event.numAttendees++;
       notifyListeners();
     } catch (e) {
@@ -92,7 +90,6 @@ class EventsViewModel extends BaseViewModel {
   }
 
   signOutFromEvent(Event event) {
-    print('signing out from event');
     try {
       supabaseService.signOutFromEvent(event.eventID, userService.user.id);
       for (Member m in event.attendees) {
