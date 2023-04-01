@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import '../app/app.locator.dart';
 
 class UserService {
-  late GDSCUser user;
+  late GDSCUser user = GDSCUser.anonymous();
   final _supabaseService = locator<SupabaseService>();
   late BehaviorSubject<GDSCUser> userSubject;
 
@@ -16,6 +16,7 @@ class UserService {
     userStream.listen(userSubject.sink.add);
 
     user = await userSubject.stream.first;
+    print('set user with student id ${user.sID}');
     userSubject.sink.add(user);
     userSubject.stream.listen((newUser) {
       user = newUser;
