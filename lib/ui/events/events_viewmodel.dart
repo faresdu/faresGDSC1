@@ -15,7 +15,7 @@ class EventsViewModel extends BaseViewModel {
   final supabaseService = locator<SupabaseService>();
   final userService = locator<UserService>();
   List<Event> events = [];
-  Event eventDetails = Event.placeholder();
+  late final Event eventDetails;
 
   getEvents() async {
     await supabaseService.getEvents().then((value) => events = value);
@@ -39,23 +39,23 @@ class EventsViewModel extends BaseViewModel {
     if (signedUp(event)) {
       return EventSignupButton(
         text: 'سجل خروج',
-        onPressed:() {
+        onPressed: () {
           signOutFromEvent(event);
         },
         color: Constants.grey.withOpacity(.9),
       );
-    } else if (eventDetails.isFull()) {
+    } else if (event.isFull()) {
       return EventSignupButton(
         text: 'المقاعد ممتلئة',
-        onPressed:() {
+        onPressed: () {
           print('cant');
         },
         color: Constants.red.withOpacity(.9),
       );
-    } else if(event.getPercentage() >= 75) {
+    } else if (event.getPercentage() >= 75) {
       return EventSignupButton(
         text: 'احجز مقعدك',
-        onPressed:() {
+        onPressed: () {
           signUpToEvent(event);
         },
         color: Constants.yellow.withOpacity(.9),
@@ -63,7 +63,7 @@ class EventsViewModel extends BaseViewModel {
     }
     return EventSignupButton(
       text: 'احجز مقعدك',
-      onPressed:() {
+      onPressed: () {
         signUpToEvent(event);
       },
       color: Constants.green.withOpacity(.9),
@@ -71,7 +71,7 @@ class EventsViewModel extends BaseViewModel {
   }
 
   bool isOwner(Event event) {
-      return event.instructorID == userService.user.id;
+    return event.instructorID == userService.user.id;
   }
 
   bool canSignUp(Event event) {
@@ -82,10 +82,11 @@ class EventsViewModel extends BaseViewModel {
     print('signing up to event');
     try {
       supabaseService.signUpToEvent(event.eventID, userService.user.id);
-      eventDetails.attendees.add(Member(id: userService.user.id, name: userService.user.name));
-      eventDetails.numAttendees++;
+      event.attendees
+          .add(Member(id: userService.user.id, name: userService.user.name));
+      event.numAttendees++;
       notifyListeners();
-    } catch(e) {
+    } catch (e) {
       print('error signing up: $e');
     }
   }
@@ -96,13 +97,13 @@ class EventsViewModel extends BaseViewModel {
       supabaseService.signOutFromEvent(event.eventID, userService.user.id);
       for (Member m in event.attendees) {
         if (m.id == userService.user.id) {
-          eventDetails.attendees.remove(m);
-          eventDetails.numAttendees--;
+          event.attendees.remove(m);
+          event.numAttendees--;
           notifyListeners();
           break;
         }
       }
-    } catch(e) {
+    } catch (e) {
       print('error signing out: $e');
     }
   }
