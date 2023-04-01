@@ -69,7 +69,8 @@ class EventsDetailsView extends StatelessWidget {
                             bottomText: viewmodel.eventDetails.location),
                         EventInfoBox(
                             topText: 'المحاضر',
-                            bottomText: viewmodel.eventDetails.host ?? viewmodel.eventDetails.instructorName)
+                            bottomText: viewmodel.eventDetails.host ??
+                                viewmodel.eventDetails.instructorName)
                       ],
                     ),
                     Padding(

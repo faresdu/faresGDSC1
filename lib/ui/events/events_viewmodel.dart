@@ -9,6 +9,7 @@ import '../../core/models/member.dart';
 import '../../core/services/supabase_service.dart';
 import '../../core/utils/constants.dart';
 import 'components/event_signup_button.dart';
+import 'components/event_signup_cardbutton.dart';
 
 class EventsViewModel extends BaseViewModel {
   final navService = locator<NavigationService>();
@@ -39,7 +40,7 @@ class EventsViewModel extends BaseViewModel {
     if (signedUp(event)) {
       return EventSignupButton(
         text: 'سجل خروج',
-        onPressed:() {
+        onPressed: () {
           signOutFromEvent(event);
         },
         color: Constants.grey.withOpacity(.9),
@@ -47,15 +48,15 @@ class EventsViewModel extends BaseViewModel {
     } else if (eventDetails.isFull()) {
       return EventSignupButton(
         text: 'المقاعد ممتلئة',
-        onPressed:() {
+        onPressed: () {
           print('cant');
         },
         color: Constants.red.withOpacity(.9),
       );
-    } else if(event.getPercentage() >= 75) {
+    } else if (event.getPercentage() >= 75) {
       return EventSignupButton(
         text: 'احجز مقعدك',
-        onPressed:() {
+        onPressed: () {
           signUpToEvent(event);
         },
         color: Constants.yellow.withOpacity(.9),
@@ -63,15 +64,39 @@ class EventsViewModel extends BaseViewModel {
     }
     return EventSignupButton(
       text: 'احجز مقعدك',
-      onPressed:() {
+      onPressed: () {
         signUpToEvent(event);
       },
       color: Constants.green.withOpacity(.9),
     );
   }
 
+  //same as the above function but for the Card button color
+  Widget getSignUpCardButton(Event event) {
+    if (signedUp(event)) {
+      return EventCardButton(
+        text: 'سجل خروج',
+        color: Constants.grey.withOpacity(.9),
+      );
+    } else if (eventDetails.isFull()) {
+      return EventCardButton(
+        text: 'المقاعد ممتلئة',
+        color: Constants.red.withOpacity(.9),
+      );
+    } else if (event.getPercentage() >= 75) {
+      return EventCardButton(
+        text: 'احجز مقعدك',
+        color: Constants.yellow.withOpacity(.9),
+      );
+    }
+    return EventCardButton(
+      text: 'احجز مقعدك',
+      color: Constants.green.withOpacity(.9),
+    );
+  }
+
   bool isOwner(Event event) {
-      return event.instructorID == userService.user.id;
+    return event.instructorID == userService.user.id;
   }
 
   bool canSignUp(Event event) {
@@ -82,10 +107,11 @@ class EventsViewModel extends BaseViewModel {
     print('signing up to event');
     try {
       supabaseService.signUpToEvent(event.eventID, userService.user.id);
-      eventDetails.attendees.add(Member(id: userService.user.id, name: userService.user.name));
+      eventDetails.attendees
+          .add(Member(id: userService.user.id, name: userService.user.name));
       eventDetails.numAttendees++;
       notifyListeners();
-    } catch(e) {
+    } catch (e) {
       print('error signing up: $e');
     }
   }
@@ -102,12 +128,25 @@ class EventsViewModel extends BaseViewModel {
           break;
         }
       }
-    } catch(e) {
+    } catch (e) {
       print('error signing out: $e');
     }
   }
 
   navigateToEvent(Event event) async {
     navService.navigateTo(Routes.eventsDetailsView, arguments: event);
+  }
+
+// for loaction name on Eventcard to avoid layout overflow made by long loaction name
+  String locationEventName(String locationName) {
+    int j = 0;
+    for (int i = 0; i < locationName.length; i++) {
+      locationName[i];
+      j++;
+    }
+    if (j > 10)
+      return '...${locationName.substring(0, 12)}';
+    else
+      return locationName;
   }
 }
