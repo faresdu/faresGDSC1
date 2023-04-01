@@ -51,8 +51,11 @@ class SupabaseService {
 
   Future<List<Event>> getEvents() async {
     try {
-      final PostgrestResponse<dynamic> res =
-          await supabaseClient.from('events_view').select().execute();
+      final PostgrestResponse<dynamic> res = await supabaseClient
+          .from('events_view')
+          .select()
+          .gte('start_date', DateTime.now())
+          .execute();
       return (res.data as List).map((e) => Event.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Events, ERROR : $e';
