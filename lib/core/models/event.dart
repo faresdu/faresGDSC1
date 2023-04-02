@@ -9,7 +9,7 @@ class Event {
   final String? flyer;
   final String? description;
   final DateTime startDate;
-  final DateTime endDate;
+  final DateTime? endDate;
   List<Member> attendees;
   int numAttendees;
   final int maxAttendees;
@@ -26,7 +26,7 @@ class Event {
     this.flyer,
     this.description,
     required this.startDate,
-    required this.endDate,
+    this.endDate,
     required this.attendees,
     required this.numAttendees,
     required this.maxAttendees,
@@ -60,8 +60,6 @@ class Event {
           'ما أصله؟ خلافاَ للاعتقاد السائد فإن لوريم إيبسوم ليس نصاَ عشوائياً، بل إن له جذور في الأدب اللاتيني الكلاسيكي منذ العام 45 قبل الميلاد، مما يجعله أكثر من عام في',
       startDate:
           DateTime.tryParse('2022-01-21 07:00:00+00') ?? DateTime.utc(1900),
-      endDate:
-          DateTime.tryParse('2022-01-21 11:00:00+00') ?? DateTime.utc(1900),
       attendees: [
         Member.anonymous(),
         Member.anonymous(),
@@ -106,7 +104,7 @@ class Event {
       flyer: map['flyer'],
       description: map['description'],
       startDate: DateTime.tryParse(map['start_date']) ?? DateTime.utc(1900),
-      endDate: DateTime.tryParse(map['end_date']) ?? DateTime.utc(1900),
+      endDate: DateTime.tryParse(map['end_date'] ?? ''),
       attendees: members,
       numAttendees: map['num_attendees'] ?? 0,
       maxAttendees: map['max_attendees'] ?? 0,

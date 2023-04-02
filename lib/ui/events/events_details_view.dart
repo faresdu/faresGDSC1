@@ -62,7 +62,7 @@ class EventsDetailsView extends StatelessWidget {
                           topText: DateHelper.getWeekDay(
                               viewmodel.eventDetails.startDate),
                           bottomText:
-                              '${DateHelper.getHour(viewmodel.eventDetails.startDate)} - ${DateHelper.getHour(viewmodel.eventDetails.endDate)}',
+                              viewmodel.eventDetails.endDate != null ? '${DateHelper.getHour(viewmodel.eventDetails.startDate)} - ${DateHelper.getHour(viewmodel.eventDetails.endDate!)}' : DateHelper.getHour(viewmodel.eventDetails.startDate),
                         ),
                         EventInfoBox(
                             topText: 'الموقع',
@@ -107,7 +107,7 @@ class EventsDetailsView extends StatelessWidget {
                         ),
                         Expanded(
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               EventAttendees(

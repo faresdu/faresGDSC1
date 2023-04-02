@@ -12,7 +12,7 @@ class EventAttendees extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (attendees.isEmpty) return const SizedBox(height: 20);
+    if (attendees.isEmpty) return const SizedBox(height: 22);
     List<Widget> images = [];
     for (int i = 0; i < 3 && i < attendees.length; i++) {
       images.add(
