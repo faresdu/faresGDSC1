@@ -34,12 +34,15 @@ class LoginView extends StatelessWidget {
                           hintText: 'الإيميل الجامعي أو الرقم الجامعي',
                           hintStyle: TextStyle(
                             fontFamily: GoogleFonts.mada().fontFamily,
-                            color: Colors.black,
+                            color: Color(0xFF666C74),
                             fontWeight: FontWeight.w700,
                             fontSize: 16,
                           ),
-                          enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey)),
+
+                          enabledBorder:  OutlineInputBorder(
+                              borderSide: BorderSide(width:3, color:Color(0xFF212A40) ),
+                              borderRadius: BorderRadius.circular(50),
+                        ),
                           focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey)),
                         ),
@@ -76,12 +79,14 @@ class LoginView extends StatelessWidget {
                           hintText: 'كلمة المرور',
                           hintStyle: TextStyle(
                             fontFamily: GoogleFonts.mada().fontFamily,
-                            color: Colors.black,
+                            color:Color(0xFF666C74),
                             fontWeight: FontWeight.w700,
                             fontSize: 16,
                           ),
-                          enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey)),
+                          enabledBorder:  OutlineInputBorder(
+                              borderSide: BorderSide(width: 3, color: Color(0xFF212A40)),
+                              borderRadius: BorderRadius.circular(50),
+                        ),
                           focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey)),
                         ),
@@ -95,24 +100,28 @@ class LoginView extends StatelessWidget {
                         alignment: Alignment(-1, 0),
                         child: Text('نسيت كلمة المرور',
                             style: TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.w500)),
+                                fontSize: 15, fontWeight: FontWeight.w700,color:const Color(0xFF212A40), )),
                       ),
-                      const SizedBox(height: 100),
+                      const SizedBox(height: 50),
                       Container(
                         width: double.infinity,
-                        height: 45,
-                        margin: const EdgeInsets.symmetric(horizontal: 90),
+                        height: 50,
+                        margin: const EdgeInsets.symmetric(horizontal: 80),
                         child: ElevatedButton(
                           onPressed: () {
                             viewmodel.submitLogin(context);
                           },
+
                           style: ElevatedButton.styleFrom(
-                              primary: const Color(0xFF4081EC)),
+                              primary: const Color(0xFF212A40),
+                              shape: StadiumBorder(),),
+
                           child: const Text(
                             'سجل الدخول',
                             style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 18,
+
                             ),
                           ),
                         ),
