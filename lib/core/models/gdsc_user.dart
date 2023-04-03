@@ -27,7 +27,7 @@ class GDSCUser {
 
   factory GDSCUser.fromJson(Map<String, dynamic> map) {
     return GDSCUser(
-        id: map['id'] ?? '',
+        id: map['user_id'] ?? '',
         name: map['name'] ?? '',
         email: map['email'] ?? '',
         // committee: map['committee'] ?? '',

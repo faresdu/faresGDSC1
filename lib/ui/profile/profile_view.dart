@@ -9,9 +9,11 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileViewModel>.reactive(
         viewModelBuilder: () => ProfileViewModel(),
+        onViewModelReady: (model) => model.getProfile(),
         builder: (context, viewmodel, _) {
           return Scaffold(
             appBar: AppBar(title: Text('Profile')),
+            body: Text(viewmodel.profile.name),
           );
         });
   }

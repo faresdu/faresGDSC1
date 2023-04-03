@@ -63,7 +63,7 @@ class SupabaseService {
   Future<List<Committee>> getCommittees() async {
     try {
       final PostgrestResponse<dynamic> res =
-          await supabaseClient.from('Committees').select('*').execute();
+          await supabaseClient.from('Committees').select().execute();
       return (res.data as List).map((e) => Committee.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Committees, ERROR : $e';
@@ -73,7 +73,7 @@ class SupabaseService {
   Future<List<Member>> getLeaderboardMembers() async {
     try {
       final PostgrestResponse<dynamic> res =
-          await supabaseClient.from('leaderboard_view').select('*').execute();
+          await supabaseClient.from('leaderboard_view').select().execute();
       print('${res.data} ssssssssssss');
       return (res.data as List).map((e) => Member.fromJson(e)).toList();
     } catch (e) {
@@ -81,11 +81,27 @@ class SupabaseService {
     }
   }
 
+  Future<Member> getMemberProfile(String id) async {
+    try {
+      final PostgrestResponse<dynamic> res = await supabaseClient
+          .from('profile_view')
+          .select()
+          .eq('user_id', id)
+          .single()
+          .execute();
+      print(id);
+      print(res.data);
+      return Member.fromJson(res.data);
+    } catch (e) {
+      throw 'Failed to get profile : $e';
+    }
+  }
+
   Future<List<Member>> getCommitteeMembers(String cId) async {
     try {
       final PostgrestResponse<dynamic> res = await supabaseClient
           .from('member_view')
-          .select('*')
+          .select()
           .eq('committee_id', cId)
           .execute();
       // print(res.data);
@@ -109,10 +125,11 @@ class SupabaseService {
     try {
       final res = await supabaseClient
           .from('Users')
-          .select('*')
+          .select()
           .eq('user_id', id)
+          .single()
           .execute();
-      return (res.data as List).map((e) => GDSCUser.fromJson(e)).toList().first;
+      return GDSCUser.fromJson(res.data);
     } catch (e) {
       throw 'Failed to get User with id $id, ERROR : $e';
     }
