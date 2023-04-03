@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import '../app/app.locator.dart';
 
 class UserService {
-  late GDSCUser user = GDSCUser.anonymous();
+  late GDSCUser user;
   final _supabaseService = locator<SupabaseService>();
   late BehaviorSubject<GDSCUser> userSubject;
 

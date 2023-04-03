@@ -47,15 +47,15 @@ class AuthenticationService {
     }
   }
 
-  Future<User?> getCurrentUser() async {
-    return await _supabaseService.supabaseClient.auth.currentUser;
+  User? getCurrentUser() {
+    return _supabaseService.supabaseClient.auth.currentUser;
   }
 
   setUser() async {
     try {
-      User? u = await getCurrentUser();
+      User? u = getCurrentUser();
       if (u != null) {
-        _userService.initUser(u.id);
+        await _userService.initUser(u.id);
       } else {
         print('sssssssss');
         throw '';
