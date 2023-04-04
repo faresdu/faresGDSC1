@@ -58,6 +58,7 @@ class LoginView extends StatelessWidget {
                       //Password Input Field
                       CustomInputField(
                         hintText: 'كلمة المرور',
+                        obscureText: true,
                         validator: FormValidators.passwordValidator,
                         onSaved: (value) {
                           viewmodel.password = value;
