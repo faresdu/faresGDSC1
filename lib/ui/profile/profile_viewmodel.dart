@@ -5,15 +5,18 @@ import '../../core/models/member.dart';
 import '../../core/services/supabase_service.dart';
 import '../../core/services/user_service.dart';
 
-class ProfileViewModel extends BaseViewModel {
+class ProfileViewModel extends FutureViewModel<Member> {
   final authService = locator<AuthenticationService>();
   final supabaseService = locator<SupabaseService>();
   final userService = locator<UserService>();
-  late Member profile = Member.anonymous();
 
-  void getProfile() async {
-    profile = await supabaseService.getMemberProfile(userService.user.id);
-    notifyListeners();
+  getProfile() async {
+    return await supabaseService.getMemberProfile(userService.user.id);
+  }
+
+  @override
+  Future<Member> futureToRun() async {
+    return await getProfile();
   }
 
 }

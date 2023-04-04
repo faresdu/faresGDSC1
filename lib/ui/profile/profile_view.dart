@@ -9,11 +9,16 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileViewModel>.reactive(
         viewModelBuilder: () => ProfileViewModel(),
-        onViewModelReady: (model) => model.getProfile(),
         builder: (context, viewmodel, _) {
           return Scaffold(
-            appBar: AppBar(title: Text('Profile')),
-            body: Text(viewmodel.profile.name),
+            appBar: AppBar(title: const Text('Profile')),
+            body: viewmodel.hasError
+                ? Text(viewmodel.modelError!)
+                : Center(
+                    child: viewmodel.isBusy
+                        ? const CircularProgressIndicator()
+                        : Text(viewmodel.data!.name),
+                  ),
           );
         });
   }

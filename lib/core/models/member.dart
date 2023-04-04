@@ -33,11 +33,11 @@ class Member {
   }
   factory Member.fromJson(Map<String, dynamic> map) {
     List<SocialMedia> socials = [];
-    if (map["socials"] != null && (map["socials"] as List).first != null) {
-      socials = (map["socials"] as List).map((e) {
-        return SocialMedia.fromJson(e);
-      }).toList();
-    }
+    // if (map["socials"] != null && (map["socials"] as List).first != null) {
+    //   socials = (map["socials"] as List).map((e) {
+    //     return SocialMedia.fromJson(e);
+    //   }).toList();
+    // }
     return Member(
         id: map['user_id'] ?? '',
         sID: map['student_id'].toString() ?? '',

@@ -89,8 +89,6 @@ class SupabaseService {
           .eq('user_id', id)
           .single()
           .execute();
-      print(id);
-      print(res.data);
       return Member.fromJson(res.data);
     } catch (e) {
       throw 'Failed to get profile : $e';
