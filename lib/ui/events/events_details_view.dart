@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:stacked/stacked.dart';
 import '../../core/utils/constants.dart';
 import 'components/event_attendees.dart';
 import 'components/event_date_box.dart';
 import 'components/event_info_box.dart';
-import 'events_viewmodel.dart';
+import 'event_details_viewmodel.dart';
 
 TextStyle titleStyle =
     const TextStyle(fontSize: 24, fontWeight: FontWeight.w700, height: 3);
 
-class EventsDetailsView extends StatelessWidget {
-  const EventsDetailsView({Key? key}) : super(key: key);
+class EventsDetailsView extends StatefulWidget {
+  final Event event;
+  const EventsDetailsView({Key? key, required this.event}) : super(key: key);
 
   @override
+  State<EventsDetailsView> createState() => _EventsDetailsViewState();
+}
+
+class _EventsDetailsViewState extends State<EventsDetailsView> {
+  @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<EventsViewModel>.reactive(
-        viewModelBuilder: () => EventsViewModel(),
-        onViewModelReady: (model) => model.getEvent(context),
+    return ViewModelBuilder<EventsDetailsViewModel>.reactive(
+        viewModelBuilder: () => EventsDetailsViewModel(widget.event),
         builder: (context, viewmodel, _) {
           return Scaffold(
             body: SafeArea(
@@ -61,8 +67,10 @@ class EventsDetailsView extends StatelessWidget {
                         EventInfoBox(
                           topText: DateHelper.getWeekDay(
                               viewmodel.eventDetails.startDate),
-                          bottomText:
-                              viewmodel.eventDetails.endDate != null ? '${DateHelper.getHour(viewmodel.eventDetails.startDate)} - ${DateHelper.getHour(viewmodel.eventDetails.endDate!)}' : DateHelper.getHour(viewmodel.eventDetails.startDate),
+                          bottomText: viewmodel.eventDetails.endDate != null
+                              ? '${DateHelper.getHour(viewmodel.eventDetails.startDate)} - ${DateHelper.getHour(viewmodel.eventDetails.endDate!)}'
+                              : DateHelper.getHour(
+                                  viewmodel.eventDetails.startDate),
                         ),
                         EventInfoBox(
                             topText: 'الموقع',
@@ -97,16 +105,13 @@ class EventsDetailsView extends StatelessWidget {
                             color: Constants.grey),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        viewmodel.getSignUpButton(viewmodel.eventDetails),
-                        const SizedBox(
-                          width: 45,
-                        ),
-                        Expanded(
-                          child: Column(
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          viewmodel.getSignUpButton(viewmodel.eventDetails),
+                          Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -125,8 +130,8 @@ class EventsDetailsView extends StatelessWidget {
                               )
                             ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

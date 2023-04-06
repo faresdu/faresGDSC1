@@ -16,7 +16,6 @@ class _EventsViewState extends State<EventsView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<EventsViewModel>.reactive(
         viewModelBuilder: () => EventsViewModel(),
-        onViewModelReady: (model) => model.getEvents(),
         builder: (context, viewmodel, _) {
           return Scaffold(
             body: SingleChildScrollView(
@@ -60,7 +59,7 @@ class _EventsViewState extends State<EventsView> {
                             event: e,
                             signUpButton: viewmodel.getSignUpCardButton(e),
                             onPressed: () {
-                              viewmodel.navigateToEvent(e);
+                              viewmodel.navigateToEvent(context, e);
                             },
                           ),
                         )
@@ -73,7 +72,3 @@ class _EventsViewState extends State<EventsView> {
         });
   }
 }
-
-// Widget eventCard(Event event, Function() onPressed) {
-//   return
-// }

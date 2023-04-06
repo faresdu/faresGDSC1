@@ -5,7 +5,11 @@ import 'package:gdsc_app/ui/events/components/event_attendees.dart';
 import 'package:gdsc_app/ui/events/events_viewmodel.dart';
 
 class EventCard extends StatelessWidget {
-  const EventCard({Key? key, required this.event, required this.onPressed, required this.signUpButton})
+  const EventCard(
+      {Key? key,
+      required this.event,
+      required this.onPressed,
+      required this.signUpButton})
       : super(key: key);
   final Event event;
   final Function() onPressed;
@@ -80,9 +84,9 @@ class EventCard extends StatelessWidget {
                 height: 25,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 30),
+                padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
                       children: [
@@ -91,21 +95,23 @@ class EventCard extends StatelessWidget {
                             Image.asset("./assets/images/Place Marker.png"),
                             // ignore: prefer_const_constructors
                             SizedBox(
-                              width: 8,
+                              width: 4,
                             ),
                             Container(
-                              width: 100,
+                              // width: 100,
                               child: Text(
-                                EventsViewModel.locationEventName(event.location),
+                                EventsViewModel.locationEventName(
+                                    event.location),
                                 style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.normal),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal),
                               ),
                             ),
                           ],
                         )
                       ],
                     ),
-                    const SizedBox(width: 20),
+                    const SizedBox(width: 13),
                     EventAttendees(
                       attendees: event.attendees,
                     )

@@ -4,24 +4,32 @@ import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
-import '../../core/app/app.router.dart';
 import '../../core/models/member.dart';
+import '../../core/services/event_service.dart';
 import '../../core/services/supabase_service.dart';
 import '../../core/utils/constants.dart';
-import 'components/event_details_signup_button.dart';
 import 'package:gdsc_app/ui/events/components/event_signup_cardbutton.dart';
 
-class EventsViewModel extends BaseViewModel {
+import 'events_details_view.dart';
+
+class EventsViewModel extends StreamViewModel<List<Event>> {
   final navService = locator<NavigationService>();
   final supabaseService = locator<SupabaseService>();
+  final eventService = locator<EventService>();
   final userService = locator<UserService>();
   List<Event> events = [];
   late final Event eventDetails;
 
-  getEvents() async {
-    await supabaseService.getEvents().then((value) => events = value);
-    print('fetched events, $events');
-    notifyListeners();
+  EventsViewModel() {
+    eventService.listenToAllEvents();
+  }
+  @override
+  void onData(List<Event>? data) {
+    super.onData(data);
+    if (data != null) {
+      events = data.toList();
+      notifyListeners();
+    }
   }
 
   getEvent(BuildContext context) {
@@ -37,42 +45,6 @@ class EventsViewModel extends BaseViewModel {
     return false;
   }
 
-  Widget getSignUpButton(Event event) {
-    if (signedUp(event)) {
-      return EventDetailsSignupButton(
-        text: 'سجل خروج',
-        onPressed: () {
-          signOutFromEvent(event);
-        },
-        color: Constants.grey.withOpacity(.9),
-      );
-    } else if (event.isFull()) {
-      return EventDetailsSignupButton(
-        text: 'المقاعد ممتلئة',
-        onPressed: () {
-          print('cant');
-        },
-        color: Constants.red.withOpacity(.9),
-      );
-    } else if (event.getPercentage() >= 75) {
-      return EventDetailsSignupButton(
-        text: 'احجز مقعدك',
-        onPressed: () {
-          signUpToEvent(event);
-        },
-        color: Constants.yellow.withOpacity(.9),
-      );
-    }
-    return EventDetailsSignupButton(
-      text: 'احجز مقعدك',
-      onPressed: () {
-        signUpToEvent(event);
-      },
-      color: Constants.green.withOpacity(.9),
-    );
-  }
-
-  //same as the above function but for the Card button color
   Widget getSignUpCardButton(Event event) {
     if (signedUp(event)) {
       return EventCardButton(
@@ -112,10 +84,6 @@ class EventsViewModel extends BaseViewModel {
     return event.instructorID == userService.user.id;
   }
 
-  bool canSignUp(Event event) {
-    return !(signedUp(event) || event.isFull());
-  }
-
   signUpToEvent(Event event) {
     try {
       supabaseService.signUpToEvent(event.eventID, userService.user.id);
@@ -143,8 +111,15 @@ class EventsViewModel extends BaseViewModel {
     }
   }
 
-  navigateToEvent(Event event) async {
-    navService.navigateTo(Routes.eventsDetailsView, arguments: event);
+  navigateToEvent(BuildContext context, Event event) async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return EventsDetailsView(event: event);
+        },
+      ),
+    );
   }
 
   // for loaction name on Eventcard to avoid layout overflow made by long loaction name
@@ -159,4 +134,7 @@ class EventsViewModel extends BaseViewModel {
     }
     return locationName;
   }
+
+  @override
+  Stream<List<Event>> get stream => eventService.eventsController.stream;
 }

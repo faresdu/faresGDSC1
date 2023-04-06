@@ -5,7 +5,9 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:flutter/material.dart' as _i12;
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/models/event.dart' as _i13;
 import 'package:gdsc_app/ui/committee_members/committe_members_view.dart'
     as _i10;
 import 'package:gdsc_app/ui/events/events_details_view.dart' as _i7;
@@ -18,7 +20,7 @@ import 'package:gdsc_app/ui/profile/profile_view.dart' as _i9;
 import 'package:gdsc_app/ui/startup/startup_view.dart' as _i2;
 import 'package:gdsc_app/ui/timeline/timeline_view.dart' as _i5;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i12;
+import 'package:stacked_services/stacked_services.dart' as _i14;
 
 class Routes {
   static const startUpView = '/';
@@ -131,8 +133,10 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i7.EventsDetailsView: (data) {
+      final args = data.getArgs<EventsDetailsViewArguments>(nullOk: false);
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const _i7.EventsDetailsView(),
+        builder: (context) =>
+            _i7.EventsDetailsView(key: args.key, event: args.event),
         settings: data,
       );
     },
@@ -168,7 +172,18 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i12.NavigationService {
+class EventsDetailsViewArguments {
+  const EventsDetailsViewArguments({
+    this.key,
+    required this.event,
+  });
+
+  final _i12.Key? key;
+
+  final _i13.Event event;
+}
+
+extension NavigatorStateExtension on _i14.NavigationService {
   Future<dynamic> navigateToStartUpView([
     int? routerId,
     bool preventDuplicates = true,
@@ -239,14 +254,17 @@ extension NavigatorStateExtension on _i12.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToEventsDetailsView([
+  Future<dynamic> navigateToEventsDetailsView({
+    _i12.Key? key,
+    required _i13.Event event,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.eventsDetailsView,
+        arguments: EventsDetailsViewArguments(key: key, event: event),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -379,14 +397,17 @@ extension NavigatorStateExtension on _i12.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithEventsDetailsView([
+  Future<dynamic> replaceWithEventsDetailsView({
+    _i12.Key? key,
+    required _i13.Event event,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.eventsDetailsView,
+        arguments: EventsDetailsViewArguments(key: key, event: event),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

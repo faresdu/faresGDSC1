@@ -14,6 +14,7 @@ import 'package:gdsc_app/ui/timeline/timeline_view.dart';
 import 'package:gdsc_app/core/services/authentication_service.dart';
 
 import '../../ui/leaderboard/leaderboard_view.dart';
+import '../services/event_service.dart';
 
 @StackedApp(
   routes: [
@@ -34,6 +35,7 @@ import '../../ui/leaderboard/leaderboard_view.dart';
     LazySingleton<NavigationService>(classType: NavigationService),
     LazySingleton<UserService>(classType: UserService),
     LazySingleton<AuthenticationService>(classType: AuthenticationService),
+    LazySingleton<EventService>(classType: EventService),
     Presolve(
       classType: SupabaseService,
       presolveUsing: SupabaseService.getInstance,
