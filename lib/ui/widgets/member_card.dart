@@ -72,7 +72,6 @@ class MemberCard extends StatelessWidget {
                     child: ClipOval(child: profileImage()),
                   ),
                 ),
-
                 /// Member Info
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

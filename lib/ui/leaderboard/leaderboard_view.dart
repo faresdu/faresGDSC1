@@ -22,7 +22,7 @@ class LeaderboardView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: viewmodel.members
                       .map((e) => Row(
-                            children: [Text(e.name), Text(e.hours!.toString())],
+                            children: [Text(e.name), Text(e.hours.toString())],
                           ))
                       .toList(),
                 )
