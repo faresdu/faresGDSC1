@@ -5,6 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:supabase/supabase.dart';
 
 import '../app/app.locator.dart';
+import '../models/member.dart';
 
 class EventService {
   final _supabaseService = locator<SupabaseService>();
@@ -29,7 +30,7 @@ class EventService {
     }
   }
 
-  Future<void> signUpToEvent(String eId) async {
+  Future<void> _signUpToEvent(String eId) async {
     try {
       final PostgrestResponse<dynamic> res =
           await _supabaseService.supabaseClient.from('event_attendees').insert({
@@ -42,7 +43,7 @@ class EventService {
     }
   }
 
-  Future<void> signOutFromEvent(String eId) async {
+  Future<void> _signOutFromEvent(String eId) async {
     try {
       final payload = {'event_id': eId, 'user_id': _userService.user.id};
       final PostgrestResponse<dynamic> res = await _supabaseService
@@ -61,6 +62,7 @@ class EventService {
     return _supabaseService.supabaseClient
         .from('event_attendees')
         .stream(['event_id'])
+        .order('created_at', ascending: true)
         .execute()
         .asyncMap<List<Event>>((event) {
           return getEvents();
@@ -77,5 +79,30 @@ class EventService {
     eventsController.stream.listen((newEvents) {
       events = newEvents;
     });
+  }
+
+  signUpToEvent(Event event) async {
+    try {
+      await _signUpToEvent(event.eventID);
+      event.attendees.add(_userService.user);
+      event.numAttendees++;
+    } catch (e) {
+      print('error signing up: $e');
+    }
+  }
+
+  signOutFromEvent(Event event) async {
+    try {
+      await _signOutFromEvent(event.eventID);
+      for (Member m in event.attendees) {
+        if (m.id == _userService.user.id) {
+          event.attendees.remove(m);
+          event.numAttendees--;
+          return;
+        }
+      }
+    } catch (e) {
+      print('error signing out: $e');
+    }
   }
 }

@@ -1,7 +1,6 @@
 import 'package:gdsc_app/core/models/committee.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/models/member.dart';
-import 'package:gdsc_app/core/models/event.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase/supabase.dart';
 
@@ -46,46 +45,6 @@ class SupabaseService {
       }
       print(
           'Recovered Successfully : ${supabaseClient.auth.currentUser?.email}');
-    }
-  }
-
-  Future<List<Event>> getEvents() async {
-    try {
-      final PostgrestResponse<dynamic> res = await supabaseClient
-          .from('events_view')
-          .select()
-          .gte('start_date', DateTime.now())
-          .execute();
-      return (res.data as List).map((e) => Event.fromJson(e)).toList();
-    } catch (e) {
-      throw 'Failed to get Events, ERROR : $e';
-    }
-  }
-
-  Future<void> signUpToEvent(String eId, String id) async {
-    try {
-      final PostgrestResponse<dynamic> res =
-          await supabaseClient.from('event_attendees').insert({
-        'event_id': eId,
-        'user_id': id,
-      }).execute();
-      print('signup code: ${res.status}');
-    } catch (e) {
-      throw 'Failed to sign up to Event, ERROR : $e';
-    }
-  }
-
-  Future<void> signOutFromEvent(String eId, String id) async {
-    try {
-      final payload = {'event_id': eId, 'user_id': id};
-      final PostgrestResponse<dynamic> res = await supabaseClient
-          .from('event_attendees')
-          .delete()
-          .match(payload)
-          .execute();
-      print('signout code: ${res.status}');
-    } catch (e) {
-      throw 'Failed to sign out from Event, ERROR : $e';
     }
   }
 

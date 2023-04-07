@@ -40,7 +40,8 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
         text: 'سجل خروج',
         color: Constants.grey.withOpacity(.9),
         onPressed: () {
-          signOutFromEvent(event);
+          eventService.signOutFromEvent(event);
+          notifyListeners();
         },
       );
     } else if (event.isFull()) {
@@ -56,7 +57,8 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
         text: 'احجز مقعدك',
         color: Constants.yellow.withOpacity(.9),
         onPressed: () {
-          signUpToEvent(event);
+          eventService.signUpToEvent(event);
+          notifyListeners();
         },
       );
     }
@@ -64,7 +66,8 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
       text: 'احجز مقعدك',
       color: Constants.green.withOpacity(.9),
       onPressed: () {
-        signUpToEvent(event);
+        eventService.signUpToEvent(event);
+        notifyListeners();
       },
     );
   }
@@ -90,31 +93,4 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
 
   @override
   Stream<List<Event>> get stream => eventService.eventsController.stream;
-
-  signUpToEvent(Event event) {
-    try {
-      supabaseService.signUpToEvent(event.eventID, userService.user.id);
-      event.attendees.add(userService.user);
-      event.numAttendees++;
-      notifyListeners();
-    } catch (e) {
-      print('error signing up: $e');
-    }
-  }
-
-  signOutFromEvent(Event event) {
-    try {
-      supabaseService.signOutFromEvent(event.eventID, userService.user.id);
-      for (Member m in event.attendees) {
-        if (m.id == userService.user.id) {
-          event.attendees.remove(m);
-          event.numAttendees--;
-          notifyListeners();
-          break;
-        }
-      }
-    } catch (e) {
-      print('error signing out: $e');
-    }
-  }
 }

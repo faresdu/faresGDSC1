@@ -3,7 +3,6 @@ import 'package:gdsc_app/core/models/event.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../core/app/app.locator.dart';
-import '../../core/models/member.dart';
 import '../../core/services/event_service.dart';
 import '../../core/services/supabase_service.dart';
 import '../../core/services/user_service.dart';
@@ -35,7 +34,8 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
       return EventDetailsSignupButton(
         text: 'سجل خروج',
         onPressed: () {
-          signOutFromEvent(event);
+          eventService.signOutFromEvent(event);
+          notifyListeners();
         },
         color: Constants.grey.withOpacity(.9),
       );
@@ -51,7 +51,8 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
       return EventDetailsSignupButton(
         text: 'احجز مقعدك',
         onPressed: () {
-          signUpToEvent(event);
+          eventService.signUpToEvent(event);
+          notifyListeners();
         },
         color: Constants.yellow.withOpacity(.9),
       );
@@ -59,36 +60,10 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
     return EventDetailsSignupButton(
       text: 'احجز مقعدك',
       onPressed: () {
-        signUpToEvent(event);
+        eventService.signUpToEvent(event);
+        notifyListeners();
       },
       color: Constants.green.withOpacity(.9),
     );
-  }
-
-  signUpToEvent(Event event) {
-    try {
-      supabaseService.signUpToEvent(event.eventID, userService.user.id);
-      event.attendees.add(userService.user);
-      event.numAttendees++;
-      notifyListeners();
-    } catch (e) {
-      print('error signing up: $e');
-    }
-  }
-
-  signOutFromEvent(Event event) {
-    try {
-      supabaseService.signOutFromEvent(event.eventID, userService.user.id);
-      for (Member m in event.attendees) {
-        if (m.id == userService.user.id) {
-          event.attendees.remove(m);
-          event.numAttendees--;
-          notifyListeners();
-          break;
-        }
-      }
-    } catch (e) {
-      print('error signing out: $e');
-    }
   }
 }
