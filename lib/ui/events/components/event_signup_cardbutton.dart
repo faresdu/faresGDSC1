@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/utils/constants.dart';
+
 class EventCardButton extends StatelessWidget {
   const EventCardButton({
     Key? key,
@@ -20,6 +22,7 @@ class EventCardButton extends StatelessWidget {
           height: 26,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
+            boxShadow: Constants.shadow5,
             color: color,
           ),
           child: Padding(

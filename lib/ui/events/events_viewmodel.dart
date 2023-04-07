@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/core/app/app.router.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
-import '../../core/models/member.dart';
 import '../../core/services/event_service.dart';
 import '../../core/services/supabase_service.dart';
 import '../../core/utils/constants.dart';
@@ -39,9 +37,8 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
       return EventCardButton(
         text: 'سجل خروج',
         color: Constants.grey.withOpacity(.9),
-        onPressed: () {
-          eventService.signOutFromEvent(event);
-          notifyListeners();
+        onPressed: () async {
+          await eventService.signOutFromEvent(event);
         },
       );
     } else if (event.isFull()) {
@@ -56,18 +53,16 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
       return EventCardButton(
         text: 'احجز مقعدك',
         color: Constants.yellow.withOpacity(.9),
-        onPressed: () {
-          eventService.signUpToEvent(event);
-          notifyListeners();
+        onPressed: () async {
+          await eventService.signUpToEvent(event);
         },
       );
     }
     return EventCardButton(
       text: 'احجز مقعدك',
       color: Constants.green.withOpacity(.9),
-      onPressed: () {
-        eventService.signUpToEvent(event);
-        notifyListeners();
+      onPressed: () async {
+        await eventService.signUpToEvent(event);
       },
     );
   }

@@ -5,7 +5,6 @@ import 'package:rxdart/rxdart.dart';
 import 'package:supabase/supabase.dart';
 
 import '../app/app.locator.dart';
-import '../models/member.dart';
 
 class EventService {
   final _supabaseService = locator<SupabaseService>();
@@ -23,6 +22,7 @@ class EventService {
           .from('events_view')
           .select()
           .gte('start_date', DateTime.now())
+          .order('created_at', ascending: false)
           .execute();
       return (res.data as List).map((e) => Event.fromJson(e)).toList();
     } catch (e) {
@@ -62,7 +62,6 @@ class EventService {
     return _supabaseService.supabaseClient
         .from('event_attendees')
         .stream(['event_id'])
-        .order('created_at', ascending: true)
         .execute()
         .asyncMap<List<Event>>((event) {
           return getEvents();
@@ -81,26 +80,17 @@ class EventService {
     });
   }
 
-  signUpToEvent(Event event) async {
+  Future signUpToEvent(Event event) async {
     try {
       await _signUpToEvent(event.eventID);
-      event.attendees.add(_userService.user);
-      event.numAttendees++;
     } catch (e) {
       print('error signing up: $e');
     }
   }
 
-  signOutFromEvent(Event event) async {
+  Future signOutFromEvent(Event event) async {
     try {
       await _signOutFromEvent(event.eventID);
-      for (Member m in event.attendees) {
-        if (m.id == _userService.user.id) {
-          event.attendees.remove(m);
-          event.numAttendees--;
-          return;
-        }
-      }
     } catch (e) {
       print('error signing out: $e');
     }

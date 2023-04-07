@@ -37,4 +37,16 @@ class Constants {
         blurRadius: 10,
         offset: const Offset(0, 2)),
   ];
+  static List<BoxShadow> shadow4 = [
+    BoxShadow(
+        color: Colors.black.withOpacity(.25),
+        blurRadius: 6,
+        offset: const Offset(3, 7)),
+  ];
+  static List<BoxShadow> shadow5 = [
+    BoxShadow(
+        color: Colors.black.withOpacity(.25),
+        blurRadius: 20,
+        offset: const Offset(0, 10)),
+  ];
 }

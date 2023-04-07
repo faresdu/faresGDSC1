@@ -18,16 +18,19 @@ class EventAttendees extends StatelessWidget {
       images.add(
         Align(
           widthFactor: .75,
-          child: CircleAvatar(
-            radius: 11,
-            backgroundColor: Constants.white,
+          child: Container(
+            decoration: BoxDecoration(boxShadow: Constants.shadow3),
             child: CircleAvatar(
-              backgroundImage: attendees[i].photo != null
-                  ? NetworkImage(attendees[i].photo!)
-                  : const AssetImage('assets/images/event-attendees.png')
-                      as ImageProvider,
-              backgroundColor: Constants.red,
               radius: 11,
+              backgroundColor: Constants.white,
+              child: CircleAvatar(
+                backgroundImage: attendees[i].photo != null
+                    ? NetworkImage(attendees[i].photo!)
+                    : const AssetImage('assets/images/event-attendees.png')
+                        as ImageProvider,
+                backgroundColor: Constants.red,
+                radius: 10,
+              ),
             ),
           ),
         ),

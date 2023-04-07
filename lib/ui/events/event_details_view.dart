@@ -36,10 +36,6 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                     Expanded(
                       flex: 5,
                       child: Container(
-                        decoration: BoxDecoration(
-                          color: Constants.grey.withOpacity(.05),
-                          borderRadius: BorderRadius.circular(50),
-                        ),
                         child: viewmodel.eventDetails.flyer != null
                             ? Image.network(
                                 viewmodel.eventDetails.flyer!,

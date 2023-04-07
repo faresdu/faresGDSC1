@@ -35,7 +35,6 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
         text: 'سجل خروج',
         onPressed: () {
           eventService.signOutFromEvent(event);
-          notifyListeners();
         },
         color: Constants.grey.withOpacity(.9),
       );
@@ -52,7 +51,6 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
         text: 'احجز مقعدك',
         onPressed: () {
           eventService.signUpToEvent(event);
-          notifyListeners();
         },
         color: Constants.yellow.withOpacity(.9),
       );
@@ -61,7 +59,6 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
       text: 'احجز مقعدك',
       onPressed: () {
         eventService.signUpToEvent(event);
-        notifyListeners();
       },
       color: Constants.green.withOpacity(.9),
     );
