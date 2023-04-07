@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/app/app.router.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:stacked/stacked.dart';
@@ -10,15 +11,15 @@ import '../../core/services/supabase_service.dart';
 import '../../core/utils/constants.dart';
 import 'package:gdsc_app/ui/events/components/event_signup_cardbutton.dart';
 
-import 'events_details_view.dart';
+import 'event_details_view.dart';
 
 class EventsViewModel extends StreamViewModel<List<Event>> {
   final navService = locator<NavigationService>();
   final supabaseService = locator<SupabaseService>();
   final eventService = locator<EventService>();
   final userService = locator<UserService>();
+
   List<Event> events = [];
-  late final Event eventDetails;
 
   EventsViewModel() {
     eventService.listenToAllEvents();
@@ -32,21 +33,9 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
     }
   }
 
-  getEvent(BuildContext context) {
-    eventDetails = ModalRoute.of(context)!.settings.arguments! as Event;
-  }
-
-  bool signedUp(Event event) {
-    for (Member m in event.attendees) {
-      if (m.id == userService.user.id) {
-        return true;
-      }
-    }
-    return false;
-  }
 
   Widget getSignUpCardButton(Event event) {
-    if (signedUp(event)) {
+    if (event.isSignedUp(userService.user.id)) {
       return EventCardButton(
         text: 'سجل خروج',
         color: Constants.grey.withOpacity(.9),
@@ -80,9 +69,27 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
     );
   }
 
-  bool isOwner(Event event) {
-    return event.instructorID == userService.user.id;
+  navigateToEvent(BuildContext context, Event event) async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return EventDetailsView(event: event);
+        },
+      ),
+    );
   }
+
+  // for loaction name on Eventcard to avoid layout overflow made by long loaction name
+  static String locationEventName(String locationName) {
+    if (locationName.length > 10) {
+      return '...${locationName.substring(0, 12)}';
+    }
+    return locationName;
+  }
+
+  @override
+  Stream<List<Event>> get stream => eventService.eventsController.stream;
 
   signUpToEvent(Event event) {
     try {
@@ -110,31 +117,4 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
       print('error signing out: $e');
     }
   }
-
-  navigateToEvent(BuildContext context, Event event) async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return EventsDetailsView(event: event);
-        },
-      ),
-    );
-  }
-
-  // for loaction name on Eventcard to avoid layout overflow made by long loaction name
-  static String locationEventName(String locationName) {
-    int j = 0;
-    for (int i = 0; i < locationName.length; i++) {
-      locationName[i];
-      j++;
-    }
-    if (j > 10) {
-      return '...${locationName.substring(0, 12)}';
-    }
-    return locationName;
-  }
-
-  @override
-  Stream<List<Event>> get stream => eventService.eventsController.stream;
 }

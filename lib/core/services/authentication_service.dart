@@ -31,7 +31,7 @@ class AuthenticationService {
           'PERSIST_SESSION_KEY',
           response.data!.persistSessionString,
         );
-        setUser();
+        await setUser();
         // _userService.initUser(supabaseClient.auth.currentUser!.id);
 
         print('Login Successfully : ${response.user?.email}');
@@ -51,7 +51,7 @@ class AuthenticationService {
     return _supabaseService.supabaseClient.auth.currentUser;
   }
 
-  setUser() async {
+  Future setUser() async {
     try {
       User? u = getCurrentUser();
       if (u != null) {

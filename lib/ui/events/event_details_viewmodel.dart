@@ -31,7 +31,7 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
   }
 
   Widget getSignUpButton(Event event) {
-    if (signedUp(event)) {
+    if (event.isSignedUp(userService.user.id)) {
       return EventDetailsSignupButton(
         text: 'سجل خروج',
         onPressed: () {
@@ -63,15 +63,6 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
       },
       color: Constants.green.withOpacity(.9),
     );
-  }
-
-  bool signedUp(Event event) {
-    for (Member m in event.attendees) {
-      if (m.id == userService.user.id) {
-        return true;
-      }
-    }
-    return false;
   }
 
   signUpToEvent(Event event) {

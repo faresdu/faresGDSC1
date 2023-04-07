@@ -11,15 +11,15 @@ import 'event_details_viewmodel.dart';
 TextStyle titleStyle =
     const TextStyle(fontSize: 24, fontWeight: FontWeight.w700, height: 3);
 
-class EventsDetailsView extends StatefulWidget {
+class EventDetailsView extends StatefulWidget {
   final Event event;
-  const EventsDetailsView({Key? key, required this.event}) : super(key: key);
+  const EventDetailsView({Key? key, required this.event}) : super(key: key);
 
   @override
-  State<EventsDetailsView> createState() => _EventsDetailsViewState();
+  State<EventDetailsView> createState() => _EventDetailsViewState();
 }
 
-class _EventsDetailsViewState extends State<EventsDetailsView> {
+class _EventDetailsViewState extends State<EventDetailsView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<EventsDetailsViewModel>.reactive(

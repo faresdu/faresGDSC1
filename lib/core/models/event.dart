@@ -41,12 +41,25 @@ class Event {
   }
 
   double getPercentage() {
-    if (numAttendees == 0) return 0;
+    if (maxAttendees == 0) return 0;
     return 100.0 * numAttendees / maxAttendees;
   }
 
   bool isFull() {
     return numAttendees >= maxAttendees;
+  }
+
+  bool isOwner(String id) {
+    return instructorID == id;
+  }
+
+  bool isSignedUp(String id) {
+    for (Member m in attendees) {
+      if (m.id == id) {
+        return true;
+      }
+    }
+    return false;
   }
 
   factory Event.placeholder() {

@@ -1,5 +1,6 @@
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
+import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:supabase/supabase.dart';
 
@@ -7,6 +8,7 @@ import '../app/app.locator.dart';
 
 class EventService {
   final _supabaseService = locator<SupabaseService>();
+  final _userService = locator<UserService>();
 
   late List<Event> events;
 
@@ -27,12 +29,12 @@ class EventService {
     }
   }
 
-  Future<void> signUpToEvent(String eId, String id) async {
+  Future<void> signUpToEvent(String eId) async {
     try {
       final PostgrestResponse<dynamic> res =
           await _supabaseService.supabaseClient.from('event_attendees').insert({
         'event_id': eId,
-        'user_id': id,
+        'user_id': _userService.user.id,
       }).execute();
       print('signup code: ${res.status}');
     } catch (e) {
@@ -40,9 +42,9 @@ class EventService {
     }
   }
 
-  Future<void> signOutFromEvent(String eId, String id) async {
+  Future<void> signOutFromEvent(String eId) async {
     try {
-      final payload = {'event_id': eId, 'user_id': id};
+      final payload = {'event_id': eId, 'user_id': _userService.user.id};
       final PostgrestResponse<dynamic> res = await _supabaseService
           .supabaseClient
           .from('event_attendees')
