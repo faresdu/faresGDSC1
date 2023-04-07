@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 @immutable
 class Constants {
@@ -15,7 +16,6 @@ class Constants {
   static const Color lightBlue = Color(0xFF0682BC);
   static const Color blue = Color(0xFF547DBF);
   static const Color darkBlue = Color(0xFF212A40);
-  static const Color purple = Color(0xFF212A40);
   static const Color cyan = Color(0xFF7CB9E5);
   static const Color white = Colors.white;
   static const Color black = Colors.black;
@@ -49,4 +49,22 @@ class Constants {
         blurRadius: 20,
         offset: const Offset(0, 10)),
   ];
+
+  static TextStyle veryLargeText = GoogleFonts.cairo().copyWith(
+    fontSize: 24,
+  );
+
+  static TextStyle largeText = GoogleFonts.cairo().copyWith(
+    fontSize: 22,
+  );
+  static TextStyle mediumText = GoogleFonts.cairo().copyWith(
+    fontSize: 19,
+  );
+  static TextStyle smallText = GoogleFonts.cairo().copyWith(
+    fontSize: 17,
+  );
+  static TextStyle verySmallText = GoogleFonts.cairo().copyWith(
+    fontSize: 15,
+  );
+
 }

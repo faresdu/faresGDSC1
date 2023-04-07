@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/core/utils/form_validators.dart';
+import 'package:gdsc_app/ui/login/components/custom_input_field.dart';
+import 'package:gdsc_app/ui/login/components/login_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
@@ -26,23 +29,8 @@ class LoginView extends StatelessWidget {
                       const SizedBox(height: 65),
 
                       //Email Input Field
-                      TextFormField(
-                        textAlign: TextAlign.right,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w400, fontSize: 16),
-                        decoration: InputDecoration(
-                          hintText: 'الإيميل الجامعي أو الرقم الجامعي',
-                          hintStyle: TextStyle(
-                            fontFamily: GoogleFonts.mada().fontFamily,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey)),
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey)),
-                        ),
+                      CustomInputField(
+                        hintText: 'الإيميل الجامعي أو الرقم الجامعي',
                         validator: (value) {
                           //check if the value is correct studentID
                           //if not check if its a valid email
@@ -64,58 +52,37 @@ class LoginView extends StatelessWidget {
                           }
                         },
                       ),
+
                       const SizedBox(height: 20),
 
                       //Password Input Field
-                      TextFormField(
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w400, fontSize: 16),
+                      CustomInputField(
+                        hintText: 'كلمة المرور',
                         obscureText: true,
-                        textAlign: TextAlign.right,
-                        decoration: InputDecoration(
-                          hintText: 'كلمة المرور',
-                          hintStyle: TextStyle(
-                            fontFamily: GoogleFonts.mada().fontFamily,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey)),
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey)),
-                        ),
                         validator: FormValidators.passwordValidator,
                         onSaved: (value) {
                           viewmodel.password = value;
                         },
                       ),
+
                       const SizedBox(height: 20),
-                      const Align(
+
+                      // Forgot password
+                      Align(
                         alignment: Alignment(-1, 0),
                         child: Text('نسيت كلمة المرور',
-                            style: TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.w500)),
-                      ),
-                      const SizedBox(height: 100),
-                      Container(
-                        width: double.infinity,
-                        height: 45,
-                        margin: const EdgeInsets.symmetric(horizontal: 90),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            viewmodel.submitLogin(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                              primary: const Color(0xFF4081EC)),
-                          child: const Text(
-                            'سجل الدخول',
-                            style: TextStyle(
+                            style: Constants.verySmallText.copyWith(
                               fontWeight: FontWeight.w700,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
+                              color: Constants.darkBlue,
+                            )),
+                      ),
+                      const SizedBox(height: 50),
+
+                      //Login
+                      LoginButton(
+                        onPressed: () {
+                          viewmodel.submitLogin(context);
+                        },
                       ),
                     ],
                   ),
