@@ -22,7 +22,7 @@ class EventService {
           .from('events_view')
           .select()
           .gte('start_date', DateTime.now())
-          .order('created_at', ascending: false)
+          .order('start_date', ascending: true)
           .execute();
       return (res.data as List).map((e) => Event.fromJson(e)).toList();
     } catch (e) {
