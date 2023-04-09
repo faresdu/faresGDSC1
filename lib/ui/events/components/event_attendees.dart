@@ -1,0 +1,73 @@
+import 'package:flutter/material.dart';
+
+import '../../../core/models/member.dart';
+import '../../../core/utils/constants.dart';
+
+class EventAttendees extends StatelessWidget {
+  const EventAttendees({
+    Key? key,
+    required this.attendees,
+  }) : super(key: key);
+  final List<Member> attendees;
+
+  @override
+  Widget build(BuildContext context) {
+    if (attendees.isEmpty) return const SizedBox(height: 22);
+    List<Widget> images = [];
+    for (int i = 0; i < 3 && i < attendees.length; i++) {
+      images.add(
+        Align(
+          widthFactor: .75,
+          child: Container(
+            decoration: BoxDecoration(boxShadow: Constants.shadow3),
+            child: CircleAvatar(
+              radius: 11,
+              backgroundColor: Constants.white,
+              child: CircleAvatar(
+                backgroundImage: attendees[i].photo != null
+                    ? NetworkImage(attendees[i].photo!)
+                    : const AssetImage('assets/images/event-attendees.png')
+                        as ImageProvider,
+                backgroundColor: Constants.red,
+                radius: 10,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+    if (attendees.length > 3) {
+      images.add(
+        Container(
+          decoration: BoxDecoration(boxShadow: Constants.shadow3),
+          child: CircleAvatar(
+            backgroundColor: Constants.white,
+            radius: 11,
+            child: Text(
+              '+${attendees.length - 3}',
+              style: const TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: Constants.black),
+            ),
+          ),
+        ),
+      );
+    }
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Image(image: AssetImage('assets/images/event-attendees.png')),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          child: Text(
+            'المشاركين',
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+          ),
+        ),
+        Row(textDirection: TextDirection.ltr, children: images),
+      ],
+    );
+  }
+}

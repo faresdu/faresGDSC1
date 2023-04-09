@@ -24,8 +24,6 @@ class SupabaseService {
     } catch (e) {
       print('No Current User : $e');
     }
-
-    print(await getEvents());
   }
 
   Future<void> _restoreCurrentUser() async {
@@ -50,16 +48,6 @@ class SupabaseService {
     }
   }
 
-  Future<dynamic> getEvents() async {
-    try {
-      final PostgrestResponse<dynamic> res =
-          await supabaseClient.from('Events').select().execute();
-      return res.data;
-    } catch (e) {
-      throw 'Failed to get Events, ERROR : $e';
-    }
-  }
-
   Future<List<Committee>> getCommittees() async {
     try {
       final PostgrestResponse<dynamic> res =
@@ -74,7 +62,6 @@ class SupabaseService {
     try {
       final PostgrestResponse<dynamic> res =
           await supabaseClient.from('leaderboard_view').select().execute();
-      print('${res.data} ssssssssssss');
       return (res.data as List).map((e) => Member.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Leaderboard : $e';

@@ -23,11 +23,10 @@ class LoginViewModel extends BaseViewModel {
       await authService.loginWithEmail(email: email!, password: password!);
       navService.clearStackAndShow(Routes.navigationView);
     } catch (e) {
-      //TODO SHOW ERROR PopUp Window
       showDialog(
           context: context,
           builder: (context) {
-            return AlertDialog(
+            return const AlertDialog(
               title: Text(
                 'تاكد من صحة المعلومات',
                 textAlign: TextAlign.center,

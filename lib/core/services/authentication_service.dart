@@ -8,6 +8,7 @@ import '../app/app.locator.dart';
 class AuthenticationService {
   final _supabaseService = locator<SupabaseService>();
   final _userService = locator<UserService>();
+
   Future<void> loginWithEmail(
       {required String email, required String password}) async {
     try {
@@ -53,8 +54,9 @@ class AuthenticationService {
 
   Future setUser() async {
     try {
-      if ((getCurrentUser()) != null) {
-        await _userService.initUser((getCurrentUser())!.id);
+      User? u = getCurrentUser();
+      if (u != null) {
+        await _userService.initUser(u.id);
       } else {
         print('sssssssss');
         throw '';

@@ -5,19 +5,22 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:flutter/material.dart' as _i12;
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/models/event.dart' as _i13;
 import 'package:gdsc_app/ui/committee_members/committe_members_view.dart'
-    as _i9;
+    as _i10;
+import 'package:gdsc_app/ui/events/event_details_view.dart' as _i7;
 import 'package:gdsc_app/ui/events/events_view.dart' as _i6;
-import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart' as _i7;
-import 'package:gdsc_app/ui/leaderboard/leaderboard_view.dart' as _i10;
+import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart' as _i8;
+import 'package:gdsc_app/ui/leaderboard/leaderboard_view.dart' as _i11;
 import 'package:gdsc_app/ui/login/login_view.dart' as _i3;
 import 'package:gdsc_app/ui/navigation/navigation_view.dart' as _i4;
-import 'package:gdsc_app/ui/profile/profile_view.dart' as _i8;
+import 'package:gdsc_app/ui/profile/profile_view.dart' as _i9;
 import 'package:gdsc_app/ui/startup/startup_view.dart' as _i2;
 import 'package:gdsc_app/ui/timeline/timeline_view.dart' as _i5;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i11;
+import 'package:stacked_services/stacked_services.dart' as _i14;
 
 class Routes {
   static const startUpView = '/';
@@ -29,6 +32,8 @@ class Routes {
   static const timeLineView = '/time-line-view';
 
   static const eventsView = '/events-view';
+
+  static const eventDetailsView = '/event-details-view';
 
   static const hierarchyView = '/hierarchy-view';
 
@@ -44,6 +49,7 @@ class Routes {
     navigationView,
     timeLineView,
     eventsView,
+    eventDetailsView,
     hierarchyView,
     profileView,
     committeeMembersView,
@@ -74,20 +80,24 @@ class StackedRouter extends _i1.RouterBase {
       page: _i6.EventsView,
     ),
     _i1.RouteDef(
+      Routes.eventDetailsView,
+      page: _i7.EventDetailsView,
+    ),
+    _i1.RouteDef(
       Routes.hierarchyView,
-      page: _i7.HierarchyView,
+      page: _i8.HierarchyView,
     ),
     _i1.RouteDef(
       Routes.profileView,
-      page: _i8.ProfileView,
+      page: _i9.ProfileView,
     ),
     _i1.RouteDef(
       Routes.committeeMembersView,
-      page: _i9.CommitteeMembersView,
+      page: _i10.CommitteeMembersView,
     ),
     _i1.RouteDef(
       Routes.leaderboardView,
-      page: _i10.LeaderboardView,
+      page: _i11.LeaderboardView,
     ),
   ];
 
@@ -122,27 +132,35 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i7.HierarchyView: (data) {
+    _i7.EventDetailsView: (data) {
+      final args = data.getArgs<EventDetailsViewArguments>(nullOk: false);
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const _i7.HierarchyView(),
+        builder: (context) =>
+            _i7.EventDetailsView(key: args.key, event: args.event),
         settings: data,
       );
     },
-    _i8.ProfileView: (data) {
+    _i8.HierarchyView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const _i8.ProfileView(),
+        builder: (context) => const _i8.HierarchyView(),
         settings: data,
       );
     },
-    _i9.CommitteeMembersView: (data) {
+    _i9.ProfileView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const _i9.CommitteeMembersView(),
+        builder: (context) => const _i9.ProfileView(),
         settings: data,
       );
     },
-    _i10.LeaderboardView: (data) {
+    _i10.CommitteeMembersView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const _i10.LeaderboardView(),
+        builder: (context) => const _i10.CommitteeMembersView(),
+        settings: data,
+      );
+    },
+    _i11.LeaderboardView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const _i11.LeaderboardView(),
         settings: data,
       );
     },
@@ -154,7 +172,18 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i11.NavigationService {
+class EventDetailsViewArguments {
+  const EventDetailsViewArguments({
+    this.key,
+    required this.event,
+  });
+
+  final _i12.Key? key;
+
+  final _i13.Event event;
+}
+
+extension NavigatorStateExtension on _i14.NavigationService {
   Future<dynamic> navigateToStartUpView([
     int? routerId,
     bool preventDuplicates = true,
@@ -219,6 +248,23 @@ extension NavigatorStateExtension on _i11.NavigationService {
         transition,
   ]) async {
     return navigateTo<dynamic>(Routes.eventsView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToEventDetailsView({
+    _i12.Key? key,
+    required _i13.Event event,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.eventDetailsView,
+        arguments: EventDetailsViewArguments(key: key, event: event),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -345,6 +391,23 @@ extension NavigatorStateExtension on _i11.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.eventsView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithEventDetailsView({
+    _i12.Key? key,
+    required _i13.Event event,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(Routes.eventDetailsView,
+        arguments: EventDetailsViewArguments(key: key, event: event),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
