@@ -18,8 +18,7 @@ class EventDetailsSignupButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        height: 50,
-        width: 150,
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
         decoration: BoxDecoration(
             color: color,
             boxShadow: Constants.shadow2,
