@@ -6,14 +6,17 @@ class CustomInputField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final String? Function(String?)? validator;
-  final String? Function(String?)? onSaved;
-  const CustomInputField(
-      {Key? key,
-      required this.hintText,
-      this.validator,
-      this.onSaved,
-      this.obscureText = false})
-      : super(key: key);
+  final Function(String?)? onSaved;
+  final Function(String?)? onFieldSubmitted;
+
+  const CustomInputField({
+    Key? key,
+    required this.hintText,
+    this.validator,
+    this.onSaved,
+    this.obscureText = false,
+    this.onFieldSubmitted,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +31,14 @@ class CustomInputField extends StatelessWidget {
             fontWeight: FontWeight.w700,
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(width: 3, color: Constants.darkBlue),
+            borderSide: const BorderSide(width: 3, color: Constants.darkBlue),
             borderRadius: BorderRadius.circular(50),
           ),
           focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey))),
       validator: validator,
       onSaved: onSaved,
+      onFieldSubmitted: onFieldSubmitted,
     );
   }
 }

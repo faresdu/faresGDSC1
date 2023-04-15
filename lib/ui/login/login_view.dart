@@ -9,6 +9,8 @@ import 'package:stacked/stacked.dart';
 import 'login_viewmodel.dart';
 
 class LoginView extends StatelessWidget {
+  const LoginView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LoginViewModel>.reactive(
@@ -63,13 +65,16 @@ class LoginView extends StatelessWidget {
                         onSaved: (value) {
                           viewmodel.password = value;
                         },
+                        onFieldSubmitted: (value) {
+                          viewmodel.submitLogin(context);
+                        },
                       ),
 
                       const SizedBox(height: 20),
 
                       // Forgot password
                       Align(
-                        alignment: Alignment(-1, 0),
+                        alignment: const Alignment(-1, 0),
                         child: Text('نسيت كلمة المرور',
                             style: Constants.verySmallText.copyWith(
                               fontWeight: FontWeight.w700,
