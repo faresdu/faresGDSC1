@@ -33,8 +33,8 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
     if (event.isSignedUp(userService.user.id)) {
       return EventDetailsSignupButton(
         text: 'سجل خروج',
-        onPressed: () {
-          eventService.signOutFromEvent(event);
+        onPressed: () async {
+          await eventService.signOutFromEvent(event.eventID);
         },
         color: Constants.grey.withOpacity(.9),
       );
@@ -49,16 +49,16 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
     } else if (event.getPercentage() >= 75) {
       return EventDetailsSignupButton(
         text: 'احجز مقعدك',
-        onPressed: () {
-          eventService.signUpToEvent(event);
+        onPressed: () async {
+          await eventService.signUpToEvent(event.eventID);
         },
         color: Constants.yellow.withOpacity(.9),
       );
     }
     return EventDetailsSignupButton(
       text: 'احجز مقعدك',
-      onPressed: () {
-        eventService.signUpToEvent(event);
+      onPressed: () async {
+        await eventService.signUpToEvent(event.eventID);
       },
       color: Constants.green.withOpacity(.9),
     );

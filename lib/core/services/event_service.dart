@@ -30,7 +30,7 @@ class EventService {
     }
   }
 
-  Future<void> _signUpToEvent(String eId) async {
+  Future<void> signUpToEvent(String eId) async {
     try {
       final PostgrestResponse<dynamic> res =
           await _supabaseService.supabaseClient.from('event_attendees').insert({
@@ -43,7 +43,7 @@ class EventService {
     }
   }
 
-  Future<void> _signOutFromEvent(String eId) async {
+  Future<void> signOutFromEvent(String eId) async {
     try {
       final payload = {'event_id': eId, 'user_id': _userService.user.id};
       final PostgrestResponse<dynamic> res = await _supabaseService
@@ -78,21 +78,5 @@ class EventService {
     eventsController.stream.listen((newEvents) {
       events = newEvents;
     });
-  }
-
-  Future signUpToEvent(Event event) async {
-    try {
-      await _signUpToEvent(event.eventID);
-    } catch (e) {
-      print('error signing up: $e');
-    }
-  }
-
-  Future signOutFromEvent(Event event) async {
-    try {
-      await _signOutFromEvent(event.eventID);
-    } catch (e) {
-      print('error signing out: $e');
-    }
   }
 }

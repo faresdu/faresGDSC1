@@ -38,7 +38,7 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
         text: 'سجل خروج',
         color: Constants.grey.withOpacity(.9),
         onPressed: () async {
-          await eventService.signOutFromEvent(event);
+          await eventService.signOutFromEvent(event.eventID);
         },
       );
     } else if (event.isFull()) {
@@ -54,7 +54,7 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
         text: 'احجز مقعدك',
         color: Constants.yellow.withOpacity(.9),
         onPressed: () async {
-          await eventService.signUpToEvent(event);
+          await eventService.signUpToEvent(event.eventID);
         },
       );
     }
@@ -62,7 +62,7 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
       text: 'احجز مقعدك',
       color: Constants.green.withOpacity(.9),
       onPressed: () async {
-        await eventService.signUpToEvent(event);
+        await eventService.signUpToEvent(event.eventID);
       },
     );
   }
