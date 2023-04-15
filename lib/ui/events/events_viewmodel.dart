@@ -9,7 +9,7 @@ import '../../core/services/supabase_service.dart';
 import '../../core/utils/constants.dart';
 import 'package:gdsc_app/ui/events/components/events_card_signup_button.dart';
 
-import 'event_details_view.dart';
+import 'event_details/event_details_view.dart';
 
 class EventsViewModel extends StreamViewModel<List<Event>> {
   final navService = locator<NavigationService>();

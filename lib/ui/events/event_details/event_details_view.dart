@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:stacked/stacked.dart';
-import '../../core/utils/constants.dart';
-import 'components/event_attendees.dart';
-import 'components/event_date_box.dart';
-import 'components/event_info_box.dart';
+import '../../../core/utils/constants.dart';
+import '../components/event_attendees.dart';
+import '../components/event_details_date_box.dart';
+import '../components/event_details_info_box.dart';
 import 'event_details_viewmodel.dart';
 
 TextStyle titleStyle =

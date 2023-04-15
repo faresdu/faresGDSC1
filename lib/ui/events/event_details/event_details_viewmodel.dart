@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../core/app/app.locator.dart';
-import '../../core/services/event_service.dart';
-import '../../core/services/supabase_service.dart';
-import '../../core/services/user_service.dart';
-import '../../core/utils/constants.dart';
-import 'components/event_details_signup_button.dart';
+import '../../../core/app/app.locator.dart';
+import '../../../core/services/event_service.dart';
+import '../../../core/services/supabase_service.dart';
+import '../../../core/services/user_service.dart';
+import '../../../core/utils/constants.dart';
+import '../components/event_details_signup_button.dart';
 
 class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
   final eventService = locator<EventService>();

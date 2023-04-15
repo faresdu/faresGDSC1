@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/event.dart' as _i13;
 import 'package:gdsc_app/ui/committee_members/committe_members_view.dart'
     as _i10;
-import 'package:gdsc_app/ui/events/event_details_view.dart' as _i7;
+import 'package:gdsc_app/ui/events/event_details/event_details_view.dart'
+    as _i7;
 import 'package:gdsc_app/ui/events/events_view.dart' as _i6;
 import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart' as _i8;
 import 'package:gdsc_app/ui/leaderboard/leaderboard_view.dart' as _i11;
@@ -168,6 +169,7 @@ class StackedRouter extends _i1.RouterBase {
 
   @override
   List<_i1.RouteDef> get routes => _routes;
+
   @override
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
