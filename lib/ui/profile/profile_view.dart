@@ -82,7 +82,7 @@ class ProfileView extends StatelessWidget {
                                   children: [
                                     Padding(
                                       padding:
-                                          const EdgeInsets.only(bottom: 10.0),
+                                      const EdgeInsets.only(bottom: 10.0),
                                       child: Text('عضو لجنة المطورين'),
                                     )
                                   ],
@@ -128,7 +128,7 @@ class ProfileView extends StatelessWidget {
                                       child: Text(
                                         'المشاركات',
                                         style:
-                                            GoogleFonts.cairo(fontSize: 15.0),
+                                        GoogleFonts.cairo(fontSize: 15.0),
                                       ),
                                     ),
                                     SizedBox(width: 50),
@@ -136,7 +136,7 @@ class ProfileView extends StatelessWidget {
                                       child: Text(
                                         'المنشورات',
                                         style:
-                                            GoogleFonts.cairo(fontSize: 15.0),
+                                        GoogleFonts.cairo(fontSize: 15.0),
                                       ),
                                     ),
                                     SizedBox(width: 50),
@@ -144,7 +144,7 @@ class ProfileView extends StatelessWidget {
                                       child: Text(
                                         'الساعات',
                                         style:
-                                            GoogleFonts.cairo(fontSize: 15.0),
+                                        GoogleFonts.cairo(fontSize: 15.0),
                                       ),
                                     ),
                                     SizedBox(width: 50),
