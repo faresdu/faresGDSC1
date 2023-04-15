@@ -16,6 +16,7 @@ class UserService {
     userStream.listen(userSubject.sink.add);
 
     user = await userSubject.stream.first;
+    print('set user with student id ${user.sID}');
     userSubject.sink.add(user);
     userSubject.stream.listen((newUser) {
       user = newUser;
