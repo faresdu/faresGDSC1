@@ -13,6 +13,7 @@ TextStyle titleStyle =
 
 class EventDetailsView extends StatefulWidget {
   final Event event;
+
   const EventDetailsView({Key? key, required this.event}) : super(key: key);
 
   @override
@@ -44,7 +45,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                             : Image.asset('assets/images/temp-events-img.png'),
                       ),
                     ),
-                    Expanded(
+                    Flexible(
                       flex: 1,
                       child: Text(
                         viewmodel.eventDetails.title,
@@ -77,14 +78,14 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                                 viewmodel.eventDetails.instructorName)
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15.0),
+                    Container(
+                      margin: const EdgeInsets.symmetric(vertical: 15.0),
                       child: Divider(
                         height: 1,
                         color: Constants.grey.withOpacity(.5),
                       ),
                     ),
-                    Expanded(
+                    Flexible(
                       flex: 1,
                       child: Text(
                         'عن الفعالية',
@@ -101,33 +102,30 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                             color: Constants.grey),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          viewmodel.getSignUpButton(viewmodel.eventDetails),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              EventAttendees(
-                                attendees: viewmodel.eventDetails.attendees,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        viewmodel.getSignUpButton(viewmodel.eventDetails),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            EventAttendees(
+                              attendees: viewmodel.eventDetails.attendees,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 30),
+                              child: Text(
+                                'المقاعد المتبقية ${viewmodel.eventDetails.getRemainingSeats()}',
+                                style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: Constants.grey),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 30),
-                                child: Text(
-                                  'المقاعد المتبقية ${viewmodel.eventDetails.getRemainingSeats()}',
-                                  style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
-                                      color: Constants.grey),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
+                            )
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),
