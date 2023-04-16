@@ -1,22 +1,33 @@
-import 'package:gdsc_app/core/models/committee.dart';
+import 'package:gdsc_app/core/app/app.router.dart';
 import 'package:gdsc_app/core/models/member.dart';
+import 'package:gdsc_app/core/services/authentication_service.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+
+import '../../core/app/app.locator.dart';
+import '../../core/services/user_service.dart';
 
 class ProfileViewModel extends BaseViewModel {
-Member member = Member(id: '443', sID: '12345', name: 'fares',committee: Committee(id: '443', name: 'Tech',coLeaderID: '4321',leaderID: '3123'));
-  String fares(){
-    return 'Profile name';
+  final authService = locator<AuthenticationService>();
+  final userService = locator<UserService>();
+  final navService = locator<NavigationService>();
+
+  Future<void> signOut() async {
+    await authService.signOut();
+    navService.clearTillFirstAndShow(Routes.loginView);
   }
-  getProfileInfo(){
-    return member;
-  }
-  String getCommitteeStatus(){
-    if(member.committee?.leaderID == member.id){
-      return 'leader of Tech';
-    }else if(member.committee?.coLeaderID == member.id){
-      return 'Co-Leader of Tech';
-    }else{
-      return 'member of Tech';
+
+  late final Member member = userService.user;
+
+  String getText() {
+    String type;
+    if (member.id == member.committee?.leaderID) {
+      type = "قائد";
+    } else if (member.id == member.committee?.coLeaderID) {
+      type = "نائب قائد";
+    } else {
+      type = 'عضو';
     }
+    return '$type ${member.committee?.name}';
   }
 }
