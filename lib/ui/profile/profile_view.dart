@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/profile/profile_viewmodel.dart';
 import 'package:stacked/stacked.dart';
@@ -17,7 +18,19 @@ class ProfileView extends StatelessWidget {
                 : Center(
                     child: viewmodel.isBusy
                         ? const CircularProgressIndicator()
-                        : Text(viewmodel.data!.name),
+                        : Column(
+                            children: [
+                              Text(viewmodel.data!.name),
+                              Text(viewmodel.data!.committee.name),
+                              Text(viewmodel.data!.socials.first.name),
+                              Text(viewmodel.data!.socials.first.username),
+                              CachedNetworkImage(
+                                  imageUrl:
+                                      viewmodel.data!.socials.first.image),
+                              Text(viewmodel.data!.volunteerHours.first.hours
+                                  .toString()),
+                            ],
+                          ),
                   ),
           );
         });
