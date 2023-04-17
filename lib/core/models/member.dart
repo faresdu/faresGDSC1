@@ -9,7 +9,7 @@ class Member {
   final int hours;
   final String? photo;
   final Committee? committee;
-  final List<SocialMedia>? socials;
+  final List<SocialMedia> socials;
 
   Member({
     required this.id,
@@ -19,7 +19,7 @@ class Member {
     required this.hours,
     this.photo,
     this.committee,
-    this.socials,
+    required this.socials,
   });
 
   factory Member.anonymous() {
@@ -29,6 +29,7 @@ class Member {
       name: '',
       major: '',
       hours: 0,
+      socials: [],
     );
   }
 

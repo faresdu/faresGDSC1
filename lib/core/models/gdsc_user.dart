@@ -14,7 +14,7 @@ class GDSCUser extends Member {
     required int hours,
     String? photo,
     Committee? committee,
-    List<SocialMedia>? socials,
+    required List<SocialMedia> socials,
     this.email,
   }) : super(
           id: id,

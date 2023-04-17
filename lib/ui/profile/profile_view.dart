@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/models/social_media.dart';
 import 'package:gdsc_app/ui/profile/profile_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -83,13 +84,9 @@ class _ProfileViewState extends State<ProfileView> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     CircleAvatar(
-                                      backgroundImage: viewmodel.member.photo !=
-                                              null
-                                          ? NetworkImage(
-                                              viewmodel.member.photo!)
-                                          : const AssetImage(
-                                                  'assets/images/event-attendees.png')
-                                              as ImageProvider,
+                                      backgroundImage: viewmodel.member.photo != null
+                                          ? NetworkImage(viewmodel.member.photo!)
+                                          : const AssetImage('assets/images/event-attendees.png') as ImageProvider,
                                       radius: 45.0,
                                     ),
                                     Expanded(
@@ -107,10 +104,7 @@ class _ProfileViewState extends State<ProfileView> {
                                           Text(
                                             viewmodel.getText(),
                                             style: GoogleFonts.cairo(
-                                              textStyle: const TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Constants.grey),
+                                              textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Constants.grey),
                                             ),
                                           ),
                                         ],
@@ -218,11 +212,16 @@ class _ProfileViewState extends State<ProfileView> {
                       ),
                       IndexedStack(
                         index: index,
-                        children: const [
-                          Text('0'),
-                          Text('1'),
-                          Text('2'),
-                          Text('3'),
+                        children: [
+                          const Text('0'),
+                          const Text('1'),
+                          const Text('2'),
+                          Column(
+                              children: viewmodel.member.socials
+                                  .map(
+                                    (e) => ProfileSocialMediaCard(socialMedia: e),
+                                  )
+                                  .toList()),
                         ],
                       )
                     ],
@@ -244,9 +243,7 @@ class _ProfileViewState extends State<ProfileView> {
       children: [
         CircleAvatar(
           radius: 30,
-          backgroundColor: isSelected
-              ? Constants.darkBlue
-              : Constants.darkBlue.withOpacity(.4),
+          backgroundColor: isSelected ? Constants.darkBlue : Constants.darkBlue.withOpacity(.4),
           child: IconButton(
             iconSize: 30,
             icon: Icon(
@@ -289,6 +286,97 @@ class _ProfileViewState extends State<ProfileView> {
           ),
         )
       ],
+    );
+  }
+}
+
+class ProfileSocialMediaCard extends StatelessWidget {
+  const ProfileSocialMediaCard({
+    super.key,
+    required this.socialMedia,
+  });
+
+  final SocialMedia socialMedia;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 80,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Expanded(
+            child: Container(
+              height: 80,
+              color: Constants.profileColor.withOpacity(.8),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.navigate_next,
+                  size: 50,
+                  color: Constants.white,
+                  textDirection: TextDirection.ltr,
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Container(
+              color: Constants.darkBlue,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Center(
+                            widthFactor: 1,
+                            child: Text(
+                              socialMedia.name,
+                              style: GoogleFonts.cairo(
+                                textStyle: const TextStyle(
+                                  color: Constants.white,
+                                  height: 1.7,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 28,
+                                ),
+                              ),
+                            )),
+                        Center(
+                          widthFactor: 1,
+                          child: Text(
+                            'username@',
+                            style: GoogleFonts.cairo(
+                              textStyle: const TextStyle(
+                                color: Constants.white,
+                                height: 1,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Image.network(
+                      socialMedia.image,
+                      height: 65,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
