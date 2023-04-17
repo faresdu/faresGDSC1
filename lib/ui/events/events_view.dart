@@ -21,43 +21,40 @@ class _EventsViewState extends State<EventsView> {
             body: SingleChildScrollView(
               child: SafeArea(
                 child: Column(children: [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                    Column(
                       children: [
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 20),
-                              child: Image.asset("./assets/images/BarLogo.png"),
-                            ),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Image.asset("./assets/images/BarLogo.png"),
                         ),
-                        Column(
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(top: 50),
-                              child: Text(
-                                "الفعاليات",
-                                style: TextStyle(
-                                    fontSize: 32, fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ],
+                      ],
+                    ),
+                    Column(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(top: 50),
+                          child: Text(
+                            "الفعاليات",
+                            style: TextStyle(fontSize: 32, fontWeight: FontWeight.w500),
+                          ),
                         ),
-                        Column(
-                          children: const [
-                            SizedBox(
-                              width: 110,
-                            )
-                          ],
-                        ),
-                      ]),
+                      ],
+                    ),
+                    Column(
+                      children: const [
+                        SizedBox(
+                          width: 110,
+                        )
+                      ],
+                    ),
+                  ]),
                   Column(
                     children: viewmodel.events
                         .map(
                           (e) => EventCard(
                             event: e,
-                            signUpButton: viewmodel.getSignUpCardButton(e),
+                            signUpButton: viewmodel.getSignUpButton(e),
                             onPressed: () {
                               viewmodel.navigateToEvent(context, e);
                             },

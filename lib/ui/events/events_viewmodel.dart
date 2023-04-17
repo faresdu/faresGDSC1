@@ -32,11 +32,11 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
     }
   }
 
-  Widget getSignUpCardButton(Event event) {
+  Widget getSignUpButton(Event event) {
     if (event.isSignedUp(userService.user.id)) {
       return EventCardButton(
         text: 'سجل خروج',
-        color: Constants.grey.withOpacity(.9),
+        color: Constants.red.withOpacity(.9),
         onPressed: () async {
           await eventService.signOutFromEvent(event.eventID);
         },
@@ -44,15 +44,15 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
     } else if (event.isFull()) {
       return EventCardButton(
         text: 'المقاعد ممتلئة',
-        color: Constants.red.withOpacity(.9),
+        color: Constants.grey.withOpacity(.9),
         onPressed: () {
-          print('cant sign in');
+          print('cant');
         },
       );
     } else if (event.getPercentage() >= 75) {
       return EventCardButton(
         text: 'احجز مقعدك',
-        color: Constants.yellow.withOpacity(.9),
+        color: Constants.darkGrey.withOpacity(.9),
         onPressed: () async {
           await eventService.signUpToEvent(event.eventID);
         },
@@ -60,7 +60,7 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
     }
     return EventCardButton(
       text: 'احجز مقعدك',
-      color: Constants.green.withOpacity(.9),
+      color: Constants.darkBlue.withOpacity(.9),
       onPressed: () async {
         await eventService.signUpToEvent(event.eventID);
       },

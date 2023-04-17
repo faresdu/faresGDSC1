@@ -33,34 +33,34 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
     if (event.isSignedUp(userService.user.id)) {
       return EventDetailsSignupButton(
         text: 'سجل خروج',
+        color: Constants.red.withOpacity(.9),
         onPressed: () async {
           await eventService.signOutFromEvent(event.eventID);
         },
-        color: Constants.grey.withOpacity(.9),
       );
     } else if (event.isFull()) {
       return EventDetailsSignupButton(
         text: 'المقاعد ممتلئة',
+        color: Constants.grey.withOpacity(.9),
         onPressed: () {
           print('cant');
         },
-        color: Constants.red.withOpacity(.9),
       );
     } else if (event.getPercentage() >= 75) {
       return EventDetailsSignupButton(
         text: 'احجز مقعدك',
+        color: Constants.darkGrey.withOpacity(.9),
         onPressed: () async {
           await eventService.signUpToEvent(event.eventID);
         },
-        color: Constants.yellow.withOpacity(.9),
       );
     }
     return EventDetailsSignupButton(
       text: 'احجز مقعدك',
+      color: Constants.darkBlue.withOpacity(.9),
       onPressed: () async {
         await eventService.signUpToEvent(event.eventID);
       },
-      color: Constants.green.withOpacity(.9),
     );
   }
 }
