@@ -29,5 +29,6 @@ class ProfileViewModel extends FutureViewModel<Member> {
 
   Future<void> updateData() async {
     data = await futureToRun();
+    notifyListeners();
   }
 }

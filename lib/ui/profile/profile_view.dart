@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../core/models/member.dart';
 import '../../core/utils/constants.dart';
 import 'components/profile_social_media_card.dart';
+import 'components/profile_volunteer_hours_card.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -32,7 +33,7 @@ class _ProfileViewState extends State<ProfileView> {
                             onRefresh: viewmodel.updateData,
                             child: SingleChildScrollView(
                               child: Padding(
-                                padding: const EdgeInsets.all(17.0),
+                                padding: const EdgeInsets.all(15.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,10 +69,10 @@ class _ProfileViewState extends State<ProfileView> {
                                         Expanded(child: Container()),
                                       ],
                                     ),
-                                    const SizedBox(height: 45.0),
+                                    const SizedBox(height: 40),
                                     buildProfileCard(viewmodel.data!),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 30),
+                                      padding: const EdgeInsets.only(top: 25),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -134,13 +135,15 @@ class _ProfileViewState extends State<ProfileView> {
                                         Column(
                                             children: viewmodel.data!.events
                                                 .map(
-                                                  (e) => const Placeholder(),
+                                                  (e) => Placeholder(
+                                                    child: Text(e.title),
+                                                  ),
                                                 )
                                                 .toList()),
                                         Column(
                                             children: viewmodel.data!.volunteerHours
                                                 .map(
-                                                  (e) => const Placeholder(),
+                                                  (e) => ProfileVolunteerHoursCard(volunteerHours: e),
                                                 )
                                                 .toList()),
                                         Column(
@@ -153,7 +156,7 @@ class _ProfileViewState extends State<ProfileView> {
                                             children: viewmodel.data!.socials
                                                 .map(
                                                   (e) => Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical: 15.0),
+                                                    padding: const EdgeInsets.symmetric(vertical: 13.0),
                                                     child: ProfileSocialMediaCard(socialMedia: e),
                                                   ),
                                                 )
@@ -172,6 +175,7 @@ class _ProfileViewState extends State<ProfileView> {
 
   Widget buildProfileCard(Member member) {
     return Container(
+      clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         boxShadow: Constants.shadow6,
         borderRadius: BorderRadius.circular(5),
@@ -263,12 +267,31 @@ class _ProfileViewState extends State<ProfileView> {
     );
   }
 
-  Widget buildProfileButton({
-    required IconData icon,
-    required String bottomText,
-    Function()? onPressed,
-    required bool isSelected,
-  }) {
+  Widget buildProfileInfoBox({required int number, required String bottomText}) {
+    return Column(
+      children: [
+        Text(
+          "$number",
+          style: GoogleFonts.cairo(
+            height: 1,
+            fontSize: 32,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        Text(
+          bottomText,
+          style: GoogleFonts.cairo(
+            height: 1,
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            color: Constants.grey,
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget buildProfileButton({required IconData icon, required String bottomText, Function()? onPressed, required bool isSelected}) {
     return Column(
       children: [
         CircleAvatar(
@@ -291,30 +314,6 @@ class _ProfileViewState extends State<ProfileView> {
             color: Constants.grey,
           ),
         ),
-      ],
-    );
-  }
-
-  Widget buildProfileInfoBox({required int number, required String bottomText}) {
-    return Column(
-      children: [
-        Text(
-          "$number",
-          style: GoogleFonts.cairo(
-            height: 1,
-            fontSize: 32,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        Text(
-          bottomText,
-          style: GoogleFonts.cairo(
-            height: 1,
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-            color: Constants.grey,
-          ),
-        )
       ],
     );
   }
