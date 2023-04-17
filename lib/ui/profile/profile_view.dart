@@ -199,7 +199,7 @@ class _ProfileViewState extends State<ProfileView> {
                   CircleAvatar(
                     backgroundImage:
                         member.photo != null ? NetworkImage(member.photo!) : const AssetImage('assets/images/event-attendees.png') as ImageProvider,
-                    radius: 45.0,
+                    radius: 40,
                   ),
                   Expanded(
                     child: Column(
@@ -208,7 +208,7 @@ class _ProfileViewState extends State<ProfileView> {
                           member.name,
                           style: GoogleFonts.cairo(
                             textStyle: const TextStyle(
-                              fontSize: 30.0,
+                              fontSize: 26.0,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -216,7 +216,7 @@ class _ProfileViewState extends State<ProfileView> {
                         Text(
                           '${member.getRole()} ${member.committee.name}',
                           style: GoogleFonts.cairo(
-                            textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Constants.grey),
+                            textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Constants.grey),
                           ),
                         ),
                       ],
@@ -235,8 +235,8 @@ class _ProfileViewState extends State<ProfileView> {
           ),
           Container(
             padding: const EdgeInsets.symmetric(
-              vertical: 25,
-              horizontal: 9,
+              vertical: 20,
+              horizontal: 10,
             ),
             color: Constants.white,
             child: Row(

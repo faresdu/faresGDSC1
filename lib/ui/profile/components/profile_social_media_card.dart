@@ -27,7 +27,7 @@ class ProfileSocialMediaCard extends StatelessWidget {
           Expanded(
             child: Container(
               height: 80,
-              color: Constants.profileColor.withOpacity(.8),
+              color: const Color(0xFFBFDEF5),
               child: IconButton(
                 icon: const Icon(
                   Icons.navigate_next,
@@ -81,10 +81,10 @@ class ProfileSocialMediaCard extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: CachedNetworkImage(
                       imageUrl: socialMedia.image,
-                      height: 65,
+                      height: 55,
                     ),
                   ),
                 ],
