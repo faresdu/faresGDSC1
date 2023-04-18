@@ -16,6 +16,7 @@ class ProfileSocialMediaCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.all(15),
       height: 80,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(

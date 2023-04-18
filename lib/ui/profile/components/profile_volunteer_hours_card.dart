@@ -14,7 +14,7 @@ class ProfileVolunteerHoursCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(15),
       height: 55,
       decoration: BoxDecoration(color: Constants.darkBlue, borderRadius: BorderRadius.circular(10)),
       child: Row(
