@@ -14,8 +14,7 @@ class EventDetailsSignupButton extends StatefulWidget {
   final String text;
 
   @override
-  State<EventDetailsSignupButton> createState() =>
-      _EventDetailsSignupButtonState();
+  State<EventDetailsSignupButton> createState() => _EventDetailsSignupButtonState();
 }
 
 class _EventDetailsSignupButtonState extends State<EventDetailsSignupButton> {
@@ -23,8 +22,14 @@ class _EventDetailsSignupButtonState extends State<EventDetailsSignupButton> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: widget.color,
+        fixedSize: const Size(150, 50),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        elevation: 5,
+      ),
+      onPressed: () async {
         setState(() {
           isLoading = true;
         });
@@ -33,31 +38,19 @@ class _EventDetailsSignupButtonState extends State<EventDetailsSignupButton> {
           isLoading = false;
         });
       },
-      child: Container(
-        height: 50,
-        width: 150,
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-        decoration: BoxDecoration(
-            color: widget.color,
-            boxShadow: Constants.shadow2,
-            borderRadius: BorderRadius.circular(10)),
-        child: Center(
-          child: isLoading
-              ? const SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(
-                    color: Constants.white,
-                  ),
-                )
-              : Text(
-                  widget.text,
-                  style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Constants.white),
+      child: Center(
+        child: isLoading
+            ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  color: Constants.white,
                 ),
-        ),
+              )
+            : Text(
+                widget.text,
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Constants.white),
+              ),
       ),
     );
   }

@@ -87,7 +87,7 @@ class EventAttendees extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 7),
           child: const Text(
             'المشاركين',
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Constants.black),
           ),
         ),
         Row(children: images),

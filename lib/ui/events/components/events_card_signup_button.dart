@@ -22,8 +22,14 @@ class _EventCardButtonState extends State<EventCardButton> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () async {
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: widget.color,
+          fixedSize: const Size(double.maxFinite, 30),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          elevation: 5,
+        ),
+        onPressed: () async {
           setState(() {
             isLoading = true;
           });
@@ -32,34 +38,17 @@ class _EventCardButtonState extends State<EventCardButton> {
             isLoading = false;
           });
         },
-        child: Container(
-          margin: const EdgeInsets.only(top: 15),
-          height: 30,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            boxShadow: Constants.shadow5,
-            color: widget.color,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              isLoading
-                  ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        color: Constants.white,
-                      ),
-                    )
-                  : Text(
-                      widget.text,
-                      style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
-                          fontWeight: FontWeight.normal),
-                    )
-            ],
-          ),
-        ));
+        child: isLoading
+            ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  color: Constants.white,
+                ),
+              )
+            : Text(
+                widget.text,
+                style: const TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.normal),
+              ));
   }
 }
