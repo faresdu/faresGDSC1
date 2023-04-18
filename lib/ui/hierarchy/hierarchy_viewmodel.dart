@@ -12,11 +12,6 @@ class HierarchyViewModel extends BaseViewModel {
   final userService = locator<SupabaseService>();
   List<Committee> comms = [];
 
-  getMembers(String id) async {
-    // final res=await userService.getCommitteeMembers(id);
-    // return
-  }
-
   getComms() async {
     await userService.getCommittees().then((value) => comms = value);
     notifyListeners();
