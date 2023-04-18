@@ -3,7 +3,6 @@ import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/core/utils/form_validators.dart';
 import 'package:gdsc_app/ui/login/components/custom_input_field.dart';
 import 'package:gdsc_app/ui/login/components/login_button.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
 import 'login_viewmodel.dart';
@@ -34,25 +33,21 @@ class LoginView extends StatelessWidget {
                       CustomInputField(
                         hintText: 'الإيميل الجامعي أو الرقم الجامعي',
                         validator: (value) {
-                          //check if the value is correct studentID
-                          //if not check if its a valid email
-                          if (FormValidators.studentIDValidator(
-                                  value, viewmodel) !=
-                              null) {
-                            //checking if its a valid email
-                            return FormValidators.emailValidator(value);
-                          } else {
-                            //the value is studentID
-                            return null;
+                          //checking if its a valid student ID or email
+                          if (FormValidators.studentIDValidator(value) != null && FormValidators.emailValidator(value) != null) {
+                            // only if both have errors then input is incorrect
+                            return FormValidators.studentIDValidator(value);
                           }
+                          //the value is correct
+                          return null;
                         },
                         onSaved: (value) {
-                          if (viewmodel.isNumber) {
-                            viewmodel.email = '$value@student.ksu.edu.sa';
-                          } else {
-                            viewmodel.email = value;
-                          }
+                          viewmodel.fixEmail(value);
                         },
+                        onFieldSubmitted: (value) {
+                          viewmodel.passwordFocus.requestFocus();
+                        },
+                        focusNode: viewmodel.emailFocus,
                       ),
 
                       const SizedBox(height: 20),
@@ -68,6 +63,7 @@ class LoginView extends StatelessWidget {
                         onFieldSubmitted: (value) {
                           viewmodel.submitLogin(context);
                         },
+                        focusNode: viewmodel.passwordFocus,
                       ),
 
                       const SizedBox(height: 20),
@@ -86,6 +82,7 @@ class LoginView extends StatelessWidget {
                       //Login
                       LoginButton(
                         onPressed: () {
+                          viewmodel.passwordFocus.unfocus();
                           viewmodel.submitLogin(context);
                         },
                       ),
