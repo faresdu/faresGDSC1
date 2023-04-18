@@ -4,12 +4,9 @@ import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:stacked/stacked.dart';
 import '../../../core/utils/constants.dart';
 import '../components/event_attendees.dart';
-import '../components/event_details_date_box.dart';
-import '../components/event_details_info_box.dart';
 import 'event_details_viewmodel.dart';
 
-TextStyle titleStyle =
-    const TextStyle(fontSize: 24, fontWeight: FontWeight.w700, height: 3);
+TextStyle titleStyle = const TextStyle(fontSize: 24, fontWeight: FontWeight.w700, height: 3);
 
 class EventDetailsView extends StatefulWidget {
   final Event event;
@@ -56,26 +53,18 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        EventDateBox(
+                        buildEventDateBox(
                           day: viewmodel.eventDetails.startDate.day,
-                          month: DateHelper.getMonth(
-                              viewmodel.eventDetails.startDate),
+                          month: DateHelper.getMonth(viewmodel.eventDetails.startDate),
                         ),
-                        EventInfoBox(
-                          topText: DateHelper.getWeekDay(
-                              viewmodel.eventDetails.startDate),
+                        buildEventInfoBox(
+                          topText: DateHelper.getWeekDay(viewmodel.eventDetails.startDate),
                           bottomText: viewmodel.eventDetails.endDate != null
                               ? '${DateHelper.getHour(viewmodel.eventDetails.startDate)} - ${DateHelper.getHour(viewmodel.eventDetails.endDate!)}'
-                              : DateHelper.getHour(
-                                  viewmodel.eventDetails.startDate),
+                              : DateHelper.getHour(viewmodel.eventDetails.startDate),
                         ),
-                        EventInfoBox(
-                            topText: 'الموقع',
-                            bottomText: viewmodel.eventDetails.location),
-                        EventInfoBox(
-                            topText: 'المحاضر',
-                            bottomText: viewmodel.eventDetails.host ??
-                                viewmodel.eventDetails.instructorName)
+                        buildEventInfoBox(topText: 'الموقع', bottomText: viewmodel.eventDetails.location),
+                        buildEventInfoBox(topText: 'المحاضر', bottomText: viewmodel.eventDetails.host ?? viewmodel.eventDetails.instructorName)
                       ],
                     ),
                     Container(
@@ -96,10 +85,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                       flex: 3,
                       child: Text(
                         viewmodel.eventDetails.description ?? 'لا يوجد وصف',
-                        style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Constants.grey),
+                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Constants.grey),
                       ),
                     ),
                     Row(
@@ -117,10 +103,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                               padding: const EdgeInsets.only(right: 30),
                               child: Text(
                                 'المقاعد المتبقية ${viewmodel.eventDetails.getRemainingSeats()}',
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: Constants.grey),
+                                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Constants.grey),
                               ),
                             )
                           ],
@@ -133,5 +116,56 @@ class _EventDetailsViewState extends State<EventDetailsView> {
             ),
           );
         });
+  }
+
+  Widget buildEventInfoBox({
+    required String topText,
+    required String bottomText,
+    Function()? onPressed,
+  }) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Column(
+        children: [
+          Text(
+            topText,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Text(bottomText, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Constants.grey))
+        ],
+      ),
+    );
+  }
+
+  Widget buildEventDateBox({
+    required int day,
+    required String month,
+  }) {
+    return Container(
+      height: 50,
+      width: 50,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(13),
+        ),
+        color: Constants.grey.withOpacity(.1),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10.0),
+        child: Column(children: [
+          Text(
+            '$day',
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, height: 1),
+          ),
+          Text(
+            month,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, height: 1),
+          )
+        ]),
+      ),
+    );
   }
 }

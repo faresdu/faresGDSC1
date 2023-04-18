@@ -55,13 +55,11 @@ class EventCard extends StatelessWidget {
                     children: [
                       Text(
                         event.title,
-                        style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       Text(
                         event.instructorName,
-                        style: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -78,10 +76,7 @@ class EventCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Text(
                       "${DateHelper.getDate(event.startDate)}  -  ${event.isOnline ? "اونلاين" : "حضوري"}",
-                      style: const TextStyle(
-                          color: Constants.grey,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold),
+                      style: const TextStyle(color: Constants.grey, fontSize: 12, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Row(
@@ -96,13 +91,12 @@ class EventCard extends StatelessWidget {
                             ),
                             Text(
                               EventsViewModel.locationEventName(event.location),
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.normal),
+                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
                             ),
                           ],
                         ),
                       ),
-                      Flexible(
+                      Expanded(
                         child: EventAttendees(
                           attendees: event.attendees,
                         ),

@@ -25,9 +25,10 @@ class EventAttendees extends StatelessWidget {
               child: Text(
                 '0',
                 style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                    color: Constants.black),
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: Constants.black,
+                ),
               ),
             ),
           ),
@@ -45,9 +46,10 @@ class EventAttendees extends StatelessWidget {
               child: Text(
                 '+${attendees.length - 3}',
                 style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                    color: Constants.black),
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: Constants.black,
+                ),
               ),
             ),
           ),
@@ -66,8 +68,7 @@ class EventAttendees extends StatelessWidget {
               child: CircleAvatar(
                 backgroundImage: attendees[i].photo != null
                     ? NetworkImage(attendees[i].photo!)
-                    : const AssetImage('assets/images/event-attendees.png')
-                        as ImageProvider,
+                    : const AssetImage('assets/images/event-attendees.png') as ImageProvider,
                 backgroundColor: Constants.red,
                 radius: 10,
               ),
@@ -77,12 +78,13 @@ class EventAttendees extends StatelessWidget {
       );
     }
     return Row(
+      mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Image(image: AssetImage('assets/images/event-attendees.png')),
+        Image.asset('assets/images/event-attendees.png', width: 13),
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8),
+          margin: EdgeInsets.symmetric(horizontal: 7),
           child: const Text(
             'المشاركين',
             style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
