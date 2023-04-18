@@ -76,7 +76,9 @@ class Member {
     }
     int hours = 0;
     for (VolunteerHours v in volunteers) {
-      hours += v.hours;
+      if (v.isApproved != null && v.isApproved!) {
+        hours += v.hours;
+      }
     }
     return Member(
       id: map['user_id'] ?? '',

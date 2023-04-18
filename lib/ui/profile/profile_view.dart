@@ -25,43 +25,46 @@ class _ProfileViewState extends State<ProfileView> {
                     ? Text(viewmodel.modelError!)
                     : viewmodel.isBusy
                         ? const CircularProgressIndicator()
-                        : ListView(
-                            children: [
-                              CustomAppBar(
-                                title: 'المـلـف الـشـخـصـي',
-                                leading: IconButton(
-                                  onPressed: () async {
-                                    await viewmodel.signOut();
-                                  },
-                                  icon: const Icon(
-                                    Icons.logout_rounded,
-                                    size: 40,
-                                    color: Constants.black,
+                        : RefreshIndicator(
+                            onRefresh: viewmodel.refreshData,
+                            child: ListView(
+                              children: [
+                                CustomAppBar(
+                                  title: 'المـلـف الـشـخـصـي',
+                                  leading: IconButton(
+                                    onPressed: () async {
+                                      await viewmodel.signOut();
+                                    },
+                                    icon: const Icon(
+                                      Icons.logout_rounded,
+                                      size: 40,
+                                      color: Constants.black,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-                                child: ProfileCard(member: viewmodel.data!),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 20),
-                                child: Flex(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  direction: Axis.horizontal,
-                                  children: viewmodel.getButtons(),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                                  child: ProfileCard(member: viewmodel.data!),
                                 ),
-                              ),
-                              const Divider(
-                                endIndent: 30,
-                                indent: 30,
-                                color: Constants.grey,
-                                thickness: 2,
-                                height: 30,
-                              ),
-                              viewmodel.getBottomWidget(),
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  child: Flex(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    direction: Axis.horizontal,
+                                    children: viewmodel.getButtons(),
+                                  ),
+                                ),
+                                const Divider(
+                                  endIndent: 30,
+                                  indent: 30,
+                                  color: Constants.grey,
+                                  thickness: 2,
+                                  height: 30,
+                                ),
+                                viewmodel.getBottomWidget(),
+                              ],
+                            ),
                           ),
               ),
             ),

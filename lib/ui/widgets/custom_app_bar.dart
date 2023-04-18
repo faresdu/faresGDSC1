@@ -21,22 +21,19 @@ class CustomAppBar extends StatelessWidget {
       elevation: 0,
       backgroundColor: Colors.transparent,
       leading: leading,
-      title: Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: Text(
-          title,
-          style: GoogleFonts.cairo(
-            textStyle: const TextStyle(
-              fontSize: 32.0,
-              fontWeight: FontWeight.w500,
-              color: Constants.black,
-            ),
+      title: Text(
+        title,
+        style: GoogleFonts.cairo(
+          textStyle: const TextStyle(
+            fontSize: 32.0,
+            fontWeight: FontWeight.w500,
+            color: Constants.black,
           ),
         ),
       ),
       actions: actions,
       centerTitle: true,
-      toolbarHeight: 100,
+      toolbarHeight: 80,
     );
   }
 }

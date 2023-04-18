@@ -20,40 +20,15 @@ class ProfileViewModel extends FutureViewModel<Member> {
   final navService = locator<NavigationService>();
 
   int index = 0;
-  late List<Widget> widgets = [
-    GridView(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-        children: data!.events
-            .map(
-              (e) => ProfileEventCard(event: e),
-            )
-            .toList()),
-    Column(
-        children: data!.volunteerHours
-            .map(
-              (e) => ProfileVolunteerHoursCard(volunteerHours: e),
-            )
-            .toList()),
-    Column(
-        children: []
-            .map(
-              (e) => const Placeholder(),
-            )
-            .toList()),
-    Column(
-        children: data!.socials
-            .map(
-              (e) => ProfileSocialMediaCard(socialMedia: e),
-            )
-            .toList()),
-  ];
 
   @override
   Future<Member> futureToRun() async {
     return await supabaseService.getMemberProfile(userService.user.id);
+  }
+
+  Future<void> refreshData() async {
+    data = await futureToRun();
+    notifyListeners();
   }
 
   Future<void> signOut() async {
@@ -62,7 +37,43 @@ class ProfileViewModel extends FutureViewModel<Member> {
   }
 
   Widget getBottomWidget() {
-    return widgets[index];
+    if (index == 0) {
+      return GridView(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+          children: data!.events
+              .map(
+                (e) => ProfileEventCard(event: e),
+              )
+              .toList());
+    } else if (index == 1) {
+      return Column(
+          children: data!.volunteerHours.map((e) {
+        if (e.isPending()) {
+          return ProfileVolunteerHoursCard(volunteerHours: e);
+        } else if (e.isApproved!) {
+          return ProfileVolunteerHoursCard(volunteerHours: e);
+        }
+        return ProfileVolunteerHoursCard(volunteerHours: e);
+      }).toList());
+    } else if (index == 2) {
+      return Column(
+          children: []
+              .map(
+                (e) => const Placeholder(),
+              )
+              .toList());
+    } else if (index == 3) {
+      return Column(
+          children: data!.socials
+              .map(
+                (e) => ProfileSocialMediaCard(socialMedia: e),
+              )
+              .toList());
+    }
+    return Container();
   }
 
   List<Widget> getButtons() {
