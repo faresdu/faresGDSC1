@@ -12,10 +12,12 @@ class EventCard extends StatelessWidget {
     required this.event,
     required this.onPressed,
     required this.signUpButton,
+    required this.canEdit,
   }) : super(key: key);
   final Event event;
   final Function() onPressed;
   final Widget signUpButton;
+  final bool canEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +77,19 @@ class EventCard extends StatelessWidget {
                       ],
                     ),
                   ),
+                  if (canEdit)
+                    Flexible(
+                      child: Align(
+                        alignment: const Alignment(-1, 0),
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.edit,
+                            color: Constants.black,
+                          ),
+                        ),
+                      ),
+                    ),
                 ],
               ),
               Padding(

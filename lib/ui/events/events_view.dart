@@ -17,6 +17,17 @@ class _EventsViewState extends State<EventsView> {
         viewModelBuilder: () => EventsViewModel(),
         builder: (context, viewmodel, _) {
           return Scaffold(
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                viewmodel.addEvent(
+                  title: 'hi',
+                  isOnline: true,
+                  location: 'online',
+                  maxAttendees: 1,
+                  startDate: DateTime.utc(2024),
+                );
+              },
+            ),
             body: SafeArea(
               child: ListView(children: [
                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -52,6 +63,7 @@ class _EventsViewState extends State<EventsView> {
                       .map(
                         (e) => EventCard(
                           event: e,
+                          canEdit: viewmodel.canEditEvent(e),
                           signUpButton: viewmodel.getSignUpButton(e),
                           onPressed: () {
                             viewmodel.navigateToEvent(context, e);

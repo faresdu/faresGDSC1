@@ -4,6 +4,7 @@ import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
+import '../../core/models/member.dart';
 import '../../core/services/event_service.dart';
 import '../../core/services/supabase_service.dart';
 import '../../core/utils/constants.dart';
@@ -46,6 +47,7 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
         text: 'المقاعد ممتلئة',
         color: Constants.grey.withOpacity(.9),
         onPressed: () {
+          //show dialog
           print('cant');
         },
       );
@@ -65,6 +67,43 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
         await eventService.signUpToEvent(event.eventID);
       },
     );
+  }
+
+  Future<void> addEvent({
+    required String title,
+    required DateTime startDate,
+    required int maxAttendees,
+    required String location,
+    required bool isOnline,
+  }) async {
+    //check if user is leader or co leader
+    if (true) {
+      Member member = userService.user;
+      await eventService.addEvent(Event(
+        eventID: '',
+        instructorID: member.id,
+        instructorName: member.name,
+        title: title,
+        startDate: startDate,
+        attendees: [],
+        maxAttendees: maxAttendees,
+        location: location,
+        isOnline: isOnline,
+      ));
+    }
+  }
+
+  Future<void> deleteEvent(Event event) async {
+    //check if user is leader or co leader
+    if (true) {
+      await eventService.deleteEvent(event);
+    }
+  }
+
+  Future<void> editEvent(Event event) async {
+    if (event.isOwner(userService.user.id)) {
+      await eventService.editEvent(event);
+    }
   }
 
   navigateToEvent(BuildContext context, Event event) async {
@@ -88,4 +127,9 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
 
   @override
   Stream<List<Event>> get stream => eventService.eventsController.stream;
+
+  bool canEditEvent(Event event) {
+    //check if user is leader or co leader
+    return event.isOwner(userService.user.id);
+  }
 }
