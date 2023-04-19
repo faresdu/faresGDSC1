@@ -14,8 +14,6 @@ class Member {
   final List<SocialMedia> socials;
   final List<Event> events;
   final List<VolunteerHours> volunteerHours;
-  final bool isLeader;
-  final bool isCoLeader;
 
   Member({
     required this.id,
@@ -28,8 +26,6 @@ class Member {
     required this.socials,
     required this.events,
     required this.volunteerHours,
-    this.isLeader = false,
-    this.isCoLeader = false,
   });
 
   factory Member.anonymous() {
@@ -46,10 +42,18 @@ class Member {
     );
   }
 
+  bool isLeader() {
+    return id == committee.leaderID;
+  }
+
+  bool isCoLeader() {
+    return id == committee.coLeaderID;
+  }
+
   String getRole() {
-    if (isLeader) {
+    if (isLeader()) {
       return "قائد";
-    } else if (isCoLeader) {
+    } else if (isCoLeader()) {
       return "نائب قائد";
     }
     return 'عضو';
@@ -91,8 +95,6 @@ class Member {
       events: events,
       socials: socials,
       volunteerHours: volunteers,
-      isLeader: map['isleader'] ?? false,
-      isCoLeader: map['iscoleader'] ?? false,
     );
   }
 }
