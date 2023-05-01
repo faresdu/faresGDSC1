@@ -20,6 +20,16 @@ class EventDetailsSignupButton extends StatefulWidget {
 class _EventDetailsSignupButtonState extends State<EventDetailsSignupButton> {
   bool isLoading = false;
 
+  void runFuture() async {
+    setState(() {
+      isLoading = true;
+    });
+    await widget.onPressed();
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -29,15 +39,8 @@ class _EventDetailsSignupButtonState extends State<EventDetailsSignupButton> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 5,
       ),
-      onPressed: () async {
-        setState(() {
-          isLoading = true;
-        });
-        await widget.onPressed();
-        setState(() {
-          isLoading = false;
-        });
-      },
+      // onPressed: isLoading ? null : runFuture,
+      onPressed: runFuture,
       child: Center(
         child: isLoading
             ? const SizedBox(

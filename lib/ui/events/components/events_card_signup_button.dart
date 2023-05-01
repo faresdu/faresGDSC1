@@ -20,6 +20,16 @@ class EventCardButton extends StatefulWidget {
 class _EventCardButtonState extends State<EventCardButton> {
   bool isLoading = false;
 
+  void runFuture() async {
+    setState(() {
+      isLoading = true;
+    });
+    await widget.onPressed();
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -29,15 +39,8 @@ class _EventCardButtonState extends State<EventCardButton> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           elevation: 5,
         ),
-        onPressed: () async {
-          setState(() {
-            isLoading = true;
-          });
-          await widget.onPressed();
-          setState(() {
-            isLoading = false;
-          });
-        },
+        // onPressed: isLoading ? null : runFuture,
+        onPressed: runFuture,
         child: isLoading
             ? const SizedBox(
                 width: 20,
