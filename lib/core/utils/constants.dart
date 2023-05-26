@@ -14,6 +14,7 @@ class Constants {
   static const Color yellow = Color(0xFFF8BC18);
   static const Color lightYellow = Color(0xFFFADC86);
   static const Color lightBlue = Color(0xFF0682BC);
+  static const Color blueButton = Color(0xFF4285F4);
   static const Color blue = Color(0xFF547DBF);
   static const Color darkBlue = Color(0xFF212A40);
   static const Color cyan = Color(0xFF7CB9E5);
@@ -66,5 +67,4 @@ class Constants {
   static TextStyle verySmallText = GoogleFonts.cairo().copyWith(
     fontSize: 15,
   );
-
 }
