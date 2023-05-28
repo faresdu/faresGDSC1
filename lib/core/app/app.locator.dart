@@ -12,6 +12,7 @@ import 'package:stacked_shared/stacked_shared.dart';
 import '../services/authentication_service.dart';
 import '../services/event_service.dart';
 import '../services/supabase_service.dart';
+import '../services/timeline_service.dart';
 import '../services/user_service.dart';
 
 final locator = StackedLocator.instance;
@@ -28,6 +29,7 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => UserService());
   locator.registerLazySingleton(() => AuthenticationService());
+  locator.registerLazySingleton(() => TimelineService());
   locator.registerLazySingleton(() => EventService());
   final supabaseService = await SupabaseService.getInstance();
   locator.registerSingleton(supabaseService);
