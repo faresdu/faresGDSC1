@@ -18,10 +18,14 @@ abstract class HelperFunctions {
 
   /// Returns SvgPicture or Image based on the passed image url
   static Widget profileImage(
-      {required String imageUrl,
+      {String imageUrl = '',
       double height = 65.0,
       double width = 65.0,
       BoxFit fit = BoxFit.cover}) {
+    if (imageUrl.isEmpty) {
+      return Image.asset("assets/images/man.png",
+          height: height, width: width, fit: BoxFit.cover);
+    }
     if (imageUrl.lastChars(3) == 'svg') {
       return SvgPicture.network(imageUrl,
           height: height, width: width, fit: BoxFit.cover);

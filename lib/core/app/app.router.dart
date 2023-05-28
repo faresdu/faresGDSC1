@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
-// StackedRouterGenerator
+// StackedNavigatorGenerator
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -104,63 +104,63 @@ class StackedRouter extends _i1.RouterBase {
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.StartUpView: (data) {
-      return MaterialPageRoute<dynamic>(
+      return _i12.MaterialPageRoute<dynamic>(
         builder: (context) => _i2.StartUpView(),
         settings: data,
       );
     },
     _i3.LoginView: (data) {
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => _i3.LoginView(),
+      return _i12.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i3.LoginView(),
         settings: data,
       );
     },
     _i4.NavigationView: (data) {
-      return MaterialPageRoute<dynamic>(
+      return _i12.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.NavigationView(),
         settings: data,
       );
     },
     _i5.TimeLineView: (data) {
-      return MaterialPageRoute<dynamic>(
+      return _i12.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.TimeLineView(),
         settings: data,
       );
     },
     _i6.EventsView: (data) {
-      return MaterialPageRoute<dynamic>(
+      return _i12.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.EventsView(),
         settings: data,
       );
     },
     _i7.EventDetailsView: (data) {
       final args = data.getArgs<EventDetailsViewArguments>(nullOk: false);
-      return MaterialPageRoute<dynamic>(
+      return _i12.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i7.EventDetailsView(key: args.key, event: args.event),
         settings: data,
       );
     },
     _i8.HierarchyView: (data) {
-      return MaterialPageRoute<dynamic>(
+      return _i12.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.HierarchyView(),
         settings: data,
       );
     },
     _i9.ProfileView: (data) {
-      return MaterialPageRoute<dynamic>(
+      return _i12.MaterialPageRoute<dynamic>(
         builder: (context) => const _i9.ProfileView(),
         settings: data,
       );
     },
     _i10.CommitteeMembersView: (data) {
-      return MaterialPageRoute<dynamic>(
+      return _i12.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.CommitteeMembersView(),
         settings: data,
       );
     },
     _i11.LeaderboardView: (data) {
-      return MaterialPageRoute<dynamic>(
+      return _i12.MaterialPageRoute<dynamic>(
         builder: (context) => const _i11.LeaderboardView(),
         settings: data,
       );
@@ -183,6 +183,22 @@ class EventDetailsViewArguments {
   final _i12.Key? key;
 
   final _i13.Event event;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "event": "$event"}';
+  }
+
+  @override
+  bool operator ==(covariant EventDetailsViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.event == event;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ event.hashCode;
+  }
 }
 
 extension NavigatorStateExtension on _i14.NavigationService {

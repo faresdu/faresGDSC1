@@ -12,8 +12,8 @@ import 'package:gdsc_app/ui/navigation/navigation_view.dart';
 import 'package:gdsc_app/ui/startup/startup_view.dart';
 import 'package:gdsc_app/ui/timeline/timeline_view.dart';
 import 'package:gdsc_app/core/services/authentication_service.dart';
-
 import '../../ui/leaderboard/leaderboard_view.dart';
+import '../services/timeline_service.dart';
 import '../services/event_service.dart';
 
 @StackedApp(
@@ -35,6 +35,7 @@ import '../services/event_service.dart';
     LazySingleton<NavigationService>(classType: NavigationService),
     LazySingleton<UserService>(classType: UserService),
     LazySingleton<AuthenticationService>(classType: AuthenticationService),
+    LazySingleton<TimelineService>(classType: TimelineService),
     LazySingleton<EventService>(classType: EventService),
     Presolve(
       classType: SupabaseService,
