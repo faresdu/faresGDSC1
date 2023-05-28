@@ -16,14 +16,23 @@ class _NavigationViewState extends State<NavigationView> {
   int currentTab = 0;
   final PageStorageBucket bucket = PageStorageBucket();
 
-  Widget currentScreen = HierarchyView();
+  final List<Widget> pages = [
+    const HierarchyView(),
+    const ProfileView(),
+    const LeaderboardView(),
+    const TimeLineView(),
+    const EventsView(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageStorage(
-        child: currentScreen,
         bucket: bucket,
+        child: IndexedStack(
+          index: currentTab,
+          children: pages,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
@@ -40,7 +49,6 @@ class _NavigationViewState extends State<NavigationView> {
                 minWidth: 10,
                 onPressed: () {
                   setState(() {
-                    currentScreen = EventsView();
                     currentTab = 4;
                   });
                 },
@@ -71,7 +79,6 @@ class _NavigationViewState extends State<NavigationView> {
                 minWidth: 10,
                 onPressed: () {
                   setState(() {
-                    currentScreen = TimeLineView();
                     currentTab = 3;
                   });
                 },
@@ -100,11 +107,12 @@ class _NavigationViewState extends State<NavigationView> {
                   ],
                 ),
               ),
+
+              /// floating action
               MaterialButton(
                 minWidth: 20,
                 onPressed: () {
                   setState(() {
-                    currentScreen = HierarchyView();
                     currentTab = 0;
                   });
                 },
@@ -121,7 +129,6 @@ class _NavigationViewState extends State<NavigationView> {
                 minWidth: 10,
                 onPressed: () {
                   setState(() {
-                    currentScreen = LeaderboardView();
                     currentTab = 2;
                   });
                 },
@@ -154,7 +161,6 @@ class _NavigationViewState extends State<NavigationView> {
                 minWidth: 10,
                 onPressed: () {
                   setState(() {
-                    currentScreen = ProfileView();
                     currentTab = 1;
                   });
                 },
