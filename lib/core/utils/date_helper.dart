@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class DateHelper {
   static final Map<int, String> day = {
     1: 'الإثنين',
@@ -37,6 +39,10 @@ class DateHelper {
   }
 
   static String getHour(DateTime d) {
+    return getHourTOD(TimeOfDay.fromDateTime(d));
+  }
+
+  static String getHourTOD(TimeOfDay d) {
     int hour = d.hour;
     int minutes = d.minute;
     String x;
