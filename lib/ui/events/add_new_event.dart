@@ -60,22 +60,11 @@ class _AddEventViewState extends State<AddEventView> {
                       icon: SvgPicture.asset('assets/icons/events/add_image.svg'),
                     ),
                   ),
-                  CustomField(
-                    title: 'العنوان',
-                    child: TextField(
-                      maxLines: 1,
-                      controller: titleController,
-                      decoration: const InputDecoration(
-                        hintText: '',
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 15),
-                      ),
-                    ),
-                  ),
+                  CustomTextField(title: 'العنوان', controller: titleController),
                   Row(
                     children: [
                       Expanded(
-                        child: CustomField(
+                        child: CustomFieldButton(
                           title: 'التاريخ',
                           onPressed: () async {
                             final DateTime? date = await showDatePicker(
@@ -84,116 +73,60 @@ class _AddEventViewState extends State<AddEventView> {
                               dateTime = date;
                             });
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset('assets/icons/events/date.svg', width: 22),
-                                Expanded(
-                                  child: Center(
-                                    child: dateTime == null ? const Text('لم يحدد') : Text(DateHelper.getDate(dateTime!)),
-                                  ),
-                                ),
-                                const SizedBox(width: 22),
-                              ],
-                            ),
-                          ),
+                          icon: SvgPicture.asset('assets/icons/events/date.svg', width: 22),
+                          child: dateTime == null ? const Text('لم يحدد') : Text(DateHelper.getDate(dateTime!)),
                         ),
                       ),
                       Expanded(
-                        child: CustomField(
-                          title: 'الوقت',
-                          onPressed: () async {
-                            final TimeOfDay? time = await showTimePicker(
-                              context: context,
-                              initialTime: TimeOfDay.now(),
-                            );
-                            setState(() {
-                              timeOfDay = time;
-                            });
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset('assets/icons/events/time.svg', width: 22),
-                                Expanded(
-                                  child: Center(
-                                    child: timeOfDay == null ? const Text('لم يحدد') : Text(DateHelper.getHourTOD(timeOfDay!)),
-                                  ),
-                                ),
-                                const SizedBox(width: 22),
-                              ],
-                            ),
-                          ),
-                        ),
+                        child: CustomFieldButton(
+                            title: 'الوقت',
+                            onPressed: () async {
+                              final TimeOfDay? time = await showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay.now(),
+                              );
+                              setState(() {
+                                timeOfDay = time;
+                              });
+                            },
+                            icon: SvgPicture.asset('assets/icons/events/time.svg', width: 22),
+                            child: timeOfDay == null ? const Text('لم يحدد') : Text(DateHelper.getHourTOD(timeOfDay!))),
                       ),
                     ],
                   ),
                   Row(
-                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
-                        child: CustomField(
-                            title: 'النوع',
-                            onPressed: () {
-                              setState(() {
-                                isOnline = !isOnline;
-                              });
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
-                              child: Center(child: Text(isOnline ? 'اون لاين' : 'حضوري')),
-                            )),
-                      ),
-                      Expanded(
-                        child: CustomField(
-                          title: 'أقصى عدد للحضور',
-                          height: 45,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset('assets/icons/events/attendees.svg', width: 22,),
-                                Expanded(
-                                  child: TextField(
-                                    keyboardType: TextInputType.number,
-                                    controller: attendeesController,
-                                    decoration: const InputDecoration(
-                                      border: InputBorder.none,
-                                      contentPadding: EdgeInsets.symmetric(horizontal: 15),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                        child: CustomFieldButton(
+                          title: 'النوع',
+                          onPressed: () {
+                            setState(() {
+                              isOnline = !isOnline;
+                            });
+                          },
+                          child: Text(isOnline ? 'اون لاين' : 'حضوري'),
                         ),
                       ),
+                      Expanded(
+                        child: CustomTextField(
+                          title: 'أقصى عدد للحضور',
+                          controller: attendeesController,
+                          type: TextInputType.number,
+                          icon: SvgPicture.asset(
+                            'assets/icons/events/attendees.svg',
+                          ),
+                        ),
+                      )
                     ],
                   ),
-                  CustomField(
+                  CustomTextField(
                     title: 'الموقع',
-                    height: 45,
-                    child: TextField(
-                      controller: locationController,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 15),
-                      ),
-                    ),
+                    controller: locationController,
                   ),
-                  CustomField(
+                  CustomTextField(
                     title: 'الوصف',
-                    height: 4 * 45,
-                    child: TextField(
-                      maxLines: 4,
-                      controller: descriptionController,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 15),
-                      ),
-                    ),
+                    controller: descriptionController,
+                    maxLines: 4,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 15, horizontal: MediaQuery.of(context).size.width * 0.1),
@@ -208,7 +141,7 @@ class _AddEventViewState extends State<AddEventView> {
     );
   }
 
-  Widget CustomField({required String title, Widget? child, onPressed, double? height}) {
+  Widget _TextWithChild({required String title, required Widget child}) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Column(
@@ -225,15 +158,40 @@ class _AddEventViewState extends State<AddEventView> {
           const SizedBox(
             height: 7,
           ),
-          GestureDetector(
-            onTap: onPressed,
-            child: Container(
-              height: height ?? 45,
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
-              child: child,
+          child,
+        ],
+      ),
+    );
+  }
+
+  Widget CustomFieldButton({required String title, Widget? icon, onPressed, double? height, Widget? child}) {
+    return _TextWithChild(
+      title: title,
+      child: MaterialButton(
+        elevation: 0,
+        height: height ?? 47,
+        onPressed: onPressed,
+        padding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        color: Colors.white,
+        child: Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                icon ??
+                    const SizedBox(
+                      width: 22,
+                    ),
+                Expanded(child: Center(child: child)),
+                const SizedBox(
+                  width: 22,
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -264,6 +222,46 @@ class _AddEventViewState extends State<AddEventView> {
           fontSize: 16,
           fontWeight: FontWeight.w700,
         ),
+      ),
+    );
+  }
+
+  Widget CustomTextField({required String title, required TextEditingController controller, int maxLines = 1, Widget? icon, TextInputType? type}) {
+    return _TextWithChild(
+      title: title,
+      child: TextField(
+        keyboardType: type,
+        maxLines: maxLines,
+        controller: controller,
+        decoration: InputDecoration(
+            prefixIcon: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: icon,
+            ),
+            prefixIconConstraints: const BoxConstraints(maxWidth: 22 + 30),
+            contentPadding: EdgeInsets.zero,
+            fillColor: Colors.white,
+            filled: true,
+            disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(20),
+            )),
       ),
     );
   }
