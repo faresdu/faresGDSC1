@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../core/utils/constants.dart';
 
@@ -18,6 +19,7 @@ class _AddEventViewState extends State<AddEventView> {
   TextEditingController attendeesController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  XFile? image;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +49,14 @@ class _AddEventViewState extends State<AddEventView> {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
-                    child: Icon(Icons.image),
+                    child: IconButton(
+                        onPressed: () async {
+                          final ImagePicker picker = ImagePicker();
+                          image = await picker.pickImage(source: ImageSource.gallery);
+                        },
+                        icon: Icon(Icons.image)),
                   ),
                   CustomField(
                     title: 'العنوان',
@@ -146,20 +153,17 @@ class _AddEventViewState extends State<AddEventView> {
                       Expanded(
                         child: CustomField(
                           title: 'أقصى عدد للحضور',
-                          onPressed: () {},
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                              children: [
-                                Icon(Icons.people),
-                                // TextField(
-                                //   controller: attendeesController,
-                                //   decoration: const InputDecoration(
-                                //     border: InputBorder.none,
-                                //     contentPadding: EdgeInsets.symmetric(horizontal: 15),
-                                //   ),
-                                // ),
-                              ],
+                          height: 45,
+                          child: TextField(
+                            keyboardType: TextInputType.number,
+                            controller: attendeesController,
+                            decoration: const InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.people,
+                                color: Colors.black,
+                              ),
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.symmetric(horizontal: 15),
                             ),
                           ),
                         ),
@@ -243,6 +247,7 @@ class _AddEventViewState extends State<AddEventView> {
           print(attendeesController.value.text);
           print(locationController.value.text);
           print(descriptionController.value.text);
+          print(image?.path);
         }
       },
       style: TextButton.styleFrom(
