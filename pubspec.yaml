@@ -42,4 +42,5 @@ flutter:
   assets:
     - assets/icons/
     - assets/icons/navigation/
+    - assets/icons/events/
     - assets/images/

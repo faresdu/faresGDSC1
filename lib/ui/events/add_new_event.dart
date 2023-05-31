@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -52,11 +53,12 @@ class _AddEventViewState extends State<AddEventView> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: IconButton(
-                        onPressed: () async {
-                          final ImagePicker picker = ImagePicker();
-                          image = await picker.pickImage(source: ImageSource.gallery);
-                        },
-                        icon: Icon(Icons.image)),
+                      onPressed: () async {
+                        final ImagePicker picker = ImagePicker();
+                        image = await picker.pickImage(source: ImageSource.gallery);
+                      },
+                      icon: SvgPicture.asset('assets/icons/events/add_image.svg'),
+                    ),
                   ),
                   CustomField(
                     title: 'العنوان',
@@ -86,10 +88,7 @@ class _AddEventViewState extends State<AddEventView> {
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Row(
                               children: [
-                                const Icon(
-                                  Icons.calendar_month_outlined,
-                                  size: 22,
-                                ),
+                                SvgPicture.asset('assets/icons/events/date.svg', width: 22),
                                 Expanded(
                                   child: Center(
                                     child: dateTime == null ? const Text('لم يحدد') : Text(DateHelper.getDate(dateTime!)),
@@ -117,10 +116,7 @@ class _AddEventViewState extends State<AddEventView> {
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Row(
                               children: [
-                                const Icon(
-                                  Icons.timer,
-                                  size: 22,
-                                ),
+                                SvgPicture.asset('assets/icons/events/time.svg', width: 22),
                                 Expanded(
                                   child: Center(
                                     child: timeOfDay == null ? const Text('لم يحدد') : Text(DateHelper.getHourTOD(timeOfDay!)),
@@ -154,16 +150,22 @@ class _AddEventViewState extends State<AddEventView> {
                         child: CustomField(
                           title: 'أقصى عدد للحضور',
                           height: 45,
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            controller: attendeesController,
-                            decoration: const InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.people,
-                                color: Colors.black,
-                              ),
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Row(
+                              children: [
+                                SvgPicture.asset('assets/icons/events/attendees.svg', width: 22,),
+                                Expanded(
+                                  child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    controller: attendeesController,
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                      contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
