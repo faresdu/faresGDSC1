@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
-import 'package:gdsc_app/ui/events/add_new_event.dart';
+import 'package:gdsc_app/ui/events/add_event/add_event_view.dart';
 import 'package:gdsc_app/ui/events/components/events_card.dart';
 import 'package:gdsc_app/ui/events/events_viewmodel.dart';
 import 'package:stacked/stacked.dart';

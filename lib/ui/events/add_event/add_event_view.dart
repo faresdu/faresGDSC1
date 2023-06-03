@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../core/utils/constants.dart';
+import '../../../core/utils/constants.dart';
 
 class AddEventView extends StatefulWidget {
   const AddEventView({Key? key}) : super(key: key);
