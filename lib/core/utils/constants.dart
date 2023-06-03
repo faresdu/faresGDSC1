@@ -18,6 +18,7 @@ class Constants {
   static const Color blue = Color(0xFF547DBF);
   static const Color darkBlue = Color(0xFF212A40);
   static const Color cyan = Color(0xFF7CB9E5);
+  static const Color profileColor = Color(0xFFBFDEF5);
   static const Color white = Colors.white;
   static const Color black = Colors.black;
 
@@ -49,6 +50,18 @@ class Constants {
         color: Colors.black.withOpacity(.25),
         blurRadius: 20,
         offset: const Offset(0, 10)),
+  ];
+  static List<BoxShadow> shadow6 = [
+    BoxShadow(
+      color: Colors.black.withOpacity(.25),
+      blurRadius: 10,
+      offset: const Offset(0, -7),
+    ),
+    BoxShadow(
+      color: Colors.black.withOpacity(.25),
+      blurRadius: 10,
+      offset: const Offset(0, 5),
+    ),
   ];
 
   static TextStyle veryLargeText = GoogleFonts.cairo().copyWith(
