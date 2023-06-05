@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/hierarchy/hierarchy_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/hierarchy_button.dart';
 import 'package:stacked/stacked.dart';
+import 'package:gdsc_app/ui/userHours/requests_page.dart';
 
 class HierarchyView extends StatefulWidget {
   const HierarchyView({Key? key}) : super(key: key);
@@ -37,6 +38,13 @@ class _HierarchyViewState extends State<HierarchyView> {
                   )
                 ],
               ),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Requestspage()));
+              },
+              child: Icon(Icons.add),
             ),
           );
         });

@@ -16,6 +16,7 @@ import '../../ui/leaderboard/leaderboard_view.dart';
 import '../services/timeline_service.dart';
 import '../services/event_service.dart';
 
+
 @StackedApp(
   routes: [
     // Register all views
@@ -28,7 +29,8 @@ import '../services/event_service.dart';
     MaterialRoute(page: HierarchyView),
     MaterialRoute(page: ProfileView),
     MaterialRoute(page: CommitteeMembersView),
-    MaterialRoute(page: LeaderboardView)
+    MaterialRoute(page: LeaderboardView),
+
   ],
   // Register all Services
   dependencies: [
