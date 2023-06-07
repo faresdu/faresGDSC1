@@ -4,6 +4,7 @@ import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../core/utils/constants.dart';
+import 'package:gdsc_app/ui/events/events_viewmodel.dart';
 
 class EditEventButton extends StatefulWidget {
   final Event eventDetails;

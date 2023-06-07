@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:gdsc_app/ui/events/events_viewmodel.dart';
 import '../../core/utils/constants.dart';
 
 class AddEventView extends StatefulWidget {
@@ -55,12 +55,15 @@ class _AddEventViewState extends State<AddEventView> {
                     child: IconButton(
                       onPressed: () async {
                         final ImagePicker picker = ImagePicker();
-                        image = await picker.pickImage(source: ImageSource.gallery);
+                        image =
+                            await picker.pickImage(source: ImageSource.gallery);
                       },
-                      icon: SvgPicture.asset('assets/icons/events/add_image.svg'),
+                      icon:
+                          SvgPicture.asset('assets/icons/events/add_image.svg'),
                     ),
                   ),
-                  CustomTextField(title: 'العنوان', controller: titleController),
+                  CustomTextField(
+                      title: 'العنوان', controller: titleController),
                   Row(
                     children: [
                       Expanded(
@@ -68,13 +71,19 @@ class _AddEventViewState extends State<AddEventView> {
                           title: 'التاريخ',
                           onPressed: () async {
                             final DateTime? date = await showDatePicker(
-                                context: context, initialDate: DateTime.now(), firstDate: DateTime(2020), lastDate: DateTime(2040));
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2020),
+                                lastDate: DateTime(2040));
                             setState(() {
                               dateTime = date;
                             });
                           },
-                          icon: SvgPicture.asset('assets/icons/events/date.svg', width: 22),
-                          child: dateTime == null ? const Text('لم يحدد') : Text(DateHelper.getDate(dateTime!)),
+                          icon: SvgPicture.asset('assets/icons/events/date.svg',
+                              width: 22),
+                          child: dateTime == null
+                              ? const Text('لم يحدد')
+                              : Text(DateHelper.getDate(dateTime!)),
                         ),
                       ),
                       Expanded(
@@ -89,8 +98,12 @@ class _AddEventViewState extends State<AddEventView> {
                                 timeOfDay = time;
                               });
                             },
-                            icon: SvgPicture.asset('assets/icons/events/time.svg', width: 22),
-                            child: timeOfDay == null ? const Text('لم يحدد') : Text(DateHelper.getHourTOD(timeOfDay!))),
+                            icon: SvgPicture.asset(
+                                'assets/icons/events/time.svg',
+                                width: 22),
+                            child: timeOfDay == null
+                                ? const Text('لم يحدد')
+                                : Text(DateHelper.getHourTOD(timeOfDay!))),
                       ),
                     ],
                   ),
@@ -129,7 +142,9 @@ class _AddEventViewState extends State<AddEventView> {
                     maxLines: 4,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: MediaQuery.of(context).size.width * 0.1),
+                    padding: EdgeInsets.symmetric(
+                        vertical: 15,
+                        horizontal: MediaQuery.of(context).size.width * 0.1),
                     child: SubmitButton(),
                   ),
                 ],
@@ -164,7 +179,12 @@ class _AddEventViewState extends State<AddEventView> {
     );
   }
 
-  Widget CustomFieldButton({required String title, Widget? icon, onPressed, double? height, Widget? child}) {
+  Widget CustomFieldButton(
+      {required String title,
+      Widget? icon,
+      onPressed,
+      double? height,
+      Widget? child}) {
     return _TextWithChild(
       title: title,
       child: MaterialButton(
@@ -200,7 +220,14 @@ class _AddEventViewState extends State<AddEventView> {
     return TextButton(
       onPressed: () {
         if (dateTime != null && timeOfDay != null) {
-          DateTime d = DateTime(dateTime!.year, dateTime!.month, dateTime!.day, timeOfDay!.hour, timeOfDay!.minute);
+          DateTime d = DateTime(dateTime!.year, dateTime!.month, dateTime!.day,
+              timeOfDay!.hour, timeOfDay!.minute);
+          EventsViewModel().addEvent(
+              title: titleController.text,
+              startDate: dateTime as DateTime,
+              maxAttendees: int.parse(attendeesController.text),
+              location: locationController.text,
+              isOnline: isOnline);
           print(titleController.value.text);
           print('$d');
           print(isOnline);
@@ -226,7 +253,12 @@ class _AddEventViewState extends State<AddEventView> {
     );
   }
 
-  Widget CustomTextField({required String title, required TextEditingController controller, int maxLines = 1, Widget? icon, TextInputType? type}) {
+  Widget CustomTextField(
+      {required String title,
+      required TextEditingController controller,
+      int maxLines = 1,
+      Widget? icon,
+      TextInputType? type}) {
     return _TextWithChild(
       title: title,
       child: TextField(
