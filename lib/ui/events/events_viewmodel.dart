@@ -45,7 +45,7 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
     } else if (event.isFull()) {
       return EventCardButton(
         text: 'المقاعد ممتلئة',
-        color: Constants.grey.withOpacity(.9),
+        color: Constants.grey.withOpacity(.4),
         onPressed: () {
           //show dialog
           print('cant');
@@ -53,8 +53,8 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
       );
     } else if (event.getPercentage() >= 75) {
       return EventCardButton(
-        text: 'احجز مقعدك',
-        color: Constants.darkGrey.withOpacity(.9),
+        text: 'احجز مقعدك - مقاعد محدودة',
+        color: Constants.blueButton.withOpacity(.9),
         onPressed: () async {
           await eventService.signUpToEvent(event.eventID);
         },
@@ -62,7 +62,7 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
     }
     return EventCardButton(
       text: 'احجز مقعدك',
-      color: Constants.darkBlue.withOpacity(.9),
+      color: Constants.green.withOpacity(.9),
       onPressed: () async {
         await eventService.signUpToEvent(event.eventID);
       },

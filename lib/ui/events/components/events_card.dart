@@ -25,10 +25,11 @@ class EventCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFFBFDEF5),
+          backgroundColor: Colors.white,
           fixedSize: const Size.fromWidth(double.maxFinite),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          elevation: 5,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          elevation: 3,
         ),
         onPressed: onPressed,
         child: Padding(
@@ -44,9 +45,13 @@ class EventCard extends StatelessWidget {
                   Container(
                     clipBehavior: Clip.antiAlias,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      boxShadow: Constants.shadow4,
-                    ),
+                        borderRadius: BorderRadius.circular(100),
+                        boxShadow: [
+                          BoxShadow(
+                              blurRadius: 7,
+                              offset: Offset(1, 3),
+                              color: Colors.black.withOpacity(0.25)),
+                        ]),
                     child: Image.network(
                       event.instructorProfilePicture!,
                       width: 66,
@@ -99,7 +104,7 @@ class EventCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
                       child: Text(
                         "${DateHelper.getDate(event.startDate)}  -  ${event.isOnline ? "اونلاين" : "حضوري"}",
                         style: const TextStyle(
@@ -113,21 +118,25 @@ class EventCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          child: Row(
-                            children: [
-                              Image.asset("./assets/images/Place Marker.png"),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              Text(
-                                EventsViewModel.locationEventName(event.location),
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                  color: Constants.black,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 2),
+                            child: Row(
+                              children: [
+                                Image.asset("./assets/images/Place Marker.png"),
+                                const SizedBox(
+                                  width: 8,
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  EventsViewModel.locationEventName(
+                                      event.location),
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Constants.black,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         Expanded(

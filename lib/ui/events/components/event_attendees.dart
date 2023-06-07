@@ -18,7 +18,7 @@ class EventAttendees extends StatelessWidget {
         Align(
           widthFactor: .75,
           child: Container(
-            decoration: BoxDecoration(boxShadow: Constants.shadow3),
+            decoration: BoxDecoration(boxShadow: Constants.shadow),
             child: const CircleAvatar(
               backgroundColor: Constants.white,
               radius: 11,
@@ -68,7 +68,8 @@ class EventAttendees extends StatelessWidget {
               child: CircleAvatar(
                 backgroundImage: attendees[i].photo != null
                     ? NetworkImage(attendees[i].photo!)
-                    : const AssetImage('assets/images/event-attendees.png') as ImageProvider,
+                    : const AssetImage('assets/images/event-attendees.png')
+                        as ImageProvider,
                 backgroundColor: Constants.red,
                 radius: 10,
               ),
@@ -87,7 +88,10 @@ class EventAttendees extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 7),
           child: const Text(
             'المشاركين',
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Constants.black),
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: Constants.black),
           ),
         ),
         Row(children: images),
