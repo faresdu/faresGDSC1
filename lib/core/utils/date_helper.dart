@@ -60,8 +60,7 @@ class DateHelper {
     String sMinutes;
     if (minutes.toString().length == 1) {
       sMinutes = '0$minutes';
-    }
-    else {
+    } else {
       sMinutes = '$minutes';
     }
     return '$hour:$sMinutes$x';

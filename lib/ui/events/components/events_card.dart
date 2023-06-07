@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
+import 'package:gdsc_app/ui/events/components/edit_events.dart';
 import 'package:gdsc_app/ui/events/components/event_attendees.dart';
 import 'package:gdsc_app/ui/events/events_viewmodel.dart';
 
@@ -49,7 +50,7 @@ class EventCard extends StatelessWidget {
                         boxShadow: [
                           BoxShadow(
                               blurRadius: 7,
-                              offset: Offset(1, 3),
+                              offset: const Offset(1, 3),
                               color: Colors.black.withOpacity(0.25)),
                         ]),
                     child: Image.network(
@@ -87,7 +88,25 @@ class EventCard extends StatelessWidget {
                       child: Align(
                         alignment: const Alignment(-1, 0),
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              backgroundColor: const Color(0xffF1F1F1),
+                              clipBehavior: Clip.antiAlias,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(30),
+                                    topLeft: Radius.circular(30)),
+                              ),
+                              builder: (context) {
+                                return FractionallySizedBox(
+                                  heightFactor: 0.92,
+                                  child: EditEventButton(eventDetails: event),
+                                );
+                              },
+                            );
+                          },
                           icon: const Icon(
                             Icons.edit,
                             color: Constants.black,
