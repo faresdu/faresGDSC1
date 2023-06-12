@@ -21,6 +21,7 @@ class Constants {
   static const Color white = Colors.white;
   static const Color black = Colors.black;
 
+  static const Color background = Color(0xfff1f1f1);
   static const Color navigationBackground = Color(0xFFF5FCFF);
 
   static List<BoxShadow> shadow = [
@@ -66,5 +67,8 @@ class Constants {
   );
   static TextStyle verySmallText = GoogleFonts.cairo().copyWith(
     fontSize: 15,
+  );
+  static TextStyle extraSmallText = GoogleFonts.cairo().copyWith(
+    fontSize: 11,
   );
 }
