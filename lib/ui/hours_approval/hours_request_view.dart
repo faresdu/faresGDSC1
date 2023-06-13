@@ -19,7 +19,6 @@ class _HoursRequestViewState extends State<HoursRequestView>
   Widget build(BuildContext context) {
     return ViewModelBuilder<HoursRequestViewModel>.reactive(
         viewModelBuilder: () => HoursRequestViewModel(),
-        onViewModelReady: ((viewModel) => viewModel.getUserHourRequests),
         builder: (context, viewmodel, _) {
           return DefaultTabController(
               length: 2,
