@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/hour_request.dart';
 import '../../../core/utils/constants.dart';
 import '../../widgets/action_button.dart';
+import 'package:gdsc_app/core/utils/helper_functions.dart';
 
 class ActiveRequestCard extends StatelessWidget {
-  final Function() onApprove;
-  final Function() onReject;
+  final Function(HourRequest request, bool status)? onUpdate;
   final HourRequest request;
-  const ActiveRequestCard(
-      {required this.onApprove,
-      required this.onReject,
-      required this.request,
-      Key? key})
+  const ActiveRequestCard({this.onUpdate, required this.request, Key? key})
       : super(key: key);
 
   @override
@@ -116,11 +112,24 @@ class ActiveRequestCard extends StatelessWidget {
                     Row(
                       children: [
                         Spacer(),
-                        ActionButton(onTap: onApprove, isApprove: true),
+
+                        ActionButton(
+                            onTap: () {
+                              try {
+                                onUpdate!(request, true);
+                              } catch (e) {}
+                            },
+                            isApprove: true),
                         const SizedBox(
                           width: 10,
                         ),
-                        ActionButton(onTap: onReject, isApprove: false),
+                        ActionButton(
+                            onTap: () {
+                              try {
+                                onUpdate!(request, false);
+                              } catch (e) {}
+                            },
+                            isApprove: false),
                       ],
                     ),
                   ],
@@ -133,13 +142,12 @@ class ActiveRequestCard extends StatelessWidget {
         ///Avatar
         Positioned(
             child: Container(
-          height: 70,
-          width: 70,
+          height: 50,
+          width: 50,
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(
-                  request.userAvatar ?? 'assets/images/avatar.png',
-                ),
+                image: HelperFunctions.avatarImageProvider(
+                    imageUrl: request.userAvatar ?? ''),
                 fit: BoxFit.fill),
             shape: BoxShape.circle,
           ),

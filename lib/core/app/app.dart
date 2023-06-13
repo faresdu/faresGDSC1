@@ -14,6 +14,7 @@ import 'package:gdsc_app/ui/startup/startup_view.dart';
 import 'package:gdsc_app/ui/timeline/timeline_view.dart';
 import 'package:gdsc_app/core/services/authentication_service.dart';
 import '../../ui/leaderboard/leaderboard_view.dart';
+import '../services/hour_service.dart';
 import '../services/timeline_service.dart';
 import '../services/event_service.dart';
 
@@ -39,6 +40,7 @@ import '../services/event_service.dart';
     LazySingleton<AuthenticationService>(classType: AuthenticationService),
     LazySingleton<TimelineService>(classType: TimelineService),
     LazySingleton<EventService>(classType: EventService),
+    LazySingleton<HourService>(classType: HourService),
     Presolve(
       classType: SupabaseService,
       presolveUsing: SupabaseService.getInstance,
