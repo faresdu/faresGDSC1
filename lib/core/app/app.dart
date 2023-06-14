@@ -3,6 +3,7 @@ import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:gdsc_app/ui/committee_members/committe_members_view.dart';
 import 'package:gdsc_app/ui/events/event_details_view.dart';
 import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart';
+import 'package:gdsc_app/ui/home/home_view.dart';
 import 'package:gdsc_app/ui/login/login_view.dart';
 import 'package:gdsc_app/ui/profile/profile_view.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -28,7 +29,8 @@ import '../services/event_service.dart';
     MaterialRoute(page: HierarchyView),
     MaterialRoute(page: ProfileView),
     MaterialRoute(page: CommitteeMembersView),
-    MaterialRoute(page: LeaderboardView)
+    MaterialRoute(page: LeaderboardView),
+    MaterialRoute(page: HomeView)
   ],
   // Register all Services
   dependencies: [

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/events/events_view.dart';
 import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart';
+import 'package:gdsc_app/ui/home/home_view.dart';
 import 'package:gdsc_app/ui/leaderboard/leaderboard_view.dart';
 import 'package:gdsc_app/ui/profile/profile_view.dart';
 import 'package:gdsc_app/ui/timeline/timeline_view.dart';
@@ -21,6 +22,7 @@ class _NavigationViewState extends State<NavigationView> {
     const LeaderboardView(),
     const HierarchyView(),
     const TimeLineView(),
+    const HomeView(),
   ];
   final List<BottomNavigationBarItem> items = [
     buildBottomNavigationBarItem("profile"),
@@ -28,6 +30,7 @@ class _NavigationViewState extends State<NavigationView> {
     buildBottomNavigationBarItem("leaderboard"),
     buildBottomNavigationBarItem("hierarchy"),
     buildBottomNavigationBarItem("timeline"),
+    buildBottomNavigationBarItem("profile") // Temporary for Home Page
   ];
   int ind = 0;
 

@@ -84,7 +84,7 @@ class MemberCard extends StatelessWidget {
                     Text(role ?? 'عضو',
                         style: TextStyle(fontSize: 13, color: Colors.black)),
                     if (member.major != null)
-                      Text(member.major!,
+                      Text(member.major,
                           style: TextStyle(fontSize: 13, color: Colors.black))
                   ],
                 )
