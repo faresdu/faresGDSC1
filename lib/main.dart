@@ -28,7 +28,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         builder: (context, child) {
           return Directionality(
-              textDirection: TextDirection.rtl, child: child!);
+            textDirection: TextDirection.rtl,
+            child: child!,
+          );
         },
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

@@ -5,4 +5,8 @@ extension StringExt on String {
   bool get isNumber => RegExp(r'\d+$').hasMatch(this);
 
   String lastChars(int n) => substring(length - n);
+
+  int get parseInt => int.parse(this);
+
+  double get parseDouble => double.parse(this);
 }

@@ -1,78 +1,105 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/ui/events/events_view.dart';
-import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart';
-import 'package:gdsc_app/ui/home/home_view.dart';
-import 'package:gdsc_app/ui/leaderboard/leaderboard_view.dart';
-import 'package:gdsc_app/ui/profile/profile_view.dart';
-import 'package:gdsc_app/ui/timeline/timeline_view.dart';
-import 'package:gdsc_app/core/utils/constants.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:stacked/stacked.dart';
+import '../../core/utils/constants.dart';
+import 'navigation_button.dart';
+import 'navigation_viewmodel.dart';
 
 class NavigationView extends StatefulWidget {
   const NavigationView({Key? key}) : super(key: key);
 
   @override
-  _NavigationViewState createState() => _NavigationViewState();
+  State<NavigationView> createState() => _NavigationViewState();
 }
 
 class _NavigationViewState extends State<NavigationView> {
-  final List<Widget> pages = [
-    const ProfileView(),
-    const EventsView(),
-    const LeaderboardView(),
-    const HierarchyView(),
-    const TimeLineView(),
-    const HomeView(),
-  ];
-  final List<BottomNavigationBarItem> items = [
-    buildBottomNavigationBarItem("profile"),
-    buildBottomNavigationBarItem("events"),
-    buildBottomNavigationBarItem("leaderboard"),
-    buildBottomNavigationBarItem("hierarchy"),
-    buildBottomNavigationBarItem("timeline"),
-    buildBottomNavigationBarItem("profile") // Temporary for Home Page
-  ];
-  int ind = 0;
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: ind,
-        children: pages,
-      ),
-      bottomNavigationBar: Theme(
-        data: ThemeData(
-          highlightColor: Constants.blue.withOpacity(.2),
-        ),
-        child: Container(
-          height: 78,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(21)),
-            boxShadow: Constants.shadow,
-          ),
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Constants.navigationBackground,
-            items: items,
-            currentIndex: ind,
-            onTap: (index) {
-              setState(() {
-                ind = index;
-              });
-            },
-          ),
-        ),
-      ),
-    );
+    return ViewModelBuilder<NavigationViewModel>.reactive(
+        viewModelBuilder: () => NavigationViewModel(),
+        builder: (context, viewmodel, _) {
+          return Scaffold(
+            body: PageStorage(
+              bucket: viewmodel.bucket,
+              child: IndexedStack(
+                index: viewmodel.currentTab,
+                children: viewmodel.pages,
+              ),
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            bottomNavigationBar: BottomAppBar(
+              elevation: 0,
+              color: Colors.white,
+              child: Container(
+                color: Colors.white,
+                height: 60,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    NavigationButton(
+                        onPressed: () {
+                          viewmodel.updateScreen(4);
+                        },
+                        color: viewmodel.currentTab == 4
+                            ? Constants.red
+                            : Constants.darkGrey,
+                        text: 'فعاليات',
+                        imagePath: 'assets/icons/navigation2/events.svg'),
+                    NavigationButton(
+                        onPressed: () {
+                          viewmodel.updateScreen(3);
+                        },
+                        color: viewmodel.currentTab == 3
+                            ? Constants.lightBlue
+                            : Constants.darkGrey,
+                        text: 'المنشورات',
+                        imagePath: 'assets/icons/navigation2/timeline.svg'),
+                    MaterialButton(
+                      minWidth: 20,
+                      height: double.infinity,
+                      shape: const CircleBorder(eccentricity: 0),
+                      onPressed: () {
+                        viewmodel.updateScreen(0);
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Colors.grey[200],
+                        radius: 27,
+                        child: CircleAvatar(
+                          backgroundColor: Constants.blueButton,
+                          radius: 25,
+                          child: Padding(
+                            padding: const EdgeInsets.all(13.5),
+                            child: SvgPicture.asset(
+                                'assets/icons/navigation2/home.svg'),
+                          ),
+                        ),
+                      ),
+                    ),
+                    NavigationButton(
+                        onPressed: () {
+                          viewmodel.updateScreen(2);
+                        },
+                        color: viewmodel.currentTab == 2
+                            ? Constants.yellow
+                            : Constants.darkGrey,
+                        text: 'المتصدرين',
+                        imagePath: 'assets/icons/navigation2/leaderboard.svg'),
+                    NavigationButton(
+                        onPressed: () {
+                          viewmodel.updateScreen(1);
+                        },
+                        color: viewmodel.currentTab == 1
+                            ? Constants.green
+                            : Constants.darkGrey,
+                        text: 'حسابي',
+                        imagePath: 'assets/icons/navigation2/profile.svg'),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
-}
-
-BottomNavigationBarItem buildBottomNavigationBarItem(String name) {
-  return BottomNavigationBarItem(
-    label: '',
-    activeIcon: SvgPicture.asset("assets/icons/navigation/${name}_active.svg", color: Constants.blue),
-    icon: SvgPicture.asset("assets/icons/navigation/${name}.svg", color: Constants.blue),
-  );
 }

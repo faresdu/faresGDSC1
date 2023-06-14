@@ -14,6 +14,7 @@ class Constants {
   static const Color yellow = Color(0xFFF8BC18);
   static const Color lightYellow = Color(0xFFFADC86);
   static const Color lightBlue = Color(0xFF0682BC);
+  static const Color blueButton = Color(0xFF4285F4);
   static const Color blue = Color(0xFF547DBF);
   static const Color darkBlue = Color(0xFF212A40);
   static const Color cyan = Color(0xFF7CB9E5);
@@ -22,6 +23,7 @@ class Constants {
   static const Color black = Colors.black;
   static const Color black2 = Color(0xFF9A9A9A);
   static const Color black3 = Color(0xFF4D4D4D);
+  static const Color background = Color(0xfff1f1f1);
   static const Color navigationBackground = Color(0xFFF5FCFF);
   static const Color primaryLightBlue = Color(0xFF4285F4);
   static const Color inactiveDotColor = Color(0xFFBFDEF5);
@@ -59,10 +61,7 @@ class Constants {
         color: Colors.black.withOpacity(.25),
         blurRadius: 6,
         spreadRadius: -16,
-      offset: Offset.zero
-
-    ),
-
+        offset: Offset.zero),
   ];
 
   static TextStyle veryLargeText = GoogleFonts.cairo().copyWith(
@@ -81,5 +80,7 @@ class Constants {
   static TextStyle verySmallText = GoogleFonts.cairo().copyWith(
     fontSize: 15,
   );
-
+  static TextStyle extraSmallText = GoogleFonts.cairo().copyWith(
+    fontSize: 11,
+  );
 }
