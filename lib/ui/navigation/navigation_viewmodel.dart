@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import '../Home/home_view.dart';
 import '../events/events_view.dart';
 import '../hierarchy/hierarchy_view.dart';
 import '../leaderboard/leaderboard_view.dart';
@@ -11,7 +12,7 @@ class NavigationViewModel extends BaseViewModel {
   final PageStorageBucket bucket = PageStorageBucket();
   final List<Widget> pages = const [
     HierarchyView(),
-    ProfileView(),
+    HomeView(),
     LeaderboardView(),
     TimeLineView(),
     EventsView(),
