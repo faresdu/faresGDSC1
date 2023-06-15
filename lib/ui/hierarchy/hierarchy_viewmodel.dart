@@ -23,8 +23,4 @@ class HierarchyViewModel extends BaseViewModel {
     navService.navigateTo(Routes.committeeMembersView,
         arguments: [members, committee]);
   }
-
-  navigateToRequestsPage() {
-    navService.navigateTo(Routes.hoursRequestView);
-  }
 }

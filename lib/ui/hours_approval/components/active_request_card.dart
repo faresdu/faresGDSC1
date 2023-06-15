@@ -54,7 +54,7 @@ class ActiveRequestCard extends StatelessWidget {
                         ),
                         Spacer(),
                         Text(request.createdAt ?? "السبت ، 2023-20-6",
-                            style: Constants.extraSmallText.copyWith(
+                            style: Constants.superSmallText.copyWith(
                               color: Constants.grey.withOpacity(0.7),
                               fontWeight: FontWeight.w700,
                             )),
@@ -112,7 +112,6 @@ class ActiveRequestCard extends StatelessWidget {
                     Row(
                       children: [
                         Spacer(),
-
                         ActionButton(
                             onTap: () {
                               try {

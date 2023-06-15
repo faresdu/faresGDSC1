@@ -34,38 +34,27 @@ class _HomeViewState extends State<HomeView> {
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 30),
                   child: Column(
                     children: [
-                      Welcome(),
+                      const Welcome(),
                       SizedBox(
                         height: spacing / 4,
                       ),
                       NotificationCard(
-                        title: viewmodel.notification['title']!,
-                        body: viewmodel.notification['body']!,
-                        imagePath: viewmodel.notification['imagePath']!,
+                        title: viewmodel.mainNotification['title']!,
+                        body: viewmodel.mainNotification['body']!,
+                        imagePath: viewmodel.mainNotification['imagePath']!,
                       ),
                       SizedBox(
-                        height: spacing,
+                        height: spacing / 2,
                       ),
-                      SectionTitle(title: "التنبيهات"),
+                      const SectionTitle(title: "التنبيهات"),
                       CarouselSlider(
                         carouselController: controller,
-                        items: [
-                          NotificationCard(
-                            title: "أكملت 30 ة",
-                            body: "أكملت لجنتك 500 ساعة تطوعية",
-                            imagePath: "assets/images/achievement.png",
-                          ),
-                          NotificationCard(
-                            title: "تعبئة صفحة الساعات",
-                            body: "يوسف الغصن",
-                            imagePath: "assets/images/empty.png",
-                          ),
-                          NotificationCard(
-                            title: "أكملت 30 ة",
-                            body: "أكملت لجنتك 500 ساعة تطوعية",
-                            imagePath: "assets/images/achievement.png",
-                          ),
-                        ],
+                        items: viewmodel.featuredNotifications
+                            .map((e) => NotificationCard(
+                                title: e['title']!,
+                                body: e['body']!,
+                                imagePath: e['imagePath']!))
+                            .toList(),
                         options: CarouselOptions(
                             viewportFraction: 1,
                             height: 115,
@@ -76,12 +65,11 @@ class _HomeViewState extends State<HomeView> {
                               setState(() {});
                             }),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       DotsIndicator(
-                          dotsCount: 3,
+                          dotsCount: viewmodel.featuredNotifications.length,
                           position: _current.toDouble(),
                           decorator: const DotsDecorator(
-                            //activeSize: dart_ui.Size.square(12.0), UI not responding error
                             color: Constants.inactiveDotColor,
                             activeColor: Constants.primaryLightBlue,
                           ),
@@ -93,22 +81,31 @@ class _HomeViewState extends State<HomeView> {
                             });
                           }),
                       SizedBox(
-                        height: spacing,
+                        height: spacing / 2,
                       ),
-                      SectionTitle(title: "الفعاليات"),
+                      const SectionTitle(title: "الفعاليات"),
                       SizedBox(
                         height: 175,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: 10,
                             itemBuilder: (context, index) {
-                              return ActivityCard();
+                              return ActivityCard(
+                                signUpButton: viewmodel.getSignUpButton(),
+                              );
                             }),
                       )
                     ],
                   ),
                 ),
               ),
+            ),
+            floatingActionButton: FloatingActionButton(
+              heroTag: 'toHoursRequestPage',
+              onPressed: () {
+                viewmodel.navigateToRequestsPage();
+              },
+              child: const Icon(Icons.menu),
             ),
           );
         });

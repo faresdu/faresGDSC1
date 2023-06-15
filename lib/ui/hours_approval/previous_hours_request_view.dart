@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../core/models/hour_request.dart';
 import 'components/active_request_card.dart';
 import 'hours_request_viewmodel.dart';
 

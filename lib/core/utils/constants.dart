@@ -81,6 +81,9 @@ class Constants {
     fontSize: 15,
   );
   static TextStyle extraSmallText = GoogleFonts.cairo().copyWith(
+    fontSize: 13,
+  );
+  static TextStyle superSmallText = GoogleFonts.cairo().copyWith(
     fontSize: 11,
   );
 }

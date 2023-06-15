@@ -4,8 +4,6 @@ import 'package:gdsc_app/core/models/member.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase/supabase.dart';
 
-import '../models/post.dart';
-
 class SupabaseService {
   late SupabaseClient supabaseClient;
 

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import '../../../core/utils/constants.dart';
-
 
 class Welcome extends StatelessWidget {
   const Welcome({
@@ -24,8 +22,7 @@ class Welcome extends StatelessWidget {
           children: [
             Text(
               "أهلا يوسف",
-              style: TextStyle(
-                fontSize: 24,
+              style: Constants.veryLargeText.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
