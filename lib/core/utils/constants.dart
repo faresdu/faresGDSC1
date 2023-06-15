@@ -18,11 +18,15 @@ class Constants {
   static const Color blue = Color(0xFF547DBF);
   static const Color darkBlue = Color(0xFF212A40);
   static const Color cyan = Color(0xFF7CB9E5);
+  static const Color greyBackground1 = Color(0xFFF5F5F5);
   static const Color white = Colors.white;
   static const Color black = Colors.black;
-
+  static const Color black2 = Color(0xFF9A9A9A);
+  static const Color black3 = Color(0xFF4D4D4D);
   static const Color background = Color(0xfff1f1f1);
   static const Color navigationBackground = Color(0xFFF5FCFF);
+  static const Color primaryLightBlue = Color(0xFF4285F4);
+  static const Color inactiveDotColor = Color(0xFFBFDEF5);
 
   static List<BoxShadow> shadow = [
     BoxShadow(color: Colors.black.withOpacity(.3), blurRadius: 8),
@@ -52,6 +56,14 @@ class Constants {
         offset: const Offset(0, 10)),
   ];
 
+  static List<BoxShadow> shadow6 = [
+    BoxShadow(
+        color: Colors.black.withOpacity(.25),
+        blurRadius: 6,
+        spreadRadius: -16,
+        offset: Offset.zero),
+  ];
+
   static TextStyle veryLargeText = GoogleFonts.cairo().copyWith(
     fontSize: 24,
   );
@@ -69,6 +81,9 @@ class Constants {
     fontSize: 15,
   );
   static TextStyle extraSmallText = GoogleFonts.cairo().copyWith(
+    fontSize: 13,
+  );
+  static TextStyle superSmallText = GoogleFonts.cairo().copyWith(
     fontSize: 11,
   );
 }

@@ -31,7 +31,7 @@ import '../services/event_service.dart';
     MaterialRoute(page: ProfileView),
     MaterialRoute(page: CommitteeMembersView),
     MaterialRoute(page: LeaderboardView),
-    MaterialRoute(page: HoursRequestView)
+    MaterialRoute(page: HoursRequestView),
   ],
   // Register all Services
   dependencies: [

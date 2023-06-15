@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/core/models/hour_request.dart';
 import 'package:gdsc_app/ui/hours_approval/components/active_request_card.dart';
 import 'package:gdsc_app/ui/hours_approval/hours_request_viewmodel.dart';
 import 'package:stacked/stacked.dart';
-
-import '../../core/utils/constants.dart';
 
 class UpcomingHoursRequestView extends StatelessWidget {
   const UpcomingHoursRequestView({Key? key}) : super(key: key);
