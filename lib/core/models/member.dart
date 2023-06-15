@@ -39,6 +39,9 @@ class Member {
         return SocialMedia.fromJson(e);
       }).toList();
     }
+    Committee committee = map['committee'] == null
+        ? Committee.anonymous()
+        : Committee.fromJson(map['committee']);
     return Member(
       id: map['user_id'] ?? '',
       sID: map['student_id'] ?? '',
@@ -46,7 +49,7 @@ class Member {
       major: map['major'] ?? '',
       hours: map['hours'] ?? 0,
       photo: map['profile_picture'],
-      committee: Committee.fromJson(map),
+      committee: committee,
       socials: socials,
     );
   }

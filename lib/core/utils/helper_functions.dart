@@ -30,8 +30,8 @@ abstract class HelperFunctions {
   /// Returns SvgPicture or Image based on the passed image url
   static Widget profileImage(
       {String imageUrl = '',
-      double height = 65.0,
-      double width = 65.0,
+      double? height,
+      double? width,
       BoxFit fit = BoxFit.cover}) {
     if (imageUrl.isEmpty) {
       return Image.asset("assets/images/man.png",

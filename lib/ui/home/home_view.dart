@@ -34,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 30),
                   child: Column(
                     children: [
-                      const Welcome(),
+                      Welcome(),
                       SizedBox(
                         height: spacing / 4,
                       ),
@@ -114,6 +114,7 @@ class _HomeViewState extends State<HomeView> {
             ),
             floatingActionButton: FloatingActionButton(
               heroTag: 'toHoursRequestPage',
+              backgroundColor: Constants.primaryLightBlue,
               onPressed: () {
                 viewmodel.navigateToRequestsPage();
               },
