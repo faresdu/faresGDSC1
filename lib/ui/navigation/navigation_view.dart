@@ -1,196 +1,105 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/ui/events/events_view.dart';
-import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart';
-import 'package:gdsc_app/ui/leaderboard/leaderboard_view.dart';
-import 'package:gdsc_app/ui/profile/profile_view.dart';
-import 'package:gdsc_app/ui/timeline/timeline_view.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:stacked/stacked.dart';
+import '../../core/utils/constants.dart';
+import 'navigation_button.dart';
+import 'navigation_viewmodel.dart';
 
 class NavigationView extends StatefulWidget {
   const NavigationView({Key? key}) : super(key: key);
 
   @override
-  _NavigationViewState createState() => _NavigationViewState();
+  State<NavigationView> createState() => _NavigationViewState();
 }
 
 class _NavigationViewState extends State<NavigationView> {
-  int currentTab = 0;
-  final PageStorageBucket bucket = PageStorageBucket();
-
-  final List<Widget> pages = [
-    const HierarchyView(),
-    const ProfileView(),
-    const LeaderboardView(),
-    const TimeLineView(),
-    const EventsView(),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageStorage(
-        bucket: bucket,
-        child: IndexedStack(
-          index: currentTab,
-          children: pages,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        elevation: 0,
-        color: Colors.white,
-        child: Container(
-          color: Colors.white,
-          height: 60,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              MaterialButton(
-                minWidth: 10,
-                onPressed: () {
-                  setState(() {
-                    currentTab = 4;
-                  });
-                },
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Image.asset(
-                      'assets/images/events.png',
-                      height: 15,
-                      color: currentTab == 4
-                          ? Color(0xffea4335)
-                          : Color(0xfff4938f),
-                    ),
-                    Text('فعاليات',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          color: currentTab == 4
-                              ? Color(0xffea4335)
-                              : Color(0xfff4938f),
-                        )),
-                  ],
-                ),
+    return ViewModelBuilder<NavigationViewModel>.reactive(
+        viewModelBuilder: () => NavigationViewModel(),
+        builder: (context, viewmodel, _) {
+          return Scaffold(
+            body: PageStorage(
+              bucket: viewmodel.bucket,
+              child: IndexedStack(
+                index: viewmodel.currentTab,
+                children: viewmodel.pages,
               ),
-              MaterialButton(
-                minWidth: 10,
-                onPressed: () {
-                  setState(() {
-                    currentTab = 3;
-                  });
-                },
-                child: Column(
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            bottomNavigationBar: BottomAppBar(
+              elevation: 0,
+              color: Colors.white,
+              child: Container(
+                color: Colors.white,
+                height: 60,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Image.asset(
-                      'assets/images/timeline.png',
-                      height: 15,
-                      color: currentTab == 3
-                          ? Color(0xfffbbc05)
-                          : Color(0xfffadc86),
-                    ),
-                    Text(
-                      'المنشورات',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: currentTab == 3
-                            ? Color(0xfffbbc05)
-                            : Color(0xfffadc86),
+                    NavigationButton(
+                        onPressed: () {
+                          viewmodel.updateScreen(4);
+                        },
+                        color: viewmodel.currentTab == 4
+                            ? Constants.red
+                            : Constants.darkGrey,
+                        text: 'فعاليات',
+                        imagePath: 'assets/icons/navigation2/events.svg'),
+                    NavigationButton(
+                        onPressed: () {
+                          viewmodel.updateScreen(3);
+                        },
+                        color: viewmodel.currentTab == 3
+                            ? Constants.lightBlue
+                            : Constants.darkGrey,
+                        text: 'المنشورات',
+                        imagePath: 'assets/icons/navigation2/timeline.svg'),
+                    MaterialButton(
+                      minWidth: 20,
+                      height: double.infinity,
+                      shape: const CircleBorder(eccentricity: 0),
+                      onPressed: () {
+                        viewmodel.updateScreen(0);
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Colors.grey[200],
+                        radius: 27,
+                        child: CircleAvatar(
+                          backgroundColor: Constants.blueButton,
+                          radius: 25,
+                          child: Padding(
+                            padding: const EdgeInsets.all(13.5),
+                            child: SvgPicture.asset(
+                                'assets/icons/navigation2/home.svg'),
+                          ),
+                        ),
                       ),
                     ),
+                    NavigationButton(
+                        onPressed: () {
+                          viewmodel.updateScreen(2);
+                        },
+                        color: viewmodel.currentTab == 2
+                            ? Constants.yellow
+                            : Constants.darkGrey,
+                        text: 'المتصدرين',
+                        imagePath: 'assets/icons/navigation2/leaderboard.svg'),
+                    NavigationButton(
+                        onPressed: () {
+                          viewmodel.updateScreen(1);
+                        },
+                        color: viewmodel.currentTab == 1
+                            ? Constants.green
+                            : Constants.darkGrey,
+                        text: 'حسابي',
+                        imagePath: 'assets/icons/navigation2/profile.svg'),
                   ],
                 ),
               ),
-
-              /// floating action
-              MaterialButton(
-                minWidth: 20,
-                onPressed: () {
-                  setState(() {
-                    currentTab = 0;
-                  });
-                },
-                child: CircleAvatar(
-                  backgroundColor: Color(0xff4285F4),
-                  radius: 25,
-                  child: Padding(
-                    padding: const EdgeInsets.all(13.5),
-                    child: Image.asset('assets/images/home.png'),
-                  ),
-                ),
-              ),
-              MaterialButton(
-                minWidth: 10,
-                onPressed: () {
-                  setState(() {
-                    currentTab = 2;
-                  });
-                },
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Image.asset(
-                      'assets/images/Vector.png',
-                      height: 15,
-                      color: currentTab == 2
-                          ? Color(0xff34a853)
-                          : Color(0xffa4d0a2),
-                    ),
-                    Text(
-                      'المتصدرين',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: currentTab == 2
-                            ? Color(0xff34a853)
-                            : Color(0xffa4d0a2),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              MaterialButton(
-                minWidth: 10,
-                onPressed: () {
-                  setState(() {
-                    currentTab = 1;
-                  });
-                },
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Image.asset(
-                      'assets/images/user.png',
-                      height: 15,
-                      color: currentTab == 1
-                          ? Color(0xff4285f4)
-                          : Color(0xffbfdef5),
-                    ),
-                    Text('حسابي',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          color: currentTab == 1
-                              ? Color(0xff4285f4)
-                              : Color(0xffbfdef5),
-                        )),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
+        });
   }
 }

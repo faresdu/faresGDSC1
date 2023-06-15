@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:gdsc_app/core/utils/string_extensions.dart';
 
 class Post {

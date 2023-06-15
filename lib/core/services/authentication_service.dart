@@ -58,7 +58,7 @@ class AuthenticationService {
       if (u != null) {
         await _userService.initUser(u.id);
       } else {
-        print('sssssssss');
+        print('user not initialized');
         throw '';
       }
     } catch (e) {

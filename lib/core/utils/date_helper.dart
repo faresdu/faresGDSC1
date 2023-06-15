@@ -30,7 +30,10 @@ class DateHelper {
     return day[d.weekday]!;
   }
 
-  static String getDate(DateTime d) {
+  static String getDate(DateTime d, {bool dash = false}) {
+    if (dash) {
+      return '${d.year}-${d.day}-${d.month}';
+    }
     return '${d.year}/${d.month}/${d.day}';
   }
 
@@ -60,8 +63,7 @@ class DateHelper {
     String sMinutes;
     if (minutes.toString().length == 1) {
       sMinutes = '0$minutes';
-    }
-    else {
+    } else {
       sMinutes = '$minutes';
     }
     return '$hour:$sMinutes$x';

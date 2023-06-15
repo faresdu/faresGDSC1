@@ -10,6 +10,7 @@ class UserService {
   late BehaviorSubject<GDSCUser> userSubject;
 
   Future<void> initUser(String id) async {
+
     userSubject = BehaviorSubject<GDSCUser>();
     final userStream = _supabaseService.subscribeToUser(id);
 

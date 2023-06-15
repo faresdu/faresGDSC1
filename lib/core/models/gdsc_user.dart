@@ -12,7 +12,7 @@ class GDSCUser extends Member {
     required String id,
     required String sID,
     required String name,
-    required String major,
+    String? major,
     required int hours,
     String? photo,
     required Committee committee,

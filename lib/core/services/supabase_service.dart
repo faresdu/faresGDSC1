@@ -4,8 +4,6 @@ import 'package:gdsc_app/core/models/member.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase/supabase.dart';
 
-import '../models/post.dart';
-
 class SupabaseService {
   late SupabaseClient supabaseClient;
 
@@ -70,25 +68,11 @@ class SupabaseService {
     }
   }
 
-  Future<Member> getMemberProfile(String id) async {
-    try {
-      final PostgrestResponse<dynamic> res = await supabaseClient
-          .from('profile_view')
-          .select()
-          .eq('user_id', id)
-          .single()
-          .execute();
-      return Member.fromJson(res.data);
-    } catch (e) {
-      throw 'Failed to get profile : $e';
-    }
-  }
-
   Future<List<Member>> getCommitteeMembers(String cId) async {
     try {
       final PostgrestResponse<dynamic> res = await supabaseClient
           .from('member_view')
-          .select()
+          .select('*')
           .eq('committee_id', cId)
           .execute();
       // print(res.data);
@@ -100,7 +84,7 @@ class SupabaseService {
 
   Stream<GDSCUser> subscribeToUser(String id) {
     return supabaseClient
-        .from('Users')
+        .from('profile_view')
         .stream([id])
         .execute()
         .asyncMap<GDSCUser>((event) {
@@ -111,8 +95,8 @@ class SupabaseService {
   Future<GDSCUser> getUser(String id) async {
     try {
       final res = await supabaseClient
-          .from('Users')
-          .select()
+          .from('profile_view')
+          .select('*')
           .eq('user_id', id)
           .single()
           .execute();

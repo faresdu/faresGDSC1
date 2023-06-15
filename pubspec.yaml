@@ -24,12 +24,16 @@ dependencies:
   stacked_services: ^1.0.4
   rxdart:
   provider:
-# Supabase
+  # Supabase
   supabase: ^0.3.6
   shared_preferences: ^2.0.15
   url_launcher: ^6.1.8
   image_picker: ^0.8.7+5
-  cached_network_image: ^3.2.3
+  path: ^1.8.3
+  flutter_svg_provider: ^1.0.3
+  # Carousel
+  carousel_slider: ^4.2.1
+  dots_indicator: ^2.1.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -43,5 +47,6 @@ flutter:
   assets:
     - assets/icons/
     - assets/icons/navigation/
+    - assets/icons/navigation2/
     - assets/icons/events/
     - assets/images/

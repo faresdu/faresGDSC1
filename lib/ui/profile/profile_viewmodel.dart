@@ -6,7 +6,6 @@ import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
 import '../../core/app/app.router.dart';
 import '../../core/models/member.dart';
-import '../../core/services/supabase_service.dart';
 import '../../core/services/user_service.dart';
 import '../../core/utils/constants.dart';
 import 'components/profile_event_card.dart';
@@ -15,7 +14,6 @@ import 'components/profile_volunteer_hours_card.dart';
 
 class ProfileViewModel extends FutureViewModel<Member> {
   final authService = locator<AuthenticationService>();
-  final supabaseService = locator<SupabaseService>();
   final userService = locator<UserService>();
   final navService = locator<NavigationService>();
 
@@ -23,7 +21,7 @@ class ProfileViewModel extends FutureViewModel<Member> {
 
   @override
   Future<Member> futureToRun() async {
-    return await supabaseService.getMemberProfile(userService.user.id);
+    return userService.user;
   }
 
   Future<void> refreshData() async {

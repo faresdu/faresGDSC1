@@ -24,7 +24,7 @@ class ProfileCard extends StatelessWidget {
         children: [
           Container(
             decoration: const BoxDecoration(
-              color: Constants.profileColor,
+              color: Constants.darkBlue,
             ),
             child: Padding(
               padding: const EdgeInsets.only(
