@@ -20,10 +20,6 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
 
   List<Event> events = [];
 
-  EventsViewModel() {
-    eventService.listenToAllEvents();
-  }
-
   @override
   void onData(List<Event>? data) {
     super.onData(data);
