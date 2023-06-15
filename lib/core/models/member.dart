@@ -5,7 +5,7 @@ class Member {
   final String id;
   final String sID;
   final String name;
-  final String major;
+  final String? major;
   final int hours;
   final String? photo;
   final Committee? committee;
@@ -15,7 +15,7 @@ class Member {
     required this.id,
     required this.sID,
     required this.name,
-    required this.major,
+    this.major,
     required this.hours,
     this.photo,
     this.committee,

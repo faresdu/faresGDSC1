@@ -19,9 +19,9 @@ class _HierarchyViewState extends State<HierarchyView> {
         builder: (context, viewmodel, _) {
           return Scaffold(
             appBar: AppBar(
-                centerTitle: true,
-                title: const Text('الهيكلة'),
-                automaticallyImplyLeading: false),
+              centerTitle: true,
+              title: const Text('الهيكلة'),
+            ),
             body: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

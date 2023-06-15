@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
 import '../../core/models/member.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MemberCard extends StatelessWidget {
   final void Function() onPressed;
@@ -72,6 +71,7 @@ class MemberCard extends StatelessWidget {
                     child: ClipOval(child: profileImage()),
                   ),
                 ),
+
                 /// Member Info
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

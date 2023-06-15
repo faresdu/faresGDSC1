@@ -57,7 +57,8 @@ class _EventCardButtonState extends State<EventCardButton> {
                   style: const TextStyle(
                       fontSize: 14,
                       color: Colors.white,
-                      fontWeight: FontWeight.normal),
+                      fontWeight: FontWeight.normal,
+                      overflow: TextOverflow.ellipsis),
                 )),
     );
   }

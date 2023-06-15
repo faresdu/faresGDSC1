@@ -30,7 +30,10 @@ class DateHelper {
     return day[d.weekday]!;
   }
 
-  static String getDate(DateTime d) {
+  static String getDate(DateTime d, {bool dash = false}) {
+    if (dash) {
+      return '${d.year}-${d.day}-${d.month}';
+    }
     return '${d.year}/${d.month}/${d.day}';
   }
 
