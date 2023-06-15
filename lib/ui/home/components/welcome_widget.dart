@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/utils/helper_functions.dart';
+import '../../../core/models/gdsc_user.dart';
 import '../../../core/utils/constants.dart';
+import 'package:provider/provider.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({
@@ -8,26 +11,28 @@ class Welcome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<GDSCUser>(context);
     return Row(
       children: [
         Container(
+            margin: const EdgeInsets.symmetric(horizontal: 14),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
                 boxShadow: Constants.shadow6),
-            child: Image.asset(
-              "assets/images/avatar.png",
-            )),
+            child: ClipOval(
+                child: HelperFunctions.profileImage(
+                    imageUrl: user.photo ?? '', height: 65, width: 65))),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "أهلا يوسف",
+              "أهلا ${user.name}",
               style: Constants.veryLargeText.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
-              "اللجنة التقنية",
+              user.committee?.name ?? '',
               style: TextStyle(height: 1, color: Constants.black2),
             ),
           ],

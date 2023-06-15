@@ -95,7 +95,7 @@ class SupabaseService {
   Future<GDSCUser> getUser(String id) async {
     try {
       final res = await supabaseClient
-          .from('Users')
+          .from('profile_view')
           .select('*')
           .eq('user_id', id)
           .execute();

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:gdsc_app/ui/events/events_viewmodel.dart';
-import '../../core/utils/constants.dart';
+import '../../../core/utils/constants.dart';
 
-class AddEventView extends StatefulWidget {
-  const AddEventView({Key? key}) : super(key: key);
+class EditEventButton extends StatefulWidget {
+  final Event eventDetails;
+  const EditEventButton({super.key, required this.eventDetails});
 
   @override
-  State<AddEventView> createState() => _AddEventViewState();
+  State<EditEventButton> createState() => _EditEventState();
 }
 
-class _AddEventViewState extends State<AddEventView> {
+class _EditEventState extends State<EditEventButton> {
   TextEditingController titleController = TextEditingController();
   DateTime? dateTime;
   TimeOfDay? timeOfDay;
@@ -43,7 +44,7 @@ class _AddEventViewState extends State<AddEventView> {
               child: Column(
                 children: [
                   const Text(
-                    'إضافة فعالية',
+                    'تعديل فعالية',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,
@@ -63,7 +64,9 @@ class _AddEventViewState extends State<AddEventView> {
                     ),
                   ),
                   CustomTextField(
-                      title: 'العنوان', controller: titleController),
+                      title: 'العنوان',
+                      controller: titleController
+                        ..text = widget.eventDetails.title),
                   Row(
                     children: [
                       Expanded(
@@ -82,7 +85,8 @@ class _AddEventViewState extends State<AddEventView> {
                           icon: SvgPicture.asset('assets/icons/events/date.svg',
                               width: 22),
                           child: dateTime == null
-                              ? const Text('لم يحدد')
+                              ? Text(DateHelper.getDate(
+                                  widget.eventDetails.startDate))
                               : Text(DateHelper.getDate(dateTime!)),
                         ),
                       ),
@@ -102,7 +106,8 @@ class _AddEventViewState extends State<AddEventView> {
                                 'assets/icons/events/time.svg',
                                 width: 22),
                             child: timeOfDay == null
-                                ? const Text('لم يحدد')
+                                ? Text(DateHelper.getHour(
+                                    widget.eventDetails.startDate))
                                 : Text(DateHelper.getHourTOD(timeOfDay!))),
                       ),
                     ],
@@ -123,7 +128,9 @@ class _AddEventViewState extends State<AddEventView> {
                       Expanded(
                         child: CustomTextField(
                           title: 'أقصى عدد للحضور',
-                          controller: attendeesController,
+                          controller: attendeesController
+                            ..text =
+                                (widget.eventDetails.maxAttendees).toString(),
                           type: TextInputType.number,
                           icon: SvgPicture.asset(
                             'assets/icons/events/attendees.svg',
@@ -134,11 +141,13 @@ class _AddEventViewState extends State<AddEventView> {
                   ),
                   CustomTextField(
                     title: 'الموقع',
-                    controller: locationController,
+                    controller: locationController
+                      ..text = widget.eventDetails.location,
                   ),
                   CustomTextField(
                     title: 'الوصف',
-                    controller: descriptionController,
+                    controller: descriptionController
+                      ..text = '${widget.eventDetails.description}',
                     maxLines: 4,
                   ),
                   Padding(
@@ -222,19 +231,6 @@ class _AddEventViewState extends State<AddEventView> {
         if (dateTime != null && timeOfDay != null) {
           DateTime d = DateTime(dateTime!.year, dateTime!.month, dateTime!.day,
               timeOfDay!.hour, timeOfDay!.minute);
-          EventsViewModel().addEvent(
-              title: titleController.text,
-              startDate: dateTime as DateTime,
-              maxAttendees: int.parse(attendeesController.text),
-              location: locationController.text,
-              isOnline: isOnline);
-          print(titleController.value.text);
-          print('$d');
-          print(isOnline);
-          print(attendeesController.value.text);
-          print(locationController.value.text);
-          print(descriptionController.value.text);
-          print(image?.path);
         }
       },
       style: TextButton.styleFrom(
@@ -243,7 +239,7 @@ class _AddEventViewState extends State<AddEventView> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
       child: const Text(
-        'إضـافـة',
+        'تعديل',
         style: TextStyle(
           color: Colors.white,
           fontSize: 16,

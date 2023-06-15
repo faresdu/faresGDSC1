@@ -4,12 +4,13 @@ import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
+import '../../core/models/member.dart';
 import '../../core/services/event_service.dart';
 import '../../core/services/supabase_service.dart';
 import '../../core/utils/constants.dart';
 import 'package:gdsc_app/ui/events/components/events_card_signup_button.dart';
 
-import 'event_details_view.dart';
+import 'event_details/event_details_view.dart';
 
 class EventsViewModel extends StreamViewModel<List<Event>> {
   final navService = locator<NavigationService>();
@@ -18,10 +19,6 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
   final userService = locator<UserService>();
 
   List<Event> events = [];
-
-  EventsViewModel() {
-    eventService.listenToAllEvents();
-  }
 
   @override
   void onData(List<Event>? data) {
@@ -32,29 +29,30 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
     }
   }
 
-  Widget getSignUpCardButton(Event event) {
+  Widget getSignUpButton(Event event) {
     if (event.isSignedUp(userService.user.id)) {
       return EventCardButton(
         text: 'سجل خروج',
-        color: Constants.grey.withOpacity(.9),
+        color: Constants.red.withOpacity(.9),
         onPressed: () async {
-          await eventService.signOutFromEvent(event);
+          await eventService.signOutFromEvent(event.eventID);
         },
       );
     } else if (event.isFull()) {
       return EventCardButton(
         text: 'المقاعد ممتلئة',
-        color: Constants.red.withOpacity(.9),
+        color: Constants.grey.withOpacity(.4),
         onPressed: () {
-          print('cant sign in');
+          //show dialog
+          print('cant');
         },
       );
     } else if (event.getPercentage() >= 75) {
       return EventCardButton(
-        text: 'احجز مقعدك',
-        color: Constants.yellow.withOpacity(.9),
+        text: 'احجز مقعدك - مقاعد محدودة',
+        color: Constants.blueButton.withOpacity(.9),
         onPressed: () async {
-          await eventService.signUpToEvent(event);
+          await eventService.signUpToEvent(event.eventID);
         },
       );
     }
@@ -62,9 +60,46 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
       text: 'احجز مقعدك',
       color: Constants.green.withOpacity(.9),
       onPressed: () async {
-        await eventService.signUpToEvent(event);
+        await eventService.signUpToEvent(event.eventID);
       },
     );
+  }
+
+  Future<void> addEvent({
+    required String title,
+    required DateTime startDate,
+    required int maxAttendees,
+    required String location,
+    required bool isOnline,
+  }) async {
+    //check if user is leader or co leader
+    if (true) {
+      Member member = userService.user;
+      await eventService.addEvent(Event(
+        eventID: '',
+        instructorID: member.id,
+        instructorName: member.name,
+        title: title,
+        startDate: startDate,
+        attendees: [],
+        maxAttendees: maxAttendees,
+        location: location,
+        isOnline: isOnline,
+      ));
+    }
+  }
+
+  Future<void> deleteEvent(Event event) async {
+    //check if user is leader or co leader
+    if (true) {
+      await eventService.deleteEvent(event);
+    }
+  }
+
+  Future<void> editEvent(Event event) async {
+    if (event.isOwner(userService.user.id)) {
+      await eventService.editEvent(event);
+    }
   }
 
   navigateToEvent(BuildContext context, Event event) async {
@@ -88,4 +123,9 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
 
   @override
   Stream<List<Event>> get stream => eventService.eventsController.stream;
+
+  bool canEditEvent(Event event) {
+    //check if user is leader or co leader
+    return event.isOwner(userService.user.id);
+  }
 }

@@ -30,20 +30,69 @@ class EventService {
     }
   }
 
-  Future<void> _signUpToEvent(String eId) async {
+  Future<void> addEvent(Event event) async {
+    try {
+      final PostgrestResponse<dynamic> res = await _supabaseService
+          .supabaseClient
+          .from('Events')
+          .insert(event.toJson())
+          .execute();
+      if (res.error != null) {
+        throw res.error!.message;
+      }
+    } catch (e) {
+      throw 'Failed to add Event, ERROR : $e';
+    }
+  }
+
+  Future<void> editEvent(Event event) async {
+    try {
+      final PostgrestResponse<dynamic> res = await _supabaseService
+          .supabaseClient
+          .from('Events')
+          .update(event.toJson())
+          .eq('event_id', event.eventID)
+          .execute();
+      if (res.error != null) {
+        throw res.error!.message;
+      }
+    } catch (e) {
+      throw 'Failed to edit Event, ERROR : $e';
+    }
+  }
+
+  Future<void> deleteEvent(Event event) async {
+    try {
+      final PostgrestResponse<dynamic> res = await _supabaseService
+          .supabaseClient
+          .from('Events')
+          .delete()
+          .eq('event_id', event.eventID)
+          .execute();
+      if (res.error != null) {
+        throw res.error!.message;
+      }
+    } catch (e) {
+      throw 'Failed to delete Event, ERROR : $e';
+    }
+  }
+
+  Future<void> signUpToEvent(String eId) async {
     try {
       final PostgrestResponse<dynamic> res =
           await _supabaseService.supabaseClient.from('event_attendees').insert({
         'event_id': eId,
         'user_id': _userService.user.id,
       }).execute();
-      print('signup code: ${res.status}');
+      if (res.error != null) {
+        throw res.error!.message;
+      }
     } catch (e) {
       throw 'Failed to sign up to Event, ERROR : $e';
     }
   }
 
-  Future<void> _signOutFromEvent(String eId) async {
+  Future<void> signOutFromEvent(String eId) async {
     try {
       final payload = {'event_id': eId, 'user_id': _userService.user.id};
       final PostgrestResponse<dynamic> res = await _supabaseService
@@ -52,7 +101,9 @@ class EventService {
           .delete()
           .match(payload)
           .execute();
-      print('signout code: ${res.status}');
+      if (res.error != null) {
+        throw res.error!.message;
+      }
     } catch (e) {
       throw 'Failed to sign out from Event, ERROR : $e';
     }
@@ -78,21 +129,5 @@ class EventService {
     eventsController.stream.listen((newEvents) {
       events = newEvents;
     });
-  }
-
-  Future signUpToEvent(Event event) async {
-    try {
-      await _signUpToEvent(event.eventID);
-    } catch (e) {
-      print('error signing up: $e');
-    }
-  }
-
-  Future signOutFromEvent(Event event) async {
-    try {
-      await _signOutFromEvent(event.eventID);
-    } catch (e) {
-      print('error signing out: $e');
-    }
   }
 }

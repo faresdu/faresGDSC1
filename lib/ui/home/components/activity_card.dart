@@ -1,12 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/models/event.dart';
 import '../../../core/utils/constants.dart';
+import '../../../core/utils/date_helper.dart';
 
 class ActivityCard extends StatelessWidget {
   final Widget signUpButton;
+  final Event event;
+  final Function() onTap;
 
   const ActivityCard({
+    required this.event,
+    required this.onTap,
     required this.signUpButton,
     super.key,
   });
@@ -14,13 +19,11 @@ class ActivityCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        print('inkwall');
-      },
+      onTap: onTap,
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 15),
-        padding: EdgeInsets.all(4),
-        width: 140,
+        padding: EdgeInsets.all(6),
+        width: 160,
         decoration: BoxDecoration(
           color: Constants.white,
           borderRadius: BorderRadius.circular(20),
@@ -28,18 +31,24 @@ class ActivityCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/images/temp-events-img.png',
-              width: 80,
-              height: 80,
-            ),
+            event.flyer != null
+                ? Image.network(
+                    event.flyer!,
+                    width: 90,
+                    height: 90,
+                  )
+                : Image.asset(
+                    'assets/images/temp-events-img.png',
+                    width: 90,
+                    height: 90,
+                  ),
             Text(
-              "How To Learn Python",
+              event.title,
               style: Constants.extraSmallText.copyWith(
                   fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
             ),
             Text(
-              "2023/6/20  -  حضوري",
+              "${DateHelper.getDate(event.startDate)}  -  ${event.isOnline ? "اونلاين" : "حضوري"}",
               style: Constants.superSmallText
                   .copyWith(color: Constants.grey, fontWeight: FontWeight.bold),
             ),

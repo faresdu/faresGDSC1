@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/app/app.locator.dart';
 import 'package:gdsc_app/core/app/app.router.dart';
+import 'package:gdsc_app/core/services/event_service.dart';
 import 'package:gdsc_app/core/utils/string_extensions.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -10,7 +11,7 @@ import '../../core/services/authentication_service.dart';
 class LoginViewModel extends BaseViewModel {
   final navService = locator<NavigationService>();
   final authService = locator<AuthenticationService>();
-
+  final eventService = locator<EventService>();
   //Form data
   String? email;
   String? password;
@@ -23,6 +24,7 @@ class LoginViewModel extends BaseViewModel {
   loginAndNavigate(context) async {
     try {
       await authService.loginWithEmail(email: email!, password: password!);
+      eventService.listenToAllEvents();
       navService.clearStackAndShow(Routes.navigationView);
     } catch (e) {
       showDialog(

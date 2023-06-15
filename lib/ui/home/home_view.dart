@@ -34,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 30),
                   child: Column(
                     children: [
-                      const Welcome(),
+                      Welcome(),
                       SizedBox(
                         height: spacing / 4,
                       ),
@@ -85,16 +85,28 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       const SectionTitle(title: "الفعاليات"),
                       SizedBox(
-                        height: 175,
-                        child: ListView.builder(
+                          height: 200,
+                          child: ListView(
                             scrollDirection: Axis.horizontal,
-                            itemCount: 10,
-                            itemBuilder: (context, index) {
-                              return ActivityCard(
-                                signUpButton: viewmodel.getSignUpButton(),
-                              );
-                            }),
-                      )
+                            children: viewmodel.events
+                                .map((e) => ActivityCard(
+                                    onTap: () {
+                                      viewmodel.navigateToEvent(context, e);
+                                    },
+                                    signUpButton: viewmodel.getSignUpButton(e),
+                                    event: e))
+                                .toList(),
+                          )
+                          // ListView.builder(
+                          //     scrollDirection: Axis.horizontal,
+                          //
+                          //     itemCount: 10,
+                          //     itemBuilder: (context, index) {
+                          //       return ActivityCard(
+                          //         signUpButton: viewmodel.getSignUpButton(),
+                          //       );
+                          //     }),
+                          )
                     ],
                   ),
                 ),
@@ -102,6 +114,7 @@ class _HomeViewState extends State<HomeView> {
             ),
             floatingActionButton: FloatingActionButton(
               heroTag: 'toHoursRequestPage',
+              backgroundColor: Constants.primaryLightBlue,
               onPressed: () {
                 viewmodel.navigateToRequestsPage();
               },

@@ -18,16 +18,17 @@ class EventAttendees extends StatelessWidget {
         Align(
           widthFactor: .75,
           child: Container(
-            decoration: BoxDecoration(boxShadow: Constants.shadow3),
+            decoration: BoxDecoration(boxShadow: Constants.shadow),
             child: const CircleAvatar(
               backgroundColor: Constants.white,
               radius: 11,
               child: Text(
                 '0',
                 style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                    color: Constants.black),
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: Constants.black,
+                ),
               ),
             ),
           ),
@@ -45,9 +46,10 @@ class EventAttendees extends StatelessWidget {
               child: Text(
                 '+${attendees.length - 3}',
                 style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                    color: Constants.black),
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: Constants.black,
+                ),
               ),
             ),
           ),
@@ -77,15 +79,19 @@ class EventAttendees extends StatelessWidget {
       );
     }
     return Row(
+      mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Image(image: AssetImage('assets/images/event-attendees.png')),
+        Image.asset('assets/images/event-attendees.png', width: 13),
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8),
+          margin: EdgeInsets.symmetric(horizontal: 7),
           child: const Text(
             'المشاركين',
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: Constants.black),
           ),
         ),
         Row(children: images),
