@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
@@ -49,14 +51,39 @@ class _AddEventViewState extends State<AddEventView> {
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          Align(
+                          // Align(
+                          //   alignment: Alignment.centerLeft,
+                          //   child: IconButton(
+                          //     onPressed: () async {
+                          //       viewmodel.showImagePicker();
+                          //     },
+                          //     icon: SvgPicture.asset(
+                          //         'assets/icons/events/add_image.svg'),
+                          //   ),
+                          // ),
+                          viewmodel.image == null
+                              ? Align(
                             alignment: Alignment.centerLeft,
-                            child: IconButton(
-                              onPressed: () async {
-                                viewmodel.pickImage();
-                              },
-                              icon: SvgPicture.asset(
-                                  'assets/icons/events/add_image.svg'),
+                                child: InkWell(
+                            onTap: () {
+                                viewmodel.showImagePicker();
+                            },
+                            child: SvgPicture.asset(
+                                'assets/icons/events/add_image.svg',
+                                height: 24,
+                                width: 24,
+                            ),
+                          ),
+                              )
+                              : InkWell(
+                            onTap: () {
+                              viewmodel.showImagePicker();
+                            },
+                            child: Image.file(
+                              File(viewmodel.image!.path),
+                              height: 200,
+                              width: 200,
+                              fit: BoxFit.fill,
                             ),
                           ),
                           CustomTextField(

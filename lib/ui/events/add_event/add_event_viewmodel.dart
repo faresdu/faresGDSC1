@@ -51,10 +51,10 @@ class AddEventViewModel extends BaseViewModel {
     }
   }
 
-  void pickImage() async {
+  void showImagePicker() async {
     final ImagePicker picker = ImagePicker();
-    image = await picker.pickImage(
-        source: ImageSource.gallery);
+    image = await picker.pickImage(source: ImageSource.gallery);
+    notifyListeners();
   }
 
 }
