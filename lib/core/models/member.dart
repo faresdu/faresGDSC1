@@ -50,6 +50,10 @@ class Member {
     return id == committee.coLeaderID;
   }
 
+  bool isLeaderOrCoLeader() {
+    return isLeader() || isCoLeader();
+  }
+
   String getRole() {
     if (isLeader()) {
       return "قائد";

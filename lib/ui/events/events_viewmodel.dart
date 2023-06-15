@@ -4,7 +4,6 @@ import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
-import '../../core/models/member.dart';
 import '../../core/services/event_service.dart';
 import '../../core/services/supabase_service.dart';
 import '../../core/utils/constants.dart';
@@ -65,39 +64,14 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
     );
   }
 
-  Future<void> addEvent({
-    required String title,
-    required DateTime startDate,
-    required int maxAttendees,
-    required String location,
-    required bool isOnline,
-  }) async {
-    //check if user is leader or co leader
-    if (true) {
-      Member member = userService.user;
-      await eventService.addEvent(Event(
-        eventID: '',
-        instructorID: member.id,
-        instructorName: member.name,
-        title: title,
-        startDate: startDate,
-        attendees: [],
-        maxAttendees: maxAttendees,
-        location: location,
-        isOnline: isOnline,
-      ));
-    }
-  }
-
   Future<void> deleteEvent(Event event) async {
-    //check if user is leader or co leader
-    if (true) {
+    if (canEditEvent(event)) {
       await eventService.deleteEvent(event);
     }
   }
 
   Future<void> editEvent(Event event) async {
-    if (event.isOwner(userService.user.id)) {
+    if (canEditEvent(event)) {
       await eventService.editEvent(event);
     }
   }
@@ -125,7 +99,6 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
   Stream<List<Event>> get stream => eventService.eventsController.stream;
 
   bool canEditEvent(Event event) {
-    //check if user is leader or co leader
-    return event.isOwner(userService.user.id);
+    return event.isOwner(userService.user.id) || userService.user.isLeaderOrCoLeader();
   }
 }

@@ -68,4 +68,8 @@ class DateHelper {
     }
     return '$hour:$sMinutes$x';
   }
+
+  static DateTimeAndTimeOfDay(DateTime dateTime, TimeOfDay timeOfDay) {
+    return DateTime(dateTime.year, dateTime.month, dateTime.day, timeOfDay.hour, timeOfDay.minute);
+  }
 }
