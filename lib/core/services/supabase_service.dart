@@ -68,11 +68,25 @@ class SupabaseService {
     }
   }
 
+  Future<Member> getMemberProfile(String id) async {
+    try {
+      final PostgrestResponse<dynamic> res = await supabaseClient
+          .from('profile_view')
+          .select()
+          .eq('user_id', id)
+          .single()
+          .execute();
+      return Member.fromJson(res.data);
+    } catch (e) {
+      throw 'Failed to get profile : $e';
+    }
+  }
+
   Future<List<Member>> getCommitteeMembers(String cId) async {
     try {
       final PostgrestResponse<dynamic> res = await supabaseClient
           .from('member_view')
-          .select('*')
+          .select()
           .eq('committee_id', cId)
           .execute();
       // print(res.data);
@@ -96,10 +110,11 @@ class SupabaseService {
     try {
       final res = await supabaseClient
           .from('Users')
-          .select('*')
+          .select()
           .eq('user_id', id)
+          .single()
           .execute();
-      return (res.data as List).map((e) => GDSCUser.fromJson(e)).toList().first;
+      return GDSCUser.fromJson(res.data);
     } catch (e) {
       throw 'Failed to get User with id $id, ERROR : $e';
     }

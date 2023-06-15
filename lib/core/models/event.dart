@@ -71,8 +71,7 @@ class Event {
       flyer: 'assets/images/temp-events-img.png',
       description:
           'ما أصله؟ خلافاَ للاعتقاد السائد فإن لوريم إيبسوم ليس نصاَ عشوائياً، بل إن له جذور في الأدب اللاتيني الكلاسيكي منذ العام 45 قبل الميلاد، مما يجعله أكثر من عام في',
-      startDate:
-          DateTime.tryParse('2022-01-21 07:00:00+00') ?? DateTime.utc(1900),
+      startDate: DateTime.tryParse('2022-01-21 07:00:00+00') ?? DateTime.utc(1900),
       attendees: [
         Member.anonymous(),
         Member.anonymous(),
@@ -103,7 +102,7 @@ class Event {
 
   factory Event.fromJson(Map<String, dynamic> map) {
     List<Member> members = [];
-    if (((map["attendees"] as List).first as Map)['user_id'] != null) {
+    if (map["attendees"] != null && (map['attendees'] as List).first != null && (map['attendees'] as List).first['user_id'] != null) {
       members = (map["attendees"] as List).map((e) {
         return Member.fromJson(e);
       }).toList();
@@ -116,7 +115,7 @@ class Event {
       title: map['title'] ?? '',
       flyer: map['flyer'],
       description: map['description'],
-      startDate: DateTime.tryParse(map['start_date']) ?? DateTime.utc(1900),
+      startDate: DateTime.tryParse(map['start_date'] ?? '') ?? DateTime.utc(1900),
       endDate: DateTime.tryParse(map['end_date'] ?? ''),
       attendees: members,
       numAttendees: map['num_attendees'] ?? 0,

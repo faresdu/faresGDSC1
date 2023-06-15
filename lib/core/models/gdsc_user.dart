@@ -1,7 +1,9 @@
 import 'package:gdsc_app/core/models/member.dart';
 import 'package:gdsc_app/core/models/social_media.dart';
+import 'package:gdsc_app/core/models/volunteer_hours.dart';
 
 import 'committee.dart';
+import 'event.dart';
 
 class GDSCUser extends Member {
   final String? email;
@@ -13,8 +15,10 @@ class GDSCUser extends Member {
     required String major,
     required int hours,
     String? photo,
-    Committee? committee,
+    required Committee committee,
     required List<SocialMedia> socials,
+    required List<Event> events,
+    required List<VolunteerHours> volunteers,
     this.email,
   }) : super(
           id: id,
@@ -25,6 +29,8 @@ class GDSCUser extends Member {
           hours: hours,
           committee: committee,
           socials: socials,
+          events: events,
+          volunteerHours: volunteers,
         );
 
   factory GDSCUser.anonymous() {
@@ -38,6 +44,8 @@ class GDSCUser extends Member {
       photo: m.photo,
       committee: m.committee,
       socials: m.socials,
+      events: m.events,
+      volunteers: m.volunteerHours,
     );
   }
 
@@ -52,6 +60,8 @@ class GDSCUser extends Member {
       photo: m.photo,
       committee: m.committee,
       socials: m.socials,
+      events: m.events,
+      volunteers: m.volunteerHours,
       email: map['email'],
     );
   }
