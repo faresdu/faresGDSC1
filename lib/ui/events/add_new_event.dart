@@ -24,135 +24,140 @@ class _AddEventViewState extends State<AddEventView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          margin: const EdgeInsets.only(top: 13, bottom: 8),
-          height: 4,
-          width: 55,
-          decoration: BoxDecoration(
-            color: Colors.grey.shade400,
-            borderRadius: BorderRadius.circular(10),
+    return Padding(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 13, bottom: 8),
+            height: 4,
+            width: 55,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade400,
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
-        ),
-        Expanded(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                children: [
-                  const Text(
-                    'إضافة فعالية',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      onPressed: () async {
-                        final ImagePicker picker = ImagePicker();
-                        image =
-                            await picker.pickImage(source: ImageSource.gallery);
-                      },
-                      icon:
-                          SvgPicture.asset('assets/icons/events/add_image.svg'),
-                    ),
-                  ),
-                  CustomTextField(
-                      title: 'العنوان', controller: titleController),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomFieldButton(
-                          title: 'التاريخ',
-                          onPressed: () async {
-                            final DateTime? date = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(2020),
-                                lastDate: DateTime(2040));
-                            setState(() {
-                              dateTime = date;
-                            });
-                          },
-                          icon: SvgPicture.asset('assets/icons/events/date.svg',
-                              width: 22),
-                          child: dateTime == null
-                              ? const Text('لم يحدد')
-                              : Text(DateHelper.getDate(dateTime!)),
-                        ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  children: [
+                    const Text(
+                      'إضافة فعالية',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
                       ),
-                      Expanded(
-                        child: CustomFieldButton(
-                            title: 'الوقت',
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        onPressed: () async {
+                          final ImagePicker picker = ImagePicker();
+                          image = await picker.pickImage(
+                              source: ImageSource.gallery);
+                        },
+                        icon: SvgPicture.asset(
+                            'assets/icons/events/add_image.svg'),
+                      ),
+                    ),
+                    CustomTextField(
+                        title: 'العنوان', controller: titleController),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomFieldButton(
+                            title: 'التاريخ',
                             onPressed: () async {
-                              final TimeOfDay? time = await showTimePicker(
-                                context: context,
-                                initialTime: TimeOfDay.now(),
-                              );
+                              final DateTime? date = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2020),
+                                  lastDate: DateTime(2040));
                               setState(() {
-                                timeOfDay = time;
+                                dateTime = date;
                               });
                             },
                             icon: SvgPicture.asset(
-                                'assets/icons/events/time.svg',
+                                'assets/icons/events/date.svg',
                                 width: 22),
-                            child: timeOfDay == null
+                            child: dateTime == null
                                 ? const Text('لم يحدد')
-                                : Text(DateHelper.getHourTOD(timeOfDay!))),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomFieldButton(
-                          title: 'النوع',
-                          onPressed: () {
-                            setState(() {
-                              isOnline = !isOnline;
-                            });
-                          },
-                          child: Text(isOnline ? 'اون لاين' : 'حضوري'),
-                        ),
-                      ),
-                      Expanded(
-                        child: CustomTextField(
-                          title: 'أقصى عدد للحضور',
-                          controller: attendeesController,
-                          type: TextInputType.number,
-                          icon: SvgPicture.asset(
-                            'assets/icons/events/attendees.svg',
+                                : Text(DateHelper.getDate(dateTime!)),
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                  CustomTextField(
-                    title: 'الموقع',
-                    controller: locationController,
-                  ),
-                  CustomTextField(
-                    title: 'الوصف',
-                    controller: descriptionController,
-                    maxLines: 4,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: 15,
-                        horizontal: MediaQuery.of(context).size.width * 0.1),
-                    child: SubmitButton(),
-                  ),
-                ],
+                        Expanded(
+                          child: CustomFieldButton(
+                              title: 'الوقت',
+                              onPressed: () async {
+                                final TimeOfDay? time = await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now(),
+                                );
+                                setState(() {
+                                  timeOfDay = time;
+                                });
+                              },
+                              icon: SvgPicture.asset(
+                                  'assets/icons/events/time.svg',
+                                  width: 22),
+                              child: timeOfDay == null
+                                  ? const Text('لم يحدد')
+                                  : Text(DateHelper.getHourTOD(timeOfDay!))),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomFieldButton(
+                            title: 'النوع',
+                            onPressed: () {
+                              setState(() {
+                                isOnline = !isOnline;
+                              });
+                            },
+                            child: Text(isOnline ? 'اون لاين' : 'حضوري'),
+                          ),
+                        ),
+                        Expanded(
+                          child: CustomTextField(
+                            title: 'أقصى عدد للحضور',
+                            controller: attendeesController,
+                            type: TextInputType.number,
+                            icon: SvgPicture.asset(
+                              'assets/icons/events/attendees.svg',
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    CustomTextField(
+                      title: 'الموقع',
+                      controller: locationController,
+                    ),
+                    CustomTextField(
+                      title: 'الوصف',
+                      controller: descriptionController,
+                      maxLines: 4,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 15,
+                          horizontal: MediaQuery.of(context).size.width * 0.1),
+                      child: SubmitButton(),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 
@@ -256,6 +261,7 @@ class _AddEventViewState extends State<AddEventView> {
   Widget CustomTextField(
       {required String title,
       required TextEditingController controller,
+      autofocus = false,
       int maxLines = 1,
       Widget? icon,
       TextInputType? type}) {
@@ -264,6 +270,7 @@ class _AddEventViewState extends State<AddEventView> {
       child: TextField(
         keyboardType: type,
         maxLines: maxLines,
+        autofocus: autofocus,
         controller: controller,
         decoration: InputDecoration(
             prefixIcon: Padding(
