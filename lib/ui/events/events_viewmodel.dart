@@ -41,10 +41,7 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
       return EventCardButton(
         text: 'المقاعد ممتلئة',
         color: Constants.grey.withOpacity(.4),
-        onPressed: () {
-          //show dialog
-          print('cant');
-        },
+        onPressed: null,
       );
     } else if (event.getPercentage() >= 75) {
       return EventCardButton(
@@ -62,18 +59,6 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
         await eventService.signUpToEvent(event.eventID);
       },
     );
-  }
-
-  Future<void> deleteEvent(Event event) async {
-    if (canEditEvent(event)) {
-      await eventService.deleteEvent(event);
-    }
-  }
-
-  Future<void> editEvent(Event event) async {
-    if (canEditEvent(event)) {
-      await eventService.editEvent(event);
-    }
   }
 
   navigateToEvent(BuildContext context, Event event) async {
@@ -99,7 +84,6 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
   Stream<List<Event>> get stream => eventService.eventsController.stream;
 
   bool canEditEvent(Event event) {
-    return event.isOwner(userService.user.id) ||
-        userService.user.isLeaderOrCoLeader();
+    return event.isOwner(userService.user.id) || userService.user.isLeaderOrCoLeader();
   }
 }

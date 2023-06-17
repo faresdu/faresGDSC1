@@ -12,13 +12,11 @@ class EventService {
 
   late List<Event> events;
 
-  BehaviorSubject<List<Event>> eventsController =
-      BehaviorSubject<List<Event>>();
+  BehaviorSubject<List<Event>> eventsController = BehaviorSubject<List<Event>>();
 
   Future<List<Event>> getEvents() async {
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService
-          .supabaseClient
+      final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
           .from('events_view')
           .select()
           .gte('start_date', DateTime.now())
@@ -32,11 +30,7 @@ class EventService {
 
   Future<void> addEvent(Event event) async {
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService
-          .supabaseClient
-          .from('Events')
-          .insert(event.toJson())
-          .execute();
+      final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient.from('Events').insert(event.toJson()).execute();
       if (res.error != null) {
         throw res.error!.message;
       }
@@ -47,12 +41,8 @@ class EventService {
 
   Future<void> editEvent(Event event) async {
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService
-          .supabaseClient
-          .from('Events')
-          .update(event.toJson())
-          .eq('event_id', event.eventID)
-          .execute();
+      final PostgrestResponse<dynamic> res =
+          await _supabaseService.supabaseClient.from('Events').update(event.toJson()).eq('event_id', event.eventID).execute();
       if (res.error != null) {
         throw res.error!.message;
       }
@@ -61,14 +51,9 @@ class EventService {
     }
   }
 
-  Future<void> deleteEvent(Event event) async {
+  Future<void> deleteEvent(String id) async {
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService
-          .supabaseClient
-          .from('Events')
-          .delete()
-          .eq('event_id', event.eventID)
-          .execute();
+      final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient.from('Events').delete().eq('event_id', id).execute();
       if (res.error != null) {
         throw res.error!.message;
       }
@@ -79,8 +64,7 @@ class EventService {
 
   Future<void> signUpToEvent(String eId) async {
     try {
-      final PostgrestResponse<dynamic> res =
-          await _supabaseService.supabaseClient.from('event_attendees').insert({
+      final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient.from('event_attendees').insert({
         'event_id': eId,
         'user_id': _userService.user.id,
       }).execute();
@@ -95,12 +79,7 @@ class EventService {
   Future<void> signOutFromEvent(String eId) async {
     try {
       final payload = {'event_id': eId, 'user_id': _userService.user.id};
-      final PostgrestResponse<dynamic> res = await _supabaseService
-          .supabaseClient
-          .from('event_attendees')
-          .delete()
-          .match(payload)
-          .execute();
+      final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient.from('event_attendees').delete().match(payload).execute();
       if (res.error != null) {
         throw res.error!.message;
       }
@@ -110,11 +89,7 @@ class EventService {
   }
 
   Stream<List<Event>> subscribeToEvents() {
-    return _supabaseService.supabaseClient
-        .from('event_attendees')
-        .stream(['event_id'])
-        .execute()
-        .asyncMap<List<Event>>((event) {
+    return _supabaseService.supabaseClient.from('event_attendees').stream(['event_id']).execute().asyncMap<List<Event>>((event) {
           return getEvents();
         });
   }

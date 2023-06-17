@@ -2,24 +2,27 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:gdsc_app/ui/events/add_event/add_event_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../core/utils/constants.dart';
 
-class AddEventView extends StatefulWidget {
-  const AddEventView({Key? key}) : super(key: key);
+class EditEventView extends StatefulWidget {
+  const EditEventView({Key? key, required this.eventDetails}) : super(key: key);
+  final Event eventDetails;
 
   @override
-  State<AddEventView> createState() => _AddEventViewState();
+  State<EditEventView> createState() => _AddEventViewState();
 }
 
-class _AddEventViewState extends State<AddEventView> {
+class _AddEventViewState extends State<EditEventView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddEventViewModel>.reactive(
         viewModelBuilder: () => AddEventViewModel(),
+        onViewModelReady: (model) => model.setEventDetails(widget.eventDetails),
         builder: (context, viewmodel, _) {
           return Padding(
             padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -42,38 +45,50 @@ class _AddEventViewState extends State<AddEventView> {
                       child: Column(
                         children: [
                           const Text(
-                            'إضافة فعالية',
+                            'تعديل فعالية',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          viewmodel.image == null
-                              ? Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: InkWell(
-                                    onTap: () {
-                                      viewmodel.showImagePicker();
-                                    },
-                                    child: SvgPicture.asset(
-                                      'assets/icons/events/add_image.svg',
-                                      height: 24,
-                                      width: 24,
-                                    ),
-                                  ),
-                                )
-                              : InkWell(
-                                  onTap: () {
-                                    viewmodel.showImagePicker();
-                                  },
-                                  child: Image.file(
-                                    File(viewmodel.image!.path),
-                                    height: 200,
-                                    width: 200,
-                                    fit: BoxFit.fill,
-                                  ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  viewmodel.deleteEvent();
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  size: 24,
                                 ),
+                              ),
+                              viewmodel.image == null
+                                  ? InkWell(
+                                      onTap: () {
+                                        viewmodel.showImagePicker();
+                                      },
+                                      child: SvgPicture.asset(
+                                        'assets/icons/events/add_image.svg',
+                                        height: 24,
+                                        width: 24,
+                                      ),
+                                    )
+                                  : InkWell(
+                                      onTap: () {
+                                        viewmodel.showImagePicker();
+                                      },
+                                      child: Image.file(
+                                        File(viewmodel.image!.path),
+                                        height: 200,
+                                        width: 200,
+                                        fit: BoxFit.contain,
+                                      ),
+                                    )
+                            ],
+                          ),
                           CustomTextField(title: 'العنوان', controller: viewmodel.titleController),
                           Row(
                             children: [
@@ -125,6 +140,7 @@ class _AddEventViewState extends State<AddEventView> {
                                 child: CustomTextField(
                                   title: 'أقصى عدد للحضور',
                                   controller: viewmodel.attendeesController,
+                                  readOnly: true,
                                   type: TextInputType.number,
                                   icon: SvgPicture.asset(
                                     'assets/icons/events/attendees.svg',
@@ -145,7 +161,7 @@ class _AddEventViewState extends State<AddEventView> {
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 15, horizontal: MediaQuery.of(context).size.width * 0.1),
                             child: SubmitButton(onPressed: () {
-                              viewmodel.addEvent();
+                              viewmodel.editEvent();
                               Navigator.pop(context);
                             }),
                           ),
@@ -224,7 +240,7 @@ class _AddEventViewState extends State<AddEventView> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
       child: const Text(
-        'إضـافـة',
+        'تعديل',
         style: TextStyle(
           color: Colors.white,
           fontSize: 16,
@@ -235,10 +251,17 @@ class _AddEventViewState extends State<AddEventView> {
   }
 
   Widget CustomTextField(
-      {required String title, required TextEditingController controller, autofocus = false, int maxLines = 1, Widget? icon, TextInputType? type}) {
+      {required String title,
+      required TextEditingController controller,
+      autofocus = false,
+      int maxLines = 1,
+      Widget? icon,
+      TextInputType? type,
+      bool readOnly = false}) {
     return _TextWithChild(
       title: title,
       child: TextField(
+        readOnly: readOnly,
         keyboardType: type,
         maxLines: maxLines,
         autofocus: autofocus,

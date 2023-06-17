@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
-import 'package:gdsc_app/ui/events/components/edit_events.dart';
+import 'package:gdsc_app/ui/events/add_event/edit_event_view.dart';
 import 'package:gdsc_app/ui/events/components/event_attendees.dart';
 import 'package:gdsc_app/ui/events/events_viewmodel.dart';
+import 'package:gdsc_app/ui/widgets/custom_bottom_sheet.dart';
 
 import '../../../core/utils/constants.dart';
 
@@ -28,8 +29,7 @@ class EventCard extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
           fixedSize: const Size.fromWidth(double.maxFinite),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 3,
         ),
         onPressed: onPressed,
@@ -45,14 +45,9 @@ class EventCard extends StatelessWidget {
                 children: [
                   Container(
                     clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        boxShadow: [
-                          BoxShadow(
-                              blurRadius: 7,
-                              offset: const Offset(1, 3),
-                              color: Colors.black.withOpacity(0.25)),
-                        ]),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), boxShadow: [
+                      BoxShadow(blurRadius: 7, offset: const Offset(1, 3), color: Colors.black.withOpacity(0.25)),
+                    ]),
                     child: Image.network(
                       event.instructorProfilePicture!,
                       width: 66,
@@ -89,23 +84,7 @@ class EventCard extends StatelessWidget {
                         alignment: const Alignment(-1, 0),
                         child: IconButton(
                           onPressed: () {
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              backgroundColor: const Color(0xffF1F1F1),
-                              clipBehavior: Clip.antiAlias,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(30),
-                                    topLeft: Radius.circular(30)),
-                              ),
-                              builder: (context) {
-                                return FractionallySizedBox(
-                                  heightFactor: 0.92,
-                                  child: EditEventButton(eventDetails: event),
-                                );
-                              },
-                            );
+                            getCustomBottomSheet(context, EditEventView(eventDetails: event));
                           },
                           icon: const Icon(
                             Icons.edit,
@@ -146,8 +125,7 @@ class EventCard extends StatelessWidget {
                                   width: 8,
                                 ),
                                 Text(
-                                  EventsViewModel.locationEventName(
-                                      event.location),
+                                  EventsViewModel.locationEventName(event.location),
                                   style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.normal,
