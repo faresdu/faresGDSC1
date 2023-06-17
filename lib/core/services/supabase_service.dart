@@ -74,15 +74,15 @@ class SupabaseService {
   }
 
   Stream<GDSCUser> subscribeToUser(String id) {
-    return supabaseClient.from('Users').stream([id]).execute().asyncMap<GDSCUser>((event) {
+    return supabaseClient.from('profile_view').stream([id]).execute().asyncMap<GDSCUser>((event) {
           return getUser(id);
         });
   }
 
   Future<GDSCUser> getUser(String id) async {
     try {
-      final res = await supabaseClient.from('profile_view').select('*').eq('user_id', id).execute();
-      return (res.data as List).map((e) => GDSCUser.fromJson(e)).toList().first;
+      final res = await supabaseClient.from('profile_view').select('*').eq('user_id', id).single().execute();
+      return GDSCUser.fromJson(res.data);
     } catch (e) {
       throw 'Failed to get User with id $id, ERROR : $e';
     }

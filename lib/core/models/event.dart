@@ -78,7 +78,7 @@ class Event {
 
   factory Event.fromJson(Map<String, dynamic> map) {
     List<Member> members = [];
-    if (((map["attendees"] as List).first as Map)['user_id'] != null) {
+    if (map["attendees"] != null && (map['attendees'] as List).first != null && (map['attendees'] as List).first['user_id'] != null) {
       members = (map["attendees"] as List).map((e) {
         return Member.fromJson(e);
       }).toList();

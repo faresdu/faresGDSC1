@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import '../../../core/utils/constants.dart';
 
 class EventCardButton extends StatefulWidget {
-  const EventCardButton(
-      {Key? key,
-      required this.onPressed,
-      required this.color,
-      required this.text,
-      this.padding,
-      this.height,
-      this.fontSize})
-      : super(key: key);
-  final Function() onPressed;
+  const EventCardButton({
+    Key? key,
+    this.onPressed,
+    required this.color,
+    required this.text,
+    this.padding,
+    this.height,
+    this.fontSize,
+  }) : super(key: key);
+  final Function()? onPressed;
   final EdgeInsets? padding;
   final double? height;
   final double? fontSize;
@@ -30,7 +30,9 @@ class _EventCardButtonState extends State<EventCardButton> {
     setState(() {
       isLoading = true;
     });
-    await widget.onPressed();
+    if (widget.onPressed != null) {
+      await widget.onPressed!();
+    }
     setState(() {
       isLoading = false;
     });
@@ -44,8 +46,7 @@ class _EventCardButtonState extends State<EventCardButton> {
           style: ElevatedButton.styleFrom(
             backgroundColor: widget.color,
             fixedSize: Size(double.maxFinite, (widget.height ?? 30)),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
             elevation: 5,
           ),
           // onPressed: isLoading ? null : runFuture,
@@ -60,11 +61,8 @@ class _EventCardButtonState extends State<EventCardButton> {
                 )
               : Text(
                   widget.text,
-                  style: TextStyle(
-                      fontSize: widget.fontSize ?? 14,
-                      color: Colors.white,
-                      fontWeight: FontWeight.normal,
-                      overflow: TextOverflow.ellipsis),
+                  style:
+                      TextStyle(fontSize: widget.fontSize ?? 14, color: Colors.white, fontWeight: FontWeight.normal, overflow: TextOverflow.ellipsis),
                 )),
     );
   }

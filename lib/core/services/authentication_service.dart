@@ -8,6 +8,7 @@ import '../app/app.locator.dart';
 class AuthenticationService {
   final _supabaseService = locator<SupabaseService>();
   final _userService = locator<UserService>();
+
   Future<void> loginWithEmail(
       {required String email, required String password}) async {
     try {

@@ -22,4 +22,8 @@ class UserService {
       user = newUser;
     });
   }
+
+  Future<void> updateUser() async {
+    userSubject.sink.add(await _supabaseService.getUser(user.id));
+  }
 }
