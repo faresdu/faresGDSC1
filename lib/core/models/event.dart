@@ -11,7 +11,6 @@ class Event {
   final DateTime startDate;
   final DateTime? endDate;
   List<Member> attendees;
-  int numAttendees;
   final int maxAttendees;
   final String location;
   final String? host;
@@ -28,7 +27,6 @@ class Event {
     required this.startDate,
     this.endDate,
     required this.attendees,
-    required this.numAttendees,
     required this.maxAttendees,
     required this.location,
     this.host,
@@ -37,16 +35,17 @@ class Event {
 
   int getRemainingSeats() {
     if (isFull()) return 0;
-    return maxAttendees - numAttendees;
+    return maxAttendees - attendees.length;
   }
 
   double getPercentage() {
+    if (isFull()) return 100;
     if (maxAttendees == 0) return 0;
-    return 100.0 * numAttendees / maxAttendees;
+    return 100.0 * attendees.length / maxAttendees;
   }
 
   bool isFull() {
-    return numAttendees >= maxAttendees;
+    return attendees.length >= maxAttendees;
   }
 
   bool isOwner(String id) {
@@ -62,42 +61,19 @@ class Event {
     return false;
   }
 
-  factory Event.placeholder() {
-    return Event(
-      eventID: '1234',
-      instructorID: '123',
-      instructorName: 'بسام البسام',
-      title: 'مقدمة في علم البيانات',
-      flyer: 'assets/images/temp-events-img.png',
-      description:
-          'ما أصله؟ خلافاَ للاعتقاد السائد فإن لوريم إيبسوم ليس نصاَ عشوائياً، بل إن له جذور في الأدب اللاتيني الكلاسيكي منذ العام 45 قبل الميلاد، مما يجعله أكثر من عام في',
-      startDate: DateTime.tryParse('2022-01-21 07:00:00+00') ?? DateTime.utc(1900),
-      attendees: [
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-        Member.anonymous(),
-      ],
-      numAttendees: 2,
-      maxAttendees: 37,
-      location: 'بهو الجامعة',
-      isOnline: false,
-    );
+  Map<String, dynamic> toJson() {
+    return {
+      'instructor_id': instructorID,
+      'title': title,
+      'start_date': startDate.toString(),
+      'location': location,
+      'max_attendees': maxAttendees,
+      'is_online': isOnline,
+      'flyer': flyer,
+      'description': description,
+      'end_date': endDate?.toString(),
+      'event_host': host,
+    };
   }
 
   factory Event.fromJson(Map<String, dynamic> map) {
@@ -118,7 +94,6 @@ class Event {
       startDate: DateTime.tryParse(map['start_date'] ?? '') ?? DateTime.utc(1900),
       endDate: DateTime.tryParse(map['end_date'] ?? ''),
       attendees: members,
-      numAttendees: map['num_attendees'] ?? 0,
       maxAttendees: map['max_attendees'] ?? 0,
       location: map['location'] ?? '',
       host: map['event_host'],

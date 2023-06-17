@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:stacked/stacked.dart';
-import '../../core/utils/constants.dart';
-import 'components/event_attendees.dart';
-import 'components/event_date_box.dart';
-import 'components/event_info_box.dart';
+import '../../../core/utils/constants.dart';
+import '../components/event_attendees.dart';
 import 'event_details_viewmodel.dart';
 
 TextStyle titleStyle =
@@ -27,6 +25,11 @@ class _EventDetailsViewState extends State<EventDetailsView> {
         viewModelBuilder: () => EventsDetailsViewModel(widget.event),
         builder: (context, viewmodel, _) {
           return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Constants.white,
+              elevation: 0,
+              foregroundColor: Constants.black,
+            ),
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(30),
@@ -35,7 +38,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      flex: 5,
+                      flex: 3,
                       child: Container(
                         child: viewmodel.eventDetails.flyer != null
                             ? Image.network(
@@ -56,12 +59,12 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        EventDateBox(
+                        buildEventDateBox(
                           day: viewmodel.eventDetails.startDate.day,
                           month: DateHelper.getMonth(
                               viewmodel.eventDetails.startDate),
                         ),
-                        EventInfoBox(
+                        buildEventInfoBox(
                           topText: DateHelper.getWeekDay(
                               viewmodel.eventDetails.startDate),
                           bottomText: viewmodel.eventDetails.endDate != null
@@ -69,10 +72,10 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                               : DateHelper.getHour(
                                   viewmodel.eventDetails.startDate),
                         ),
-                        EventInfoBox(
+                        buildEventInfoBox(
                             topText: 'الموقع',
                             bottomText: viewmodel.eventDetails.location),
-                        EventInfoBox(
+                        buildEventInfoBox(
                             topText: 'المحاضر',
                             bottomText: viewmodel.eventDetails.host ??
                                 viewmodel.eventDetails.instructorName)
@@ -85,7 +88,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                         color: Constants.grey.withOpacity(.5),
                       ),
                     ),
-                    Flexible(
+                    Expanded(
                       flex: 1,
                       child: Text(
                         'عن الفعالية',
@@ -133,5 +136,62 @@ class _EventDetailsViewState extends State<EventDetailsView> {
             ),
           );
         });
+  }
+
+  Widget buildEventInfoBox({
+    required String topText,
+    required String bottomText,
+    Function()? onPressed,
+  }) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Column(
+        children: [
+          Text(
+            topText,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Text(bottomText,
+              style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: Constants.grey))
+        ],
+      ),
+    );
+  }
+
+  Widget buildEventDateBox({
+    required int day,
+    required String month,
+  }) {
+    return Container(
+      height: 50,
+      width: 50,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(13),
+        ),
+        color: Constants.grey.withOpacity(.1),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10.0),
+        child: Column(children: [
+          Text(
+            '$day',
+            style: const TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w700, height: 1),
+          ),
+          Text(
+            month,
+            style: const TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w700, height: 1),
+          )
+        ]),
+      ),
+    );
   }
 }

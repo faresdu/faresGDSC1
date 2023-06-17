@@ -9,7 +9,7 @@ import '../../core/services/supabase_service.dart';
 import '../../core/utils/constants.dart';
 import 'package:gdsc_app/ui/events/components/events_card_signup_button.dart';
 
-import 'event_details_view.dart';
+import 'event_details/event_details_view.dart';
 
 class EventsViewModel extends StreamViewModel<List<Event>> {
   final navService = locator<NavigationService>();
@@ -18,10 +18,6 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
   final userService = locator<UserService>();
 
   List<Event> events = [];
-
-  EventsViewModel() {
-    eventService.listenToAllEvents();
-  }
 
   @override
   void onData(List<Event>? data) {
@@ -32,29 +28,27 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
     }
   }
 
-  Widget getSignUpCardButton(Event event) {
+  Widget getSignUpButton(Event event) {
     if (event.isSignedUp(userService.user.id)) {
       return EventCardButton(
         text: 'سجل خروج',
-        color: Constants.grey.withOpacity(.9),
+        color: Constants.red.withOpacity(.9),
         onPressed: () async {
-          await eventService.signOutFromEvent(event);
+          await eventService.signOutFromEvent(event.eventID);
         },
       );
     } else if (event.isFull()) {
       return EventCardButton(
         text: 'المقاعد ممتلئة',
-        color: Constants.red.withOpacity(.9),
-        onPressed: () {
-          print('cant sign in');
-        },
+        color: Constants.grey.withOpacity(.4),
+        onPressed: null,
       );
     } else if (event.getPercentage() >= 75) {
       return EventCardButton(
-        text: 'احجز مقعدك',
-        color: Constants.yellow.withOpacity(.9),
+        text: 'احجز مقعدك - مقاعد محدودة',
+        color: Constants.blueButton.withOpacity(.9),
         onPressed: () async {
-          await eventService.signUpToEvent(event);
+          await eventService.signUpToEvent(event.eventID);
         },
       );
     }
@@ -62,7 +56,7 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
       text: 'احجز مقعدك',
       color: Constants.green.withOpacity(.9),
       onPressed: () async {
-        await eventService.signUpToEvent(event);
+        await eventService.signUpToEvent(event.eventID);
       },
     );
   }
@@ -88,4 +82,8 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
 
   @override
   Stream<List<Event>> get stream => eventService.eventsController.stream;
+
+  bool canEditEvent(Event event) {
+    return event.isOwner(userService.user.id) || userService.user.isLeaderOrCoLeader();
+  }
 }

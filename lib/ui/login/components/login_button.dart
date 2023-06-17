@@ -3,6 +3,7 @@ import 'package:gdsc_app/core/utils/constants.dart';
 
 class LoginButton extends StatelessWidget {
   final void Function() onPressed;
+
   const LoginButton({Key? key, required this.onPressed}) : super(key: key);
 
   @override
@@ -15,7 +16,7 @@ class LoginButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Constants.darkBlue,
-          shape: StadiumBorder(),
+          shape: const StadiumBorder(),
         ),
         child: Text('سجل الدخول',
             style: Constants.mediumText.copyWith(

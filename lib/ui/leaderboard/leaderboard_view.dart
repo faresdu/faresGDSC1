@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/ui/leaderboard/leaderboard_viewmodel.dart';
+import 'package:gdsc_app/ui/widgets/custom_buttom.dart';
 import 'package:stacked/stacked.dart';
 
 class LeaderboardView extends StatelessWidget {
@@ -18,6 +20,20 @@ class LeaderboardView extends StatelessWidget {
                 automaticallyImplyLeading: false),
             body: Column(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      child: CustomButton(
+                          onPressed: () {
+                            viewmodel.navigateToHierarchy();
+                          },
+                          text: 'الهيكلة',
+                          color: Constants.primaryLightBlue),
+                    ),
+                  ],
+                ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: viewmodel.members
