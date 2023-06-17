@@ -34,6 +34,10 @@ class VolunteerHours {
     return isApproved == null;
   }
 
+  bool isAccepted() {
+    return !isPending() && isApproved == true;
+  }
+
   factory VolunteerHours.fromJson(Map<String, dynamic> map) {
     VolunteerHours v = VolunteerHours.anonymous();
     return VolunteerHours(

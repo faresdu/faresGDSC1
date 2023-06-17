@@ -20,6 +20,7 @@ class ProfileSocialMediaCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
+        boxShadow: Constants.cardShadow,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -27,7 +28,9 @@ class ProfileSocialMediaCard extends StatelessWidget {
           Expanded(
             child: Container(
               height: 80,
-              color: const Color(0xFFBFDEF5),
+              decoration: const BoxDecoration(
+                color: Constants.darkBlue,
+              ),
               child: IconButton(
                 icon: const Icon(
                   Icons.navigate_next,
@@ -42,7 +45,7 @@ class ProfileSocialMediaCard extends StatelessWidget {
           Expanded(
             flex: 4,
             child: Container(
-              color: Constants.darkBlue,
+              color: Constants.white,
               child: Row(
                 children: [
                   Expanded(
@@ -55,7 +58,7 @@ class ProfileSocialMediaCard extends StatelessWidget {
                               socialMedia.name,
                               style: GoogleFonts.cairo(
                                 textStyle: const TextStyle(
-                                  color: Constants.white,
+                                  color: Constants.darkBlue,
                                   height: 1.7,
                                   fontWeight: FontWeight.w700,
                                   fontSize: 28,
@@ -69,7 +72,7 @@ class ProfileSocialMediaCard extends StatelessWidget {
                             textDirection: TextDirection.ltr,
                             style: GoogleFonts.cairo(
                               textStyle: const TextStyle(
-                                color: Constants.white,
+                                color: Constants.darkBlue,
                                 height: 1,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16,

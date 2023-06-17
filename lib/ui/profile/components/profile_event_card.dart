@@ -14,15 +14,23 @@ class ProfileEventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(10),
-      height: 100,
-      width: 100,
-      decoration: BoxDecoration(color: Constants.darkBlue, borderRadius: BorderRadius.circular(10)),
-      child: Center(
-        child: Text(
-          event.title,
-          style: const TextStyle(color: Constants.white),
-        ),
+      padding: const EdgeInsets.all(3),
+      decoration: BoxDecoration(
+        color: Constants.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: Constants.cardShadow,
       ),
+      child: Column(children: [
+        Expanded(child: event.getImage()),
+        Text(
+          event.title,
+          style: const TextStyle(
+            color: Constants.black,
+            fontWeight: FontWeight.w700,
+            fontSize: 10,
+          ),
+        ),
+      ]),
     );
   }
 }

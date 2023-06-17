@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/core/services/authentication_service.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gdsc_app/core/services/authentication_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
@@ -56,28 +54,31 @@ class ProfileViewModel extends BaseViewModel {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
           children: user.events
               .map(
                 (e) => ProfileEventCard(event: e),
               )
               .toList());
     } else if (index == 1) {
-      return Column(
+      return GridView(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
           children: user.volunteerHours.map((e) {
-        if (e.isPending()) {
-          return ProfileVolunteerHoursCard(volunteerHours: e);
-        } else if (e.isApproved!) {
-          return ProfileVolunteerHoursCard(volunteerHours: e);
-        }
-        return ProfileVolunteerHoursCard(volunteerHours: e);
-      }).toList());
+            if (e.isPending()) {
+              return ProfileVolunteerHoursCard(volunteerHours: e);
+            } else if (e.isApproved!) {
+              return ProfileVolunteerHoursCard(volunteerHours: e);
+            }
+            return ProfileVolunteerHoursCard(volunteerHours: e);
+          }).toList());
     } else if (index == 2) {
       return Column(
-          children: []
+          children: user.posts
               .map(
-                (e) => const Placeholder(),
+                (e) => Text(e.content),
               )
               .toList());
     } else if (index == 3) {
@@ -90,36 +91,14 @@ class ProfileViewModel extends BaseViewModel {
     }
     return Container();
   }
-import 'package:stacked_services/stacked_services.dart';
-import '../../core/app/app.locator.dart';
-import '../../core/app/app.router.dart';
-import '../../core/models/member.dart';
-import '../../core/services/supabase_service.dart';
-import '../../core/services/user_service.dart';
-import '../../core/utils/constants.dart';
-import 'components/profile_event_card.dart';
-import 'components/profile_social_media_card.dart';
-import 'components/profile_volunteer_hours_card.dart';
-
-class ProfileViewModel extends FutureViewModel<Member> {
-  final authService = locator<AuthenticationService>();
-  final supabaseService = locator<SupabaseService>();
-  final userService = locator<UserService>();
-  final navService = locator<NavigationService>();
-
-  int index = 0;
-
-  @override
-  Future<Member> futureToRun() async {
-    return await supabaseService.getMemberProfile(userService.user.id);
-  }
 
   List<Widget> getButtons() {
     return [
       Flexible(
         child: buildProfileButton(
             isSelected: index == 0,
-            icon: Icons.account_box_rounded,
+            svgIcon: 'assets/icons/profile/timeline.svg',
+            color: Constants.green,
             bottomText: 'الفعاليات',
             onPressed: () {
               index = 0;
@@ -129,7 +108,8 @@ class ProfileViewModel extends FutureViewModel<Member> {
       Flexible(
         child: buildProfileButton(
             isSelected: index == 1,
-            icon: Icons.access_time,
+            svgIcon: 'assets/icons/profile/timeline.svg',
+            color: Constants.yellow,
             bottomText: 'الساعات',
             onPressed: () {
               index = 1;
@@ -139,7 +119,8 @@ class ProfileViewModel extends FutureViewModel<Member> {
       Flexible(
         child: buildProfileButton(
             isSelected: index == 2,
-            icon: Icons.newspaper,
+            svgIcon: 'assets/icons/profile/timeline.svg',
+            color: Constants.red,
             bottomText: 'المنشورات',
             onPressed: () {
               index = 2;
@@ -149,7 +130,8 @@ class ProfileViewModel extends FutureViewModel<Member> {
       Flexible(
         child: buildProfileButton(
             isSelected: index == 3,
-            icon: Icons.chat,
+            svgIcon: 'assets/icons/profile/timeline.svg',
+            color: Constants.blue,
             bottomText: 'التواصل',
             onPressed: () {
               index = 3;
@@ -159,24 +141,25 @@ class ProfileViewModel extends FutureViewModel<Member> {
     ];
   }
 
-  Widget buildProfileButton(
-      {required IconData icon,
-      required String bottomText,
-      Function()? onPressed,
-      required bool isSelected}) {
+  Widget buildProfileButton({
+    required String svgIcon,
+    required String bottomText,
+    Function()? onPressed,
+    required bool isSelected,
+    required Color color,
+  }) {
     return Column(
       children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: isSelected
-              ? Constants.darkBlue
-              : Constants.darkBlue.withOpacity(.4),
+        Container(
+          height: 55,
+          width: 55,
+          decoration: BoxDecoration(
+            color: isSelected ? color : Constants.grey.withOpacity(.4),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
           child: IconButton(
             iconSize: 30,
-            icon: Icon(
-              icon,
-              color: Constants.white,
-            ),
+            icon: SvgPicture.asset(svgIcon),
             onPressed: onPressed,
           ),
         ),
@@ -191,126 +174,8 @@ class ProfileViewModel extends FutureViewModel<Member> {
       ],
     );
   }
-}
-  Future<void> refreshData() async {
-    data = await futureToRun();
-    notifyListeners();
-  }
 
-  Future<void> signOut() async {
-    await authService.signOut();
-    navService.clearStackAndShow(Routes.loginView);
-  }
-
-  Widget getBottomWidget() {
-    if (index == 0) {
-      return GridView(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-          children: data!.events
-              .map(
-                (e) => ProfileEventCard(event: e),
-              )
-              .toList());
-    } else if (index == 1) {
-      return Column(
-          children: data!.volunteerHours.map((e) {
-        if (e.isPending()) {
-          return ProfileVolunteerHoursCard(volunteerHours: e);
-        } else if (e.isApproved!) {
-          return ProfileVolunteerHoursCard(volunteerHours: e);
-        }
-        return ProfileVolunteerHoursCard(volunteerHours: e);
-      }).toList());
-    } else if (index == 2) {
-      return Column(
-          children: []
-              .map(
-                (e) => const Placeholder(),
-              )
-              .toList());
-    } else if (index == 3) {
-      return Column(
-          children: data!.socials
-              .map(
-                (e) => ProfileSocialMediaCard(socialMedia: e),
-              )
-              .toList());
-    }
-    return Container();
-  }
-
-  List<Widget> getButtons() {
-    return [
-      Flexible(
-        child: buildProfileButton(
-            isSelected: index == 0,
-            icon: Icons.account_box_rounded,
-            bottomText: 'الفعاليات',
-            onPressed: () {
-              index = 0;
-              notifyListeners();
-            }),
-      ),
-      Flexible(
-        child: buildProfileButton(
-            isSelected: index == 1,
-            icon: Icons.access_time,
-            bottomText: 'الساعات',
-            onPressed: () {
-              index = 1;
-              notifyListeners();
-            }),
-      ),
-      Flexible(
-        child: buildProfileButton(
-            isSelected: index == 2,
-            icon: Icons.newspaper,
-            bottomText: 'المنشورات',
-            onPressed: () {
-              index = 2;
-              notifyListeners();
-            }),
-      ),
-      Flexible(
-        child: buildProfileButton(
-            isSelected: index == 3,
-            icon: Icons.chat,
-            bottomText: 'التواصل',
-            onPressed: () {
-              index = 3;
-              notifyListeners();
-            }),
-      ),
-    ];
-  }
-
-  Widget buildProfileButton({required IconData icon, required String bottomText, Function()? onPressed, required bool isSelected}) {
-    return Column(
-      children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: isSelected ? Constants.darkBlue : Constants.darkBlue.withOpacity(.4),
-          child: IconButton(
-            iconSize: 30,
-            icon: Icon(
-              icon,
-              color: Constants.white,
-            ),
-            onPressed: onPressed,
-          ),
-        ),
-        Text(
-          bottomText,
-          style: GoogleFonts.cairo(
-            fontWeight: FontWeight.w700,
-            fontSize: 16,
-            color: Constants.grey,
-          ),
-        ),
-      ],
-    );
+  void navigateToEditProfile() {
+    navService.navigateTo(Routes.editProfileView);
   }
 }

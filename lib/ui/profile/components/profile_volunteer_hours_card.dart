@@ -16,22 +16,40 @@ class ProfileVolunteerHoursCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(15),
       height: 55,
-      decoration: BoxDecoration(color: Constants.darkBlue, borderRadius: BorderRadius.circular(10)),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Constants.white, boxShadow: Constants.cardShadow),
+      clipBehavior: Clip.antiAlias,
+      child: Column(
         children: [
-          Column(
-            children: [
-              Text(
-                volunteerHours.hours.toString(),
-                style: const TextStyle(color: Constants.white),
-              ),
-              Text(
+          if (volunteerHours.isPending())
+            const Icon(
+              Icons.question_mark,
+            ),
+          if (volunteerHours.isAccepted())
+            const Icon(
+              Icons.done,
+              color: Constants.green,
+            ),
+          if (!volunteerHours.isAccepted())
+            const Icon(
+              Icons.close,
+              color: Constants.red,
+            ),
+          Expanded(
+            child: Center(
+              child: Text(
                 volunteerHours.reasoning ?? 'no reason',
-                style: const TextStyle(color: Constants.white),
+                style: const TextStyle(color: Constants.black),
               ),
-            ],
+            ),
+          ),
+          Container(
+            width: double.maxFinite,
+            color: Constants.darkBlue,
+            child: Text(
+              volunteerHours.hours.toString(),
+              style: const TextStyle(color: Constants.white),
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),

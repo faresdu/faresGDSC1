@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'member.dart';
 
 class Event {
@@ -59,6 +61,13 @@ class Event {
       }
     }
     return false;
+  }
+
+  Widget getImage() {
+    if (flyer != null) {
+      return Image.network(flyer!);
+    }
+    return Image.asset('assets/images/temp-events-img.png');
   }
 
   Map<String, dynamic> toJson() {
