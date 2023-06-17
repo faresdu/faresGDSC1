@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/services/authentication_service.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,21 +14,32 @@ import 'components/profile_event_card.dart';
 import 'components/profile_social_media_card.dart';
 import 'components/profile_volunteer_hours_card.dart';
 
-class ProfileViewModel extends FutureViewModel<Member> {
+class ProfileViewModel extends BaseViewModel {
   final authService = locator<AuthenticationService>();
   final userService = locator<UserService>();
   final navService = locator<NavigationService>();
 
   int index = 0;
+  late Member user;
+  late StreamSubscription listener;
+
+  listenToUser() {
+    user = userService.user;
+    listener = userService.userSubject.listen((e) => user = e as Member);
+  }
 
   @override
-  Future<Member> futureToRun() async {
-    return userService.user;
+  void dispose() {
+    listener.cancel();
+    super.dispose();
   }
 
   Future<void> refreshData() async {
-    data = await futureToRun();
+    setBusy(true);
+    await userService.updateUser();
+    print(user.events);
     notifyListeners();
+    setBusy(false);
   }
 
   Future<void> signOut() async {
@@ -40,15 +53,16 @@ class ProfileViewModel extends FutureViewModel<Member> {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-          children: data!.events
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3),
+          children: user.events
               .map(
                 (e) => ProfileEventCard(event: e),
               )
               .toList());
     } else if (index == 1) {
       return Column(
-          children: data!.volunteerHours.map((e) {
+          children: user.volunteerHours.map((e) {
         if (e.isPending()) {
           return ProfileVolunteerHoursCard(volunteerHours: e);
         } else if (e.isApproved!) {
@@ -65,7 +79,7 @@ class ProfileViewModel extends FutureViewModel<Member> {
               .toList());
     } else if (index == 3) {
       return Column(
-          children: data!.socials
+          children: user.socials
               .map(
                 (e) => ProfileSocialMediaCard(socialMedia: e),
               )
@@ -119,12 +133,18 @@ class ProfileViewModel extends FutureViewModel<Member> {
     ];
   }
 
-  Widget buildProfileButton({required IconData icon, required String bottomText, Function()? onPressed, required bool isSelected}) {
+  Widget buildProfileButton(
+      {required IconData icon,
+      required String bottomText,
+      Function()? onPressed,
+      required bool isSelected}) {
     return Column(
       children: [
         CircleAvatar(
           radius: 30,
-          backgroundColor: isSelected ? Constants.darkBlue : Constants.darkBlue.withOpacity(.4),
+          backgroundColor: isSelected
+              ? Constants.darkBlue
+              : Constants.darkBlue.withOpacity(.4),
           child: IconButton(
             iconSize: 30,
             icon: Icon(
