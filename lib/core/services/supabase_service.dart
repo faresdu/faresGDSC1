@@ -33,25 +33,21 @@ class SupabaseService {
 
     if (session != null) {
       //Recover Session
-      GotrueSessionResponse response =
-          await supabaseClient.auth.recoverSession(session);
+      GotrueSessionResponse response = await supabaseClient.auth.recoverSession(session);
 
       //Error Occurred
       if (response.error != null) {
         prefs.remove('PERSIST_SESSION_KEY');
       } else {
-        prefs.setString(
-            'PERSIST_SESSION_KEY', response.data!.persistSessionString);
+        prefs.setString('PERSIST_SESSION_KEY', response.data!.persistSessionString);
       }
-      print(
-          'Recovered Successfully : ${supabaseClient.auth.currentUser?.email}');
+      print('Recovered Successfully : ${supabaseClient.auth.currentUser?.email}');
     }
   }
 
   Future<List<Committee>> getCommittees() async {
     try {
-      final PostgrestResponse<dynamic> res =
-          await supabaseClient.from('Committees').select().execute();
+      final PostgrestResponse<dynamic> res = await supabaseClient.from('Committees').select().execute();
       return (res.data as List).map((e) => Committee.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Committees, ERROR : $e';
@@ -60,8 +56,7 @@ class SupabaseService {
 
   Future<List<Member>> getLeaderboardMembers() async {
     try {
-      final PostgrestResponse<dynamic> res =
-          await supabaseClient.from('leaderboard_view').select().execute();
+      final PostgrestResponse<dynamic> res = await supabaseClient.from('leaderboard_view').select().execute();
       return (res.data as List).map((e) => Member.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Leaderboard : $e';
@@ -70,11 +65,7 @@ class SupabaseService {
 
   Future<List<Member>> getCommitteeMembers(String cId) async {
     try {
-      final PostgrestResponse<dynamic> res = await supabaseClient
-          .from('member_view')
-          .select('*')
-          .eq('committee_id', cId)
-          .execute();
+      final PostgrestResponse<dynamic> res = await supabaseClient.from('member_view').select('*').eq('committee_id', cId).execute();
       // print(res.data);
       return (res.data as List).map((e) => Member.fromJson(e)).toList();
     } catch (e) {
@@ -83,22 +74,14 @@ class SupabaseService {
   }
 
   Stream<GDSCUser> subscribeToUser(String id) {
-    return supabaseClient
-        .from('Users')
-        .stream([id])
-        .execute()
-        .asyncMap<GDSCUser>((event) {
+    return supabaseClient.from('Users').stream([id]).execute().asyncMap<GDSCUser>((event) {
           return getUser(id);
         });
   }
 
   Future<GDSCUser> getUser(String id) async {
     try {
-      final res = await supabaseClient
-          .from('profile_view')
-          .select('*')
-          .eq('user_id', id)
-          .execute();
+      final res = await supabaseClient.from('profile_view').select('*').eq('user_id', id).execute();
       return (res.data as List).map((e) => GDSCUser.fromJson(e)).toList().first;
     } catch (e) {
       throw 'Failed to get User with id $id, ERROR : $e';

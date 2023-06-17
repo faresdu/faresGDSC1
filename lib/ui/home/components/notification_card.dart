@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/utils/helper_functions.dart';
 
+import '../../../core/models/notifications.dart';
 import '../../../core/utils/constants.dart';
 
 class NotificationCard extends StatelessWidget {
   const NotificationCard(
-      {super.key,
-      required this.title,
-      required this.body,
-      required this.imagePath});
-  final String title, body, imagePath;
+      {super.key, required this.notification, this.isNetworkImage = true});
+
+  final Notifications notification;
+  final bool isNetworkImage;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-
       margin: const EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -29,7 +29,7 @@ class NotificationCard extends StatelessWidget {
             children: [
               Text(
                 //"أكملت 30 ساعة تطوعية",
-                title,
+                notification.title,
                 style: TextStyle(
                   fontSize: 22,
                   letterSpacing: 0.5,
@@ -38,7 +38,7 @@ class NotificationCard extends StatelessWidget {
               ),
               Text(
                 //"أكملت لجنتك 500 ساعة تطوعية",
-                body,
+                notification.name,
                 style: TextStyle(
                   height: 1.6,
                   fontSize: 17,
@@ -49,7 +49,16 @@ class NotificationCard extends StatelessWidget {
               ),
             ],
           ),
-          Image.asset(imagePath)
+          const Spacer(),
+          if (notification.picture != null && isNetworkImage)
+            HelperFunctions.profileImage(
+                imageUrl: notification.picture!,
+                height: 60,
+                width: 60,
+                fit: BoxFit.contain),
+          if (notification.picture != null && !isNetworkImage)
+            Image.asset(notification.picture!,
+                height: 60, width: 60, fit: BoxFit.contain)
         ],
       ),
     );

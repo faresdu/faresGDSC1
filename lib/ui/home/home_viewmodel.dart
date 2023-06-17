@@ -1,9 +1,13 @@
+import 'package:gdsc_app/core/services/hour_service.dart';
+import 'package:gdsc_app/core/services/notification_service.dart';
+
 import '../../core/models/event.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
 import '../../core/app/app.router.dart';
+import '../../core/models/notifications.dart';
 import '../../core/services/event_service.dart';
 import '../../core/services/user_service.dart';
 import '../../core/utils/constants.dart';
@@ -14,6 +18,8 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   final navService = locator<NavigationService>();
   final eventService = locator<EventService>();
   final userService = locator<UserService>();
+  final notificationService = locator<NotificationService>();
+  final hourService = locator<HourService>();
 
   @override
   void onData(List<Event>? data) {
@@ -26,31 +32,37 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
 
   List<Event> events = [];
 
-  Map<String, String> mainNotification = {
-    "title": "أكملت 30 ساعة تطوعية",
-    "body": "أكملت لجنتك 500 ساعة تطوعية",
-    "imagePath": "assets/images/achievement.png"
-  };
-  List<Map<String, String>> featuredNotifications = [
-    {
-      "title": "أكملت 36 ة",
-      "body": "أكملت لجنتك 500 ساعة تطوعية",
-      "imagePath": "assets/images/achievement.png"
-    },
-    {
-      "title": "تعبئة صفحة الساعات",
-      "body": "يوسف الغصن",
-      "imagePath": "assets/images/empty.png"
-    },
-    {
-      "title": "أكملت 30 ة",
-      "body": "أكملت لجنتك 500 ساعة تطوعية",
-      "imagePath": "assets/images/achievement.png",
-    }
-  ];
+  Notifications? featuredNotification;
+  List<Notifications> notifications = [];
+  List<Notifications> fullNotifications = [];
 
-  navigateToRequestsPage() {
+  Future getNotifications() async {
+    setBusy(true);
+    fullNotifications = await notificationService.getNotifications(limit: 3);
+    featuredNotification = await getHours();
+    if (fullNotifications.isNotEmpty) {
+      notifications = fullNotifications.take(4).toList();
+      notifyListeners();
+    }
+    setBusy(false);
+  }
+
+  getHours() async {
+    int hours = await hourService.getCumulativeHours();
+    int committeeHours = await hourService.getCumulativeCommitteeHours();
+
+    return Notifications(
+        title: "أكملت $hours ساعة تطوعية",
+        name: "أكملت لجنتك $committeeHours ساعة تطوعية",
+        picture: "assets/images/achievement.png");
+  }
+
+  void navigateToRequestsPage() {
     navService.navigateTo(Routes.hoursRequestView);
+  }
+
+  void navigateToNotifications() {
+    navService.navigateTo(Routes.notificationView);
   }
 
   Widget getSignUpButton(Event event) {
