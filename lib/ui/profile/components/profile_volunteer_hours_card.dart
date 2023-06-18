@@ -20,20 +20,7 @@ class ProfileVolunteerHoursCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
-          if (volunteerHours.isPending())
-            const Icon(
-              Icons.question_mark,
-            ),
-          if (volunteerHours.isAccepted())
-            const Icon(
-              Icons.done,
-              color: Constants.green,
-            ),
-          if (!volunteerHours.isAccepted())
-            const Icon(
-              Icons.close,
-              color: Constants.red,
-            ),
+          getIcon(),
           Expanded(
             child: Center(
               child: Text(
@@ -54,5 +41,23 @@ class ProfileVolunteerHoursCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  getIcon() {
+    if (volunteerHours.isPending()) {
+      return const Icon(Icons.question_mark);
+    }
+    if (volunteerHours.isAccepted()) {
+      return const Icon(
+        Icons.done,
+        color: Constants.green,
+      );
+    }
+    if (volunteerHours.isRejected()) {
+      return const Icon(
+        Icons.close,
+        color: Constants.red,
+      );
+    }
   }
 }

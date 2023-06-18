@@ -23,7 +23,7 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
   void onData(List<Event>? data) {
     super.onData(data);
     if (data != null) {
-      events = data.toList();
+      events = data.toList().where((e) => e.startDate.isAfter(DateTime.now())).toList();
       notifyListeners();
     }
   }

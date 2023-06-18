@@ -50,11 +50,7 @@ class ProfileViewModel extends BaseViewModel {
 
   Widget getBottomWidget() {
     if (index == 0) {
-      return GridView(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+      return Column(
           children: user.events
               .map(
                 (e) => ProfileEventCard(event: e),

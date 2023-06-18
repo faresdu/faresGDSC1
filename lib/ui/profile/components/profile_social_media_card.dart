@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/models/social_media.dart';
 import '../../../core/utils/constants.dart';
@@ -38,7 +39,16 @@ class ProfileSocialMediaCard extends StatelessWidget {
                   color: Constants.white,
                   textDirection: TextDirection.ltr,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  if (socialMedia.link != null) {
+                    Uri uri = Uri.parse(socialMedia.link!);
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(uri);
+                    } else {
+                      // can't launch url
+                    }
+                  }
+                },
               ),
             ),
           ),
@@ -58,7 +68,7 @@ class ProfileSocialMediaCard extends StatelessWidget {
                               socialMedia.name,
                               style: GoogleFonts.cairo(
                                 textStyle: const TextStyle(
-                                  color: Constants.darkBlue,
+                                  color: Constants.black,
                                   height: 1.7,
                                   fontWeight: FontWeight.w700,
                                   fontSize: 28,
@@ -72,7 +82,7 @@ class ProfileSocialMediaCard extends StatelessWidget {
                             textDirection: TextDirection.ltr,
                             style: GoogleFonts.cairo(
                               textStyle: const TextStyle(
-                                color: Constants.darkBlue,
+                                color: Constants.black,
                                 height: 1,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16,
