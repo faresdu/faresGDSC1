@@ -7,8 +7,9 @@ class ProfileEventCard extends StatelessWidget {
   const ProfileEventCard({
     super.key,
     required this.event,
+    this.onPressed,
   });
-
+  final Function()? onPressed;
   final Event event;
 
   @override
@@ -46,7 +47,7 @@ class ProfileEventCard extends StatelessWidget {
             ],
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: onPressed,
             style: TextButton.styleFrom(
               backgroundColor: Constants.darkBlue,
               shape: RoundedRectangleBorder(

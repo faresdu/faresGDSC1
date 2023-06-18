@@ -35,8 +35,7 @@ class _HomeViewState extends State<HomeView> {
               child: SingleChildScrollView(
                 child: SafeArea(
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 30),
+                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 30),
                     child: Column(
                       children: [
                         Welcome(),
@@ -76,8 +75,7 @@ class _HomeViewState extends State<HomeView> {
                                   setState(() {});
                                 }),
                           ),
-                        if (viewmodel.notifications.isNotEmpty)
-                          const SizedBox(height: 10),
+                        if (viewmodel.notifications.isNotEmpty) const SizedBox(height: 10),
                         if (viewmodel.notifications.isNotEmpty)
                           DotsIndicator(
                               dotsCount: viewmodel.notifications.length,
@@ -88,10 +86,7 @@ class _HomeViewState extends State<HomeView> {
                               ),
                               onTap: (position) {
                                 setState(() {
-                                  controller.animateToPage(position.toInt(),
-                                      duration:
-                                          const Duration(milliseconds: 350),
-                                      curve: Curves.easeInOut);
+                                  controller.animateToPage(position.toInt(), duration: const Duration(milliseconds: 350), curve: Curves.easeInOut);
                                 });
                               }),
                         SizedBox(
@@ -105,10 +100,9 @@ class _HomeViewState extends State<HomeView> {
                               children: viewmodel.events
                                   .map((e) => ActivityCard(
                                       onTap: () {
-                                        viewmodel.navigateToEvent(context, e);
+                                        viewmodel.navigateToEvent(e);
                                       },
-                                      signUpButton:
-                                          viewmodel.getSignUpButton(e),
+                                      signUpButton: viewmodel.getSignUpButton(e),
                                       event: e))
                                   .toList(),
                             )

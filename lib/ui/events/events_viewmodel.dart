@@ -4,6 +4,7 @@ import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
+import '../../core/app/app.router.dart';
 import '../../core/services/event_service.dart';
 import '../../core/services/supabase_service.dart';
 import '../../core/utils/constants.dart';
@@ -61,15 +62,8 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
     );
   }
 
-  navigateToEvent(BuildContext context, Event event) async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return EventDetailsView(event: event);
-        },
-      ),
-    );
+  navigateToEvent(Event event) async {
+    navService.navigateTo(Routes.eventDetailsView, arguments: event);
   }
 
   // for loaction name on Eventcard to avoid layout overflow made by long loaction name

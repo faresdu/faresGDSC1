@@ -26,7 +26,7 @@ class ProfileViewModel extends BaseViewModel {
 
   listenToUser() {
     user = userService.user;
-    listener = userService.userSubject.listen((e) => user = e as Member);
+    listener = userService.userSubject.listen((e) => user = e);
   }
 
   @override
@@ -48,12 +48,17 @@ class ProfileViewModel extends BaseViewModel {
     navService.clearStackAndShow(Routes.loginView);
   }
 
-  Widget getBottomWidget() {
+  Widget getBottomWidget(BuildContext context) {
     if (index == 0) {
       return Column(
           children: user.events
               .map(
-                (e) => ProfileEventCard(event: e),
+                (e) => ProfileEventCard(
+                  event: e,
+                  onPressed: () {
+                    navService.navigateTo(Routes.eventDetailsView, arguments: e);
+                  },
+                ),
               )
               .toList());
     } else if (index == 1) {
@@ -151,7 +156,7 @@ class ProfileViewModel extends BaseViewModel {
           width: 55,
           decoration: BoxDecoration(
             color: isSelected ? color : Constants.grey.withOpacity(.4),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
           ),
           child: IconButton(
             iconSize: 30,

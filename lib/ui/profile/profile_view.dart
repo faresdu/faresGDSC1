@@ -68,7 +68,7 @@ class _ProfileViewState extends State<ProfileView> {
                                   thickness: 2,
                                   height: 30,
                                 ),
-                                viewmodel.getBottomWidget(),
+                                viewmodel.getBottomWidget(context),
                               ],
                             ),
                           ),

@@ -67,7 +67,7 @@ class _EventsViewState extends State<EventsView> {
                             signUpButton: viewmodel.getSignUpButton(e),
                             canEdit: viewmodel.canEditEvent(e),
                             onPressed: () {
-                              viewmodel.navigateToEvent(context, e);
+                              viewmodel.navigateToEvent(e);
                             },
                           ),
                         )
