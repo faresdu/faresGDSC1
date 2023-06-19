@@ -21,7 +21,8 @@ class _EventsViewState extends State<EventsView> {
         builder: (context, viewmodel, _) {
           return Scaffold(
             backgroundColor: Constants.grayBackGround,
-            floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.startFloat,
             floatingActionButton: FloatingActionButton(
               onPressed: () {
                 getCustomBottomSheet(context, const AddEventView());
@@ -35,30 +36,33 @@ class _EventsViewState extends State<EventsView> {
             body: SingleChildScrollView(
               child: SafeArea(
                 child: Column(children: [
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Image.asset("./assets/images/BarLogo.png"),
-                    ),
-                    const Column(
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(top: 50),
-                          child: Text(
-                            "الفعاليات",
-                            style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
-                          ),
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Image.asset("./assets/images/BarLogo.png"),
                         ),
-                      ],
-                    ),
-                    const Column(
-                      children: [
-                        SizedBox(
-                          width: 110,
-                        )
-                      ],
-                    ),
-                  ]),
+                        const Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 50),
+                              child: Text(
+                                "الفعاليات",
+                                style: TextStyle(
+                                    fontSize: 28, fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Column(
+                          children: [
+                            SizedBox(
+                              width: 110,
+                            )
+                          ],
+                        ),
+                      ]),
                   Column(
                     children: viewmodel.events
                         .map(
