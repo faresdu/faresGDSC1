@@ -4,6 +4,8 @@ import 'package:gdsc_app/core/models/member.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase/supabase.dart';
 
+import '../models/leaderboard_member.dart';
+
 class SupabaseService {
   late SupabaseClient supabaseClient;
 
@@ -33,31 +35,39 @@ class SupabaseService {
 
     if (session != null) {
       //Recover Session
-      GotrueSessionResponse response = await supabaseClient.auth.recoverSession(session);
+      GotrueSessionResponse response =
+          await supabaseClient.auth.recoverSession(session);
 
       //Error Occurred
       if (response.error != null) {
         prefs.remove('PERSIST_SESSION_KEY');
       } else {
-        prefs.setString('PERSIST_SESSION_KEY', response.data!.persistSessionString);
+        prefs.setString(
+            'PERSIST_SESSION_KEY', response.data!.persistSessionString);
       }
-      print('Recovered Successfully : ${supabaseClient.auth.currentUser?.email}');
+      print(
+          'Recovered Successfully : ${supabaseClient.auth.currentUser?.email}');
     }
   }
 
   Future<List<Committee>> getCommittees() async {
     try {
-      final PostgrestResponse<dynamic> res = await supabaseClient.from('Committees').select().execute();
+      final PostgrestResponse<dynamic> res =
+          await supabaseClient.from('Committees').select().execute();
       return (res.data as List).map((e) => Committee.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Committees, ERROR : $e';
     }
   }
 
-  Future<List<Member>> getLeaderboardMembers() async {
+  Future<List<LeaderboardMember>> getLeaderboardMembers() async {
     try {
-      final PostgrestResponse<dynamic> res = await supabaseClient.from('leaderboard_view').select().execute();
-      return (res.data as List).map((e) => Member.fromJson(e)).toList();
+      final PostgrestResponse<dynamic> res =
+          await supabaseClient.from('leaderboard_view').select('*').execute();
+      print(res.data);
+      return (res.data as List)
+          .map((e) => LeaderboardMember.fromJson(e))
+          .toList();
     } catch (e) {
       throw 'Failed to get Leaderboard : $e';
     }
@@ -65,7 +75,11 @@ class SupabaseService {
 
   Future<List<Member>> getCommitteeMembers(String cId) async {
     try {
-      final PostgrestResponse<dynamic> res = await supabaseClient.from('member_view').select('*').eq('committee_id', cId).execute();
+      final PostgrestResponse<dynamic> res = await supabaseClient
+          .from('member_view')
+          .select('*')
+          .eq('committee_id', cId)
+          .execute();
       // print(res.data);
       return (res.data as List).map((e) => Member.fromJson(e)).toList();
     } catch (e) {
