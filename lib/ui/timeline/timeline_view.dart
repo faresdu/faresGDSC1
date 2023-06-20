@@ -6,6 +6,9 @@ import 'package:gdsc_app/ui/widgets/post_card.dart';
 import 'package:stacked/stacked.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/bottom_sheet_post.dart';
+import 'add_post_view.dart';
+
 class TimeLineView extends StatefulWidget {
   const TimeLineView({Key? key}) : super(key: key);
 
@@ -23,6 +26,17 @@ class _TimeLineViewState extends State<TimeLineView> {
       builder: (context, viewmodel, _) {
         return Scaffold(
           backgroundColor: Constants.grayBackGround,
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              bottomSheetPost(context, AddPostView());
+            },
+            backgroundColor: Constants.blueButton,
+            child: const Icon(
+              Icons.add,
+              size: 30,
+            ),
+          ),
           body: SingleChildScrollView(
             child: SafeArea(
               child: Container(

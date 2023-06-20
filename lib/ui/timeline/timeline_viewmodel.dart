@@ -7,6 +7,8 @@ import '../../core/models/post.dart';
 
 class TimeLineViewModel extends BaseViewModel {
   final timelineService = locator<TimelineService>();
+  TextEditingController descriptionController = TextEditingController();
+
   List<Post> posts = [];
 
   getPosts() async {

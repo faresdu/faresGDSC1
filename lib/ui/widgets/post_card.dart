@@ -92,7 +92,7 @@ class _PostCardState extends State<PostCard> {
                       style: TextStyle(fontSize: 16, color: Constants.black),
                     )),
                 Container(
-                  margin: EdgeInsets.only(bottom: 10, left: 20, top: 8),
+                  margin: EdgeInsets.only(bottom: 10, left: 40, top: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
