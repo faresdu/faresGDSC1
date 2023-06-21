@@ -14,6 +14,7 @@ import '../../core/utils/constants.dart';
 import 'components/profile_event_card.dart';
 import 'components/profile_social_media_card.dart';
 import 'components/profile_volunteer_hours_card.dart';
+import 'components/profile_volunteer_hours_card_big.dart';
 
 class ProfileViewModel extends BaseViewModel {
   final authService = locator<AuthenticationService>();
@@ -48,10 +49,97 @@ class ProfileViewModel extends BaseViewModel {
     navService.clearStackAndShow(Routes.loginView);
   }
 
-  Widget getBottomWidget(BuildContext context) {
+  void navigateToEditProfile() {
+    navService.navigateTo(Routes.editProfileView);
+  }
+
+  Widget getTopWidget(BuildContext context) {
+    if (index == 0) {
+      return getTitle(
+          title: 'اخر المشاركات',
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Scaffold(
+                  backgroundColor: Constants.background,
+                  body: SafeArea(
+                    child: Column(
+                        children: user.events
+                            .map(
+                              (e) => ProfileEventCard(event: e),
+                            )
+                            .toList()),
+                  ),
+                ),
+              ),
+            );
+          });
+    } else if (index == 1) {
+      return getTitle(
+          title: 'اخر الأعمال',
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Scaffold(
+                  body: SafeArea(
+                    child: Column(
+                        children: user.volunteerHours
+                            .map(
+                              (e) => ProfileVolunteerHoursCardBig(volunteerHours: e),
+                            )
+                            .toList()),
+                  ),
+                ),
+              ),
+            );
+          });
+    } else if (index == 2) {
+      return Row();
+    } else if (index == 3) {
+      return Row();
+    }
+    return Container();
+  }
+
+  Widget getTitle({required String title, Function()? onPressed}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            title,
+            style: GoogleFonts.cairo(
+              fontSize: 26,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Expanded(
+            child: Container(),
+          ),
+          MaterialButton(
+            onPressed: onPressed,
+            child: Text(
+              "الكل",
+              style: GoogleFonts.cairo(
+                fontSize: 16,
+                fontWeight: FontWeight.w800,
+                color: Constants.grey,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget getBottomWidget() {
     if (index == 0) {
       return Column(
           children: user.events
+              .take(3)
               .map(
                 (e) => ProfileEventCard(
                   event: e,
@@ -67,12 +155,7 @@ class ProfileViewModel extends BaseViewModel {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-          children: user.volunteerHours.map((e) {
-            if (e.isPending()) {
-              return ProfileVolunteerHoursCard(volunteerHours: e);
-            } else if (e.isApproved!) {
-              return ProfileVolunteerHoursCard(volunteerHours: e);
-            }
+          children: user.volunteerHours.take(6).map((e) {
             return ProfileVolunteerHoursCard(volunteerHours: e);
           }).toList());
     } else if (index == 2) {
@@ -96,9 +179,12 @@ class ProfileViewModel extends BaseViewModel {
   List<Widget> getButtons() {
     return [
       Flexible(
-        child: buildProfileButton(
+        child: getProfileButton(
             isSelected: index == 0,
-            svgIcon: 'assets/icons/profile/timeline.svg',
+            child: const Icon(
+              Icons.event_note_rounded,
+              color: Constants.white,
+            ),
             color: Constants.green,
             bottomText: 'الفعاليات',
             onPressed: () {
@@ -107,9 +193,12 @@ class ProfileViewModel extends BaseViewModel {
             }),
       ),
       Flexible(
-        child: buildProfileButton(
+        child: getProfileButton(
             isSelected: index == 1,
-            svgIcon: 'assets/icons/profile/timeline.svg',
+            child: const Icon(
+              Icons.access_time,
+              color: Constants.white,
+            ),
             color: Constants.yellow,
             bottomText: 'الساعات',
             onPressed: () {
@@ -118,9 +207,12 @@ class ProfileViewModel extends BaseViewModel {
             }),
       ),
       Flexible(
-        child: buildProfileButton(
+        child: getProfileButton(
             isSelected: index == 2,
-            svgIcon: 'assets/icons/profile/timeline.svg',
+            child: SvgPicture.asset(
+              'assets/icons/profile/timeline.svg',
+              color: Constants.white,
+            ),
             color: Constants.red,
             bottomText: 'المنشورات',
             onPressed: () {
@@ -129,9 +221,12 @@ class ProfileViewModel extends BaseViewModel {
             }),
       ),
       Flexible(
-        child: buildProfileButton(
+        child: getProfileButton(
             isSelected: index == 3,
-            svgIcon: 'assets/icons/profile/timeline.svg',
+            child: const Icon(
+              Icons.chat_rounded,
+              color: Constants.white,
+            ),
             color: Constants.blue,
             bottomText: 'التواصل',
             onPressed: () {
@@ -142,13 +237,8 @@ class ProfileViewModel extends BaseViewModel {
     ];
   }
 
-  Widget buildProfileButton({
-    required String svgIcon,
-    required String bottomText,
-    Function()? onPressed,
-    required bool isSelected,
-    required Color color,
-  }) {
+  Widget getProfileButton(
+      {required Widget child, required String bottomText, Function()? onPressed, required bool isSelected, required Color color}) {
     return Column(
       children: [
         Container(
@@ -160,7 +250,7 @@ class ProfileViewModel extends BaseViewModel {
           ),
           child: IconButton(
             iconSize: 30,
-            icon: SvgPicture.asset(svgIcon),
+            icon: child,
             onPressed: onPressed,
           ),
         ),
@@ -174,9 +264,5 @@ class ProfileViewModel extends BaseViewModel {
         ),
       ],
     );
-  }
-
-  void navigateToEditProfile() {
-    navService.navigateTo(Routes.editProfileView);
   }
 }

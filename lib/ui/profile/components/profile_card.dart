@@ -31,6 +31,8 @@ class ProfileCard extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(boxShadow: Constants.shadow5),
+                width: 80,
+                height: 80,
                 child: CircleAvatar(
                   backgroundImage:
                       member.photo != null ? NetworkImage(member.photo!) : const AssetImage('assets/images/event-attendees.png') as ImageProvider,
@@ -68,7 +70,7 @@ class ProfileCard extends StatelessWidget {
             ],
           ),
           const SizedBox(
-            height: 30,
+            height: 26,
           ),
           Row(
             children: [
@@ -80,7 +82,7 @@ class ProfileCard extends StatelessWidget {
               ),
               Expanded(
                 child: buildProfileInfoBox(
-                  number: 4,
+                  number: member.posts.length,
                   bottomText: 'المنشورات',
                 ),
               ),
