@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/ui/events/add_event/add_event_view.dart';
 import 'package:gdsc_app/ui/events/events_viewmodel.dart';
+import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:gdsc_app/ui/widgets/custom_bottom_sheet.dart';
 import 'package:stacked/stacked.dart';
 
@@ -20,7 +21,8 @@ class _EventsViewState extends State<EventsView> {
         builder: (context, viewmodel, _) {
           return Scaffold(
             backgroundColor: Constants.grayBackGround,
-            floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.startFloat,
             floatingActionButton: FloatingActionButton(
               onPressed: () {
                 getCustomBottomSheet(context, const AddEventView());
@@ -31,32 +33,29 @@ class _EventsViewState extends State<EventsView> {
                 size: 30,
               ),
             ),
+            appBar: CustomAppBar(
+              title: "الفعاليات",
+              leading: Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Image.asset(
+                  "./assets/images/BarLogo.png",
+                ),
+              ),
+              leadingWidth: 100,
+            ),
             body: SingleChildScrollView(
               child: SafeArea(
                 child: Column(children: [
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Image.asset("./assets/images/BarLogo.png"),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 50),
-                      child: Text(
-                        "الفعاليات",
-                        style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 110,
-                    ),
-                  ]),
                   if (viewmodel.canSeeOldEvents())
                     TextButton(
                       onPressed: () {
                         viewmodel.switchFilter();
                       },
-                      child: Text(viewmodel.filtered ? 'see all events' : 'see new events'),
+                      child: Text(viewmodel.filtered
+                          ? 'see all events'
+                          : 'see new events'),
                     ),
+
                   Column(
                     children: viewmodel.getCards(),
                   )
