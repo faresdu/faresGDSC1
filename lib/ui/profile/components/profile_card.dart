@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../../../core/models/member.dart';
 import '../../../core/utils/constants.dart';
 
@@ -31,35 +29,34 @@ class ProfileCard extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(boxShadow: Constants.shadow5),
-                width: 80,
-                height: 80,
+                margin: const EdgeInsets.all(8),
+                width: 65,
+                height: 65,
                 child: CircleAvatar(
-                  backgroundImage:
-                      member.photo != null ? NetworkImage(member.photo!) : const AssetImage('assets/images/event-attendees.png') as ImageProvider,
+                  backgroundImage: member.photo != null
+                      ? NetworkImage(member.photo!)
+                      : const AssetImage('assets/images/event-attendees.png')
+                          as ImageProvider,
                   radius: 40,
                 ),
               ),
-              Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      member.name,
-                      style: GoogleFonts.cairo(
-                        textStyle: const TextStyle(
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    member.name,
+                    style: Constants.veryLargeText.copyWith(
+                      fontWeight: FontWeight.w700,
                     ),
-                    Text(
-                      '${member.getRole()} ${member.committee.name}',
-                      style: GoogleFonts.cairo(
-                        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Constants.grey),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                  Text(
+                    '${member.getRole()} ${member.committee.name}',
+                    style: Constants.smallText.copyWith(
+                        fontWeight: FontWeight.w700, color: Constants.grey),
+                  ),
+                ],
               ),
+              const Spacer(),
               IconButton(
                 onPressed: edit,
                 icon: const Icon(
@@ -99,26 +96,23 @@ class ProfileCard extends StatelessWidget {
     );
   }
 
-  Widget buildProfileInfoBox({required int number, required String bottomText}) {
+  Widget buildProfileInfoBox(
+      {required int number, required String bottomText}) {
     return Column(
       children: [
         Text(
           "$number",
-          style: GoogleFonts.cairo(
+          style: Constants.veryLargeText.copyWith(
             height: 1,
-            fontSize: 32,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w900,
           ),
         ),
-        Text(
-          bottomText,
-          style: GoogleFonts.cairo(
-            height: 1,
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-            color: Constants.grey,
-          ),
-        )
+        Text(bottomText,
+            style: Constants.smallText.copyWith(
+              height: 1,
+              fontWeight: FontWeight.w700,
+              color: Constants.grey,
+            ))
       ],
     );
   }
