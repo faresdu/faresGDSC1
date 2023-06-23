@@ -1,4 +1,5 @@
 import 'package:gdsc_app/core/app/app.router.dart';
+import 'package:gdsc_app/core/models/leaderboard_member.dart';
 import 'package:gdsc_app/core/models/member.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -10,7 +11,7 @@ class LeaderboardViewModel extends BaseViewModel {
   final userService = locator<SupabaseService>();
   final navService = locator<NavigationService>();
 
-  List<Member> members = [];
+  List<LeaderboardMember> members = [];
 
   getLeaderboard() async {
     members = await userService.getLeaderboardMembers();
