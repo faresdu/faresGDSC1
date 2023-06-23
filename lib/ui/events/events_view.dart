@@ -46,23 +46,6 @@ class _EventsViewState extends State<EventsView> {
             body: SingleChildScrollView(
               child: SafeArea(
                 child: Column(children: [
-                  // Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     children: [
-                  //       Padding(
-                  //         padding: const EdgeInsets.only(right: 20),
-                  //         child: Image.asset("./assets/images/BarLogo.png"),
-                  //       ),
-                  //       Text(
-                  //         "الفعاليات",
-                  //         style: TextStyle(
-                  //             fontSize: 28, fontWeight: FontWeight.w700),
-                  //       ),
-                  //       const SizedBox(
-                  //         width: 110,
-                  //       ),
-                  //     ]),
-
                   if (viewmodel.canSeeOldEvents())
                     TextButton(
                       onPressed: () {
