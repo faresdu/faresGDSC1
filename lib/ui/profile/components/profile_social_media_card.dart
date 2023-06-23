@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/models/social_media.dart';
 import '../../../core/utils/constants.dart';
@@ -20,6 +21,7 @@ class ProfileSocialMediaCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
+        boxShadow: Constants.cardShadow,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -27,7 +29,9 @@ class ProfileSocialMediaCard extends StatelessWidget {
           Expanded(
             child: Container(
               height: 80,
-              color: const Color(0xFFBFDEF5),
+              decoration: const BoxDecoration(
+                color: Constants.darkBlue,
+              ),
               child: IconButton(
                 icon: const Icon(
                   Icons.navigate_next,
@@ -35,14 +39,23 @@ class ProfileSocialMediaCard extends StatelessWidget {
                   color: Constants.white,
                   textDirection: TextDirection.ltr,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  if (socialMedia.link != null) {
+                    Uri uri = Uri.parse(socialMedia.link!);
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(uri);
+                    } else {
+                      // can't launch url
+                    }
+                  }
+                },
               ),
             ),
           ),
           Expanded(
             flex: 4,
             child: Container(
-              color: Constants.darkBlue,
+              color: Constants.white,
               child: Row(
                 children: [
                   Expanded(
@@ -55,7 +68,7 @@ class ProfileSocialMediaCard extends StatelessWidget {
                               socialMedia.name,
                               style: GoogleFonts.cairo(
                                 textStyle: const TextStyle(
-                                  color: Constants.white,
+                                  color: Constants.black,
                                   height: 1.7,
                                   fontWeight: FontWeight.w700,
                                   fontSize: 28,
@@ -69,7 +82,7 @@ class ProfileSocialMediaCard extends StatelessWidget {
                             textDirection: TextDirection.ltr,
                             style: GoogleFonts.cairo(
                               textStyle: const TextStyle(
-                                color: Constants.white,
+                                color: Constants.black,
                                 height: 1,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16,

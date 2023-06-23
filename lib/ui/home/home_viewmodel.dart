@@ -12,7 +12,6 @@ import '../../core/services/event_service.dart';
 import '../../core/services/user_service.dart';
 import '../../core/utils/constants.dart';
 import '../events/components/events_card_signup_button.dart';
-import '../events/event_details/event_details_view.dart';
 
 class HomeViewModel extends StreamViewModel<List<Event>> {
   final navService = locator<NavigationService>();
@@ -52,9 +51,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     int committeeHours = await hourService.getCumulativeCommitteeHours();
 
     return Notifications(
-        title: "أكملت $hours ساعة تطوعية",
-        name: "أكملت لجنتك $committeeHours ساعة تطوعية",
-        picture: "assets/images/achievement.png");
+        title: "أكملت $hours ساعة تطوعية", name: "أكملت لجنتك $committeeHours ساعة تطوعية", picture: "assets/images/achievement.png");
   }
 
   void navigateToRequestsPage() {
@@ -113,15 +110,8 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     );
   }
 
-  navigateToEvent(BuildContext context, Event event) async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return EventDetailsView(event: event);
-        },
-      ),
-    );
+  navigateToEvent(Event event) async {
+    navService.navigateTo(Routes.eventDetailsView, arguments: event);
   }
 
   @override

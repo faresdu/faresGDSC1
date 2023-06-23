@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/profile/profile_viewmodel.dart';
-import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 import '../../core/utils/constants.dart';
 import '../widgets/custom_app_bar.dart';
@@ -18,7 +18,7 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileViewModel>.reactive(
         viewModelBuilder: () => ProfileViewModel(),
-        onViewModelReady: ((viewModel) => viewModel.listenToUser()),
+        onViewModelReady: (viewModel) => viewModel.listenToUser(),
         builder: (context, viewmodel, _) {
           return Scaffold(
             body: SafeArea(
@@ -45,30 +45,35 @@ class _ProfileViewState extends State<ProfileView> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 25, horizontal: 20),
-                                  child: ProfileCard(member: viewmodel.user),
+                                  padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                                  child: ProfileCard(
+                                    member: viewmodel.user,
+                                    edit: () {
+                                      viewmodel.navigateToEditProfile();
+                                    },
+                                  ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
+                                  padding: const EdgeInsets.symmetric(horizontal: 20),
                                   child: Flex(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     direction: Axis.horizontal,
                                     children: viewmodel.getButtons(),
                                   ),
                                 ),
                                 const Divider(
-                                  endIndent: 30,
-                                  indent: 30,
+                                  endIndent: 25,
+                                  indent: 25,
                                   color: Constants.grey,
                                   thickness: 2,
-                                  height: 30,
                                 ),
-                                viewmodel.getBottomWidget(),
+                                Column(
+                                  children: [
+                                    viewmodel.getTopWidget(context),
+                                    viewmodel.getBottomWidget(),
+                                  ],
+                                ),
                               ],
                             ),
                           ),

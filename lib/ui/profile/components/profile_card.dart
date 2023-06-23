@@ -8,99 +8,91 @@ class ProfileCard extends StatelessWidget {
   const ProfileCard({
     super.key,
     required this.member,
+    this.edit,
   });
-
+  final Function()? edit;
   final Member member;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.antiAlias,
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
       decoration: BoxDecoration(
-        boxShadow: Constants.shadow6,
-        borderRadius: BorderRadius.circular(5),
+        color: Constants.white,
+        boxShadow: Constants.shadow7,
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              color: Constants.darkBlue,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                top: 10,
-                right: 20,
-                bottom: 30,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                decoration: BoxDecoration(boxShadow: Constants.shadow5),
+                width: 80,
+                height: 80,
+                child: CircleAvatar(
+                  backgroundImage:
+                      member.photo != null ? NetworkImage(member.photo!) : const AssetImage('assets/images/event-attendees.png') as ImageProvider,
+                  radius: 40,
+                ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    backgroundImage:
-                        member.photo != null ? NetworkImage(member.photo!) : const AssetImage('assets/images/event-attendees.png') as ImageProvider,
-                    radius: 40,
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text(
-                          member.name,
-                          style: GoogleFonts.cairo(
-                            textStyle: const TextStyle(
-                              fontSize: 26.0,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      member.name,
+                      style: GoogleFonts.cairo(
+                        textStyle: const TextStyle(
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.w700,
                         ),
-                        Text(
-                          '${member.getRole()} ${member.committee.name}',
-                          style: GoogleFonts.cairo(
-                            textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Constants.grey),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.edit,
-                      color: Colors.black,
+                    Text(
+                      '${member.getRole()} ${member.committee.name}',
+                      style: GoogleFonts.cairo(
+                        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Constants.grey),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+              IconButton(
+                onPressed: edit,
+                icon: const Icon(
+                  Icons.edit,
+                  color: Colors.black,
+                ),
+              ),
+            ],
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: 20,
-              horizontal: 10,
-            ),
-            color: Constants.white,
-            child: Row(
-              children: [
-                Expanded(
-                  child: buildProfileInfoBox(
-                    number: member.events.length,
-                    bottomText: 'المشاركات',
-                  ),
+          const SizedBox(
+            height: 26,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: buildProfileInfoBox(
+                  number: member.events.length,
+                  bottomText: 'المشاركات',
                 ),
-                Expanded(
-                  child: buildProfileInfoBox(
-                    number: 4,
-                    bottomText: 'المنشورات',
-                  ),
+              ),
+              Expanded(
+                child: buildProfileInfoBox(
+                  number: member.posts.length,
+                  bottomText: 'المنشورات',
                 ),
-                Expanded(
-                  child: buildProfileInfoBox(
-                    number: member.hours,
-                    bottomText: 'الساعات',
-                  ),
+              ),
+              Expanded(
+                child: buildProfileInfoBox(
+                  number: member.hours,
+                  bottomText: 'الساعات',
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
