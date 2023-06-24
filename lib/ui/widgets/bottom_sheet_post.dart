@@ -12,7 +12,7 @@ void bottomSheetPost(BuildContext context, Widget? child) async {
     ),
     builder: (context) {
       return FractionallySizedBox(
-        heightFactor: 0.5,
+        heightFactor: 0.7,
         child: child,
       );
     },

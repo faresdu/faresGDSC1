@@ -14,10 +14,7 @@ class LeaderboardView extends StatelessWidget {
         onModelReady: (model) => model.getLeaderboard(),
         builder: (context, viewmodel, _) {
           return Scaffold(
-            appBar: AppBar(
-                centerTitle: true,
-                title: const Text('قائمة المتصدرين'),
-                automaticallyImplyLeading: false),
+            appBar: AppBar(centerTitle: true, title: const Text('قائمة المتصدرين'), automaticallyImplyLeading: false),
             body: Column(
               children: [
                 Row(

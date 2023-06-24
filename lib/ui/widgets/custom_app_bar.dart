@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../../core/utils/constants.dart';
 
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({
-    super.key,
-    this.title = '',
-    this.leading,
-    this.actions,
-  });
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppBar(
+      {super.key,
+      this.title = '',
+      this.leading,
+      this.actions,
+      this.leadingWidth,
+      this.preferredSize = const Size.fromHeight(56)});
+  @override
+  final Size preferredSize;
 
   final String title;
   final Widget? leading;
+  final double? leadingWidth;
   final List<Widget>? actions;
 
   @override
@@ -21,19 +23,16 @@ class CustomAppBar extends StatelessWidget {
       elevation: 0,
       backgroundColor: Colors.transparent,
       leading: leading,
+      leadingWidth: leadingWidth,
       title: Text(
         title,
-        style: GoogleFonts.cairo(
-          textStyle: const TextStyle(
-            fontSize: 32.0,
-            fontWeight: FontWeight.w500,
-            color: Constants.black,
-          ),
+        style: Constants.veryLargeText.copyWith(
+          fontWeight: FontWeight.bold,
+          color: Constants.black,
         ),
       ),
       actions: actions,
       centerTitle: true,
-      toolbarHeight: 80,
     );
   }
 }

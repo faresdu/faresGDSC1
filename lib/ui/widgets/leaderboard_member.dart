@@ -5,9 +5,7 @@ import '../../core/models/member.dart';
 class LeaderboardMember extends StatelessWidget {
   final void Function() onPressed;
   final Member member;
-  const LeaderboardMember(
-      {required this.member, required this.onPressed, Key? key})
-      : super(key: key);
+  const LeaderboardMember({required this.member, required this.onPressed, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

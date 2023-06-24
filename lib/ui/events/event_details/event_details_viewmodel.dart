@@ -16,10 +16,12 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
 
   late Event eventDetails;
 
-  EventsDetailsViewModel(this.eventDetails);
-
   @override
   Stream<List<Event>> get stream => eventService.eventsController.stream;
+
+  setEvent(BuildContext context) {
+    eventDetails = ModalRoute.of(context)!.settings.arguments! as Event;
+  }
 
   @override
   void onData(List<Event>? data) {

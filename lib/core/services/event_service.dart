@@ -14,14 +14,19 @@ class EventService {
 
   BehaviorSubject<List<Event>> eventsController = BehaviorSubject<List<Event>>();
 
-  Future<List<Event>> getEvents() async {
+  Future<List<Event>> getEvents({bool filtered = false}) async {
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
-          .from('events_view')
-          .select()
-          .gte('start_date', DateTime.now())
-          .order('start_date', ascending: true)
-          .execute();
+      PostgrestResponse<dynamic> res;
+      if (filtered) {
+        res = await _supabaseService.supabaseClient
+            .from('events_view')
+            .select()
+            .gte('start_date', DateTime.now())
+            .order('start_date', ascending: true)
+            .execute();
+      } else {
+        res = await _supabaseService.supabaseClient.from('events_view').select().order('start_date', ascending: true).execute();
+      }
       return (res.data as List).map((e) => Event.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Events, ERROR : $e';

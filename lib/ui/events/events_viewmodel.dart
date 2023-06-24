@@ -4,12 +4,13 @@ import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
+import '../../core/app/app.router.dart';
 import '../../core/services/event_service.dart';
 import '../../core/services/supabase_service.dart';
 import '../../core/utils/constants.dart';
 import 'package:gdsc_app/ui/events/components/events_card_signup_button.dart';
 
-import 'event_details/event_details_view.dart';
+import 'components/events_card.dart';
 
 class EventsViewModel extends StreamViewModel<List<Event>> {
   final navService = locator<NavigationService>();
@@ -18,12 +19,13 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
   final userService = locator<UserService>();
 
   List<Event> events = [];
+  bool filtered = false;
 
   @override
   void onData(List<Event>? data) {
     super.onData(data);
     if (data != null) {
-      events = data.toList();
+      events = data;
       notifyListeners();
     }
   }
@@ -61,20 +63,13 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
     );
   }
 
-  navigateToEvent(BuildContext context, Event event) async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return EventDetailsView(event: event);
-        },
-      ),
-    );
+  navigateToEvent(Event event) async {
+    navService.navigateTo(Routes.eventDetailsView, arguments: event);
   }
 
   // for loaction name on Eventcard to avoid layout overflow made by long loaction name
   static String locationEventName(String locationName) {
-    if (locationName.length > 10) {
+    if (locationName.length > 13) {
       return '...${locationName.substring(0, 12)}';
     }
     return locationName;
@@ -85,5 +80,35 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
 
   bool canEditEvent(Event event) {
     return event.isOwner(userService.user.id) || userService.user.isLeaderOrCoLeader();
+  }
+
+  bool canSeeOldEvents() {
+    return userService.user.isLeaderOrCoLeader();
+  }
+
+  void switchFilter() {
+    filtered = !filtered;
+    notifyListeners();
+  }
+
+  List<Widget> getCards() {
+    List<Event> eventList;
+    if (filtered) {
+      eventList = events.where((e) => e.startDate.isAfter(DateTime.now())).toList();
+    } else {
+      eventList = events;
+    }
+    return eventList
+        .map(
+          (e) => EventCard(
+            event: e,
+            signUpButton: getSignUpButton(e),
+            canEdit: canEditEvent(e),
+            onPressed: () {
+              navigateToEvent(e);
+            },
+          ),
+        )
+        .toList();
   }
 }

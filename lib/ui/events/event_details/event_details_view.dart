@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:stacked/stacked.dart';
 import '../../../core/utils/constants.dart';
 import '../components/event_attendees.dart';
 import 'event_details_viewmodel.dart';
 
-TextStyle titleStyle =
-    const TextStyle(fontSize: 24, fontWeight: FontWeight.w700, height: 3);
+TextStyle titleStyle = const TextStyle(fontSize: 24, fontWeight: FontWeight.w700, height: 3);
 
 class EventDetailsView extends StatefulWidget {
-  final Event event;
-
-  const EventDetailsView({Key? key, required this.event}) : super(key: key);
+  const EventDetailsView({Key? key}) : super(key: key);
 
   @override
   State<EventDetailsView> createState() => _EventDetailsViewState();
@@ -22,7 +18,8 @@ class _EventDetailsViewState extends State<EventDetailsView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<EventsDetailsViewModel>.reactive(
-        viewModelBuilder: () => EventsDetailsViewModel(widget.event),
+        viewModelBuilder: () => EventsDetailsViewModel(),
+        onViewModelReady: (model) => model.setEvent(context),
         builder: (context, viewmodel, _) {
           return Scaffold(
             appBar: AppBar(
@@ -61,24 +58,16 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                       children: [
                         buildEventDateBox(
                           day: viewmodel.eventDetails.startDate.day,
-                          month: DateHelper.getMonth(
-                              viewmodel.eventDetails.startDate),
+                          month: DateHelper.getMonth(viewmodel.eventDetails.startDate),
                         ),
                         buildEventInfoBox(
-                          topText: DateHelper.getWeekDay(
-                              viewmodel.eventDetails.startDate),
+                          topText: DateHelper.getWeekDay(viewmodel.eventDetails.startDate),
                           bottomText: viewmodel.eventDetails.endDate != null
                               ? '${DateHelper.getHour(viewmodel.eventDetails.startDate)} - ${DateHelper.getHour(viewmodel.eventDetails.endDate!)}'
-                              : DateHelper.getHour(
-                                  viewmodel.eventDetails.startDate),
+                              : DateHelper.getHour(viewmodel.eventDetails.startDate),
                         ),
-                        buildEventInfoBox(
-                            topText: 'الموقع',
-                            bottomText: viewmodel.eventDetails.location),
-                        buildEventInfoBox(
-                            topText: 'المحاضر',
-                            bottomText: viewmodel.eventDetails.host ??
-                                viewmodel.eventDetails.instructorName)
+                        buildEventInfoBox(topText: 'الموقع', bottomText: viewmodel.eventDetails.location),
+                        buildEventInfoBox(topText: 'المحاضر', bottomText: viewmodel.eventDetails.host ?? viewmodel.eventDetails.instructorName)
                       ],
                     ),
                     Container(
@@ -99,10 +88,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                       flex: 3,
                       child: Text(
                         viewmodel.eventDetails.description ?? 'لا يوجد وصف',
-                        style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Constants.grey),
+                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Constants.grey),
                       ),
                     ),
                     Row(
@@ -120,10 +106,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                               padding: const EdgeInsets.only(right: 30),
                               child: Text(
                                 'المقاعد المتبقية ${viewmodel.eventDetails.getRemainingSeats()}',
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: Constants.grey),
+                                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Constants.grey),
                               ),
                             )
                           ],
@@ -154,11 +137,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
               fontWeight: FontWeight.w700,
             ),
           ),
-          Text(bottomText,
-              style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: Constants.grey))
+          Text(bottomText, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Constants.grey))
         ],
       ),
     );
@@ -182,13 +161,11 @@ class _EventDetailsViewState extends State<EventDetailsView> {
         child: Column(children: [
           Text(
             '$day',
-            style: const TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w700, height: 1),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, height: 1),
           ),
           Text(
             month,
-            style: const TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w700, height: 1),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, height: 1),
           )
         ]),
       ),

@@ -16,12 +16,8 @@ class Welcome extends StatelessWidget {
       children: [
         Container(
             margin: const EdgeInsets.symmetric(horizontal: 14),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                boxShadow: Constants.shadow6),
-            child: ClipOval(
-                child: HelperFunctions.profileImage(
-                    imageUrl: user.photo ?? '', height: 65, width: 65))),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), boxShadow: Constants.memberIconShadow),
+            child: ClipOval(child: HelperFunctions.profileImage(imageUrl: user.photo ?? '', height: 65, width: 65))),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

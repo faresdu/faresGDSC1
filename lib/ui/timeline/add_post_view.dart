@@ -1,13 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gdsc_app/core/utils/date_helper.dart';
-import 'package:gdsc_app/ui/events/add_event/add_event_viewmodel.dart';
+import 'package:provider/provider.dart';
 import 'package:gdsc_app/ui/timeline/timeline_viewmodel.dart';
 import 'package:stacked/stacked.dart';
-
 import '../../../core/utils/constants.dart';
+import '../../core/models/gdsc_user.dart';
 
 class AddPostView extends StatefulWidget {
   const AddPostView({super.key});
@@ -22,6 +18,8 @@ class _AddPostViewState extends State<AddPostView> {
     return ViewModelBuilder<TimeLineViewModel>.reactive(
         viewModelBuilder: () => TimeLineViewModel(),
         builder: (context, viewmodel, _) {
+          final user = Provider.of<GDSCUser>(context);
+
           return Padding(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -62,7 +60,7 @@ class _AddPostViewState extends State<AddPostView> {
                                 horizontal:
                                     MediaQuery.of(context).size.width * 0.1),
                             child: SubmitButton(onPressed: () {
-                              // viewmodel.addPost();
+                              viewmodel.addPost(user);
                               Navigator.pop(context);
                             }),
                           ),
