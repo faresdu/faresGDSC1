@@ -55,7 +55,6 @@ class _EventsViewState extends State<EventsView> {
                           ? 'see all events'
                           : 'see new events'),
                     ),
-
                   Column(
                     children: viewmodel.getCards(),
                   )

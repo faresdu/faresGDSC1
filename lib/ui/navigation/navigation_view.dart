@@ -52,7 +52,7 @@ class _NavigationViewState extends State<NavigationView> {
                           viewmodel.updateScreen(3);
                         },
                         color: viewmodel.currentTab == 3
-                            ? Constants.lightBlue
+                            ? Constants.blueButton
                             : Constants.darkGrey,
                         text: 'المنشورات',
                         imagePath: 'assets/icons/navigation2/timeline.svg'),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void getCustomBottomSheet(BuildContext context, Widget? child) async {
+void bottomSheetPost(BuildContext context, Widget? child) async {
   await showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -12,7 +12,7 @@ void getCustomBottomSheet(BuildContext context, Widget? child) async {
     ),
     builder: (context) {
       return FractionallySizedBox(
-        heightFactor: 0.92,
+        heightFactor: 0.7,
         child: child,
       );
     },

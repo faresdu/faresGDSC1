@@ -36,6 +36,19 @@ class Post {
         content: map['content'] ?? '',
         likerIds: likers,
         likes: map['likes'] != null ? map['likes'].toString().parseInt : 0,
-        createdAt: DateTime.tryParse(map['created_at'] ?? '') ?? DateTime.utc(1900));
+        createdAt:
+            DateTime.tryParse(map['created_at'] ?? '') ?? DateTime.utc(1900));
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "poster_id": posterId,
+      "poster_name": posterName,
+      "poster_profile_picture": posterProfilePicture,
+      "content": content,
+      "likers": likerIds,
+      "likes": likes,
+      "created_at": createdAt
+    };
   }
 }

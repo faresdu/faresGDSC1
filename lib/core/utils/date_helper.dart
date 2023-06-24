@@ -69,7 +69,22 @@ class DateHelper {
     return '$hour:$sMinutes$x';
   }
 
+  static String sincePosted(DateTime date) {
+    DateTime parsedDate = DateTime.parse("$date");
+    Duration dur = DateTime.now().difference(parsedDate);
+    if (dur.inDays > 0) {
+      return '${dur.inDays} يوم';
+    } else if (dur.inHours > 0) {
+      return '${dur.inHours} ساعة';
+    } else if (dur.inMinutes > 0) {
+      return '${dur.inMinutes} دقيقة';
+    } else {
+      return '${dur.inSeconds} ثانية';
+    }
+  }
+
   static DateTimeAndTimeOfDay(DateTime dateTime, TimeOfDay timeOfDay) {
-    return DateTime(dateTime.year, dateTime.month, dateTime.day, timeOfDay.hour, timeOfDay.minute);
+    return DateTime(dateTime.year, dateTime.month, dateTime.day, timeOfDay.hour,
+        timeOfDay.minute);
   }
 }
