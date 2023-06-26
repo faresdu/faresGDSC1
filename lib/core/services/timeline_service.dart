@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:supabase/supabase.dart';
 import '../app/app.locator.dart';
@@ -10,10 +12,10 @@ class TimelineService {
       final PostgrestResponse<dynamic> res = await _supabaseService
           .supabaseClient
           .from('posts_view')
-          .select('*')
+          .select('*, Committees:committee_id(*)')
           .order("created_at", ascending: false)
           .execute();
-      print(res.data.first);
+      print(jsonEncode(res.data.first));
       return (res.data as List).map((e) => Post.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Posts, ERROR : $e';

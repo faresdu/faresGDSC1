@@ -21,6 +21,7 @@ class _ProfileViewState extends State<ProfileView> {
         onViewModelReady: (viewModel) => viewModel.listenToUser(),
         builder: (context, viewmodel, _) {
           return Scaffold(
+            backgroundColor: Constants.background,
             body: SafeArea(
               child: Center(
                 child: viewmodel.hasError
@@ -45,7 +46,8 @@ class _ProfileViewState extends State<ProfileView> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 25, horizontal: 20),
                                   child: ProfileCard(
                                     member: viewmodel.user,
                                     edit: () {
@@ -54,10 +56,13 @@ class _ProfileViewState extends State<ProfileView> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
                                   child: Flex(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     direction: Axis.horizontal,
                                     children: viewmodel.getButtons(),
                                   ),

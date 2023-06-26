@@ -23,7 +23,7 @@ class Constants {
   static const Color black = Colors.black;
   static const Color black2 = Color(0xFF9A9A9A);
   static const Color black3 = Color(0xFF4D4D4D);
-  static const Color background = Color(0xfff1f1f1);
+  static const Color background = Color(0xfff4f5f9);
   static const Color grayBackGround = Color(0xFFF1F1F1);
   static const Color navigationBackground = Color(0xFFF5FCFF);
   static const Color primaryLightBlue = Color(0xFF4285F4);
@@ -33,20 +33,36 @@ class Constants {
     BoxShadow(color: Colors.black.withOpacity(.3), blurRadius: 8),
   ];
   static List<BoxShadow> cardShadow = [
-    BoxShadow(color: Colors.black.withOpacity(.25), blurRadius: 4, offset: const Offset(0, 4)),
+    BoxShadow(
+        color: Colors.black.withOpacity(.25),
+        blurRadius: 4,
+        offset: const Offset(0, 4)),
   ];
   static List<BoxShadow> shadow3 = [
-    BoxShadow(color: Colors.black.withOpacity(.25), blurRadius: 10, offset: const Offset(0, 2)),
+    BoxShadow(
+        color: Colors.black.withOpacity(.25),
+        blurRadius: 10,
+        offset: const Offset(0, 2)),
   ];
   static List<BoxShadow> shadow4 = [
-    BoxShadow(color: Colors.black.withOpacity(.25), blurRadius: 6, offset: const Offset(3, 7)),
+    BoxShadow(
+        color: Colors.black.withOpacity(.25),
+        blurRadius: 6,
+        offset: const Offset(3, 7)),
   ];
   static List<BoxShadow> shadow5 = [
-    BoxShadow(color: Colors.black.withOpacity(.25), blurRadius: 20, offset: const Offset(0, 9)),
+    BoxShadow(
+        color: Colors.black.withOpacity(.25),
+        blurRadius: 20,
+        offset: const Offset(0, 9)),
   ];
 
   static List<BoxShadow> memberIconShadow = [
-    BoxShadow(color: Colors.black.withOpacity(.25), blurRadius: 6, spreadRadius: -16, offset: Offset.zero),
+    BoxShadow(
+        color: Colors.black.withOpacity(.25),
+        blurRadius: 6,
+        spreadRadius: -16,
+        offset: Offset.zero),
   ];
 
   static List<BoxShadow> shadow7 = [
