@@ -27,7 +27,7 @@ class _TimeLineViewState extends State<TimeLineView> {
         final user = Provider.of<GDSCUser>(context);
 
         return Scaffold(
-          backgroundColor: Constants.grayBackGround,
+          backgroundColor: Constants.background,
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: FloatingActionButton(
             onPressed: () {

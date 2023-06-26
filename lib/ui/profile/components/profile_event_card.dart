@@ -20,7 +20,7 @@ class ProfileEventCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Constants.white,
         borderRadius: BorderRadius.circular(15),
-        boxShadow: Constants.cardShadow,
+        boxShadow: Constants.shadow,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

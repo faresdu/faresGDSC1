@@ -1,3 +1,4 @@
+import 'package:gdsc_app/core/models/committee.dart';
 import 'package:gdsc_app/core/utils/string_extensions.dart';
 
 class Post {
@@ -6,11 +7,13 @@ class Post {
   final String posterName;
   final String? posterProfilePicture;
   final String content;
+  final Committee? committee;
   final List<String>? likerIds;
   int likes;
   final DateTime createdAt;
 
   Post({
+    this.committee,
     required this.id,
     required this.posterId,
     required this.posterName,
@@ -36,6 +39,9 @@ class Post {
         content: map['content'] ?? '',
         likerIds: likers,
         likes: map['likes'] != null ? map['likes'].toString().parseInt : 0,
+        committee: map['Committees'] == null
+            ? null
+            : Committee.fromJson(map['Committees']),
         createdAt:
             DateTime.tryParse(map['created_at'] ?? '') ?? DateTime.utc(1900));
   }

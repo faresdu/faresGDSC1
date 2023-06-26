@@ -20,7 +20,7 @@ class _EventsViewState extends State<EventsView> {
         viewModelBuilder: () => EventsViewModel(),
         builder: (context, viewmodel, _) {
           return Scaffold(
-            backgroundColor: Constants.grayBackGround,
+            backgroundColor: Constants.background,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.startFloat,
             floatingActionButton: FloatingActionButton(
