@@ -11,7 +11,8 @@ import 'components/section_title.dart';
 import 'components/welcome_widget.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({required this.updateScreen, Key? key}) : super(key: key);
+  final void Function(int index) updateScreen;
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -97,7 +98,12 @@ class _HomeViewState extends State<HomeView> {
                         SizedBox(
                           height: spacing / 2,
                         ),
-                        const SectionTitle(title: "الفعاليات"),
+                        SectionTitle(
+                          title: "الفعاليات",
+                          onPressed: () {
+                            widget.updateScreen(4);
+                          },
+                        ),
                         SizedBox(
                             height: 200,
                             child: ListView(

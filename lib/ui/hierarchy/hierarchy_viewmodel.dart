@@ -7,19 +7,23 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../../core/app/app.locator.dart';
 
-class HierarchyViewModel extends BaseViewModel {
+class HierarchyViewModel extends FutureViewModel {
   final navService = locator<NavigationService>();
   final userService = locator<SupabaseService>();
-  List<Committee> comms = [];
+  List<Committee> committees = [];
 
-  getComms() async {
-    await userService.getCommittees().then((value) => comms = value);
+  @override
+  Future futureToRun() => getCommittees();
+
+  getCommittees() async {
+    await userService.getCommittees().then((value) => committees = value);
     notifyListeners();
   }
 
   navigateToCommittee(Committee committee) async {
+    setBusy(true);
     List<Member> members = await userService.getCommitteeMembers(committee.id);
-    // print(members.toString());
+    setBusy(false);
     navService.navigateTo(Routes.committeeMembersView,
         arguments: [members, committee]);
   }
