@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
         ),
         navigatorKey: StackedService.navigatorKey,
         onGenerateRoute: StackedRouter().onGenerateRoute,
+
         // localizationsDelegates: const [
         //   GlobalCupertinoLocalizations.delegate,
         //   GlobalMaterialLocalizations.delegate,

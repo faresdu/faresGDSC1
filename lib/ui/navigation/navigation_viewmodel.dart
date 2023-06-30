@@ -8,14 +8,19 @@ import '../timeline/timeline_view.dart';
 
 class NavigationViewModel extends BaseViewModel {
   int currentTab = 0;
+
+  NavigationViewModel() {
+    pages = [
+      HomeView(updateScreen: updateScreen),
+      ProfileView(),
+      LeaderboardView(),
+      TimeLineView(),
+      EventsView(),
+    ];
+  }
+
   final PageStorageBucket bucket = PageStorageBucket();
-  final List<Widget> pages = const [
-    HomeView(),
-    ProfileView(),
-    LeaderboardView(),
-    TimeLineView(),
-    EventsView(),
-  ];
+  late List<Widget> pages = [];
 
   void updateScreen(int index) {
     currentTab = index;

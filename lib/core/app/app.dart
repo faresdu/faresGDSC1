@@ -7,6 +7,7 @@ import 'package:gdsc_app/ui/hours_approval/hours_request_view.dart';
 import 'package:gdsc_app/ui/login/login_view.dart';
 import 'package:gdsc_app/ui/notifications/notifications_view.dart';
 import 'package:gdsc_app/ui/edit_profile/edit_profile_view.dart';
+import 'package:gdsc_app/ui/profile/profile_user_hours/profile_user_hours_view.dart';
 import 'package:gdsc_app/ui/profile/profile_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -37,6 +38,7 @@ import '../services/event_service.dart';
     MaterialRoute(page: HoursRequestView),
     MaterialRoute(page: NotificationView),
     MaterialRoute(page: EditProfileView),
+    MaterialRoute(page: ProfileUserHoursView)
   ],
   // flutter pub run build_runner build
   // Register all Services

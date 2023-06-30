@@ -1,4 +1,5 @@
 import 'package:gdsc_app/core/models/hour_request.dart';
+import 'package:gdsc_app/core/models/volunteer_hours.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:gdsc_app/core/utils/string_extensions.dart';
@@ -36,6 +37,20 @@ class HourService {
     return (res.data as List).map((e) => HourRequest.fromJson(e)).toList();
   }
 
+  Future<VolunteerHours> sendHourRequest(String reason, int hours) async {
+    final Map<String, dynamic> payload = {
+      'committee_id': _userService.user.committee.id,
+      'user_id': _userService.user.id,
+      'hours': hours,
+      'reasoning': reason
+    };
+    final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
+        .from('volenteer_hours')
+        .insert(payload)
+        .execute();
+    return VolunteerHours.fromJson(res.data.first);
+  }
+
   Future<void> updateHourRequest(String id, bool status) async {
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
         .from('volenteer_hours')
@@ -45,9 +60,19 @@ class HourService {
     }
   }
 
+  Future<void> removeHourRequest(String id) async {
+    final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
+        .from('volenteer_hours')
+        .delete()
+        .match({'volunteer_id': id}).execute();
+    if (res.status != null && (res.status! < 200 || res.status! > 299)) {
+      throw 'Unable to update Hour Request';
+    }
+  }
+
   Future<int> getCumulativeCommitteeHours() async {
     final Map<String, dynamic> payload = {
-      'committee_id': _userService.user.committee!.id
+      'committee_id': _userService.user.committee.id
     };
     try {
       final PostgrestResponse<dynamic> res = await _supabaseService
