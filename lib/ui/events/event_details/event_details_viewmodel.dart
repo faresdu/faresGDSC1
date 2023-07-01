@@ -40,6 +40,14 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
           await eventService.signOutFromEvent(event.eventID);
         },
       );
+    } else if (event.startDate.isAfter(DateTime.now())) {
+      return EventDetailsSignupButton(
+        text: 'الفعاليه منتهيه',
+        color: Constants.grey.withOpacity(.9),
+        onPressed: () {
+          print('cant');
+        },
+      );
     } else if (event.isFull()) {
       return EventDetailsSignupButton(
         text: 'المقاعد ممتلئة',

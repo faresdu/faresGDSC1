@@ -7,8 +7,9 @@ import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
 class ProfileRequestHoursView extends StatefulWidget {
-  const ProfileRequestHoursView({Key? key}) : super(key: key);
-
+  const ProfileRequestHoursView({required this.onSubmit, Key? key})
+      : super(key: key);
+  final void Function() onSubmit;
   @override
   State<ProfileRequestHoursView> createState() =>
       _ProfileRequestHoursViewState();
@@ -75,7 +76,7 @@ class _ProfileRequestHoursViewState extends State<ProfileRequestHoursView> {
                                       MediaQuery.of(context).size.width * 0.1),
                               child: SubmitButton(
                                   text: 'رفع الطلب',
-                                  onPressed: () => viewmodel.submit(context)))
+                                  onPressed: widget.onSubmit))
                         ],
                       ),
                     ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/app/app.locator.dart';
 import 'package:gdsc_app/core/models/member.dart';
@@ -22,6 +24,11 @@ class ProfileUserHoursViewModel extends BaseViewModel {
     approvedUserHours = user.getApprovedVolunteerHours();
     pendingUserHours = user.getPendingVolunteerHours();
   }
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   submit(BuildContext context) async {
     if (!formKey.currentState!.validate()) {
       return;
@@ -33,6 +40,7 @@ class ProfileUserHoursViewModel extends BaseViewModel {
         await hourService.sendHourRequest(reason!, hours!);
     print(pendingRequest);
     pendingUserHours.add(pendingRequest);
+    await userService.updateUser();
     notifyListeners();
     setBusy(false);
   }

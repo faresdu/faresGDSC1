@@ -58,22 +58,23 @@ class ProfileViewModel extends BaseViewModel {
       return getTitle(
           title: 'اخر المشاركات',
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Scaffold(
-                  backgroundColor: Constants.background,
-                  body: SafeArea(
-                    child: Column(
-                        children: user.events
-                            .map(
-                              (e) => ProfileEventCard(event: e),
-                            )
-                            .toList()),
-                  ),
-                ),
-              ),
-            );
+            navService.navigateTo(Routes.profileEventsView);
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => Scaffold(
+            //       backgroundColor: Constants.background,
+            //       body: SafeArea(
+            //         child: Column(
+            //             children: user.events
+            //                 .map(
+            //                   (e) => ProfileEventCard(event: e),
+            //                 )
+            //                 .toList()),
+            //       ),
+            //     ),
+            //   ),
+            // );
           });
     } else if (index == 1) {
       return getTitle(

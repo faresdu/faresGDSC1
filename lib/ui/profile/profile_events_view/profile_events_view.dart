@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
-import 'package:gdsc_app/ui/profile/components/profile_volunteer_hours_card_big.dart';
+import 'package:gdsc_app/ui/events/add_event/add_event_view.dart';
+import 'package:gdsc_app/ui/events/components/events_card.dart';
+import 'package:gdsc_app/ui/profile/profile_events_view/profile_events_viewmodel.dart';
 import 'package:gdsc_app/ui/profile/profile_user_hours/profile_request_hours_view.dart';
-import 'package:gdsc_app/ui/profile/profile_user_hours/profile_user_hours_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/bottom_sheet_post.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:gdsc_app/ui/widgets/circle_button.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
+import 'package:gdsc_app/ui/widgets/custom_bottom_sheet.dart';
 import 'package:stacked/stacked.dart';
 
-class ProfileUserHoursView extends StatelessWidget {
-  const ProfileUserHoursView({Key? key}) : super(key: key);
+class ProfileEventsView extends StatelessWidget {
+  const ProfileEventsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<ProfileUserHoursViewModel>.reactive(
-        viewModelBuilder: () => ProfileUserHoursViewModel(),
+    return ViewModelBuilder<ProfileEventsViewModel>.reactive(
+        viewModelBuilder: () => ProfileEventsViewModel(),
         builder: (context, viewmodel, _) {
           return Scaffold(
             appBar: const CustomAppBar(
-              title: 'طلبات تسجيل الساعات',
+              title: 'الفعاليات',
             ),
             backgroundColor: Constants.background,
             body: SafeArea(
               child: DefaultTabController(
                 length: 2,
-                key: GlobalKey(debugLabel: 'profile_hours'),
+                key: GlobalKey(debugLabel: 'profile_events'),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,21 +57,18 @@ class ProfileUserHoursView extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(25)),
                               tabs: const <Widget>[
                                 Tab(
-                                  text: 'مقبوله',
+                                  text: 'المشارك بها',
                                 ),
                                 Tab(
-                                  text: 'قيد الانتظار',
+                                  text: 'المنشأه',
                                 ),
                               ],
                             ),
                           ),
                           const Spacer(),
-                          CircleButton(onPressed: () {
-                            bottomSheetPost(
-                                context,
-                                ProfileRequestHoursView(
-                                    onSubmit: () => viewmodel.submit(context)));
-                          })
+                          CircleButton(
+                              onPressed: () => getCustomBottomSheet(
+                                  context, const AddEventView()))
                         ],
                       ),
                     ),
@@ -78,28 +77,32 @@ class ProfileUserHoursView extends StatelessWidget {
                       children: [
                         SingleChildScrollView(
                           child: Column(
-                              children: viewmodel.approvedUserHours
-                                  .map((e) => ProfileVolunteerHoursCardBig(
-                                        volunteerHours: e,
-                                        isOwner: true,
+                              children: viewmodel.signedUpEvents
+                                  .map((e) => EventCard(
+                                        event: e,
+                                        signUpButton:
+                                            viewmodel.getSignUpButton(e),
+                                        canEdit: viewmodel.canEditEvent(e),
+                                        onPressed: () {
+                                          viewmodel.navigateToEvent(e);
+                                        },
                                       ))
                                   .toList()),
                         ),
-                        BusyOverlay(
-                          isBusy: viewmodel.isBusy,
-                          child: SingleChildScrollView(
-                            child: Column(
-                                children: viewmodel.pendingUserHours
-                                    .map((e) => ProfileVolunteerHoursCardBig(
-                                          volunteerHours: e,
-                                          isOwner: true,
-                                          onPressed: () {
-                                            viewmodel.removeHourRequest(e);
-                                          },
-                                        ))
-                                    .toList()),
-                          ),
-                        ),
+                        SingleChildScrollView(
+                          child: Column(
+                              children: viewmodel.createdEvents
+                                  .map((e) => EventCard(
+                                        event: e,
+                                        signUpButton:
+                                            viewmodel.getSignUpButton(e),
+                                        canEdit: true,
+                                        onPressed: () {
+                                          viewmodel.navigateToEvent(e);
+                                        },
+                                      ))
+                                  .toList()),
+                        )
                       ],
                     ))
                   ],
