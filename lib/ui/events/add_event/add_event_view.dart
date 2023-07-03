@@ -59,11 +59,13 @@ class _AddEventViewState extends State<AddEventView> {
                                     onTap: () {
                                       viewmodel.showImagePicker();
                                     },
-                                    child: SvgPicture.asset(
-                                      'assets/icons/events/add_image.svg',
-                                      height: 24,
-                                      width: 24,
-                                    ),
+                                    child: viewmodel.isBusy
+                                        ? const CircularProgressIndicator()
+                                        : SvgPicture.asset(
+                                            'assets/icons/events/add_image.svg',
+                                            height: 24,
+                                            width: 24,
+                                          ),
                                   ),
                                 )
                               : InkWell(
@@ -168,12 +170,14 @@ class _AddEventViewState extends State<AddEventView> {
                                 vertical: 15,
                                 horizontal:
                                     MediaQuery.of(context).size.width * 0.1),
-                            child: SubmitButton(
-                                text: 'إضـافـة',
-                                onPressed: () {
-                                  viewmodel.addEvent();
-                                  Navigator.pop(context);
-                                }),
+                            child: viewmodel.isBusy
+                                ? const CircularProgressIndicator()
+                                : SubmitButton(
+                                    text: 'إضـافـة',
+                                    onPressed: () async {
+                                      await viewmodel.addEvent();
+                                      Navigator.pop(context);
+                                    }),
                           ),
                         ],
                       ),

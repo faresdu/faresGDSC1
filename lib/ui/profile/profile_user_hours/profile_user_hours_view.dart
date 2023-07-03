@@ -65,10 +65,7 @@ class ProfileUserHoursView extends StatelessWidget {
                           ),
                           const Spacer(),
                           CircleButton(onPressed: () {
-                            bottomSheetPost(
-                                context,
-                                ProfileRequestHoursView(
-                                    onSubmit: () => viewmodel.submit(context)));
+                            bottomSheetPost(context, ProfileRequestHoursView());
                           })
                         ],
                       ),

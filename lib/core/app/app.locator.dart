@@ -13,6 +13,7 @@ import '../services/authentication_service.dart';
 import '../services/event_service.dart';
 import '../services/hour_service.dart';
 import '../services/notification_service.dart';
+import '../services/s3_service.dart';
 import '../services/supabase_service.dart';
 import '../services/timeline_service.dart';
 import '../services/user_service.dart';
@@ -35,6 +36,7 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => EventService());
   locator.registerLazySingleton(() => HourService());
   locator.registerLazySingleton(() => NotificationService());
+  locator.registerLazySingleton(() => S3Service());
   final supabaseService = await SupabaseService.getInstance();
   locator.registerSingleton(supabaseService);
 }

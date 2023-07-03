@@ -81,9 +81,13 @@ class ProfileViewModel extends BaseViewModel {
           title: 'اخر الأعمال',
           onPressed: () => navService.navigateTo(Routes.profileUserHoursView));
     } else if (index == 2) {
-      return Row();
+      return getTitle(
+          title: 'اخر المنشورات',
+          onPressed: () => navService.navigateTo(Routes.profileTimelineView));
     } else if (index == 3) {
-      return Row();
+      return getTitle(
+          title: 'منصات التواصل',
+          onPressed: () => navService.navigateTo(Routes.profileSocialsView));
     }
     return Container();
   }
