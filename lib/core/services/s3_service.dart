@@ -25,7 +25,7 @@ class S3Service {
     return {"url": url, "filePath": "$s3FolderPath/$filename"};
   }
 
-  Future<bool> deleteFile(String filePath, {String? s3FolderPath}) async {
+  Future<bool> deleteFile(String filePath) async {
     bool result = await SimpleS3.delete(filePath, bucketName, poolID, region);
     print(result);
     return result;

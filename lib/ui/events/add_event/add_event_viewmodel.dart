@@ -64,8 +64,8 @@ class AddEventViewModel extends BaseViewModel {
 
           if (oldImage != null && oldImage!.contains(s3Service.bucketName)) {
             print("${S3FolderPaths.events}/${oldImage!.split("/").last}");
-            await s3Service.deleteFile(oldImage!.split("/").last,
-                s3FolderPath: S3FolderPaths.events);
+            await s3Service.deleteFile(
+                "${S3FolderPaths.events}/${oldImage!.split("/").last}");
           }
           added = true;
         }
