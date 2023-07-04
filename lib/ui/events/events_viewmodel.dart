@@ -5,6 +5,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
 import '../../core/app/app.router.dart';
+import '../../core/models/member.dart';
 import '../../core/services/event_service.dart';
 import '../../core/services/supabase_service.dart';
 import '../../core/utils/constants.dart';
@@ -19,6 +20,10 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
   final userService = locator<UserService>();
 
   List<Event> events = [];
+  late Member user;
+  EventsViewModel() {
+    user = userService.user;
+  }
   bool filtered = false;
 
   @override
@@ -79,7 +84,8 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
   Stream<List<Event>> get stream => eventService.eventsController.stream;
 
   bool canEditEvent(Event event) {
-    return event.isOwner(userService.user.id) || userService.user.isLeaderOrCoLeader();
+    return event.isOwner(userService.user.id) ||
+        userService.user.isLeaderOrCoLeader();
   }
 
   bool canSeeOldEvents() {
@@ -94,7 +100,8 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
   List<Widget> getCards() {
     List<Event> eventList;
     if (filtered) {
-      eventList = events.where((e) => e.startDate.isAfter(DateTime.now())).toList();
+      eventList =
+          events.where((e) => e.startDate.isAfter(DateTime.now())).toList();
     } else {
       eventList = events;
     }

@@ -11,8 +11,10 @@ import 'package:stacked/stacked.dart';
 class ProfileUserHoursViewModel extends BaseViewModel {
   final userService = locator<UserService>();
   final hourService = locator<HourService>();
+
+  final key = GlobalKey(debugLabel: 'profile_hours');
+
   late Member user;
-  final formKey = GlobalKey<FormState>();
   TextEditingController reasonController = TextEditingController();
   TextEditingController hourAmountController = TextEditingController();
   String? reason;
@@ -23,26 +25,6 @@ class ProfileUserHoursViewModel extends BaseViewModel {
     user = userService.user;
     approvedUserHours = user.getApprovedVolunteerHours();
     pendingUserHours = user.getPendingVolunteerHours();
-  }
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  submit(BuildContext context) async {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
-    //Success
-    formKey.currentState?.save();
-    setBusy(true);
-    VolunteerHours pendingRequest =
-        await hourService.sendHourRequest(reason!, hours!);
-    print(pendingRequest);
-    pendingUserHours.add(pendingRequest);
-    await userService.updateUser();
-    notifyListeners();
-    setBusy(false);
   }
 
   removeHourRequest(VolunteerHours request) async {

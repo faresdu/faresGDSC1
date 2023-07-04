@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/ui/events/add_event/add_event_view.dart';
 import 'package:gdsc_app/ui/events/events_viewmodel.dart';
+import 'package:gdsc_app/ui/widgets/custom_bottom_modal_sheet.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
-import 'package:gdsc_app/ui/widgets/custom_bottom_sheet.dart';
 import 'package:stacked/stacked.dart';
 
 class EventsView extends StatefulWidget {
@@ -21,11 +21,10 @@ class _EventsViewState extends State<EventsView> {
         builder: (context, viewmodel, _) {
           return Scaffold(
             backgroundColor: Constants.background,
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.startFloat,
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                getCustomBottomSheet(context, const AddEventView());
+                CustomModalBottomSheet(context, const AddEventView(),
+                    heightFactor: 0.92);
               },
               backgroundColor: Constants.blueButton,
               child: const Icon(

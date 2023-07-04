@@ -1,4 +1,6 @@
+import 'package:gdsc_app/core/models/user_social_media.dart';
 import 'package:gdsc_app/core/services/s3_service.dart';
+import 'package:gdsc_app/core/services/social_media_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:gdsc_app/ui/committee_members/committe_members_view.dart';
@@ -58,6 +60,7 @@ import '../services/event_service.dart';
     LazySingleton<HourService>(classType: HourService),
     LazySingleton<NotificationService>(classType: NotificationService),
     LazySingleton<S3Service>(classType: S3Service),
+    LazySingleton<SocialMediaService>(classType: SocialMediaService),
     Presolve(
       classType: SupabaseService,
       presolveUsing: SupabaseService.getInstance,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/utils/constants.dart';
 
-void bottomSheetPost(BuildContext context, Widget? child) async {
+void CustomModalBottomSheet(BuildContext context, Widget? child,
+    {double heightFactor = 0.7, bool isScrollControlled = true}) async {
   await showModalBottomSheet(
     context: context,
-    isScrollControlled: true,
-    backgroundColor: const Color(0xffF1F1F1),
+    isScrollControlled: isScrollControlled,
+    backgroundColor: Constants.grayBackGround,
     clipBehavior: Clip.antiAlias,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
@@ -12,7 +14,7 @@ void bottomSheetPost(BuildContext context, Widget? child) async {
     ),
     builder: (context) {
       return FractionallySizedBox(
-        heightFactor: 0.7,
+        heightFactor: heightFactor,
         child: child,
       );
     },

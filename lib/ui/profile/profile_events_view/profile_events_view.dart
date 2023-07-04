@@ -3,12 +3,9 @@ import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/ui/events/add_event/add_event_view.dart';
 import 'package:gdsc_app/ui/events/components/events_card.dart';
 import 'package:gdsc_app/ui/profile/profile_events_view/profile_events_viewmodel.dart';
-import 'package:gdsc_app/ui/profile/profile_user_hours/profile_request_hours_view.dart';
-import 'package:gdsc_app/ui/widgets/bottom_sheet_post.dart';
-import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
+import 'package:gdsc_app/ui/widgets/custom_bottom_modal_sheet.dart';
 import 'package:gdsc_app/ui/widgets/circle_button.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
-import 'package:gdsc_app/ui/widgets/custom_bottom_sheet.dart';
 import 'package:stacked/stacked.dart';
 
 class ProfileEventsView extends StatelessWidget {
@@ -67,8 +64,9 @@ class ProfileEventsView extends StatelessWidget {
                           ),
                           const Spacer(),
                           CircleButton(
-                              onPressed: () => getCustomBottomSheet(
-                                  context, const AddEventView()))
+                              onPressed: () => CustomModalBottomSheet(
+                                  context, const AddEventView(),
+                                  heightFactor: 0.92))
                         ],
                       ),
                     ),

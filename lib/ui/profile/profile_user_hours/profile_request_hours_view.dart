@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/models/volunteer_hours.dart';
 import 'package:gdsc_app/core/utils/form_validators.dart';
 import 'package:gdsc_app/core/utils/string_extensions.dart';
-import 'package:gdsc_app/ui/profile/profile_user_hours/profile_user_hours_viewmodel.dart';
+import 'package:gdsc_app/ui/profile/profile_user_hours/profile_request_hours_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/custom_text_form_field.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
 class ProfileRequestHoursView extends StatefulWidget {
-  const ProfileRequestHoursView({Key? key}) : super(key: key);
+  const ProfileRequestHoursView({this.onSubmit, Key? key}) : super(key: key);
+  final void Function(VolunteerHours volunteerHours)? onSubmit;
   @override
   State<ProfileRequestHoursView> createState() =>
       _ProfileRequestHoursViewState();
@@ -16,8 +18,8 @@ class ProfileRequestHoursView extends StatefulWidget {
 class _ProfileRequestHoursViewState extends State<ProfileRequestHoursView> {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<ProfileUserHoursViewModel>.reactive(
-        viewModelBuilder: () => ProfileUserHoursViewModel(),
+    return ViewModelBuilder<ProfileRequestHoursViewModel>.reactive(
+        viewModelBuilder: () => ProfileRequestHoursViewModel(),
         builder: (context, viewmodel, _) {
           return Padding(
             padding: EdgeInsets.only(
@@ -74,7 +76,18 @@ class _ProfileRequestHoursViewState extends State<ProfileRequestHoursView> {
                                       MediaQuery.of(context).size.width * 0.1),
                               child: SubmitButton(
                                   text: 'رفع الطلب',
-                                  onPressed: () => viewmodel.submit(context)))
+                                  isBusy: viewmodel.isBusy,
+                                  onPressed: () async {
+                                    viewmodel.setBusy(true);
+                                    VolunteerHours? vol =
+                                        await viewmodel.submit(context);
+                                    if (widget.onSubmit != null &&
+                                        vol != null) {
+                                      widget.onSubmit!(vol);
+                                      viewmodel.setBusy(false);
+                                      Navigator.of(context).pop();
+                                    }
+                                  }))
                         ],
                       ),
                     ),

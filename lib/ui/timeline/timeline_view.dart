@@ -7,7 +7,7 @@ import 'package:gdsc_app/ui/widgets/post_card.dart';
 import 'package:stacked/stacked.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/bottom_sheet_post.dart';
+import '../widgets/custom_bottom_modal_sheet.dart';
 import 'add_post_view.dart';
 
 class TimeLineView extends StatefulWidget {
@@ -31,7 +31,7 @@ class _TimeLineViewState extends State<TimeLineView> {
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              bottomSheetPost(context, AddPostView());
+              CustomModalBottomSheet(context, AddPostView());
             },
             backgroundColor: Constants.blueButton,
             heroTag: 'addPostTag',

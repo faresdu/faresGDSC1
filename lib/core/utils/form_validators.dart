@@ -26,6 +26,13 @@ class FormValidators {
     return null;
   }
 
+  static String? linkValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'الرجاء ادخال رابط المنصه';
+    }
+    return null;
+  }
+
   static String? passwordValidator(String? value) {
     if (value == null || value.isEmpty || value.length < 6) {
       return 'الرجاء إدخال كلمة سر صحيحة';
