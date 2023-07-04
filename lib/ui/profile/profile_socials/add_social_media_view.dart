@@ -42,11 +42,19 @@ class _AddSocialMediaViewState extends State<AddSocialMediaView> {
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
                       children: [
+                        const Text(
+                          'اضافه منصة تواصل',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                         Form(
                           key: viewmodel.formKey,
                           child: Column(children: [
                             SocialsDropDownMenu(
-                              title: 'اختر منصة التواصل',
+                              title: 'اختر نوع منصة التواصل',
                               socialMedias: viewmodel.socialMedias ?? [],
                               onChanged: (String? value) {
                                 viewmodel.selectedSocialId = value;
