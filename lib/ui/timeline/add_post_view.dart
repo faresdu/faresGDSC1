@@ -73,7 +73,7 @@ class _AddPostViewState extends State<AddPostView> {
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w900)),
-                                  Text(" عضو اللجة التقنية  ",
+                                  Text(user.committee.name,
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold,
@@ -101,7 +101,7 @@ class _AddPostViewState extends State<AddPostView> {
 
 Widget _TextWithChild({required String title, required Widget child}) {
   return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+    margin: const EdgeInsets.symmetric(horizontal: 10),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -43,7 +43,7 @@ class _PostCardState extends State<PostCard> {
           child: Stack(
             children: [
               Container(
-                padding: EdgeInsets.only(left: 20, top: 8),
+                padding: EdgeInsets.only(left: 20, top: 12),
                 alignment: AlignmentDirectional.topEnd,
                 child: Text(
                   DateHelper.sincePosted(widget.post.createdAt),
@@ -81,7 +81,7 @@ class _PostCardState extends State<PostCard> {
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w900)),
-                                Text(" عضو اللجة التقنية  ",
+                                Text("${widget.post.committee?.name}",
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
