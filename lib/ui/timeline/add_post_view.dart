@@ -4,6 +4,7 @@ import 'package:gdsc_app/ui/timeline/timeline_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import '../../../core/utils/constants.dart';
 import '../../core/models/gdsc_user.dart';
+import '../../core/utils/helper_functions.dart';
 
 class AddPostView extends StatefulWidget {
   const AddPostView({super.key});
@@ -38,31 +39,53 @@ class _AddPostViewState extends State<AddPostView> {
                 Expanded(
                   child: SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      padding:
+                          const EdgeInsets.only(left: 20, right: 20, top: 20),
                       child: Column(
                         children: [
-                          const Text(
-                            'إضافة منشور',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                child: SubmitButton(onPressed: () {
+                                  viewmodel.addPost(user);
+                                  Navigator.pop(context);
+                                }),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 4),
+                                child: ClipOval(
+                                  child: HelperFunctions.profileImage(
+                                      imageUrl: user.photo ?? '',
+                                      height: 50,
+                                      width: 50),
+                                ),
+                              ),
+                              SizedBox(width: 15),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(user.name,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w900)),
+                                  Text(" عضو اللجة التقنية  ",
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Constants.grey)),
+                                ],
+                              ),
+                            ],
                           ),
                           CustomTextField(
-                            title: 'الوصف',
+                            title: '',
                             controller: viewmodel.descriptionController,
-                            maxLines: 4,
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 100),
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    MediaQuery.of(context).size.width * 0.1),
-                            child: SubmitButton(onPressed: () {
-                              viewmodel.addPost(user);
-                              Navigator.pop(context);
-                            }),
+                            maxLines: 5,
                           ),
                         ],
                       ),
@@ -103,15 +126,15 @@ Widget SubmitButton({required Function() onPressed}) {
   return TextButton(
     onPressed: onPressed,
     style: TextButton.styleFrom(
-      minimumSize: const Size(double.infinity, 35),
+      fixedSize: Size(90, 40),
       backgroundColor: Constants.blueButton,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     ),
     child: const Text(
       'نشر',
       style: TextStyle(
         color: Colors.white,
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: FontWeight.w700,
       ),
     ),
@@ -128,7 +151,7 @@ Widget CustomTextField(
   return _TextWithChild(
     title: title,
     child: TextField(
-      keyboardType: type,
+      maxLength: 125,
       maxLines: maxLines,
       autofocus: autofocus,
       controller: controller,

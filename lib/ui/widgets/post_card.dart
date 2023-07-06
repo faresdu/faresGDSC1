@@ -30,103 +30,112 @@ class _PostCardState extends State<PostCard> {
   Widget build(BuildContext context) {
     bool liked = isLiked();
 
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(10),
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 24, right: 20, left: 20),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    ClipOval(
-                      child: HelperFunctions.profileImage(
-                          imageUrl: widget.post.posterProfilePicture ?? '',
-                          height: 50,
-                          width: 50),
-                    ),
-                    SizedBox(width: 20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      child: Expanded(
+        flex: 1,
+        child: Container(
+          height: 220,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+          ),
+          child: Stack(
+            children: [
+              Container(
+                padding: EdgeInsets.only(left: 20, top: 8),
+                alignment: AlignmentDirectional.topEnd,
+                child: Text(
+                  DateHelper.sincePosted(widget.post.createdAt),
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Constants.grey),
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 18, right: 20),
+                    child: Column(
                       children: [
-                        Text(widget.post.posterName,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w900)),
                         Row(
                           children: [
-                            Text(" عضو اللجة التقنية  ",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: Constants.grey)),
                             Padding(
-                              padding: const EdgeInsets.only(top: 2, left: 6),
-                              child: Icon(
-                                Icons.fiber_manual_record,
-                                size: 9,
+                              padding: const EdgeInsets.only(top: 4),
+                              child: ClipOval(
+                                child: HelperFunctions.profileImage(
+                                    imageUrl:
+                                        widget.post.posterProfilePicture ?? '',
+                                    height: 50,
+                                    width: 50),
                               ),
                             ),
-                            Text(DateHelper.sincePosted(widget.post.createdAt),
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: Constants.black))
+                            SizedBox(width: 15),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(widget.post.posterName,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w900)),
+                                Text(" عضو اللجة التقنية  ",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: Constants.grey)),
+                              ],
+                            ),
                           ],
                         ),
+                        Container(
+                            alignment: Alignment(1, 0),
+                            margin:
+                                EdgeInsets.only(right: 15, left: 15, top: 8),
+                            child: Text(
+                              widget.post.content,
+                              style: TextStyle(
+                                  fontSize: 14, color: Constants.black),
+                            )),
                       ],
-                    )
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: 8, left: 40),
+                alignment: AlignmentDirectional.bottomStart,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text('${widget.post.likes}'),
+                    if (liked)
+                      TextButton(
+                          onPressed: () {
+                            widget.onUnLike(widget.post, widget.userId);
+                          },
+                          child: Icon(
+                            Icons.favorite,
+                            color: Constants.red,
+                          ))
+                    else
+                      TextButton(
+                        onPressed: () {
+                          widget.onLike(widget.post, widget.userId);
+                        },
+                        child: Icon(
+                          Icons.favorite_border,
+                          color: Constants.black,
+                        ),
+                      ),
                   ],
                 ),
-                Container(
-                    alignment: Alignment(1, 0),
-                    margin: EdgeInsets.only(right: 15, left: 15, top: 15),
-                    child: Text(
-                      widget.post.content,
-                      style: TextStyle(fontSize: 16, color: Constants.black),
-                    )),
-                Container(
-                  margin: EdgeInsets.only(bottom: 10, left: 40, top: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text('${widget.post.likes}'),
-                      if (liked)
-                        TextButton(
-                            onPressed: () {
-                              widget.onUnLike(widget.post, widget.userId);
-                            },
-                            child: Icon(
-                              Icons.favorite,
-                              color: Constants.red,
-                            ))
-                      else
-                        TextButton(
-                            onPressed: () {
-                              widget.onLike(widget.post, widget.userId);
-                            },
-                            child: Icon(
-                              Icons.favorite_border,
-                              color: Constants.black,
-                            )),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Container(
-            width: double.infinity,
-            height: 2,
-            color: Constants.white,
-          )
-        ],
+        ),
       ),
     );
   }
