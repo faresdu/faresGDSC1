@@ -51,7 +51,9 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     int committeeHours = await hourService.getCumulativeCommitteeHours();
 
     return Notifications(
-        title: "أكملت $hours ساعة تطوعية", name: "أكملت لجنتك $committeeHours ساعة تطوعية", picture: "assets/images/achievement.png");
+        title: "أكملت $hours ساعة تطوعية",
+        name: "أكملت لجنتك $committeeHours ساعة تطوعية",
+        picture: "assets/images/achievement.png");
   }
 
   void navigateToRequestsPage() {

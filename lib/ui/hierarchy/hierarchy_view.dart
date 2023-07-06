@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/hierarchy/hierarchy_viewmodel.dart';
+import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
+import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:gdsc_app/ui/widgets/hierarchy_button.dart';
 import 'package:stacked/stacked.dart';
 
@@ -15,27 +17,27 @@ class _HierarchyViewState extends State<HierarchyView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HierarchyViewModel>.reactive(
         viewModelBuilder: () => HierarchyViewModel(),
-        onModelReady: (model) => model.getComms(),
         builder: (context, viewmodel, _) {
           return Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              title: const Text('الهيكلة'),
+            appBar: const CustomAppBar(
+              title: 'الهيكلة',
             ),
-            body: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: viewmodel.comms
+            body: SafeArea(
+              child: BusyOverlay(
+                isBusy: viewmodel.isBusy,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: viewmodel.committees
                         .map((e) => HierarchyButton(
                             onPressed: () {
                               viewmodel.navigateToCommittee(e);
                             },
                             name: e.name))
                         .toList(),
-                  )
-                ],
+                  ),
+                ),
               ),
             ),
           );
