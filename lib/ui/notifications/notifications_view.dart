@@ -6,6 +6,8 @@ import 'package:stacked/stacked.dart';
 import '../../core/utils/constants.dart';
 import '../Home/components/notification_card.dart';
 import '../widgets/notifications_card.dart';
+import 'addNotifitcaion_view.dart';
+import 'bottomSheetNotifitcation.dart';
 
 class NotificationView extends StatelessWidget {
   const NotificationView({super.key});
@@ -17,6 +19,18 @@ class NotificationView extends StatelessWidget {
       onViewModelReady: (model) => model.getNotifications(),
       builder: (context, viewmodel, _) {
         return Scaffold(
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              bottomSheetNotification(context, AddNotification());
+            },
+            backgroundColor: Constants.blueButton,
+            heroTag: 'addPostTag',
+            child: const Icon(
+              Icons.add,
+              size: 30,
+            ),
+          ),
           body: SafeArea(
             child: Container(
               color: Constants.background,
