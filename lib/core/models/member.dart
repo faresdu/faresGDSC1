@@ -101,7 +101,7 @@ class Member {
       List<Post> posts = [];
       if (map["posts"] != null &&
           (map['posts'] as List).first != null &&
-          (map['posts'] as List).first['post_id'] != null) {
+          (map['posts'] as List).first['id'] != null) {
         posts = (map["posts"] as List).map((e) {
           return Post.fromJson(e);
         }).toList();

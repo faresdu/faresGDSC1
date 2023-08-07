@@ -24,7 +24,7 @@ class ProfileEventsView extends StatelessWidget {
             body: SafeArea(
               child: DefaultTabController(
                 length: 2,
-                key: GlobalKey(debugLabel: 'profile_events'),
+                key: viewmodel.key,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,

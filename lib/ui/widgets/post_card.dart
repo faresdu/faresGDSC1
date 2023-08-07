@@ -134,7 +134,6 @@ class _PostCardState extends State<PostCard> {
   bool isLiked() {
     if (widget.post.likerIds != null && widget.post.likerIds!.isNotEmpty) {
       for (var liker in widget.post.likerIds!) {
-        print(liker);
         if (liker == widget.userId) return true;
       }
     }

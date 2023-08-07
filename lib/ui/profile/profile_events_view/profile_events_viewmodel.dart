@@ -15,6 +15,8 @@ class ProfileEventsViewModel extends StreamViewModel<List<Event>> {
   final eventService = locator<EventService>();
   final userService = locator<UserService>();
 
+  final key = GlobalKey(debugLabel: 'profile_events');
+
   List<Event> events = [];
   late Member user;
   ProfileEventsViewModel() {

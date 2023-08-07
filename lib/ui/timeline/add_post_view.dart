@@ -5,10 +5,11 @@ import 'package:gdsc_app/ui/timeline/timeline_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import '../../../core/utils/constants.dart';
 import '../../core/models/gdsc_user.dart';
+import '../../core/models/post.dart';
 
 class AddPostView extends StatefulWidget {
-  const AddPostView({super.key});
-
+  const AddPostView({super.key, this.onSubmit});
+  final void Function(String postId)? onSubmit;
   @override
   State<AddPostView> createState() => _AddPostViewState();
 }
@@ -62,9 +63,14 @@ class _AddPostViewState extends State<AddPostView> {
                                     MediaQuery.of(context).size.width * 0.1),
                             child: SubmitButton(
                                 text: 'إضـافـة',
-                                onPressed: () {
-                                  viewmodel.addPost(user);
-                                  Navigator.pop(context);
+                                onPressed: () async {
+                                  String? postId =
+                                      await viewmodel.addPost(user);
+                                  if (widget.onSubmit != null &&
+                                      postId != null) {
+                                    widget.onSubmit!(postId);
+                                    Navigator.pop(context);
+                                  }
                                 }),
                           ),
                         ],
