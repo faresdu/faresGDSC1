@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
+import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:gdsc_app/ui/events/add_event/add_event_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -73,11 +74,18 @@ class _AddEventViewState extends State<EditEventView> {
                                       },
                                       child: viewmodel.isBusy
                                           ? const CircularProgressIndicator()
-                                          : SvgPicture.asset(
-                                              'assets/icons/events/add_image.svg',
-                                              height: 24,
-                                              width: 24,
-                                            ),
+                                          : viewmodel.oldImage != null
+                                              ? HelperFunctions.profileImage(
+                                                  imageUrl: viewmodel.oldImage!,
+                                                  height: 200,
+                                                  width: 200,
+                                                  fit: BoxFit.contain,
+                                                )
+                                              : SvgPicture.asset(
+                                                  'assets/icons/events/add_image.svg',
+                                                  height: 24,
+                                                  width: 24,
+                                                ),
                                     )
                                   : InkWell(
                                       onTap: () {

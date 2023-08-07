@@ -92,9 +92,9 @@ class _AddSocialMediaViewState extends State<AddSocialMediaView> {
                                         social != null) {
                                       print('asdas');
                                       widget.onSubmit!(social);
+                                      Navigator.pop(context);
                                     }
                                     viewmodel.setBusy(false);
-                                    Navigator.pop(context);
                                   }),
                             )
                           ]),
