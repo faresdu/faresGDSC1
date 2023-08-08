@@ -38,12 +38,11 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
   Widget getSignUpButton(Event event) {
     if (event.isSignedUp(userService.user.id)) {
       return EventCardButton(
-        text: 'سجل خروج',
-        color: Constants.red.withOpacity(.9),
-        onPressed: () async {
-          await eventService.signOutFromEvent(event.eventID);
-        },
-      );
+          text: 'سجل خروج',
+          color: Constants.red.withOpacity(.9),
+          onPressed: () async {
+            await eventService.signOutFromEvent(event.eventID);
+          });
     } else if (event.isFull()) {
       return EventCardButton(
         text: 'المقاعد ممتلئة',

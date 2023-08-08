@@ -38,7 +38,12 @@ class ProfileEventsViewModel extends StreamViewModel<List<Event>> {
         text: 'سجل خروج',
         color: Constants.red.withOpacity(.9),
         onPressed: () async {
-          await eventService.signOutFromEvent(event.eventID);
+          try {
+            await eventService.signOutFromEvent(event.eventID);
+            return true;
+          } catch (e) {
+            return false;
+          }
         },
       );
     } else if (event.isFull()) {
@@ -58,7 +63,12 @@ class ProfileEventsViewModel extends StreamViewModel<List<Event>> {
         text: 'احجز مقعدك - مقاعد محدودة',
         color: Constants.blueButton.withOpacity(.9),
         onPressed: () async {
-          await eventService.signUpToEvent(event.eventID);
+          try {
+            await eventService.signUpToEvent(event.eventID);
+            return true;
+          } catch (e) {
+            return false;
+          }
         },
       );
     }
@@ -66,7 +76,12 @@ class ProfileEventsViewModel extends StreamViewModel<List<Event>> {
       text: 'احجز مقعدك',
       color: Constants.green.withOpacity(.9),
       onPressed: () async {
-        await eventService.signUpToEvent(event.eventID);
+        try {
+          await eventService.signUpToEvent(event.eventID);
+          return true;
+        } catch (e) {
+          return false;
+        }
       },
     );
   }
