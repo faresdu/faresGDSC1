@@ -35,11 +35,11 @@ class VolunteerHours {
   }
 
   bool isAccepted() {
-    return !isPending() && isApproved == true;
+    return isApproved == true;
   }
 
   bool isRejected() {
-    return !isPending() && isApproved == false;
+    return isApproved == false;
   }
 
   factory VolunteerHours.fromJson(Map<String, dynamic> map) {

@@ -10,7 +10,7 @@ class EventDetailsSignupButton extends StatefulWidget {
       required this.text,
       this.isLoading = false})
       : super(key: key);
-  final Function() onPressed;
+  final Function()? onPressed;
   final Color color;
   final String text;
   bool isLoading = false;
@@ -24,11 +24,17 @@ class _EventDetailsSignupButtonState extends State<EventDetailsSignupButton> {
     setState(() {
       widget.isLoading = true;
     });
-    try {
-      await widget.onPressed();
-    } catch (e) {
+    if (widget.onPressed != null) {
+      try {
+        await widget.onPressed!();
+      } catch (e) {
+        setState(() {
+          print(e);
+          widget.isLoading = false;
+        });
+      }
+    } else {
       setState(() {
-        print(e);
         widget.isLoading = false;
       });
     }
@@ -41,7 +47,7 @@ class _EventDetailsSignupButtonState extends State<EventDetailsSignupButton> {
         backgroundColor: widget.color,
         fixedSize: const Size(150, 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        elevation: 5,
+        elevation: widget.onPressed == null ? 1 : 5,
       ),
       // onPressed: isLoading ? null : runFuture,
       onPressed: widget.isLoading ? null : runFuture,

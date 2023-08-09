@@ -105,6 +105,9 @@ class Member {
         posts = (map["posts"] as List).map((e) {
           return Post.fromJson(e);
         }).toList();
+        posts.sort((a, b) =>
+            b.createdAt.microsecondsSinceEpoch -
+            a.createdAt.microsecondsSinceEpoch);
       }
       List<VolunteerHours> volunteers = [];
       if (map["volunteers"] != null &&
@@ -113,6 +116,9 @@ class Member {
         volunteers = (map["volunteers"] as List).map((e) {
           return VolunteerHours.fromJson(e);
         }).toList();
+        // volunteers.sort((a, b) =>
+        //     b.createdAt.microsecondsSinceEpoch -
+        //     a.createdAt.microsecondsSinceEpoch);
       }
       return Member(
         id: map['user_id'] ?? '',

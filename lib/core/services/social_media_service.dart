@@ -1,4 +1,5 @@
 import 'package:gdsc_app/core/app/app.locator.dart';
+import 'package:gdsc_app/core/enums/tables.dart';
 import 'package:gdsc_app/core/models/social_media.dart';
 import 'package:gdsc_app/core/models/user_social_media.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
@@ -10,7 +11,7 @@ class SocialMediaService {
   Future<List<SocialMedia>> getSupportedSocialMedias() async {
     try {
       final res = await _supabaseService.supabaseClient
-          .from('social_media')
+          .from(GDSCTables.socialMedia)
           .select('*')
           .execute();
       if (res.error != null) {
@@ -28,7 +29,7 @@ class SocialMediaService {
     try {
       userSocialMedia.userId = _userService.user.id;
       final res = await _supabaseService.supabaseClient
-          .from('user_socials')
+          .from(GDSCTables.userSocials)
           .insert(userSocialMedia.toJson(toUserSocials: true))
           .execute();
       if (res.error != null) {
@@ -44,7 +45,7 @@ class SocialMediaService {
     try {
       final payload = {"social_id": socialId, "user_id": _userService.user.id};
       final res = await _supabaseService.supabaseClient
-          .from('user_socials')
+          .from(GDSCTables.userSocials)
           .delete()
           .match(payload)
           .execute();

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:gdsc_app/core/enums/tables.dart';
+import 'package:gdsc_app/core/enums/views.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:supabase/supabase.dart';
@@ -13,7 +15,7 @@ class TimelineService {
     try {
       final PostgrestResponse<dynamic> res = await _supabaseService
           .supabaseClient
-          .from('posts_view')
+          .from(GDSCViews.posts)
           .select('*, Committees:committee_id(*)')
           .order("created_at", ascending: false)
           .execute();
@@ -28,7 +30,7 @@ class TimelineService {
     try {
       final PostgrestResponse<dynamic> res = await _supabaseService
           .supabaseClient
-          .from('posts_view')
+          .from(GDSCViews.posts)
           .select('*, Committees:committee_id(*)')
           .eq('id', postId)
           .execute();
@@ -43,7 +45,7 @@ class TimelineService {
     try {
       final PostgrestResponse<dynamic> res = await _supabaseService
           .supabaseClient
-          .from('posts_view')
+          .from(GDSCViews.posts)
           .select('*, Committees:committee_id(*)')
           .contains("likers", '{"$userId"}')
           .order("created_at", ascending: false)
@@ -59,7 +61,7 @@ class TimelineService {
     final payload = {'user_id': userId, 'post_content': content};
 
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
-        .from('posts')
+        .from(GDSCTables.posts)
         .insert(payload)
         .execute();
     if (res.status != null && (res.status! < 200 || res.status! > 299)) {
@@ -72,7 +74,7 @@ class TimelineService {
     try {
       final payload = {'post_id': postId, 'user_id': userId};
       final res = await _supabaseService.supabaseClient
-          .from('post_likes')
+          .from(GDSCTables.postLikes)
           .insert(payload)
           .execute();
       print(res.status);

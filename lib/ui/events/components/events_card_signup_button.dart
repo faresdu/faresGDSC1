@@ -56,7 +56,7 @@ class _EventCardButtonState extends State<EventCardButton> {
             fixedSize: Size(double.maxFinite, (widget.height ?? 30)),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            elevation: 5,
+            elevation: widget.onPressed == null ? 1 : 5,
           ),
           onPressed: widget.isLoading ? null : runFuture,
           child: widget.isLoading

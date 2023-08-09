@@ -84,9 +84,9 @@ class _ProfileRequestHoursViewState extends State<ProfileRequestHoursView> {
                                     if (widget.onSubmit != null &&
                                         vol != null) {
                                       widget.onSubmit!(vol);
-                                      viewmodel.setBusy(false);
                                       Navigator.of(context).pop();
                                     }
+                                    viewmodel.setBusy(false);
                                   }))
                         ],
                       ),

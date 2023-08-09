@@ -42,20 +42,14 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
       );
     } else if (event.startDate.isAfter(DateTime.now())) {
       return EventDetailsSignupButton(
-        text: 'الفعاليه منتهيه',
-        color: Constants.grey.withOpacity(.9),
-        onPressed: () {
-          print('cant');
-        },
-      );
+          text: 'الفعاليه منتهيه',
+          color: Constants.grey.withOpacity(.9),
+          onPressed: null);
     } else if (event.isFull()) {
       return EventDetailsSignupButton(
-        text: 'المقاعد ممتلئة',
-        color: Constants.grey.withOpacity(.9),
-        onPressed: () {
-          print('cant');
-        },
-      );
+          text: 'المقاعد ممتلئة',
+          color: Constants.grey.withOpacity(.9),
+          onPressed: null);
     } else if (event.getPercentage() >= 75) {
       return EventDetailsSignupButton(
         text: 'احجز مقعدك',

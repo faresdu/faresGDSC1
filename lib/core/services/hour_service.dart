@@ -1,3 +1,5 @@
+import 'package:gdsc_app/core/enums/tables.dart';
+import 'package:gdsc_app/core/enums/views.dart';
 import 'package:gdsc_app/core/models/hour_request.dart';
 import 'package:gdsc_app/core/models/volunteer_hours.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
@@ -16,7 +18,7 @@ class HourService {
       'committee_id': _userService.user.committee!.id
     };
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
-        .from('volenteer_hours')
+        .from(GDSCTables.volunteerHours)
         .select('*, Users!inner(name, profile_picture)')
         .is_('approved', null)
         .match(payload)
@@ -29,7 +31,7 @@ class HourService {
       'committee_id': _userService.user.committee!.id
     };
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
-        .from('volenteer_hours')
+        .from(GDSCTables.volunteerHours)
         .select('*, Users!inner(name, profile_picture)')
         .not('approved', 'is', null)
         .match(payload)
@@ -45,7 +47,7 @@ class HourService {
       'reasoning': reason
     };
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
-        .from('volenteer_hours')
+        .from(GDSCTables.volunteerHours)
         .insert(payload)
         .execute();
     return VolunteerHours.fromJson(res.data.first);
@@ -53,7 +55,7 @@ class HourService {
 
   Future<void> updateHourRequest(String id, bool status) async {
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
-        .from('volenteer_hours')
+        .from(GDSCTables.volunteerHours)
         .update({'approved': status}).match({'volunteer_id': id}).execute();
     if (res.status != null && (res.status! < 200 || res.status! > 299)) {
       throw 'Unable to update Hour Request';
@@ -62,7 +64,7 @@ class HourService {
 
   Future<void> removeHourRequest(String id) async {
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
-        .from('volenteer_hours')
+        .from(GDSCTables.volunteerHours)
         .delete()
         .match({'volunteer_id': id}).execute();
     if (res.status != null && (res.status! < 200 || res.status! > 299)) {
@@ -77,7 +79,7 @@ class HourService {
     try {
       final PostgrestResponse<dynamic> res = await _supabaseService
           .supabaseClient
-          .from('leaderboard_view')
+          .from(GDSCViews.leaderboard)
           .select('hours')
           .match(payload)
           .execute();
@@ -96,7 +98,7 @@ class HourService {
     try {
       final PostgrestResponse<dynamic> res = await _supabaseService
           .supabaseClient
-          .from('leaderboard_view')
+          .from(GDSCViews.leaderboard)
           .select('hours')
           .match(payload)
           .execute();
