@@ -9,6 +9,7 @@ class VolunteerHours {
   final String? reasoning;
   final int hours;
   final bool? isApproved;
+  final DateTime createdAt;
 
   VolunteerHours({
     required this.volunteerID,
@@ -17,6 +18,7 @@ class VolunteerHours {
     this.reasoning,
     required this.hours,
     this.isApproved,
+    required this.createdAt,
   });
 
   factory VolunteerHours.anonymous() {
@@ -27,6 +29,7 @@ class VolunteerHours {
       userID: m.id,
       committeeID: c.id,
       hours: 0,
+      createdAt: DateTime.utc(1900),
     );
   }
 
@@ -51,6 +54,8 @@ class VolunteerHours {
       reasoning: map['reasoning'],
       hours: map['hours'] ?? v.hours,
       isApproved: map['approved'],
+      createdAt:
+          DateTime.tryParse(map['created_at'] ?? '') ?? DateTime.utc(1900),
     );
   }
 }

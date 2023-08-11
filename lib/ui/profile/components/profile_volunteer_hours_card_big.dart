@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/models/volunteer_hours.dart';
 import '../../../core/utils/constants.dart';
+import '../../../core/utils/date_helper.dart';
 
 class ProfileVolunteerHoursCardBig extends StatelessWidget {
   const ProfileVolunteerHoursCardBig({
@@ -64,7 +65,7 @@ class ProfileVolunteerHoursCardBig extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  '15 hours',
+                  DateHelper.sincePosted(volunteerHours.createdAt),
                   style:
                       Constants.verySmallText.copyWith(color: Constants.grey),
                 ),

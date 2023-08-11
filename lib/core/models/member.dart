@@ -116,9 +116,9 @@ class Member {
         volunteers = (map["volunteers"] as List).map((e) {
           return VolunteerHours.fromJson(e);
         }).toList();
-        // volunteers.sort((a, b) =>
-        //     b.createdAt.microsecondsSinceEpoch -
-        //     a.createdAt.microsecondsSinceEpoch);
+        volunteers.sort((a, b) =>
+            b.createdAt.microsecondsSinceEpoch -
+            a.createdAt.microsecondsSinceEpoch);
       }
       return Member(
         id: map['user_id'] ?? '',
