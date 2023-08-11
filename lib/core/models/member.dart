@@ -1,7 +1,7 @@
 import 'package:gdsc_app/core/models/committee.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/models/post.dart';
-import 'package:gdsc_app/core/models/social_media.dart';
+import 'package:gdsc_app/core/models/user_social_media.dart';
 import 'package:gdsc_app/core/models/volunteer_hours.dart';
 
 class Member {
@@ -11,7 +11,7 @@ class Member {
   final String? major;
   final String? photo;
   final Committee committee;
-  final List<SocialMedia> socials;
+  final List<UserSocialMedia> socials;
   final List<Event> events;
   final List<Post> posts;
   final List<VolunteerHours> volunteerHours;
@@ -46,17 +46,11 @@ class Member {
     );
   }
 
-  bool isLeader() {
-    return id == committee.leaderID;
-  }
+  bool isLeader() => id == committee.leaderID;
 
-  bool isCoLeader() {
-    return id == committee.coLeaderID;
-  }
+  bool isCoLeader() => id == committee.coLeaderID;
 
-  bool isLeaderOrCoLeader() {
-    return isLeader() || isCoLeader();
-  }
+  bool isLeaderOrCoLeader() => isLeader() || isCoLeader();
 
   String getRole() {
     if (isLeader()) {
@@ -77,12 +71,23 @@ class Member {
     return i;
   }
 
+  List<VolunteerHours> getApprovedVolunteerHours() =>
+      volunteerHours.where((e) => e.isAccepted()).toList();
+
+  List<VolunteerHours> getPendingVolunteerHours() =>
+      volunteerHours.where((e) => e.isPending()).toList();
+
+  List<VolunteerHours> getRejectedVolunteerHours() =>
+      volunteerHours.where((e) => e.isRejected()).toList();
+
   factory Member.fromJson(Map<String, dynamic> map) {
     try {
-      List<SocialMedia> socials = [];
-      if (map["socials"] != null && (map['socials'] as List).first != null && (map['socials'] as List).first['social_id'] != null) {
+      List<UserSocialMedia> socials = [];
+      if (map["socials"] != null &&
+          (map['socials'] as List).first != null &&
+          (map['socials'] as List).first['social_id'] != null) {
         socials = (map["socials"] as List).map((e) {
-          return SocialMedia.fromJson(e);
+          return UserSocialMedia.fromJson(e);
         }).toList();
       }
       List<Event> events = [];
@@ -94,16 +99,26 @@ class Member {
         }).toList();
       }
       List<Post> posts = [];
-      if (map["posts"] != null && (map['posts'] as List).first != null && (map['posts'] as List).first['post_id'] != null) {
+      if (map["posts"] != null &&
+          (map['posts'] as List).first != null &&
+          (map['posts'] as List).first['id'] != null) {
         posts = (map["posts"] as List).map((e) {
           return Post.fromJson(e);
         }).toList();
+        posts.sort((a, b) =>
+            b.createdAt.microsecondsSinceEpoch -
+            a.createdAt.microsecondsSinceEpoch);
       }
       List<VolunteerHours> volunteers = [];
-      if (map["volunteers"] != null && (map['volunteers'] as List).first != null && (map['volunteers'] as List).first['volunteer_id'] != null) {
+      if (map["volunteers"] != null &&
+          (map['volunteers'] as List).first != null &&
+          (map['volunteers'] as List).first['volunteer_id'] != null) {
         volunteers = (map["volunteers"] as List).map((e) {
           return VolunteerHours.fromJson(e);
         }).toList();
+        volunteers.sort((a, b) =>
+            b.createdAt.microsecondsSinceEpoch -
+            a.createdAt.microsecondsSinceEpoch);
       }
       return Member(
         id: map['user_id'] ?? '',
@@ -111,7 +126,9 @@ class Member {
         name: map['name'] ?? '',
         major: map['major'] ?? '',
         photo: map['profile_picture'],
-        committee: map['committee'] != null ? Committee.fromJson(map['committee']) : Committee.anonymous(),
+        committee: map['committee'] != null
+            ? Committee.fromJson(map['committee'])
+            : Committee.anonymous(),
         events: events,
         posts: posts,
         socials: socials,

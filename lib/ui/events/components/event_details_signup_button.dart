@@ -3,31 +3,41 @@ import 'package:flutter/material.dart';
 import '../../../core/utils/constants.dart';
 
 class EventDetailsSignupButton extends StatefulWidget {
-  const EventDetailsSignupButton({
-    Key? key,
-    required this.onPressed,
-    required this.color,
-    required this.text,
-  }) : super(key: key);
-  final Function() onPressed;
+  EventDetailsSignupButton(
+      {Key? key,
+      required this.onPressed,
+      required this.color,
+      required this.text,
+      this.isLoading = false})
+      : super(key: key);
+  final Function()? onPressed;
   final Color color;
   final String text;
-
+  bool isLoading = false;
   @override
-  State<EventDetailsSignupButton> createState() => _EventDetailsSignupButtonState();
+  State<EventDetailsSignupButton> createState() =>
+      _EventDetailsSignupButtonState();
 }
 
 class _EventDetailsSignupButtonState extends State<EventDetailsSignupButton> {
-  bool isLoading = false;
-
   void runFuture() async {
     setState(() {
-      isLoading = true;
+      widget.isLoading = true;
     });
-    await widget.onPressed();
-    setState(() {
-      isLoading = false;
-    });
+    if (widget.onPressed != null) {
+      try {
+        await widget.onPressed!();
+      } catch (e) {
+        setState(() {
+          print(e);
+          widget.isLoading = false;
+        });
+      }
+    } else {
+      setState(() {
+        widget.isLoading = false;
+      });
+    }
   }
 
   @override
@@ -37,12 +47,12 @@ class _EventDetailsSignupButtonState extends State<EventDetailsSignupButton> {
         backgroundColor: widget.color,
         fixedSize: const Size(150, 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        elevation: 5,
+        elevation: widget.onPressed == null ? 1 : 5,
       ),
       // onPressed: isLoading ? null : runFuture,
-      onPressed: runFuture,
+      onPressed: widget.isLoading ? null : runFuture,
       child: Center(
-        child: isLoading
+        child: widget.isLoading
             ? const SizedBox(
                 width: 20,
                 height: 20,
@@ -52,7 +62,10 @@ class _EventDetailsSignupButtonState extends State<EventDetailsSignupButton> {
               )
             : Text(
                 widget.text,
-                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Constants.white),
+                style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: Constants.white),
               ),
       ),
     );

@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as flutter_svg;
@@ -66,5 +69,17 @@ abstract class HelperFunctions {
       return Image.network(imageUrl, height: height, width: width, fit: fit)
           .image;
     }
+  }
+
+  static getFileSize(String filepath, int decimals,
+      {bool noSuffix = false}) async {
+    var file = File(filepath);
+    int bytes = await file.length();
+    if (bytes <= 0) return "0 B";
+    const suffixes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+    var i = (log(bytes) / log(1024)).floor();
+    return noSuffix
+        ? (bytes / pow(1024, i)).toStringAsFixed(decimals)
+        : '${(bytes / pow(1024, i)).toStringAsFixed(decimals)} ${suffixes[i]}';
   }
 }

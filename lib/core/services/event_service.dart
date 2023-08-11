@@ -1,3 +1,5 @@
+import 'package:gdsc_app/core/enums/tables.dart';
+import 'package:gdsc_app/core/enums/views.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
@@ -12,20 +14,25 @@ class EventService {
 
   late List<Event> events;
 
-  BehaviorSubject<List<Event>> eventsController = BehaviorSubject<List<Event>>();
+  BehaviorSubject<List<Event>> eventsController =
+      BehaviorSubject<List<Event>>();
 
   Future<List<Event>> getEvents({bool filtered = false}) async {
     try {
       PostgrestResponse<dynamic> res;
       if (filtered) {
         res = await _supabaseService.supabaseClient
-            .from('events_view')
+            .from(GDSCViews.events)
             .select()
             .gte('start_date', DateTime.now())
             .order('start_date', ascending: true)
             .execute();
       } else {
-        res = await _supabaseService.supabaseClient.from('events_view').select().order('start_date', ascending: true).execute();
+        res = await _supabaseService.supabaseClient
+            .from(GDSCViews.events)
+            .select()
+            .order('start_date', ascending: true)
+            .execute();
       }
       return (res.data as List).map((e) => Event.fromJson(e)).toList();
     } catch (e) {
@@ -35,7 +42,11 @@ class EventService {
 
   Future<void> addEvent(Event event) async {
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient.from('Events').insert(event.toJson()).execute();
+      final PostgrestResponse<dynamic> res = await _supabaseService
+          .supabaseClient
+          .from(GDSCTables.events)
+          .insert(event.toJson())
+          .execute();
       if (res.error != null) {
         throw res.error!.message;
       }
@@ -46,8 +57,12 @@ class EventService {
 
   Future<void> editEvent(Event event) async {
     try {
-      final PostgrestResponse<dynamic> res =
-          await _supabaseService.supabaseClient.from('Events').update(event.toJson()).eq('event_id', event.eventID).execute();
+      final PostgrestResponse<dynamic> res = await _supabaseService
+          .supabaseClient
+          .from(GDSCTables.events)
+          .update(event.toJson())
+          .eq('event_id', event.eventID)
+          .execute();
       if (res.error != null) {
         throw res.error!.message;
       }
@@ -58,7 +73,12 @@ class EventService {
 
   Future<void> deleteEvent(String id) async {
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient.from('Events').delete().eq('event_id', id).execute();
+      final PostgrestResponse<dynamic> res = await _supabaseService
+          .supabaseClient
+          .from(GDSCTables.events)
+          .delete()
+          .eq('event_id', id)
+          .execute();
       if (res.error != null) {
         throw res.error!.message;
       }
@@ -69,7 +89,10 @@ class EventService {
 
   Future<void> signUpToEvent(String eId) async {
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient.from('event_attendees').insert({
+      final PostgrestResponse<dynamic> res = await _supabaseService
+          .supabaseClient
+          .from(GDSCTables.eventAttendees)
+          .insert({
         'event_id': eId,
         'user_id': _userService.user.id,
       }).execute();
@@ -84,7 +107,12 @@ class EventService {
   Future<void> signOutFromEvent(String eId) async {
     try {
       final payload = {'event_id': eId, 'user_id': _userService.user.id};
-      final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient.from('event_attendees').delete().match(payload).execute();
+      final PostgrestResponse<dynamic> res = await _supabaseService
+          .supabaseClient
+          .from(GDSCTables.eventAttendees)
+          .delete()
+          .match(payload)
+          .execute();
       if (res.error != null) {
         throw res.error!.message;
       }
@@ -94,7 +122,11 @@ class EventService {
   }
 
   Stream<List<Event>> subscribeToEvents() {
-    return _supabaseService.supabaseClient.from('event_attendees').stream(['event_id']).execute().asyncMap<List<Event>>((event) {
+    return _supabaseService.supabaseClient
+        .from(GDSCTables.eventAttendees)
+        .stream(['event_id'])
+        .execute()
+        .asyncMap<List<Event>>((event) {
           return getEvents();
         });
   }

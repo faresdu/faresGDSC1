@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:provider/provider.dart';
 import 'package:gdsc_app/ui/timeline/timeline_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import '../../../core/utils/constants.dart';
 import '../../core/models/gdsc_user.dart';
+import '../../core/models/post.dart';
 import '../../core/utils/helper_functions.dart';
 
 class AddPostView extends StatefulWidget {
-  const AddPostView({super.key});
-
+  const AddPostView({super.key, this.onSubmit});
+  final void Function(String postId)? onSubmit;
   @override
   State<AddPostView> createState() => _AddPostViewState();
 }
@@ -47,7 +49,7 @@ class _AddPostViewState extends State<AddPostView> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Container(
-                                child: SubmitButton(onPressed: () {
+                                child: SubmitButtons(onPressed: () {
                                   viewmodel.addPost(user);
                                   Navigator.pop(context);
                                 }),
@@ -85,7 +87,24 @@ class _AddPostViewState extends State<AddPostView> {
                           CustomTextField(
                             title: '',
                             controller: viewmodel.descriptionController,
-                            maxLines: 5,
+                            maxLines: 4,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 100),
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width * 0.1),
+                            child: SubmitButton(
+                                text: 'إضـافـة',
+                                onPressed: () async {
+                                  String? postId =
+                                      await viewmodel.addPost(user);
+                                  if (widget.onSubmit != null &&
+                                      postId != null) {
+                                    widget.onSubmit!(postId);
+                                    Navigator.pop(context);
+                                  }
+                                }),
                           ),
                         ],
                       ),
@@ -122,7 +141,7 @@ Widget _TextWithChild({required String title, required Widget child}) {
   );
 }
 
-Widget SubmitButton({required Function() onPressed}) {
+Widget SubmitButtons({required Function() onPressed}) {
   return TextButton(
     onPressed: onPressed,
     style: TextButton.styleFrom(

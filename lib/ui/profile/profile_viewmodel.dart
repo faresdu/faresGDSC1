@@ -58,47 +58,36 @@ class ProfileViewModel extends BaseViewModel {
       return getTitle(
           title: 'اخر المشاركات',
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Scaffold(
-                  backgroundColor: Constants.background,
-                  body: SafeArea(
-                    child: Column(
-                        children: user.events
-                            .map(
-                              (e) => ProfileEventCard(event: e),
-                            )
-                            .toList()),
-                  ),
-                ),
-              ),
-            );
+            navService.navigateTo(Routes.profileEventsView);
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => Scaffold(
+            //       backgroundColor: Constants.background,
+            //       body: SafeArea(
+            //         child: Column(
+            //             children: user.events
+            //                 .map(
+            //                   (e) => ProfileEventCard(event: e),
+            //                 )
+            //                 .toList()),
+            //       ),
+            //     ),
+            //   ),
+            // );
           });
     } else if (index == 1) {
       return getTitle(
           title: 'اخر الأعمال',
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Scaffold(
-                  body: SafeArea(
-                    child: Column(
-                        children: user.volunteerHours
-                            .map(
-                              (e) => ProfileVolunteerHoursCardBig(volunteerHours: e),
-                            )
-                            .toList()),
-                  ),
-                ),
-              ),
-            );
-          });
+          onPressed: () => navService.navigateTo(Routes.profileUserHoursView));
     } else if (index == 2) {
-      return Row();
+      return getTitle(
+          title: 'اخر المنشورات',
+          onPressed: () => navService.navigateTo(Routes.profileTimelineView));
     } else if (index == 3) {
-      return Row();
+      return getTitle(
+          title: 'منصات التواصل',
+          onPressed: () => navService.navigateTo(Routes.profileSocialsView));
     }
     return Container();
   }
@@ -144,7 +133,8 @@ class ProfileViewModel extends BaseViewModel {
                 (e) => ProfileEventCard(
                   event: e,
                   onPressed: () {
-                    navService.navigateTo(Routes.eventDetailsView, arguments: e);
+                    navService.navigateTo(Routes.eventDetailsView,
+                        arguments: e);
                   },
                 ),
               )
@@ -154,7 +144,8 @@ class ProfileViewModel extends BaseViewModel {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3),
           children: user.volunteerHours.take(6).map((e) {
             return ProfileVolunteerHoursCard(volunteerHours: e);
           }).toList());
@@ -238,7 +229,11 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Widget getProfileButton(
-      {required Widget child, required String bottomText, Function()? onPressed, required bool isSelected, required Color color}) {
+      {required Widget child,
+      required String bottomText,
+      Function()? onPressed,
+      required bool isSelected,
+      required Color color}) {
     return Column(
       children: [
         Container(

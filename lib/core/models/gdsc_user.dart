@@ -1,6 +1,6 @@
 import 'package:gdsc_app/core/models/member.dart';
 import 'package:gdsc_app/core/models/post.dart';
-import 'package:gdsc_app/core/models/social_media.dart';
+import 'package:gdsc_app/core/models/user_social_media.dart';
 import 'package:gdsc_app/core/models/volunteer_hours.dart';
 
 import 'committee.dart';
@@ -16,7 +16,7 @@ class GDSCUser extends Member {
     String? major,
     String? photo,
     required Committee committee,
-    required List<SocialMedia> socials,
+    required List<UserSocialMedia> socials,
     required List<Event> events,
     required List<Post> posts,
     required List<VolunteerHours> volunteers,

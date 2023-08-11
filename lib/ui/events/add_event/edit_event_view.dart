@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
+import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:gdsc_app/ui/events/add_event/add_event_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -25,7 +26,8 @@ class _AddEventViewState extends State<EditEventView> {
         onViewModelReady: (model) => model.setEventDetails(widget.eventDetails),
         builder: (context, viewmodel, _) {
           return Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -70,11 +72,20 @@ class _AddEventViewState extends State<EditEventView> {
                                       onTap: () {
                                         viewmodel.showImagePicker();
                                       },
-                                      child: SvgPicture.asset(
-                                        'assets/icons/events/add_image.svg',
-                                        height: 24,
-                                        width: 24,
-                                      ),
+                                      child: viewmodel.isBusy
+                                          ? const CircularProgressIndicator()
+                                          : viewmodel.oldImage != null
+                                              ? HelperFunctions.profileImage(
+                                                  imageUrl: viewmodel.oldImage!,
+                                                  height: 200,
+                                                  width: 200,
+                                                  fit: BoxFit.contain,
+                                                )
+                                              : SvgPicture.asset(
+                                                  'assets/icons/events/add_image.svg',
+                                                  height: 24,
+                                                  width: 24,
+                                                ),
                                     )
                                   : InkWell(
                                       onTap: () {
@@ -89,7 +100,9 @@ class _AddEventViewState extends State<EditEventView> {
                                     )
                             ],
                           ),
-                          CustomTextField(title: 'العنوان', controller: viewmodel.titleController),
+                          CustomTextField(
+                              title: 'العنوان',
+                              controller: viewmodel.titleController),
                           Row(
                             children: [
                               Expanded(
@@ -97,20 +110,29 @@ class _AddEventViewState extends State<EditEventView> {
                                   title: 'التاريخ',
                                   onPressed: () async {
                                     final DateTime? date = await showDatePicker(
-                                        context: context, initialDate: DateTime.now(), firstDate: DateTime(2020), lastDate: DateTime(2040));
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(2020),
+                                        lastDate: DateTime(2040));
                                     setState(() {
                                       viewmodel.dateTime = date;
                                     });
                                   },
-                                  icon: SvgPicture.asset('assets/icons/events/date.svg', width: 22),
-                                  child: viewmodel.dateTime == null ? const Text('لم يحدد') : Text(DateHelper.getDate(viewmodel.dateTime!)),
+                                  icon: SvgPicture.asset(
+                                      'assets/icons/events/date.svg',
+                                      width: 22),
+                                  child: viewmodel.dateTime == null
+                                      ? const Text('لم يحدد')
+                                      : Text(DateHelper.getDate(
+                                          viewmodel.dateTime!)),
                                 ),
                               ),
                               Expanded(
                                 child: CustomFieldButton(
                                     title: 'الوقت',
                                     onPressed: () async {
-                                      final TimeOfDay? time = await showTimePicker(
+                                      final TimeOfDay? time =
+                                          await showTimePicker(
                                         context: context,
                                         initialTime: TimeOfDay.now(),
                                       );
@@ -118,8 +140,13 @@ class _AddEventViewState extends State<EditEventView> {
                                         viewmodel.timeOfDay = time;
                                       });
                                     },
-                                    icon: SvgPicture.asset('assets/icons/events/time.svg', width: 22),
-                                    child: viewmodel.timeOfDay == null ? const Text('لم يحدد') : Text(DateHelper.getHourTOD(viewmodel.timeOfDay!))),
+                                    icon: SvgPicture.asset(
+                                        'assets/icons/events/time.svg',
+                                        width: 22),
+                                    child: viewmodel.timeOfDay == null
+                                        ? const Text('لم يحدد')
+                                        : Text(DateHelper.getHourTOD(
+                                            viewmodel.timeOfDay!))),
                               ),
                             ],
                           ),
@@ -133,7 +160,9 @@ class _AddEventViewState extends State<EditEventView> {
                                       viewmodel.isOnline = !viewmodel.isOnline;
                                     });
                                   },
-                                  child: Text(viewmodel.isOnline ? 'اون لاين' : 'حضوري'),
+                                  child: Text(viewmodel.isOnline
+                                      ? 'اون لاين'
+                                      : 'حضوري'),
                                 ),
                               ),
                               Expanded(
@@ -159,11 +188,16 @@ class _AddEventViewState extends State<EditEventView> {
                             maxLines: 4,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(vertical: 15, horizontal: MediaQuery.of(context).size.width * 0.1),
-                            child: SubmitButton(onPressed: () {
-                              viewmodel.editEvent();
-                              Navigator.pop(context);
-                            }),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15,
+                                horizontal:
+                                    MediaQuery.of(context).size.width * 0.1),
+                            child: viewmodel.isBusy
+                                ? const CircularProgressIndicator()
+                                : SubmitButton(onPressed: () async {
+                                    await viewmodel.editEvent();
+                                    Navigator.pop(context);
+                                  }),
                           ),
                         ],
                       ),
@@ -199,7 +233,12 @@ class _AddEventViewState extends State<EditEventView> {
     );
   }
 
-  Widget CustomFieldButton({required String title, Widget? icon, onPressed, double? height, Widget? child}) {
+  Widget CustomFieldButton(
+      {required String title,
+      Widget? icon,
+      onPressed,
+      double? height,
+      Widget? child}) {
     return _TextWithChild(
       title: title,
       child: MaterialButton(

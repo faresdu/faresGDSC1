@@ -85,7 +85,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
         color: Constants.grey.withOpacity(.4),
         onPressed: () {
           //show dialog
-          print('cant');
+          throw 'event is full';
         },
       );
     } else if (event.getPercentage() >= 75) {

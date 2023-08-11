@@ -1,3 +1,5 @@
+import 'package:gdsc_app/core/enums/tables.dart';
+import 'package:gdsc_app/core/enums/views.dart';
 import 'package:gdsc_app/core/models/committee.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/models/member.dart';
@@ -53,7 +55,7 @@ class SupabaseService {
   Future<List<Committee>> getCommittees() async {
     try {
       final PostgrestResponse<dynamic> res =
-          await supabaseClient.from('Committees').select().execute();
+          await supabaseClient.from(GDSCTables.committees).select().execute();
       return (res.data as List).map((e) => Committee.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Committees, ERROR : $e';
@@ -62,8 +64,10 @@ class SupabaseService {
 
   Future<List<LeaderboardMember>> getLeaderboardMembers() async {
     try {
-      final PostgrestResponse<dynamic> res =
-          await supabaseClient.from('leaderboard_view').select('*').execute();
+      final PostgrestResponse<dynamic> res = await supabaseClient
+          .from(GDSCViews.leaderboard)
+          .select('*')
+          .execute();
       print(res.data);
       return (res.data as List)
           .map((e) => LeaderboardMember.fromJson(e))
@@ -76,7 +80,7 @@ class SupabaseService {
   Future<List<Member>> getCommitteeMembers(String cId) async {
     try {
       final PostgrestResponse<dynamic> res = await supabaseClient
-          .from('member_view')
+          .from(GDSCViews.member)
           .select('*')
           .eq('committee_id', cId)
           .execute();
@@ -88,14 +92,23 @@ class SupabaseService {
   }
 
   Stream<GDSCUser> subscribeToUser(String id) {
-    return supabaseClient.from('profile_view').stream([id]).execute().asyncMap<GDSCUser>((event) {
+    return supabaseClient
+        .from(GDSCViews.profile)
+        .stream([id])
+        .execute()
+        .asyncMap<GDSCUser>((event) {
           return getUser(id);
         });
   }
 
   Future<GDSCUser> getUser(String id) async {
     try {
-      final res = await supabaseClient.from('profile_view').select('*').eq('user_id', id).single().execute();
+      final res = await supabaseClient
+          .from(GDSCViews.profile)
+          .select('*')
+          .eq('user_id', id)
+          .single()
+          .execute();
       return GDSCUser.fromJson(res.data);
     } catch (e) {
       throw 'Failed to get User with id $id, ERROR : $e';

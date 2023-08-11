@@ -20,15 +20,17 @@ class TimeLineViewModel extends BaseViewModel {
   }
 
   addPost(GDSCUser user) async {
+    String? postId;
     try {
       setBusy(true);
-      await timelineService.addPost(
+      postId = await timelineService.addPost(
           descriptionController.value.text.trim(), user.id);
       await getPosts();
     } catch (e) {
       print(e.toString());
     }
     setBusy(false);
+    return postId;
   }
 
   likePost(Post post, String userId) async {
