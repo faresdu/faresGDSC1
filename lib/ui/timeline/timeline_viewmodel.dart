@@ -33,24 +33,36 @@ class TimeLineViewModel extends BaseViewModel {
     return postId;
   }
 
+  _like(Post post, String userId, {bool unlike = false}) {
+    if (!unlike) {
+      post.likerIds?.add(userId);
+      post.likes++;
+    } else {
+      post.likerIds?.remove(userId);
+      post.likes--;
+    }
+  }
+
   likePost(Post post, String userId) async {
     try {
+      _like(post, userId);
+      notifyListeners();
       await timelineService.likePost(post.id, userId);
-      post.likerIds?.add(userId);
-      post.likes += 1;
     } catch (e) {
       print(e.toString());
+      _like(post, userId, unlike: true);
     }
     notifyListeners();
   }
 
   unLikePost(Post post, String userId) async {
     try {
+      _like(post, userId, unlike: true);
+      notifyListeners();
       await timelineService.unLikePost(post.id, userId);
-      post.likerIds?.remove(userId);
-      post.likes -= 1;
     } catch (e) {
       print(e.toString());
+      _like(post, userId);
     }
     notifyListeners();
   }
