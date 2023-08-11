@@ -31,7 +31,8 @@ class _TimeLineViewState extends State<TimeLineView> {
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              CustomModalBottomSheet(context, AddPostView());
+              CustomModalBottomSheet(context, const AddPostView(),
+                  heightFactor: 0.75);
             },
             backgroundColor: Constants.blueButton,
             heroTag: 'addPostTag',

@@ -1,27 +1,23 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/ui/widgets/rounded_submit_button.dart';
-import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:provider/provider.dart';
-import 'package:gdsc_app/ui/timeline/timeline_viewmodel.dart';
+import 'package:gdsc_app/ui/notifications/notifications_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import '../../../core/utils/constants.dart';
 import '../../core/models/gdsc_user.dart';
-import '../../core/models/post.dart';
 import '../../core/utils/helper_functions.dart';
 
-class AddPostView extends StatefulWidget {
-  const AddPostView({super.key, this.onSubmit});
-  final void Function(String postId)? onSubmit;
+class AddNotification extends StatefulWidget {
+  const AddNotification({super.key});
+
   @override
-  State<AddPostView> createState() => _AddPostViewState();
+  State<AddNotification> createState() => _AddPostViewState();
 }
 
-class _AddPostViewState extends State<AddPostView> {
+class _AddPostViewState extends State<AddNotification> {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<TimeLineViewModel>.reactive(
-        viewModelBuilder: () => TimeLineViewModel(),
+    return ViewModelBuilder<NotificationsViewModel>.reactive(
+        viewModelBuilder: () => NotificationsViewModel(),
         builder: (context, viewmodel, _) {
           final user = Provider.of<GDSCUser>(context);
 
@@ -48,64 +44,48 @@ class _AddPostViewState extends State<AddPostView> {
                       child: Column(
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 4),
-                                    child: ClipOval(
-                                      child: HelperFunctions.profileImage(
-                                          imageUrl: user.photo ?? '',
-                                          height: 50,
-                                          width: 50),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 15),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(user.name,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w900)),
-                                      Text(user.committee.name,
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: Constants.grey)),
-                                    ],
-                                  ),
-                                ],
-                              ),
                               Container(
-                                child: RoundedSubmitButton(
-                                  text: 'نشر',
-                                  isBusy: viewmodel.isBusy,
-                                  onPressed: () async {
-                                    String? postId = viewmodel
-                                            .descriptionController
-                                            .text
-                                            .isNotEmpty
-                                        ? await viewmodel.addPost(user)
-                                        : null;
-                                    if (widget.onSubmit != null &&
-                                        postId != null &&
-                                        viewmodel.descriptionController.text
-                                            .isNotEmpty) {
-                                      widget.onSubmit!(postId);
-                                    }
-                                    Navigator.pop(context);
-                                  },
+                                child: SubmitButton(onPressed: () {
+                                  viewmodel.addNotification(user);
+                                  Navigator.pop(context);
+                                }),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 4),
+                                child: ClipOval(
+                                  child: HelperFunctions.profileImage(
+                                      imageUrl: user.photo ?? '',
+                                      height: 50,
+                                      width: 50),
                                 ),
+                              ),
+                              SizedBox(width: 15),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(user.name,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w900)),
+                                  Text(user.committee.name,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Constants.grey)),
+                                ],
                               ),
                             ],
                           ),
                           CustomTextField(
                             title: '',
                             controller: viewmodel.descriptionController,
-                            maxLines: 4,
+                            maxLines: 5,
                           ),
                         ],
                       ),
@@ -138,6 +118,25 @@ Widget _TextWithChild({required String title, required Widget child}) {
         ),
         child,
       ],
+    ),
+  );
+}
+
+Widget SubmitButton({required Function() onPressed}) {
+  return TextButton(
+    onPressed: onPressed,
+    style: TextButton.styleFrom(
+      fixedSize: Size(90, 40),
+      backgroundColor: Constants.blueButton,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    ),
+    child: const Text(
+      'نشر',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 14,
+        fontWeight: FontWeight.w700,
+      ),
     ),
   );
 }
