@@ -73,7 +73,15 @@ class DateHelper {
     DateTime parsedDate = DateTime.parse("$date");
     Duration dur = DateTime.now().difference(parsedDate);
     if (dur.inDays > 0) {
-      return '${dur.inDays} يوم';
+      if (dur.inDays == 1) {
+        return 'يوم';
+      } else if (dur.inDays == 2) {
+        return 'يومين';
+      } else if (dur.inDays <= 10) {
+        return '${dur.inDays} ايام';
+      } else {
+        return '${dur.inDays} يوم';
+      }
     } else if (dur.inHours > 0) {
       return '${dur.inHours} ساعة';
     } else if (dur.inMinutes > 0) {

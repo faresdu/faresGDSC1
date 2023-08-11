@@ -1,3 +1,5 @@
+import 'package:gdsc_app/core/enums/tables.dart';
+import 'package:gdsc_app/core/enums/views.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:supabase/supabase.dart';
 
@@ -12,13 +14,13 @@ class NotificationService {
       PostgrestResponse<dynamic> res;
       if (limit != null) {
         res = await _supabaseService.supabaseClient
-            .from('notifications_view')
+            .from(GDSCViews.notifications)
             .select()
             .limit(limit)
             .execute();
       } else {
         res = await _supabaseService.supabaseClient
-            .from('notifications_view')
+            .from(GDSCViews.notifications)
             .select()
             .execute();
       }
@@ -33,7 +35,7 @@ class NotificationService {
     try {
       final PostgrestResponse<dynamic> res = await _supabaseService
           .supabaseClient
-          .from('notifications')
+          .from(GDSCTables.notifications)
           .insert(notification.toJson(id))
           .execute();
       print('added notification code: ${res.status}');

@@ -6,6 +6,10 @@ extension StringExt on String {
 
   bool get isNumber => RegExp(r'\d+$').hasMatch(this);
 
+  bool get isLink => RegExp(
+          r"(https?|http)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?")
+      .hasMatch(this);
+
   String lastChars(int n) => substring(length - n);
 
   int get parseInt => int.parse(this);

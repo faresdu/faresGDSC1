@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:provider/provider.dart';
 import 'package:gdsc_app/ui/timeline/timeline_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import '../../../core/utils/constants.dart';
 import '../../core/models/gdsc_user.dart';
+import '../../core/models/post.dart';
 
 class AddPostView extends StatefulWidget {
-  const AddPostView({super.key});
-
+  const AddPostView({super.key, this.onSubmit});
+  final void Function(String postId)? onSubmit;
   @override
   State<AddPostView> createState() => _AddPostViewState();
 }
@@ -59,10 +61,17 @@ class _AddPostViewState extends State<AddPostView> {
                             padding: EdgeInsets.symmetric(
                                 horizontal:
                                     MediaQuery.of(context).size.width * 0.1),
-                            child: SubmitButton(onPressed: () {
-                              viewmodel.addPost(user);
-                              Navigator.pop(context);
-                            }),
+                            child: SubmitButton(
+                                text: 'إضـافـة',
+                                onPressed: () async {
+                                  String? postId =
+                                      await viewmodel.addPost(user);
+                                  if (widget.onSubmit != null &&
+                                      postId != null) {
+                                    widget.onSubmit!(postId);
+                                    Navigator.pop(context);
+                                  }
+                                }),
                           ),
                         ],
                       ),
@@ -95,25 +104,6 @@ Widget _TextWithChild({required String title, required Widget child}) {
         ),
         child,
       ],
-    ),
-  );
-}
-
-Widget SubmitButton({required Function() onPressed}) {
-  return TextButton(
-    onPressed: onPressed,
-    style: TextButton.styleFrom(
-      minimumSize: const Size(double.infinity, 35),
-      backgroundColor: Constants.blueButton,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    ),
-    child: const Text(
-      'نشر',
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 16,
-        fontWeight: FontWeight.w700,
-      ),
     ),
   );
 }

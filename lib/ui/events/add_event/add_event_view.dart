@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:gdsc_app/ui/events/add_event/add_event_viewmodel.dart';
+import 'package:gdsc_app/ui/widgets/custom_text_form_field.dart';
+import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../core/utils/constants.dart';
@@ -22,7 +24,8 @@ class _AddEventViewState extends State<AddEventView> {
         viewModelBuilder: () => AddEventViewModel(),
         builder: (context, viewmodel, _) {
           return Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -56,11 +59,13 @@ class _AddEventViewState extends State<AddEventView> {
                                     onTap: () {
                                       viewmodel.showImagePicker();
                                     },
-                                    child: SvgPicture.asset(
-                                      'assets/icons/events/add_image.svg',
-                                      height: 24,
-                                      width: 24,
-                                    ),
+                                    child: viewmodel.isBusy
+                                        ? const CircularProgressIndicator()
+                                        : SvgPicture.asset(
+                                            'assets/icons/events/add_image.svg',
+                                            height: 24,
+                                            width: 24,
+                                          ),
                                   ),
                                 )
                               : InkWell(
@@ -74,7 +79,9 @@ class _AddEventViewState extends State<AddEventView> {
                                     fit: BoxFit.fill,
                                   ),
                                 ),
-                          CustomTextField(title: 'العنوان', controller: viewmodel.titleController),
+                          CustomTextFormField(
+                              title: 'العنوان',
+                              controller: viewmodel.titleController),
                           Row(
                             children: [
                               Expanded(
@@ -82,20 +89,29 @@ class _AddEventViewState extends State<AddEventView> {
                                   title: 'التاريخ',
                                   onPressed: () async {
                                     final DateTime? date = await showDatePicker(
-                                        context: context, initialDate: DateTime.now(), firstDate: DateTime(2020), lastDate: DateTime(2040));
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(2020),
+                                        lastDate: DateTime(2040));
                                     setState(() {
                                       viewmodel.dateTime = date;
                                     });
                                   },
-                                  icon: SvgPicture.asset('assets/icons/events/date.svg', width: 22),
-                                  child: viewmodel.dateTime == null ? const Text('لم يحدد') : Text(DateHelper.getDate(viewmodel.dateTime!)),
+                                  icon: SvgPicture.asset(
+                                      'assets/icons/events/date.svg',
+                                      width: 22),
+                                  child: viewmodel.dateTime == null
+                                      ? const Text('لم يحدد')
+                                      : Text(DateHelper.getDate(
+                                          viewmodel.dateTime!)),
                                 ),
                               ),
                               Expanded(
                                 child: CustomFieldButton(
                                     title: 'الوقت',
                                     onPressed: () async {
-                                      final TimeOfDay? time = await showTimePicker(
+                                      final TimeOfDay? time =
+                                          await showTimePicker(
                                         context: context,
                                         initialTime: TimeOfDay.now(),
                                       );
@@ -103,8 +119,13 @@ class _AddEventViewState extends State<AddEventView> {
                                         viewmodel.timeOfDay = time;
                                       });
                                     },
-                                    icon: SvgPicture.asset('assets/icons/events/time.svg', width: 22),
-                                    child: viewmodel.timeOfDay == null ? const Text('لم يحدد') : Text(DateHelper.getHourTOD(viewmodel.timeOfDay!))),
+                                    icon: SvgPicture.asset(
+                                        'assets/icons/events/time.svg',
+                                        width: 22),
+                                    child: viewmodel.timeOfDay == null
+                                        ? const Text('لم يحدد')
+                                        : Text(DateHelper.getHourTOD(
+                                            viewmodel.timeOfDay!))),
                               ),
                             ],
                           ),
@@ -118,11 +139,13 @@ class _AddEventViewState extends State<AddEventView> {
                                       viewmodel.isOnline = !viewmodel.isOnline;
                                     });
                                   },
-                                  child: Text(viewmodel.isOnline ? 'اون لاين' : 'حضوري'),
+                                  child: Text(viewmodel.isOnline
+                                      ? 'اون لاين'
+                                      : 'حضوري'),
                                 ),
                               ),
                               Expanded(
-                                child: CustomTextField(
+                                child: CustomTextFormField(
                                   title: 'أقصى عدد للحضور',
                                   controller: viewmodel.attendeesController,
                                   type: TextInputType.number,
@@ -133,21 +156,28 @@ class _AddEventViewState extends State<AddEventView> {
                               )
                             ],
                           ),
-                          CustomTextField(
+                          CustomTextFormField(
                             title: 'الموقع',
                             controller: viewmodel.locationController,
                           ),
-                          CustomTextField(
+                          CustomTextFormField(
                             title: 'الوصف',
                             controller: viewmodel.descriptionController,
                             maxLines: 4,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(vertical: 15, horizontal: MediaQuery.of(context).size.width * 0.1),
-                            child: SubmitButton(onPressed: () {
-                              viewmodel.addEvent();
-                              Navigator.pop(context);
-                            }),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15,
+                                horizontal:
+                                    MediaQuery.of(context).size.width * 0.1),
+                            child: viewmodel.isBusy
+                                ? const CircularProgressIndicator()
+                                : SubmitButton(
+                                    text: 'إضـافـة',
+                                    onPressed: () async {
+                                      await viewmodel.addEvent();
+                                      Navigator.pop(context);
+                                    }),
                           ),
                         ],
                       ),
@@ -183,7 +213,12 @@ class _AddEventViewState extends State<AddEventView> {
     );
   }
 
-  Widget CustomFieldButton({required String title, Widget? icon, onPressed, double? height, Widget? child}) {
+  Widget CustomFieldButton(
+      {required String title,
+      Widget? icon,
+      onPressed,
+      double? height,
+      Widget? child}) {
     return _TextWithChild(
       title: title,
       child: MaterialButton(
@@ -211,67 +246,6 @@ class _AddEventViewState extends State<AddEventView> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget SubmitButton({required Function() onPressed}) {
-    return TextButton(
-      onPressed: onPressed,
-      style: TextButton.styleFrom(
-        minimumSize: const Size(double.infinity, 35),
-        backgroundColor: Constants.blueButton,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-      child: const Text(
-        'إضـافـة',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
-    );
-  }
-
-  Widget CustomTextField(
-      {required String title, required TextEditingController controller, autofocus = false, int maxLines = 1, Widget? icon, TextInputType? type}) {
-    return _TextWithChild(
-      title: title,
-      child: TextField(
-        keyboardType: type,
-        maxLines: maxLines,
-        autofocus: autofocus,
-        controller: controller,
-        decoration: InputDecoration(
-            prefixIcon: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: icon,
-            ),
-            prefixIconConstraints: const BoxConstraints(maxWidth: 22 + 30),
-            contentPadding: EdgeInsets.zero,
-            fillColor: Colors.white,
-            filled: true,
-            disabledBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(20),
-            )),
       ),
     );
   }

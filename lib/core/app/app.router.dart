@@ -5,7 +5,7 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i15;
+import 'package:flutter/material.dart' as _i19;
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/committee_members/committe_members_view.dart'
     as _i10;
@@ -19,11 +19,19 @@ import 'package:gdsc_app/ui/leaderboard/leaderboard_view.dart' as _i11;
 import 'package:gdsc_app/ui/login/login_view.dart' as _i3;
 import 'package:gdsc_app/ui/navigation/navigation_view.dart' as _i4;
 import 'package:gdsc_app/ui/notifications/notifications_view.dart' as _i13;
+import 'package:gdsc_app/ui/profile/profile_events_view/profile_events_view.dart'
+    as _i16;
+import 'package:gdsc_app/ui/profile/profile_socials/profile_socials_view.dart'
+    as _i18;
+import 'package:gdsc_app/ui/profile/profile_timeline/profile_timeline_view.dart'
+    as _i17;
+import 'package:gdsc_app/ui/profile/profile_user_hours/profile_user_hours_view.dart'
+    as _i15;
 import 'package:gdsc_app/ui/profile/profile_view.dart' as _i9;
 import 'package:gdsc_app/ui/startup/startup_view.dart' as _i2;
 import 'package:gdsc_app/ui/timeline/timeline_view.dart' as _i5;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i16;
+import 'package:stacked_services/stacked_services.dart' as _i20;
 
 class Routes {
   static const startUpView = '/';
@@ -52,6 +60,14 @@ class Routes {
 
   static const editProfileView = '/edit-profile-view';
 
+  static const profileUserHoursView = '/profile-user-hours-view';
+
+  static const profileEventsView = '/profile-events-view';
+
+  static const profileTimelineView = '/profile-timeline-view';
+
+  static const profileSocialsView = '/profile-socials-view';
+
   static const all = <String>{
     startUpView,
     loginView,
@@ -66,6 +82,10 @@ class Routes {
     hoursRequestView,
     notificationView,
     editProfileView,
+    profileUserHoursView,
+    profileEventsView,
+    profileTimelineView,
+    profileSocialsView,
   };
 }
 
@@ -123,84 +143,124 @@ class StackedRouter extends _i1.RouterBase {
       Routes.editProfileView,
       page: _i14.EditProfileView,
     ),
+    _i1.RouteDef(
+      Routes.profileUserHoursView,
+      page: _i15.ProfileUserHoursView,
+    ),
+    _i1.RouteDef(
+      Routes.profileEventsView,
+      page: _i16.ProfileEventsView,
+    ),
+    _i1.RouteDef(
+      Routes.profileTimelineView,
+      page: _i17.ProfileTimelineView,
+    ),
+    _i1.RouteDef(
+      Routes.profileSocialsView,
+      page: _i18.ProfileSocialsView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.StartUpView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => _i2.StartUpView(),
         settings: data,
       );
     },
     _i3.LoginView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.LoginView(),
         settings: data,
       );
     },
     _i4.NavigationView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.NavigationView(),
         settings: data,
       );
     },
     _i5.TimeLineView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.TimeLineView(),
         settings: data,
       );
     },
     _i6.EventsView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.EventsView(),
         settings: data,
       );
     },
     _i7.EventDetailsView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.EventDetailsView(),
         settings: data,
       );
     },
     _i8.HierarchyView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.HierarchyView(),
         settings: data,
       );
     },
     _i9.ProfileView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i9.ProfileView(),
         settings: data,
       );
     },
     _i10.CommitteeMembersView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.CommitteeMembersView(),
         settings: data,
       );
     },
     _i11.LeaderboardView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i11.LeaderboardView(),
         settings: data,
       );
     },
     _i12.HoursRequestView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i12.HoursRequestView(),
         settings: data,
       );
     },
     _i13.NotificationView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i13.NotificationView(),
         settings: data,
       );
     },
     _i14.EditProfileView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i19.MaterialPageRoute<dynamic>(
         builder: (context) => const _i14.EditProfileView(),
+        settings: data,
+      );
+    },
+    _i15.ProfileUserHoursView: (data) {
+      return _i19.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i15.ProfileUserHoursView(),
+        settings: data,
+      );
+    },
+    _i16.ProfileEventsView: (data) {
+      return _i19.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i16.ProfileEventsView(),
+        settings: data,
+      );
+    },
+    _i17.ProfileTimelineView: (data) {
+      return _i19.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i17.ProfileTimelineView(),
+        settings: data,
+      );
+    },
+    _i18.ProfileSocialsView: (data) {
+      return _i19.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i18.ProfileSocialsView(),
         settings: data,
       );
     },
@@ -212,7 +272,7 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i16.NavigationService {
+extension NavigatorStateExtension on _i20.NavigationService {
   Future<dynamic> navigateToStartUpView([
     int? routerId,
     bool preventDuplicates = true,
@@ -395,6 +455,62 @@ extension NavigatorStateExtension on _i16.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToProfileUserHoursView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.profileUserHoursView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToProfileEventsView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.profileEventsView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToProfileTimelineView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.profileTimelineView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToProfileSocialsView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.profileSocialsView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> replaceWithStartUpView([
     int? routerId,
     bool preventDuplicates = true,
@@ -571,6 +687,62 @@ extension NavigatorStateExtension on _i16.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.editProfileView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithProfileUserHoursView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.profileUserHoursView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithProfileEventsView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.profileEventsView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithProfileTimelineView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.profileTimelineView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithProfileSocialsView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.profileSocialsView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
