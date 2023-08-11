@@ -103,6 +103,7 @@ class Member {
           (map['posts'] as List).first != null &&
           (map['posts'] as List).first['id'] != null) {
         posts = (map["posts"] as List).map((e) {
+          e['Committees'] = e['Committees'] ?? map['committee'];
           return Post.fromJson(e);
         }).toList();
         posts.sort((a, b) =>
