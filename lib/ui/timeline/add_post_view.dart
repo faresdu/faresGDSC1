@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/ui/widgets/rounded_submit_button.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:provider/provider.dart';
 import 'package:gdsc_app/ui/timeline/timeline_viewmodel.dart';
@@ -46,41 +48,57 @@ class _AddPostViewState extends State<AddPostView> {
                       child: Column(
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                child: SubmitButtons(onPressed: () {
-                                  viewmodel.addPost(user);
-                                  Navigator.pop(context);
-                                }),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 4),
-                                child: ClipOval(
-                                  child: HelperFunctions.profileImage(
-                                      imageUrl: user.photo ?? '',
-                                      height: 50,
-                                      width: 50),
-                                ),
-                              ),
-                              const SizedBox(width: 15),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              Row(
                                 children: [
-                                  Text(user.name,
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w900)),
-                                  Text(user.committee.name,
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: Constants.grey)),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 4),
+                                    child: ClipOval(
+                                      child: HelperFunctions.profileImage(
+                                          imageUrl: user.photo ?? '',
+                                          height: 50,
+                                          width: 50),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 15),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(user.name,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w900)),
+                                      Text(user.committee.name,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              color: Constants.grey)),
+                                    ],
+                                  ),
                                 ],
+                              ),
+                              Container(
+                                child: RoundedSubmitButton(
+                                  text: 'نشر',
+                                  isBusy: viewmodel.isBusy,
+                                  onPressed: () async {
+                                    String? postId = viewmodel
+                                            .descriptionController
+                                            .text
+                                            .isNotEmpty
+                                        ? await viewmodel.addPost(user)
+                                        : null;
+                                    if (widget.onSubmit != null &&
+                                        postId != null &&
+                                        viewmodel.descriptionController.text
+                                            .isNotEmpty) {
+                                      widget.onSubmit!(postId);
+                                    }
+                                    Navigator.pop(context);
+                                  },
+                                ),
                               ),
                             ],
                           ),
@@ -88,23 +106,6 @@ class _AddPostViewState extends State<AddPostView> {
                             title: '',
                             controller: viewmodel.descriptionController,
                             maxLines: 4,
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 100),
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    MediaQuery.of(context).size.width * 0.1),
-                            child: SubmitButton(
-                                text: 'إضـافـة',
-                                onPressed: () async {
-                                  String? postId =
-                                      await viewmodel.addPost(user);
-                                  if (widget.onSubmit != null &&
-                                      postId != null) {
-                                    widget.onSubmit!(postId);
-                                    Navigator.pop(context);
-                                  }
-                                }),
                           ),
                         ],
                       ),
@@ -137,25 +138,6 @@ Widget _TextWithChild({required String title, required Widget child}) {
         ),
         child,
       ],
-    ),
-  );
-}
-
-Widget SubmitButtons({required Function() onPressed}) {
-  return TextButton(
-    onPressed: onPressed,
-    style: TextButton.styleFrom(
-      fixedSize: Size(90, 40),
-      backgroundColor: Constants.blueButton,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-    ),
-    child: const Text(
-      'نشر',
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 14,
-        fontWeight: FontWeight.w700,
-      ),
     ),
   );
 }
