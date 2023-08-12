@@ -1,11 +1,14 @@
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gdsc_app/core/utils/string_extensions.dart';
 
 class FormValidators {
   static String? emailValidator(String? value) {
-    if (value == null || value.isEmpty || !value.isValidEmail) {
-      return 'الرجاء إدخال بريد الكتروني او رقم جامعي صحيح';
-    }
-    return null;
+    return FormBuilderValidators.compose<String>([
+      FormBuilderValidators.required(
+          errorText: ' الرجاء إدخال البريد الكتروني او الرقم الجامعي'),
+      FormBuilderValidators.email(
+          errorText: 'الرجاء إدخال بريد الكتروني او رقم جامعي صحيح')
+    ])(value);
   }
 
   static String? maxCharsValidator(String? value, int maxChars) {
@@ -17,20 +20,30 @@ class FormValidators {
     return null;
   }
 
+  static String? minCharsValidator(String? value, int minChars) {
+    return FormBuilderValidators.compose<String>([
+      FormBuilderValidators.required(errorText: 'الرجاء تعبئة الخانه'),
+      FormBuilderValidators.minLength(minChars,
+          errorText: "الرجاء ادخال عدد احرف اكبر من $minChars حرف")
+    ])(value);
+  }
+
   static String? hoursValidator(String? value) {
-    if (value == null || value.isEmpty || value.parseInt <= 0) {
-      return 'الرجاء إدخال عدد الساعات';
-    } else if (value.parseInt > 100) {
-      return 'الرجاء إدخال عدد الساعات اقل من 100 ساعه';
-    }
-    return null;
+    return FormBuilderValidators.compose<String>([
+      FormBuilderValidators.required(errorText: 'الرجاء إدخال عدد الساعات'),
+      FormBuilderValidators.numeric(errorText: 'الرجاء إدخال عدد الساعات'),
+      FormBuilderValidators.min(1,
+          errorText: ' الرجاء إدخال عدد الساعات اكبر من ساعة'),
+      FormBuilderValidators.max(100,
+          errorText: 'الرجاء إدخال عدد الساعات اقل من 100 ساعة')
+    ])(value);
   }
 
   static String? linkValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'الرجاء ادخال رابط المنصه';
-    }
-    return null;
+    return FormBuilderValidators.compose<String>([
+      FormBuilderValidators.required(errorText: 'الرجاء ادخال رابط المنصه'),
+      FormBuilderValidators.url(errorText: 'الرجاء ادخال رابط صحيح')
+    ])(value);
   }
 
   static String? passwordValidator(String? value) {
@@ -41,9 +54,13 @@ class FormValidators {
   }
 
   static String? studentIDValidator(String? value) {
-    if (value == null || value.isEmpty || value.length < 9 || !value.isNumber) {
-      return 'الرجاء إدخال بريد الكتروني او رقم جامعي صحيح';
-    }
-    return null;
+    return FormBuilderValidators.compose<String>([
+      FormBuilderValidators.required(
+          errorText: 'الرجاء إدخال البريد الكتروني او الرقم الجامعي'),
+      FormBuilderValidators.numeric(
+          errorText: 'الرجاء إدخال البريد الكتروني او الرقم الجامعي'),
+      FormBuilderValidators.maxLength(10,
+          errorText: 'الرجاء إدخال بريد الكتروني او رقم جامعي صحيح')
+    ])(value);
   }
 }

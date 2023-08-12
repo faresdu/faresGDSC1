@@ -8,7 +8,8 @@ import '../../core/models/post.dart';
 class TimeLineViewModel extends BaseViewModel {
   final timelineService = locator<TimelineService>();
   TextEditingController descriptionController = TextEditingController();
-
+  String? description;
+  final formKey = GlobalKey<FormState>();
   List<Post> posts = [];
 
   Future<void> getPosts() async {
@@ -19,12 +20,16 @@ class TimeLineViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  addPost(GDSCUser user) async {
+  Future<String?> addPost(GDSCUser user) async {
+    if (!formKey.currentState!.validate()) {
+      return null;
+    }
+    //Success
+    formKey.currentState?.save();
     String? postId;
     try {
       setBusy(true);
-      postId = await timelineService.addPost(
-          descriptionController.value.text.trim(), user.id);
+      postId = await timelineService.addPost(description!, user.id);
       await getPosts();
     } catch (e) {
       print(e.toString());

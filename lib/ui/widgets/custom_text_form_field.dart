@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField(
-      {required this.title,
-      this.maxLines = 1,
-      this.autofocus = false,
-      required this.controller,
-      this.icon,
-      this.type,
-      this.validator,
-      this.onSaved,
-      Key? key})
-      : super(key: key);
-  final String title;
+  const CustomTextFormField({
+    this.title,
+    this.maxLines = 1,
+    this.autofocus = false,
+    required this.controller,
+    this.icon,
+    this.type,
+    this.validator,
+    this.onSaved,
+    this.maxLength,
+    Key? key,
+  }) : super(key: key);
+  final String? title;
   final TextEditingController controller;
   final bool autofocus;
   final int maxLines;
+  final int? maxLength;
   final Widget? icon;
   final TextInputType? type;
   final String? Function(String?)? validator;
@@ -27,18 +29,20 @@ class CustomTextFormField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w700,
-              fontSize: 16,
+          if (title != null)
+            Text(
+              title!,
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
             ),
-          ),
           const SizedBox(
             height: 7,
           ),
           TextFormField(
+            maxLength: maxLength,
             keyboardType: type,
             maxLines: maxLines,
             autofocus: autofocus,
@@ -47,7 +51,8 @@ class CustomTextFormField extends StatelessWidget {
             onSaved: onSaved,
             decoration: InputDecoration(
                 prefixIcon: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: icon,
                 ),
                 prefixIconConstraints: const BoxConstraints(maxWidth: 22 + 30),
