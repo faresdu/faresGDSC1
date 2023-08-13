@@ -45,15 +45,14 @@ class _ProfileViewState extends State<ProfileView> {
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 25, horizontal: 20),
-                                  child: ProfileCard(
-                                    member: viewmodel.user,
-                                    edit: () {
-                                      viewmodel.navigateToEditProfile();
-                                    },
-                                  ),
+                                ProfileCard(
+                                  member: viewmodel.user,
+                                  edit: () {
+                                    viewmodel.navigateToEditProfile();
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 20,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
