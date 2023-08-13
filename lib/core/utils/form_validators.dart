@@ -28,14 +28,26 @@ class FormValidators {
     ])(value);
   }
 
-  static String? hoursValidator(String? value) {
+  static String? hoursValidator(String? value, {int maxHours = 100}) {
     return FormBuilderValidators.compose<String>([
       FormBuilderValidators.required(errorText: 'الرجاء إدخال عدد الساعات'),
       FormBuilderValidators.numeric(errorText: 'الرجاء إدخال عدد الساعات'),
       FormBuilderValidators.min(1,
           errorText: ' الرجاء إدخال عدد الساعات اكبر من ساعة'),
-      FormBuilderValidators.max(100,
-          errorText: 'الرجاء إدخال عدد الساعات اقل من 100 ساعة')
+      FormBuilderValidators.max(maxHours,
+          errorText: 'الرجاء إدخال عدد الساعات اقل من $maxHours ساعة')
+    ])(value);
+  }
+
+  static String? eventAttendeesValidator(String? value,
+      {int maxAttendees = 150}) {
+    return FormBuilderValidators.compose<String>([
+      FormBuilderValidators.required(errorText: 'الرجاء إدخال عدد الحضور'),
+      FormBuilderValidators.numeric(errorText: 'الرجاء إدخال عدد الحضور'),
+      FormBuilderValidators.integer(errorText: 'الرجاء إدخال عدد الحضور'),
+      FormBuilderValidators.min(1, errorText: 'ادخل عدد حضور اكبر من صفر'),
+      FormBuilderValidators.max(maxAttendees,
+          errorText: 'ادخل عدد حضور اقل من $maxAttendees')
     ])(value);
   }
 

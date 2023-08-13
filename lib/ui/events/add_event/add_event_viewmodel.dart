@@ -17,10 +17,16 @@ class AddEventViewModel extends BaseViewModel {
   final eventService = locator<EventService>();
   final userService = locator<UserService>();
   final s3Service = locator<S3Service>();
+
+  final formKey = GlobalKey<FormState>();
+
   String eventID = '';
   TextEditingController titleController = TextEditingController();
   DateTime? dateTime;
   TimeOfDay? timeOfDay;
+  TextEditingController dateTimeController = TextEditingController();
+  TextEditingController timeOfDayController = TextEditingController();
+
   bool isOnline = false;
   TextEditingController attendeesController = TextEditingController();
   TextEditingController locationController = TextEditingController();
@@ -41,7 +47,10 @@ class AddEventViewModel extends BaseViewModel {
 
   Future<void> addEvent() async {
     setBusy(true);
-
+    if (!_validate()) {
+      setBusy(false);
+      return;
+    }
     if (dateTime != null && timeOfDay != null) {
       if (userService.user.isLeaderOrCoLeader()) {
         Event? e = makeEvent();
@@ -52,6 +61,15 @@ class AddEventViewModel extends BaseViewModel {
       }
     }
     setBusy(false);
+  }
+
+  bool _validate() {
+    if (!formKey.currentState!.validate()) {
+      return false;
+    }
+    //Success
+    formKey.currentState?.save();
+    return true;
   }
 
   Future<void> editEvent() async {
@@ -145,6 +163,10 @@ class AddEventViewModel extends BaseViewModel {
     attendeesController.text = event.maxAttendees.toString();
     locationController.text = event.location;
     descriptionController.text = event.description ?? "";
+    dateTimeController.text =
+        dateTime != null ? DateHelper.getDate(dateTime!) : '';
+    timeOfDayController.text =
+        timeOfDay != null ? DateHelper.getHourTOD(timeOfDay!) : '';
     oldImage = event.flyer;
     // image
     notifyListeners();

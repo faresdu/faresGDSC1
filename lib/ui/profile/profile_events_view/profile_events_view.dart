@@ -65,7 +65,7 @@ class ProfileEventsView extends StatelessWidget {
                           const Spacer(),
                           CircleButton(
                               onPressed: () => CustomModalBottomSheet(
-                                  context, const AddEventView(),
+                                  context, AddEventView(),
                                   heightFactor: 0.92))
                         ],
                       ),

@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
+import 'package:gdsc_app/core/utils/form_validators.dart';
 import 'package:gdsc_app/ui/events/add_event/add_event_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/custom_text_form_field.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
@@ -23,93 +25,116 @@ class _AddEventViewState extends State<AddEventView> {
     return ViewModelBuilder<AddEventViewModel>.reactive(
         viewModelBuilder: () => AddEventViewModel(),
         builder: (context, viewmodel, _) {
-          return Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 13, bottom: 8),
-                  height: 4,
-                  width: 55,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade400,
-                    borderRadius: BorderRadius.circular(10),
+          return GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 13, bottom: 8),
+                    height: 4,
+                    width: 55,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade400,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Column(
-                        children: [
-                          const Text(
-                            'إضافة فعالية',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          viewmodel.image == null
-                              ? Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: InkWell(
-                                    onTap: () {
-                                      viewmodel.showImagePicker();
-                                    },
-                                    child: viewmodel.isBusy
-                                        ? const CircularProgressIndicator()
-                                        : SvgPicture.asset(
-                                            'assets/icons/events/add_image.svg',
-                                            height: 24,
-                                            width: 24,
-                                          ),
-                                  ),
-                                )
-                              : InkWell(
-                                  onTap: () {
-                                    viewmodel.showImagePicker();
-                                  },
-                                  child: Image.file(
-                                    File(viewmodel.image!.path),
-                                    height: 200,
-                                    width: 200,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                          CustomTextFormField(
-                              title: 'العنوان',
-                              controller: viewmodel.titleController),
-                          Row(
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Form(
+                          key: viewmodel.formKey,
+                          child: Column(
                             children: [
-                              Expanded(
-                                child: CustomFieldButton(
-                                  title: 'التاريخ',
-                                  onPressed: () async {
-                                    final DateTime? date = await showDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate: DateTime(2020),
-                                        lastDate: DateTime(2040));
-                                    setState(() {
-                                      viewmodel.dateTime = date;
-                                    });
-                                  },
-                                  icon: SvgPicture.asset(
-                                      'assets/icons/events/date.svg',
-                                      width: 22),
-                                  child: viewmodel.dateTime == null
-                                      ? const Text('لم يحدد')
-                                      : Text(DateHelper.getDate(
-                                          viewmodel.dateTime!)),
+                              const Text(
+                                'إضافة فعالية',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
                                 ),
                               ),
-                              Expanded(
-                                child: CustomFieldButton(
+                              viewmodel.image == null
+                                  ? Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: InkWell(
+                                        onTap: () {
+                                          viewmodel.showImagePicker();
+                                        },
+                                        child: viewmodel.isBusy
+                                            ? const CircularProgressIndicator()
+                                            : SvgPicture.asset(
+                                                'assets/icons/events/add_image.svg',
+                                                height: 24,
+                                                width: 24,
+                                              ),
+                                      ),
+                                    )
+                                  : InkWell(
+                                      onTap: () {
+                                        viewmodel.showImagePicker();
+                                      },
+                                      child: Image.file(
+                                        File(viewmodel.image!.path),
+                                        height: 200,
+                                        width: 200,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                              CustomTextFormField(
+                                title: 'العنوان',
+                                controller: viewmodel.titleController,
+                                validator: FormBuilderValidators.required(
+                                    errorText: 'الرجاء ادخال العنوان'),
+                                maxLength: 30,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: CustomTextFormField(
+                                      title: 'التاريخ',
+                                      hintText: 'لم يحدد',
+                                      controller: viewmodel.dateTimeController,
+                                      enableInteractiveSelection: false,
+                                      validator: FormBuilderValidators.required(
+                                          errorText: 'الرجاء ادخال التاريخ'),
+                                      onTap: () async {
+                                        final DateTime? date =
+                                            await showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                firstDate: DateTime.now(),
+                                                lastDate: DateTime(2040));
+                                        setState(() {
+                                          viewmodel.dateTime = date;
+                                          viewmodel.dateTimeController.text =
+                                              date != null
+                                                  ? DateHelper.getDate(date)
+                                                  : '';
+                                        });
+                                      },
+                                      icon: SvgPicture.asset(
+                                          'assets/icons/events/date.svg',
+                                          width: 22),
+                                    ),
+                                  ),
+                                  Expanded(
+                                      child: CustomTextFormField(
                                     title: 'الوقت',
-                                    onPressed: () async {
+                                    hintText: 'لم يحدد',
+                                    controller: viewmodel.timeOfDayController,
+                                    enableInteractiveSelection: false,
+                                    icon: SvgPicture.asset(
+                                        'assets/icons/events/time.svg',
+                                        width: 22),
+                                    validator: FormBuilderValidators.required(
+                                        errorText: 'الرجاء ادخال الوقت'),
+                                    onTap: () async {
                                       final TimeOfDay? time =
                                           await showTimePicker(
                                         context: context,
@@ -117,74 +142,86 @@ class _AddEventViewState extends State<AddEventView> {
                                       );
                                       setState(() {
                                         viewmodel.timeOfDay = time;
+                                        viewmodel.timeOfDayController.text =
+                                            time != null
+                                                ? DateHelper.getHourTOD(time)
+                                                : '';
                                       });
                                     },
-                                    icon: SvgPicture.asset(
-                                        'assets/icons/events/time.svg',
-                                        width: 22),
-                                    child: viewmodel.timeOfDay == null
-                                        ? const Text('لم يحدد')
-                                        : Text(DateHelper.getHourTOD(
-                                            viewmodel.timeOfDay!))),
+                                  ))
+                                ],
                               ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: CustomFieldButton(
-                                  title: 'النوع',
-                                  onPressed: () {
-                                    setState(() {
-                                      viewmodel.isOnline = !viewmodel.isOnline;
-                                    });
-                                  },
-                                  child: Text(viewmodel.isOnline
-                                      ? 'اون لاين'
-                                      : 'حضوري'),
-                                ),
-                              ),
-                              Expanded(
-                                child: CustomTextFormField(
-                                  title: 'أقصى عدد للحضور',
-                                  controller: viewmodel.attendeesController,
-                                  type: TextInputType.number,
-                                  icon: SvgPicture.asset(
-                                    'assets/icons/events/attendees.svg',
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: CustomFieldButton(
+                                      title: 'النوع',
+                                      onPressed: () {
+                                        setState(() {
+                                          viewmodel.isOnline =
+                                              !viewmodel.isOnline;
+                                        });
+                                      },
+                                      child: Text(viewmodel.isOnline
+                                          ? 'اون لاين'
+                                          : 'حضوري'),
+                                    ),
                                   ),
-                                ),
-                              )
+                                  Expanded(
+                                    child: CustomTextFormField(
+                                      title: 'أقصى عدد للحضور',
+                                      hintText: 'لم يحدد',
+                                      controller: viewmodel.attendeesController,
+                                      validator: FormValidators
+                                          .eventAttendeesValidator,
+                                      type: TextInputType.number,
+                                      icon: SvgPicture.asset(
+                                        'assets/icons/events/attendees.svg',
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              CustomTextFormField(
+                                title: 'الموقع',
+                                hintText: 'موقع الفعاليه',
+                                controller: viewmodel.locationController,
+                                validator: FormBuilderValidators.required(
+                                    errorText: 'الرجاء ادخال الموقع'),
+                                maxLength: 30,
+                              ),
+                              CustomTextFormField(
+                                title: 'الوصف',
+                                hintText: 'وصف الفعاليه',
+                                controller: viewmodel.descriptionController,
+                                maxLines: 4,
+                                maxLength: 150,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 15,
+                                    horizontal:
+                                        MediaQuery.of(context).size.width *
+                                            0.1),
+                                child: viewmodel.isBusy
+                                    ? const CircularProgressIndicator()
+                                    : SubmitButton(
+                                        text: 'إضـافـة',
+                                        onPressed: () async {
+                                          await viewmodel.addEvent();
+                                          if (viewmodel.added)
+                                            Navigator.pop(context);
+                                        }),
+                              ),
                             ],
                           ),
-                          CustomTextFormField(
-                            title: 'الموقع',
-                            controller: viewmodel.locationController,
-                          ),
-                          CustomTextFormField(
-                            title: 'الوصف',
-                            controller: viewmodel.descriptionController,
-                            maxLines: 4,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 15,
-                                horizontal:
-                                    MediaQuery.of(context).size.width * 0.1),
-                            child: viewmodel.isBusy
-                                ? const CircularProgressIndicator()
-                                : SubmitButton(
-                                    text: 'إضـافـة',
-                                    onPressed: () async {
-                                      await viewmodel.addEvent();
-                                      Navigator.pop(context);
-                                    }),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           );
         });
