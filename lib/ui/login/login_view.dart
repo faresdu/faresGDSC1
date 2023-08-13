@@ -34,7 +34,9 @@ class LoginView extends StatelessWidget {
                         hintText: 'الإيميل الجامعي أو الرقم الجامعي',
                         validator: (value) {
                           //checking if its a valid student ID or email
-                          if (FormValidators.studentIDValidator(value) != null && FormValidators.emailValidator(value) != null) {
+                          if (FormValidators.studentIDValidator(value) !=
+                                  null &&
+                              FormValidators.emailValidator(value) != null) {
                             // only if both have errors then input is incorrect
                             return FormValidators.studentIDValidator(value);
                           }

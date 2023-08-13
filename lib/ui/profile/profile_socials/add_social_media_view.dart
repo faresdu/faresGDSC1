@@ -55,7 +55,7 @@ class _AddSocialMediaViewState extends State<AddSocialMediaView> {
                           child: Column(children: [
                             SocialsDropDownMenu(
                               title: 'اختر نوع منصة التواصل',
-                              socialMedias: viewmodel.socialMedias ?? [],
+                              socialMedias: viewmodel.socialMedias,
                               onChanged: (String? value) {
                                 viewmodel.selectedSocialId = value;
                               },
@@ -78,7 +78,7 @@ class _AddSocialMediaViewState extends State<AddSocialMediaView> {
                               onSaved: (val) => viewmodel.link = val,
                             ),
                             Container(
-                              margin: EdgeInsets.only(top: 100),
+                              margin: const EdgeInsets.only(top: 100),
                               padding: EdgeInsets.symmetric(
                                   horizontal:
                                       MediaQuery.of(context).size.width * 0.1),
@@ -90,7 +90,6 @@ class _AddSocialMediaViewState extends State<AddSocialMediaView> {
                                         await viewmodel.addSocialMedia(context);
                                     if (widget.onSubmit != null &&
                                         social != null) {
-                                      print('asdas');
                                       widget.onSubmit!(social);
                                       Navigator.pop(context);
                                     }

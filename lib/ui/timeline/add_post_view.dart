@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/utils/form_validators.dart';
 import 'package:gdsc_app/ui/widgets/rounded_submit_button.dart';
-import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:provider/provider.dart';
 import 'package:gdsc_app/ui/timeline/timeline_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import '../../../core/utils/constants.dart';
 import '../../core/models/gdsc_user.dart';
-import '../../core/models/post.dart';
 import '../../core/utils/helper_functions.dart';
+import '../widgets/custom_text_form_field.dart';
 
 class AddPostView extends StatefulWidget {
   const AddPostView({super.key, this.onSubmit});
@@ -45,69 +44,73 @@ class _AddPostViewState extends State<AddPostView> {
                     child: Padding(
                       padding:
                           const EdgeInsets.only(left: 20, right: 20, top: 20),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 4),
-                                    child: ClipOval(
-                                      child: HelperFunctions.profileImage(
-                                          imageUrl: user.photo ?? '',
-                                          height: 50,
-                                          width: 50),
+                      child: Form(
+                        key: viewmodel.formKey,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 4),
+                                      child: ClipOval(
+                                        child: HelperFunctions.profileImage(
+                                            imageUrl: user.photo ?? '',
+                                            height: 50,
+                                            width: 50),
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 15),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(user.name,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w900)),
-                                      Text(user.committee.name,
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: Constants.grey)),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                child: RoundedSubmitButton(
+                                    const SizedBox(width: 15),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(user.name,
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w900)),
+                                        Text(user.committee.name,
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold,
+                                                color: Constants.grey)),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                RoundedSubmitButton(
                                   text: 'نشر',
                                   isBusy: viewmodel.isBusy,
                                   onPressed: () async {
-                                    String? postId = viewmodel
-                                            .descriptionController
-                                            .text
-                                            .isNotEmpty
-                                        ? await viewmodel.addPost(user)
-                                        : null;
+                                    String? postId =
+                                        await viewmodel.addPost(user);
+
                                     if (widget.onSubmit != null &&
                                         postId != null &&
                                         viewmodel.descriptionController.text
                                             .isNotEmpty) {
                                       widget.onSubmit!(postId);
+                                      Navigator.pop(context);
                                     }
-                                    Navigator.pop(context);
                                   },
                                 ),
-                              ),
-                            ],
-                          ),
-                          CustomTextField(
-                            title: '',
-                            controller: viewmodel.descriptionController,
-                            maxLines: 4,
-                          ),
-                        ],
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            CustomTextFormField(
+                              controller: viewmodel.descriptionController,
+                              validator: (val) =>
+                                  FormValidators.minCharsValidator(val, 10),
+                              maxLines: 4,
+                              maxLength: 125,
+                              onSaved: (val) => viewmodel.description = val,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -117,74 +120,4 @@ class _AddPostViewState extends State<AddPostView> {
           );
         });
   }
-}
-
-Widget _TextWithChild({required String title, required Widget child}) {
-  return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 10),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w700,
-            fontSize: 16,
-          ),
-        ),
-        const SizedBox(
-          height: 7,
-        ),
-        child,
-      ],
-    ),
-  );
-}
-
-Widget CustomTextField(
-    {required String title,
-    required TextEditingController controller,
-    autofocus = false,
-    int maxLines = 1,
-    Widget? icon,
-    TextInputType? type}) {
-  return _TextWithChild(
-    title: title,
-    child: TextField(
-      maxLength: 125,
-      maxLines: maxLines,
-      autofocus: autofocus,
-      controller: controller,
-      decoration: InputDecoration(
-          prefixIcon: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: icon,
-          ),
-          prefixIconConstraints: const BoxConstraints(maxWidth: 22 + 30),
-          contentPadding: EdgeInsets.zero,
-          fillColor: Colors.white,
-          filled: true,
-          disabledBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(20),
-          )),
-    ),
-  );
 }
