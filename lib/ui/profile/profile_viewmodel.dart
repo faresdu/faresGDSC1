@@ -53,6 +53,22 @@ class ProfileViewModel extends BaseViewModel {
     navService.navigateTo(Routes.editProfileView);
   }
 
+  void navigateToProfileEvents() {
+    navService.navigateTo(Routes.profileEventsView);
+  }
+
+  void navigateToProfileUserHours() {
+    navService.navigateTo(Routes.profileUserHoursView);
+  }
+
+  void navigateToProfileTimeline() {
+    navService.navigateTo(Routes.profileTimelineView);
+  }
+
+  void navigateToProfileSocials() {
+    navService.navigateTo(Routes.profileSocialsView);
+  }
+
   Widget getTopWidget(BuildContext context) {
     if (index == 0) {
       return getTitle(
@@ -67,7 +83,7 @@ class ProfileViewModel extends BaseViewModel {
             //       body: SafeArea(
             //         child: Column(
             //             children: user.events
-            //                 .map(
+            //                 .map(h
             //                   (e) => ProfileEventCard(event: e),
             //                 )
             //                 .toList()),
