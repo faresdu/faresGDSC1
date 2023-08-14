@@ -18,7 +18,7 @@ class _ProfileSocialsViewState extends State<ProfileSocialsView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileSocialsViewModel>.reactive(
-        viewModelBuilder: () => ProfileSocialsViewModel(),
+        viewModelBuilder: () => ProfileSocialsViewModel(context),
         builder: (context, viewmodel, _) {
           return Scaffold(
             appBar: const CustomAppBar(
@@ -32,22 +32,24 @@ class _ProfileSocialsViewState extends State<ProfileSocialsView> {
                     .toList(),
               ),
             ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                CustomModalBottomSheet(
-                    context,
-                    AddSocialMediaView(
-                      onSubmit: (val) =>
-                          setState(() => viewmodel.socials.add(val)),
-                    ));
-              },
-              backgroundColor: Constants.blueButton,
-              heroTag: 'addSocialTag',
-              child: const Icon(
-                Icons.add,
-                size: 30,
-              ),
-            ),
+            floatingActionButton: viewmodel.isUser
+                ? FloatingActionButton(
+                    onPressed: () {
+                      CustomModalBottomSheet(
+                          context,
+                          AddSocialMediaView(
+                            onSubmit: (val) =>
+                                setState(() => viewmodel.socials.add(val)),
+                          ));
+                    },
+                    backgroundColor: Constants.blueButton,
+                    heroTag: 'addSocialTag',
+                    child: const Icon(
+                      Icons.add,
+                      size: 30,
+                    ),
+                  )
+                : null,
           );
         });
   }

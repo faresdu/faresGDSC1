@@ -12,6 +12,7 @@ class PostCard extends StatefulWidget {
   final String userId;
   final Function(Post post, String userId) onLike;
   final Function(Post post, String userId) onUnLike;
+  final void Function()? onUserTap;
 
   const PostCard({
     Key? key,
@@ -19,6 +20,7 @@ class PostCard extends StatefulWidget {
     required this.onLike,
     required this.onUnLike,
     required this.userId,
+    this.onUserTap,
   }) : super(key: key);
 
   @override
@@ -57,18 +59,21 @@ class _PostCardState extends State<PostCard> {
                     ),
                   ),
                   SizedBox(width: 15),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(widget.post.posterName,
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w900)),
-                      Text("${widget.post.committee?.name}",
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Constants.grey)),
-                    ],
+                  InkWell(
+                    onTap: widget.onUserTap,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(widget.post.posterName,
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w900)),
+                        Text("${widget.post.committee?.name}",
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Constants.grey)),
+                      ],
+                    ),
                   ),
                 ],
               ),

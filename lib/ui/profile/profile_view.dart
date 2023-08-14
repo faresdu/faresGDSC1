@@ -20,7 +20,7 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileViewModel>.reactive(
         viewModelBuilder: () => ProfileViewModel(),
-        onViewModelReady: (viewModel) => viewModel.listenToUser(),
+        onViewModelReady: (viewModel) => viewModel.setUser(context),
         builder: (context, viewmodel, _) {
           return Scaffold(
             backgroundColor: Constants.background,
@@ -35,23 +35,28 @@ class _ProfileViewState extends State<ProfileView> {
                             child: ListView(
                               children: [
                                 CustomAppBar(
-                                  title: 'المـلـف الـشـخـصـي',
-                                  leading: IconButton(
-                                    onPressed: () async {
-                                      await viewmodel.signOut();
-                                    },
-                                    icon: const Icon(
-                                      Icons.logout_rounded,
-                                      size: 40,
-                                      color: Constants.black,
-                                    ),
-                                  ),
-                                ),
+                                    title: 'المـلـف الـشـخـصـي',
+                                    leading: !viewmodel.fromLogin
+                                        ? null
+                                        : viewmodel.isUser
+                                            ? IconButton(
+                                                onPressed: () async {
+                                                  await viewmodel.signOut();
+                                                },
+                                                icon: const Icon(
+                                                  Icons.logout_rounded,
+                                                  size: 40,
+                                                  color: Constants.black,
+                                                ),
+                                              )
+                                            : null),
                                 ProfileCard(
                                   member: viewmodel.user,
-                                  edit: () {
-                                    viewmodel.navigateToEditProfile();
-                                  },
+                                  edit: viewmodel.isUser
+                                      ? () {
+                                          viewmodel.navigateToEditProfile();
+                                        }
+                                      : null,
                                 ),
                                 const SizedBox(
                                   height: 20,

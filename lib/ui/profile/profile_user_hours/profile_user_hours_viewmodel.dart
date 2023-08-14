@@ -15,14 +15,21 @@ class ProfileUserHoursViewModel extends BaseViewModel {
   final key = GlobalKey(debugLabel: 'profile_hours');
 
   late Member user;
+  bool isUser = true;
   TextEditingController reasonController = TextEditingController();
   TextEditingController hourAmountController = TextEditingController();
   String? reason;
   int? hours;
   List<VolunteerHours> approvedUserHours = [];
   List<VolunteerHours> pendingUserHours = [];
-  ProfileUserHoursViewModel() {
-    user = userService.user;
+  ProfileUserHoursViewModel(BuildContext context) {
+    Member? member = ModalRoute.of(context)!.settings.arguments as Member?;
+    if (member != null) {
+      user = member;
+      isUser = false;
+    } else {
+      user = userService.user;
+    }
     approvedUserHours = user.getApprovedVolunteerHours();
     pendingUserHours = user.getPendingVolunteerHours();
   }

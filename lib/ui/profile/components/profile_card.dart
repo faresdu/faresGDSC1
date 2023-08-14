@@ -16,16 +16,14 @@ class ProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      clipBehavior: Clip.antiAlias,
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
       decoration: BoxDecoration(
         color: Constants.white,
         boxShadow: Constants.shadow4,
-        borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(70), bottomRight: Radius.circular(70)),
+        borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(63), bottomRight: Radius.circular(63)),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Stack(
@@ -48,53 +46,30 @@ class ProfileCard extends StatelessWidget {
                 ),
             ],
           ),
+          SizedBox(
+            height: 16,
+          ),
           Text(
             member.name,
-            style:
-                Constants.veryLargeText.copyWith(fontWeight: FontWeight.bold),
+            style: Constants.veryLargeText
+                .copyWith(fontWeight: FontWeight.bold, height: 1),
           ),
+          if (member.isLeaderOrCoLeader())
+            Text(
+              "${member.getRole()} ${member.committee.name}",
+              style: Constants.smallText
+                  .copyWith(color: Constants.grey, fontWeight: FontWeight.bold),
+            )
+          else
+            Text(
+              member.committee.name,
+              style: Constants.smallText
+                  .copyWith(color: Constants.grey, fontWeight: FontWeight.bold),
+            ),
+
           const SizedBox(
             height: 10,
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.start,
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          //     Container(
-          //       decoration: BoxDecoration(boxShadow: Constants.shadow5),
-          //       margin: const EdgeInsets.all(8),
-          //       width: 65,
-          //       height: 65,
-          //       child: CircleAvatar(
-          //         backgroundImage: member.photo != null
-          //             ? NetworkImage(member.photo!)
-          //             : const AssetImage('assets/images/event-attendees.png')
-          //                 as ImageProvider,
-          //         radius: 40,
-          //       ),
-          //     ),
-          //     Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Text(
-          //           member.name,
-          //           style: Constants.veryLargeText.copyWith(
-          //             fontWeight: FontWeight.w700,
-          //           ),
-          //         ),
-          //         Text(
-          //           '${member.getRole()} ${member.committee.name}',
-          //           style: Constants.smallText.copyWith(
-          //               fontWeight: FontWeight.w700, color: Constants.grey),
-          //         ),
-          //       ],
-          //     ),
-          //     const Spacer(),
-          //   ],
-          // ),
-          // const SizedBox(
-          //   height: 26,
-          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -131,25 +106,30 @@ class ProfileCard extends StatelessWidget {
                   )),
             ],
           ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(0, 25, 0, 5),
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Constants.primaryLightBlue,
-            ),
-            child: member.isLeaderOrCoLeader()
-                ? Text(
-                    "${member.getRole()} ${member.committee.name}",
-                    style: Constants.largeText.copyWith(
-                        color: Constants.white, fontWeight: FontWeight.bold),
-                  )
-                : Text(
-                    member.committee.name,
-                    style: Constants.largeText.copyWith(
-                        color: Constants.white, fontWeight: FontWeight.bold),
-                  ),
+          SizedBox(
+            height: 10,
           )
+          // Container(
+          //   margin: const EdgeInsets.fromLTRB(0, 25, 0, 5),
+          //   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(12),
+          //     border: Border.all(color: Constants.primaryLightBlue, width: 5),
+          //   ),
+          //   child: member.isLeaderOrCoLeader()
+          //       ? Text(
+          //           "${member.getRole()} ${member.committee.name}",
+          //           style: Constants.largeText.copyWith(
+          //               color: Constants.primaryLightBlue,
+          //               fontWeight: FontWeight.bold),
+          //         )
+          //       : Text(
+          //           member.committee.name,
+          //           style: Constants.largeText.copyWith(
+          //               color: Constants.primaryLightBlue,
+          //               fontWeight: FontWeight.bold),
+          //         ),
+          // )
         ],
       ),
     );

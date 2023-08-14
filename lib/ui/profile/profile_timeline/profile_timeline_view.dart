@@ -22,6 +22,7 @@ class _ProfileTimelineViewState extends State<ProfileTimelineView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileTimelineViewModel>.reactive(
+        onViewModelReady: ((viewModel) => viewModel.getPosts(context)),
         viewModelBuilder: () => ProfileTimelineViewModel(),
         builder: (context, viewmodel, _) {
           final user = Provider.of<GDSCUser>(context);
@@ -48,8 +49,10 @@ class _ProfileTimelineViewState extends State<ProfileTimelineView> {
                                       boxShadow: Constants.shadow3,
                                       color: Constants.white,
                                       borderRadius: BorderRadius.circular(25)),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.75,
+                                  width: viewmodel.isUser
+                                      ? MediaQuery.of(context).size.width * 0.75
+                                      : MediaQuery.of(context).size.width *
+                                          0.93,
                                   child: TabBar(
                                     unselectedLabelStyle: Constants.smallText
                                         .copyWith(
@@ -63,24 +66,29 @@ class _ProfileTimelineViewState extends State<ProfileTimelineView> {
                                         color: Constants.blueButton,
                                         borderRadius:
                                             BorderRadius.circular(25)),
-                                    tabs: const <Widget>[
+                                    tabs: <Widget>[
                                       Tab(
-                                        text: 'منشوراتي',
+                                        text: viewmodel.isUser
+                                            ? 'منشوراتي'
+                                            : 'المنشورات',
                                       ),
                                       Tab(
-                                        text: 'المعجب بها',
+                                        text: viewmodel.isUser
+                                            ? 'المعجب بها'
+                                            : 'الاعجابات',
                                       ),
                                     ],
                                   ),
                                 ),
                                 const Spacer(),
-                                CircleButton(
-                                    onPressed: () => CustomModalBottomSheet(
-                                        context,
-                                        AddPostView(
-                                          onSubmit: (id) =>
-                                              viewmodel.addToUserPosts(id),
-                                        )))
+                                if (viewmodel.isUser)
+                                  CircleButton(
+                                      onPressed: () => CustomModalBottomSheet(
+                                          context,
+                                          AddPostView(
+                                            onSubmit: (id) =>
+                                                viewmodel.addToUserPosts(id),
+                                          )))
                               ],
                             ),
                           ),
