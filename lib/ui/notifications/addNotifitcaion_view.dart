@@ -47,10 +47,14 @@ class _AddPostViewState extends State<AddNotification> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Container(
-                                child: SubmitButton(onPressed: () {
-                                  viewmodel.addNotification(user);
-                                  Navigator.pop(context);
-                                }),
+                                child: SubmitButton(
+                                    text: "نشر",
+                                    sizeX: 90,
+                                    sizeY: 40,
+                                    onPressed: () {
+                                      viewmodel.addNotification(user);
+                                      Navigator.pop(context);
+                                    }),
                               ),
                             ],
                           ),
@@ -122,16 +126,20 @@ Widget _TextWithChild({required String title, required Widget child}) {
   );
 }
 
-Widget SubmitButton({required Function() onPressed}) {
+Widget SubmitButton(
+    {required Function() onPressed,
+    required String text,
+    required double sizeX,
+    required double sizeY}) {
   return TextButton(
     onPressed: onPressed,
     style: TextButton.styleFrom(
-      fixedSize: Size(90, 40),
+      fixedSize: Size(sizeX, sizeY),
       backgroundColor: Constants.blueButton,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     ),
-    child: const Text(
-      'نشر',
+    child: Text(
+      text,
       style: TextStyle(
         color: Colors.white,
         fontSize: 14,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/core/models/member.dart';
+import 'package:gdsc_app/ui/edit_profile/components/Savebutton.dart';
+import 'package:gdsc_app/ui/notifications/addNotifitcaion_view.dart';
 import 'package:gdsc_app/ui/widgets/custom_text_form_field.dart';
 import 'package:stacked/stacked.dart';
-
 import '../../core/utils/constants.dart';
-import '../profile/profile_viewmodel.dart';
 import '../widgets/custom_app_bar.dart';
+import 'edit_profile_viewmodel.dart';
 
 class EditProfileView extends StatefulWidget {
   const EditProfileView({super.key});
@@ -17,9 +17,9 @@ class EditProfileView extends StatefulWidget {
 class _EditProfileViewState extends State<EditProfileView> {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<ProfileViewModel>.reactive(
-        viewModelBuilder: () => ProfileViewModel(),
-        onViewModelReady: (viewModel) => viewModel.listenToUser(),
+    return ViewModelBuilder<EditProfileViewmodel>.reactive(
+        viewModelBuilder: () => EditProfileViewmodel(),
+        onViewModelReady: (viewmodel) => viewmodel.getUser(),
         builder: (context, viewmodel, _) {
           return Scaffold(
             backgroundColor: Constants.background,
@@ -44,48 +44,58 @@ class _EditProfileViewState extends State<EditProfileView> {
                       children: [
                         CircleAvatar(
                           radius: 70,
-                          backgroundImage:
-                              NetworkImage(viewmodel.user.photo ?? ""),
+                          backgroundImage: NetworkImage(
+                              viewmodel.userService.user.photo ?? ""),
                         ),
                         Positioned(
                           bottom: 0,
                           right: 0,
                           child: IconButton(
                             icon: Icon(Icons.edit),
-                            onPressed: () {
-                              viewmodel.showImagePicker();
-                            },
+                            onPressed: () {},
                           ),
                         ),
                       ],
                     ),
                     Container(
                       padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                      child: Column(
-                        children: [
-                          Container(
-                            child: CustomTextFormField(
-                              controller: TextEditingController(),
-                              title: "الاسم",
+                      child: Form(
+                        key: viewmodel.formKey,
+                        child: Column(
+                          children: [
+                            Container(
+                              child: CustomTextFormField(
+                                controller: viewmodel.userNameController,
+                                title: "الاسم",
+                              ),
                             ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            child: CustomTextFormField(
-                              controller: TextEditingController(),
-                              title: "اللجنة",
+                            Container(
+                              margin: EdgeInsets.only(top: 20),
+                              child: CustomTextFormField(
+                                controller: viewmodel.userCommitteController,
+                                title: "اللجنة",
+                              ),
                             ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            child: CustomTextFormField(
-                              controller: TextEditingController(),
-                              title: "الساعات",
+                            Container(
+                              margin: EdgeInsets.only(top: 20),
+                              child: CustomTextFormField(
+                                controller: viewmodel.userHoursController,
+                                title: "الساعات",
+                              ),
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 30, right: 30, top: 20),
+                              child: SaveButton(
+                                  color: Colors.blue,
+                                  text: "حفظ",
+                                  fontSize: 16,
+                                  onPressed: () {}),
+                            )
+                          ],
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

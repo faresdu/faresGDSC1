@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/leaderboard_member.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
+import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:gdsc_app/ui/leaderboard/leaderboard_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/custom_buttom.dart';
 import 'package:stacked/stacked.dart';
@@ -60,6 +61,7 @@ class LeaderboardView extends StatelessWidget {
                       right: 35,
                       numSize: 30,
                       profileTop: 64,
+                      profileRaduis: 30,
                       profileRight: 21,
                       numColor: Constants.green),
                   top123LeaderBoard(
@@ -140,7 +142,6 @@ class LeaderboardView extends StatelessWidget {
       double profileTop = 0,
       double profileRight = 0,
       double profileRaduis = 30,
-      String image = "",
       required Color numColor,
       required double numSize,
       required double right,
@@ -186,12 +187,10 @@ class LeaderboardView extends StatelessWidget {
                     decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color:
-                                Colors.black.withOpacity(0.15), // Shadow color
-                            offset: Offset(offsetX!,
-                                offsetY!), // Offset in the form of (dx, dy)
-                            blurRadius: 4, // Blur radius
-                            spreadRadius: 0, // Spread radius
+                            color: Colors.black.withOpacity(0.15),
+                            offset: Offset(offsetX!, offsetY!),
+                            blurRadius: 4,
+                            spreadRadius: 0,
                           ),
                         ],
                         color: Constants.white,
@@ -233,7 +232,8 @@ class LeaderboardView extends StatelessWidget {
           right: profileRight,
           child: CircleAvatar(
             radius: profileRaduis,
-            backgroundImage: NetworkImage(member.),
+            backgroundImage: HelperFunctions.avatarImageProvider(
+                imageUrl: member.profilePicture ?? ""),
           ),
         ),
       ],

@@ -47,7 +47,7 @@ import '../services/event_service.dart';
     MaterialRoute(page: ProfileUserHoursView),
     MaterialRoute(page: ProfileEventsView),
     MaterialRoute(page: ProfileTimelineView),
-    MaterialRoute(page: ProfileSocialsView)
+    MaterialRoute(page: ProfileSocialsView),
   ],
   // flutter pub run build_runner build
   // Register all Services

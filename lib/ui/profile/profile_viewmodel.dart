@@ -114,36 +114,4 @@ class ProfileViewModel extends BaseViewModel {
     navService.navigateTo(Routes.profileSocialsView,
         arguments: isUser ? null : user);
   }
-
-  void showImagePicker() async {
-    setBusy(true);
-    try {
-      final ImagePicker picker = ImagePicker();
-      XFile? temp = image;
-      image = await picker.pickImage(source: ImageSource.gallery);
-      if (image == null) {
-        image = temp;
-        throw 'no image was picked';
-      }
-      if (uploadedImageUrl != null) {
-        await s3Service.deleteFile(uploadedImageUrl!['filePath']!);
-      }
-      double fileSize = double.parse(
-          await HelperFunctions.getFileSize(image!.path, 1, noSuffix: true));
-      if (fileSize <= 6144) {
-        uploadedImageUrl = await s3Service.uploadFile(File(image!.path),
-            s3FolderPath: S3FolderPaths.events);
-        uploaded = true;
-      } else {
-        image = null;
-        //TODO: show image error message
-      }
-      print(await HelperFunctions.getFileSize(image!.path, 1));
-    } catch (e) {
-      print(e);
-    }
-
-    setBusy(false);
-    notifyListeners();
-  }
 }
