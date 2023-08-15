@@ -63,7 +63,8 @@ class LoginViewModel extends BaseViewModel {
     if (value.isNumber) {
       email = '$value@student.ksu.edu.sa';
     } else {
-      email = value;
+      print(email);
+      email = value.trim();
     }
   }
 }
