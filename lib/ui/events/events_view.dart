@@ -21,17 +21,19 @@ class _EventsViewState extends State<EventsView> {
         builder: (context, viewmodel, _) {
           return Scaffold(
             backgroundColor: Constants.background,
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                CustomModalBottomSheet(context, const AddEventView(),
-                    heightFactor: 0.92);
-              },
-              backgroundColor: Constants.blueButton,
-              child: const Icon(
-                Icons.add,
-                size: 30,
-              ),
-            ),
+            floatingActionButton: viewmodel.user.isLeaderOrCoLeader()
+                ? FloatingActionButton(
+                    onPressed: () {
+                      CustomModalBottomSheet(context, const AddEventView(),
+                          heightFactor: 0.92);
+                    },
+                    backgroundColor: Constants.blueButton,
+                    child: const Icon(
+                      Icons.add,
+                      size: 30,
+                    ),
+                  )
+                : null,
             appBar: CustomAppBar(
               title: "الفعاليات",
               leading: Padding(

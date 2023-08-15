@@ -66,7 +66,7 @@ class SupabaseService {
     try {
       final PostgrestResponse<dynamic> res = await supabaseClient
           .from(GDSCViews.leaderboard)
-          .select('*')
+          .select('*, Committees:committee_id(*)')
           .execute();
       print(res.data);
       return (res.data as List)
