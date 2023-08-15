@@ -16,11 +16,18 @@ class ProfileEventsViewModel extends StreamViewModel<List<Event>> {
   final userService = locator<UserService>();
 
   final key = GlobalKey(debugLabel: 'profile_events');
+  bool isUser = true;
 
   List<Event> events = [];
   late Member user;
-  ProfileEventsViewModel() {
-    user = userService.user;
+  ProfileEventsViewModel(BuildContext context) {
+    Member? member = (ModalRoute.of(context)!.settings.arguments as Member?);
+    if (member != null) {
+      user = member;
+      isUser = false;
+    } else {
+      user = userService.user;
+    }
   }
 
   @override
