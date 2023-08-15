@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/app/app.router.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/services/timeline_service.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
 import '../../core/models/post.dart';
 
 class TimeLineViewModel extends BaseViewModel {
   final timelineService = locator<TimelineService>();
+  final navService = locator<NavigationService>();
   TextEditingController descriptionController = TextEditingController();
   String? description;
   final formKey = GlobalKey<FormState>();
@@ -70,5 +73,9 @@ class TimeLineViewModel extends BaseViewModel {
       _like(post, userId);
     }
     notifyListeners();
+  }
+
+  navigateToMemberProfile(String posterId) {
+    navService.navigateTo(Routes.profileView, arguments: posterId);
   }
 }

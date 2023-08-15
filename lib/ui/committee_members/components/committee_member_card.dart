@@ -5,7 +5,7 @@ import 'package:gdsc_app/core/utils/helper_functions.dart';
 
 class CommitteeMemberCard extends StatelessWidget {
   final Member member;
-  final void Function()? onTap;
+  final void Function(String id)? onTap;
 
   const CommitteeMemberCard({required this.member, this.onTap, Key? key})
       : super(key: key);
@@ -13,7 +13,7 @@ class CommitteeMemberCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: () => onTap!(member.id),
       child: Card(
         elevation: 3,
         shape: RoundedRectangleBorder(

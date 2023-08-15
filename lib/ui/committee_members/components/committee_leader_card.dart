@@ -6,7 +6,7 @@ import 'package:gdsc_app/core/utils/helper_functions.dart';
 class CommitteeLeaderCard extends StatelessWidget {
   final Member member;
   final bool isCoLeader;
-  final void Function()? onTap;
+  final void Function(String id)? onTap;
   const CommitteeLeaderCard(
       {required this.member, this.isCoLeader = false, this.onTap, Key? key})
       : super(key: key);
@@ -23,7 +23,7 @@ class CommitteeLeaderCard extends StatelessWidget {
             left: 0,
             right: 0,
             child: InkWell(
-              onTap: onTap,
+              onTap: () => onTap!(member.id),
               child: Card(
                 elevation: 3,
                 shape: RoundedRectangleBorder(

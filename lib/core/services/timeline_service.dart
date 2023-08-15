@@ -40,8 +40,8 @@ class TimelineService {
     }
   }
 
-  Future<List<Post>> getLikedPosts() async {
-    String userId = _userService.user.id;
+  Future<List<Post>> getLikedPosts({String? id}) async {
+    String userId = id ?? _userService.user.id;
     try {
       final PostgrestResponse<dynamic> res = await _supabaseService
           .supabaseClient

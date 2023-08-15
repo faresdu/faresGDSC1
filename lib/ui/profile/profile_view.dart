@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:gdsc_app/ui/profile/components/profile_section_button.dart';
 import 'package:gdsc_app/ui/profile/profile_viewmodel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
@@ -18,7 +20,7 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileViewModel>.reactive(
         viewModelBuilder: () => ProfileViewModel(),
-        onViewModelReady: (viewModel) => viewModel.listenToUser(),
+        onViewModelReady: (viewModel) => viewModel.setUser(context),
         builder: (context, viewmodel, _) {
           return Scaffold(
             backgroundColor: Constants.background,
@@ -33,51 +35,79 @@ class _ProfileViewState extends State<ProfileView> {
                             child: ListView(
                               children: [
                                 CustomAppBar(
-                                  title: 'المـلـف الـشـخـصـي',
-                                  leading: IconButton(
-                                    onPressed: () async {
-                                      await viewmodel.signOut();
-                                    },
-                                    icon: const Icon(
-                                      Icons.logout_rounded,
-                                      size: 40,
-                                      color: Constants.black,
+                                    title: 'المـلـف الـشـخـصـي',
+                                    leading: !viewmodel.fromLogin
+                                        ? null
+                                        : viewmodel.isUser
+                                            ? IconButton(
+                                                onPressed: () async {
+                                                  await viewmodel.signOut();
+                                                },
+                                                icon: const Icon(
+                                                  Icons.logout_rounded,
+                                                  size: 40,
+                                                  color: Constants.black,
+                                                ),
+                                              )
+                                            : null),
+                                ProfileCard(
+                                  member: viewmodel.user,
+                                  edit: viewmodel.isUser
+                                      ? () {
+                                          viewmodel.navigateToEditProfile();
+                                        }
+                                      : null,
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                ProfileSectionButton(
+                                  title: 'الفعاليات',
+                                  color: Constants.green,
+                                  icon: const Icon(
+                                    Icons.event_note,
+                                    color: Constants.green,
+                                    size: 30,
+                                  ),
+                                  onTap: () =>
+                                      viewmodel.navigateToProfileEvents(),
+                                ),
+                                ProfileSectionButton(
+                                  title: 'الساعات',
+                                  color: Constants.yellow,
+                                  icon: const Icon(
+                                    Icons.access_time_filled,
+                                    color: Constants.yellow,
+                                    size: 30,
+                                  ),
+                                  onTap: () =>
+                                      viewmodel.navigateToProfileUserHours(),
+                                ),
+                                ProfileSectionButton(
+                                  title: 'المنشورات',
+                                  color: Constants.red,
+                                  icon: Padding(
+                                    padding: const EdgeInsets.all(4),
+                                    child: SvgPicture.asset(
+                                      'assets/icons/profile/timeline.svg',
+                                      color: Constants.red,
+                                      height: 20,
+                                      width: 20,
                                     ),
                                   ),
+                                  onTap: () =>
+                                      viewmodel.navigateToProfileTimeline(),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 25, horizontal: 20),
-                                  child: ProfileCard(
-                                    member: viewmodel.user,
-                                    edit: () {
-                                      viewmodel.navigateToEditProfile();
-                                    },
+                                ProfileSectionButton(
+                                  title: 'منصات التواصل',
+                                  color: Constants.primaryLightBlue,
+                                  icon: const Icon(
+                                    Icons.chat_rounded,
+                                    color: Constants.primaryLightBlue,
+                                    size: 30,
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  child: Flex(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    direction: Axis.horizontal,
-                                    children: viewmodel.getButtons(),
-                                  ),
-                                ),
-                                const Divider(
-                                  endIndent: 25,
-                                  indent: 25,
-                                  color: Constants.grey,
-                                  thickness: 2,
-                                ),
-                                Column(
-                                  children: [
-                                    viewmodel.getTopWidget(context),
-                                    viewmodel.getBottomWidget(),
-                                  ],
+                                  onTap: () =>
+                                      viewmodel.navigateToProfileSocials(),
                                 ),
                               ],
                             ),

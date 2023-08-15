@@ -68,6 +68,9 @@ class _TimeLineViewState extends State<TimeLineView> {
                                         userId: user.id,
                                         onLike: viewmodel.likePost,
                                         onUnLike: viewmodel.unLikePost,
+                                        onUserTap: () =>
+                                            viewmodel.navigateToMemberProfile(
+                                                e.posterId),
                                       ))
                                   .toList(),
                             ),

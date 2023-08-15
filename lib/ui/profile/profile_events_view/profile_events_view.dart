@@ -14,7 +14,7 @@ class ProfileEventsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileEventsViewModel>.reactive(
-        viewModelBuilder: () => ProfileEventsViewModel(),
+        viewModelBuilder: () => ProfileEventsViewModel(context),
         builder: (context, viewmodel, _) {
           return Scaffold(
             appBar: const CustomAppBar(
@@ -23,7 +23,7 @@ class ProfileEventsView extends StatelessWidget {
             backgroundColor: Constants.background,
             body: SafeArea(
               child: DefaultTabController(
-                length: 2,
+                length: viewmodel.user.isLeaderOrCoLeader() ? 2 : 1,
                 key: viewmodel.key,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -39,7 +39,10 @@ class ProfileEventsView extends StatelessWidget {
                                 boxShadow: Constants.shadow3,
                                 color: Constants.white,
                                 borderRadius: BorderRadius.circular(25)),
-                            width: MediaQuery.of(context).size.width * 0.75,
+                            width: (viewmodel.isUser &&
+                                    viewmodel.user.isLeaderOrCoLeader())
+                                ? MediaQuery.of(context).size.width * 0.75
+                                : MediaQuery.of(context).size.width * 0.94,
                             child: TabBar(
                               unselectedLabelStyle: Constants.smallText
                                   .copyWith(
@@ -52,21 +55,24 @@ class ProfileEventsView extends StatelessWidget {
                               indicator: BoxDecoration(
                                   color: Constants.blueButton,
                                   borderRadius: BorderRadius.circular(25)),
-                              tabs: const <Widget>[
-                                Tab(
+                              tabs: <Widget>[
+                                const Tab(
                                   text: 'المشارك بها',
                                 ),
-                                Tab(
-                                  text: 'المنشأه',
-                                ),
+                                if (viewmodel.user.isLeaderOrCoLeader())
+                                  const Tab(
+                                    text: 'المنشأه',
+                                  ),
                               ],
                             ),
                           ),
                           const Spacer(),
-                          CircleButton(
-                              onPressed: () => CustomModalBottomSheet(
-                                  context, AddEventView(),
-                                  heightFactor: 0.92))
+                          if (viewmodel.isUser &&
+                              viewmodel.user.isLeaderOrCoLeader())
+                            CircleButton(
+                                onPressed: () => CustomModalBottomSheet(
+                                    context, AddEventView(),
+                                    heightFactor: 0.92))
                         ],
                       ),
                     ),
@@ -87,20 +93,21 @@ class ProfileEventsView extends StatelessWidget {
                                       ))
                                   .toList()),
                         ),
-                        SingleChildScrollView(
-                          child: Column(
-                              children: viewmodel.createdEvents
-                                  .map((e) => EventCard(
-                                        event: e,
-                                        signUpButton:
-                                            viewmodel.getSignUpButton(e),
-                                        canEdit: true,
-                                        onPressed: () {
-                                          viewmodel.navigateToEvent(e);
-                                        },
-                                      ))
-                                  .toList()),
-                        )
+                        if (viewmodel.user.isLeaderOrCoLeader())
+                          SingleChildScrollView(
+                            child: Column(
+                                children: viewmodel.createdEvents
+                                    .map((e) => EventCard(
+                                          event: e,
+                                          signUpButton:
+                                              viewmodel.getSignUpButton(e),
+                                          canEdit: true,
+                                          onPressed: () {
+                                            viewmodel.navigateToEvent(e);
+                                          },
+                                        ))
+                                    .toList()),
+                          )
                       ],
                     ))
                   ],
