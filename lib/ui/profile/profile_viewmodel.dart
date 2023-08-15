@@ -1,26 +1,36 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gdsc_app/core/services/authentication_service.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
 import '../../core/app/app.router.dart';
+import '../../core/enums/s3.dart';
 import '../../core/models/member.dart';
+import '../../core/services/s3_service.dart';
 import '../../core/services/user_service.dart';
 import '../../core/utils/constants.dart';
+import '../../core/utils/helper_functions.dart';
 import 'components/profile_event_card.dart';
 import 'components/profile_social_media_card.dart';
 import 'components/profile_volunteer_hours_card.dart';
-import 'components/profile_volunteer_hours_card_big.dart';
 
 class ProfileViewModel extends BaseViewModel {
   final authService = locator<AuthenticationService>();
   final userService = locator<UserService>();
   final navService = locator<NavigationService>();
+  final s3Service = locator<S3Service>();
 
+  XFile? image;
+  Map<String, String>? uploadedImageUrl;
+  bool uploaded = false;
+  bool added = false;
+  String? oldImage;
   int index = 0;
   late Member user;
   late StreamSubscription listener;
@@ -259,5 +269,37 @@ class ProfileViewModel extends BaseViewModel {
         ),
       ],
     );
+  }
+
+  void showImagePicker() async {
+    setBusy(true);
+    try {
+      final ImagePicker picker = ImagePicker();
+      XFile? temp = image;
+      image = await picker.pickImage(source: ImageSource.gallery);
+      if (image == null) {
+        image = temp;
+        throw 'no image was picked';
+      }
+      if (uploadedImageUrl != null) {
+        await s3Service.deleteFile(uploadedImageUrl!['filePath']!);
+      }
+      double fileSize = double.parse(
+          await HelperFunctions.getFileSize(image!.path, 1, noSuffix: true));
+      if (fileSize <= 6144) {
+        uploadedImageUrl = await s3Service.uploadFile(File(image!.path),
+            s3FolderPath: S3FolderPaths.events);
+        uploaded = true;
+      } else {
+        image = null;
+        //TODO: show image error message
+      }
+      print(await HelperFunctions.getFileSize(image!.path, 1));
+    } catch (e) {
+      print(e);
+    }
+
+    setBusy(false);
+    notifyListeners();
   }
 }

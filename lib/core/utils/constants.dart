@@ -8,10 +8,15 @@ class Constants {
   static const Color grey = Color(0xFF666C74);
   static const Color darkGrey = Color(0xFF303030);
   static const Color red = Color(0xFFD93F37);
+  static const Color redTOP = Color(0xFFF4938F);
+  static const Color redNumber = Color(0xFFEA4335);
   static const Color pink = Color(0xFFF15C55);
   static const Color green = Color(0xFF34A853);
+  static const Color greenTOP = Color(0xFFA4D0A2);
   static const Color lightGreen = Color(0xFFA4D0A2);
   static const Color yellow = Color(0xFFF8BC18);
+  static const Color yellowTOP = Color(0xFFFFC107);
+  static const Color yellowNumber = Color(0xFFFBBC05);
   static const Color lightYellow = Color(0xFFFADC86);
   static const Color lightBlue = Color(0xFFBFDEF5);
   static const Color blue = Color(0xFF547DBF);
