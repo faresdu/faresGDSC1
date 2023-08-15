@@ -6,6 +6,7 @@ class Constants {
   const Constants._();
 
   static const Color grey = Color(0xFF666C74);
+  static const Color lightGrey = Color(0xff94979B);
   static const Color darkGrey = Color(0xFF303030);
   static const Color red = Color(0xFFD93F37);
   static const Color redTOP = Color(0xFFF4938F);

@@ -66,7 +66,7 @@ class SupabaseService {
     try {
       final PostgrestResponse<dynamic> res = await supabaseClient
           .from(GDSCViews.leaderboard)
-          .select('*')
+          .select('*, Committees:committee_id(*)')
           .execute();
       print(res.data);
       return (res.data as List)
@@ -112,6 +112,20 @@ class SupabaseService {
       return GDSCUser.fromJson(res.data);
     } catch (e) {
       throw 'Failed to get User with id $id, ERROR : $e';
+    }
+  }
+
+  Future<Member> getMember(String id) async {
+    try {
+      final res = await supabaseClient
+          .from(GDSCViews.profile)
+          .select('*')
+          .eq('user_id', id)
+          .single()
+          .execute();
+      return Member.fromJson(res.data);
+    } catch (e) {
+      throw 'Failed to get Member with id $id, ERROR : $e';
     }
   }
 }

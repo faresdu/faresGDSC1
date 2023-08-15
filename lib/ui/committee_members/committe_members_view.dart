@@ -30,13 +30,13 @@ class CommitteeMembersView extends StatelessWidget {
                         CommitteeLeaderCard(
                           member: viewmodel.leader!,
                           isCoLeader: false,
-                          onTap: () {},
+                          onTap: viewmodel.navigateToMemberProfile,
                         ),
                       if (viewmodel.coLeader != null)
                         CommitteeLeaderCard(
                           member: viewmodel.coLeader!,
                           isCoLeader: true,
-                          onTap: () {},
+                          onTap: viewmodel.navigateToMemberProfile,
                         ),
                       const SizedBox(
                         height: 10,
@@ -68,7 +68,7 @@ class CommitteeMembersView extends StatelessWidget {
                         children: viewmodel.members
                             .map((e) => CommitteeMemberCard(
                                   member: e,
-                                  onTap: () {},
+                                  onTap: viewmodel.navigateToMemberProfile,
                                 ))
                             .toList(),
                       )

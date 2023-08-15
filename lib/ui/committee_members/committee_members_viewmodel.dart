@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/app/app.locator.dart';
+import 'package:gdsc_app/core/app/app.router.dart';
 import 'package:gdsc_app/core/models/member.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import '../../core/models/committee.dart';
 
 class CommitteeMembersViewModel extends BaseViewModel {
+  final navService = locator<NavigationService>();
+
   Member? leader;
   Member? coLeader;
   late Committee committee;
@@ -25,5 +30,9 @@ class CommitteeMembersViewModel extends BaseViewModel {
         members.add(tempMembers[i]);
       }
     }
+  }
+
+  void navigateToMemberProfile(String memberId) {
+    navService.navigateTo(Routes.profileView, arguments: memberId);
   }
 }

@@ -3,11 +3,13 @@ import 'committee.dart';
 class LeaderboardMember {
   final String id;
   final String name;
+  final String profilePicture;
   final Committee? committee;
   final int hours;
 
   LeaderboardMember(
-      {required this.id,
+      {required this.profilePicture,
+      required this.id,
       required this.name,
       this.committee,
       required this.hours});
@@ -17,6 +19,7 @@ class LeaderboardMember {
         id: map['user_id'] ?? '',
         name: map['name'] ?? '',
         hours: map['hours'] ?? 0,
-        committee: Committee.anonymous());
+        profilePicture: map['profile_picture'] ?? '',
+        committee: Committee.fromJson(map['Committees']));
   }
 }
