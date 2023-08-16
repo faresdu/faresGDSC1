@@ -128,8 +128,8 @@ class Member {
       return Member(
         id: map['user_id'] ?? '',
         sID: map['student_id'] ?? '',
-        name: map['name'],
-        email: map['email'],
+        name: map['name'] ?? '',
+        email: map['email'] ?? '',
         phoneNumber: map['phone_number'] ?? '',
         major: map['major'] ?? '',
         photo: map['profile_picture'],

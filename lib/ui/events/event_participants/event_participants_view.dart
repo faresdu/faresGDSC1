@@ -15,10 +15,10 @@ class EventParticipantsView extends StatelessWidget {
         onViewModelReady: (model) => model.getUsers(context),
         builder: (context, viewmodel, _) {
           return Scaffold(
-            appBar: CustomAppBar(title: 'المشاركين'),
+            appBar: const CustomAppBar(title: 'المشاركين'),
             body: BusyOverlay(
               isBusy: viewmodel.isBusy,
-              child: Container(
+              child: SingleChildScrollView(
                 child: Column(
                   children: viewmodel.participants
                       .map((e) => EventParticipant(

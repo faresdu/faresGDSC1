@@ -15,10 +15,9 @@ class EventParticipant extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        color: Constants.white,
-        boxShadow: Constants.cardShadow,
-      ),
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          color: Constants.white,
+          boxShadow: Constants.shadow),
       child: Row(
         children: [
           Row(
@@ -54,10 +53,15 @@ class EventParticipant extends StatelessWidget {
                         const SizedBox(
                           width: 5,
                         ),
-                        Text(
-                          member.email!,
-                          style: Constants.verySmallText,
-                          overflow: TextOverflow.ellipsis,
+                        Container(
+                          constraints: BoxConstraints(
+                              maxWidth:
+                                  MediaQuery.of(context).size.width * 0.6),
+                          child: Text(
+                            member.email!,
+                            style: Constants.verySmallText,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                         IconButton(
                             padding: EdgeInsets.zero,
