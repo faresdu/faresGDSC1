@@ -5,6 +5,7 @@ import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:gdsc_app/ui/committee_members/committe_members_view.dart';
 import 'package:gdsc_app/ui/events/event_details/event_details_view.dart';
+import 'package:gdsc_app/ui/events/event_participants/event_participants_view.dart';
 import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart';
 import 'package:gdsc_app/ui/hours_approval/hours_request_view.dart';
 import 'package:gdsc_app/ui/login/login_view.dart';
@@ -47,7 +48,8 @@ import '../services/event_service.dart';
     MaterialRoute(page: ProfileUserHoursView),
     MaterialRoute(page: ProfileEventsView),
     MaterialRoute(page: ProfileTimelineView),
-    MaterialRoute(page: ProfileSocialsView)
+    MaterialRoute(page: ProfileSocialsView),
+    MaterialRoute(page: EventParticipantsView)
   ],
   // flutter pub run build_runner build
   // Register all Services

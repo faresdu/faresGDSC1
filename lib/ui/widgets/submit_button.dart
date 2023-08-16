@@ -4,12 +4,14 @@ import 'package:gdsc_app/core/utils/constants.dart';
 class SubmitButton extends StatelessWidget {
   const SubmitButton(
       {required this.text,
+      this.outlined = false,
       required this.onPressed,
       this.isBusy = false,
       Key? key})
       : super(key: key);
   final String text;
   final bool isBusy;
+  final bool outlined;
   final void Function() onPressed;
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class SubmitButton extends StatelessWidget {
       onPressed: isBusy ? null : onPressed,
       style: TextButton.styleFrom(
         minimumSize: const Size(double.infinity, 35),
-        backgroundColor: Constants.blueButton,
+        backgroundColor: outlined ? null : Constants.blueButton,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
       child: isBusy
@@ -25,7 +27,8 @@ class SubmitButton extends StatelessWidget {
           : Text(
               text,
               style: Constants.verySmallText.copyWith(
-                  color: Constants.white, fontWeight: FontWeight.w700),
+                  color: outlined ? Constants.blueButton : Constants.white,
+                  fontWeight: FontWeight.w700),
             ),
     );
   }
