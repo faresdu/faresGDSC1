@@ -8,6 +8,8 @@ class Member {
   final String id;
   final String sID;
   final String name;
+  final String? email;
+  final String? phoneNumber;
   final String? major;
   final String? photo;
   final Committee committee;
@@ -21,6 +23,8 @@ class Member {
     required this.id,
     required this.sID,
     required this.name,
+    this.email,
+    this.phoneNumber,
     this.major,
     this.photo,
     required this.committee,
@@ -28,7 +32,7 @@ class Member {
     required this.events,
     required this.posts,
     required this.volunteerHours,
-    required int this.hours,
+    required this.hours,
   });
 
   factory Member.anonymous() {
@@ -124,7 +128,9 @@ class Member {
       return Member(
         id: map['user_id'] ?? '',
         sID: map['student_id'] ?? '',
-        name: map['name'] ?? '',
+        name: map['name'],
+        email: map['email'],
+        phoneNumber: map['phone_number'] ?? '',
         major: map['major'] ?? '',
         photo: map['profile_picture'],
         committee: map['committee'] != null

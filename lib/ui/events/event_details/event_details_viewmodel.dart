@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/app/app.router.dart';
 import 'package:gdsc_app/core/models/event.dart';
+import 'package:gdsc_app/core/models/member.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import '../../../core/app/app.locator.dart';
 import '../../../core/services/event_service.dart';
@@ -13,15 +16,20 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
   final eventService = locator<EventService>();
   final supabaseService = locator<SupabaseService>();
   final userService = locator<UserService>();
+  final navService = locator<NavigationService>();
 
   late Event eventDetails;
+  late Member user;
 
   @override
   Stream<List<Event>> get stream => eventService.eventsController.stream;
 
   setEvent(BuildContext context) {
     eventDetails = ModalRoute.of(context)!.settings.arguments! as Event;
+    user = userService.user;
   }
+
+  get isOwner => eventDetails.instructorID == user.id;
 
   @override
   void onData(List<Event>? data) {
@@ -31,8 +39,13 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
     }
   }
 
+  navigateToEventParticipants() {
+    navService.navigateTo(Routes.eventParticipantsView,
+        arguments: eventDetails.attendees.map((e) => e.id).toList());
+  }
+
   Widget getSignUpButton(Event event) {
-    if (event.isSignedUp(userService.user.id)) {
+    if (event.isSignedUp(user.id)) {
       return EventDetailsSignupButton(
         text: 'سجل خروج',
         color: Constants.red.withOpacity(.9),
