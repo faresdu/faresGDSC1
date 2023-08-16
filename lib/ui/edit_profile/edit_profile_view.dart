@@ -67,20 +67,22 @@ class _EditProfileViewState extends State<EditProfileView> {
                               child: CustomTextFormField(
                                 controller: viewmodel.userNameController,
                                 title: "الاسم",
+                                shadow: Constants.inputShadow,
                               ),
                             ),
                             Container(
                               margin: EdgeInsets.only(top: 20),
                               child: CustomTextFormField(
-                                controller: viewmodel.userCommitteController,
-                                title: "اللجنة",
-                              ),
+                                  controller: viewmodel.userCommitteController,
+                                  title: "اللجنة",
+                                  shadow: Constants.inputShadow),
                             ),
                             Container(
                               margin: EdgeInsets.only(top: 20),
                               child: CustomTextFormField(
                                 controller: viewmodel.userHoursController,
                                 title: "الساعات",
+                                shadow: Constants.inputShadow,
                               ),
                             ),
                             Padding(

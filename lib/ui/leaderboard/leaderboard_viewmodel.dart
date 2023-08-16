@@ -22,4 +22,11 @@ class LeaderboardViewModel extends BaseViewModel {
   navigateToHierarchy() {
     navService.navigateTo(Routes.hierarchyView);
   }
+
+  String userName(String userName) {
+    if (userName.length > 14) {
+      return '...${userName.substring(0, 14)}';
+    }
+    return userName;
+  }
 }

@@ -6,6 +6,7 @@ class Constants {
   const Constants._();
 
   static const Color grey = Color(0xFF666C74);
+  static const Color greyDivider = Color(0xFFB7B3B3);
   static const Color lightGrey = Color(0xff94979B);
   static const Color darkGrey = Color(0xFF303030);
   static const Color red = Color(0xFFD93F37);
@@ -43,6 +44,12 @@ class Constants {
         color: Colors.black.withOpacity(.25),
         blurRadius: 4,
         offset: const Offset(0, 4)),
+  ];
+  static List<BoxShadow> inputShadow = [
+    BoxShadow(
+        color: Colors.black.withOpacity(.12),
+        blurRadius: 8,
+        offset: const Offset(0, 4))
   ];
   static List<BoxShadow> shadow3 = [
     BoxShadow(

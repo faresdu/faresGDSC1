@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:gdsc_app/core/utils/constants.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
@@ -13,6 +15,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.onSaved,
     this.maxLength,
+    this.shadow,
     this.onTap,
     this.enableInteractiveSelection,
     this.autoValidate = true,
@@ -26,6 +29,7 @@ class CustomTextFormField extends StatelessWidget {
   final int maxLines;
   final int? maxLength;
   final Widget? icon;
+  final List<BoxShadow>? shadow;
   final TextInputType? type;
   final bool? enableInteractiveSelection;
   final String? Function(String?)? validator;
@@ -56,56 +60,60 @@ class CustomTextFormField extends StatelessWidget {
           const SizedBox(
             height: 7,
           ),
-          TextFormField(
-            maxLength: maxLength,
-            keyboardType: type,
-            maxLines: maxLines,
-            autofocus: autofocus,
-            controller: controller,
-            validator: validator,
-            onChanged: onChange,
-            onSaved: onSaved,
-            autovalidateMode: autovalidateMode,
-            onTap: enableInteractiveSelection == false && onTap != null
-                ? () {
-                    FocusScope.of(context).requestFocus(FocusNode());
-                    onTap!();
-                  }
-                : onTap,
-            enableInteractiveSelection: enableInteractiveSelection,
-            decoration: InputDecoration(
-                hintText: hintText,
-                prefixIcon: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: icon,
-                ),
-                prefixIconConstraints: const BoxConstraints(maxWidth: 22 + 30),
-                contentPadding: (maxLines > 1
-                    ? const EdgeInsets.symmetric(vertical: 10)
-                    : EdgeInsets.zero),
-                fillColor: Colors.white,
-                filled: true,
-                disabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(20),
-                )),
+          Container(
+            decoration: BoxDecoration(boxShadow: shadow),
+            child: TextFormField(
+              maxLength: maxLength,
+              keyboardType: type,
+              maxLines: maxLines,
+              autofocus: autofocus,
+              controller: controller,
+              validator: validator,
+              onChanged: onChange,
+              onSaved: onSaved,
+              autovalidateMode: autovalidateMode,
+              onTap: enableInteractiveSelection == false && onTap != null
+                  ? () {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      onTap!();
+                    }
+                  : onTap,
+              enableInteractiveSelection: enableInteractiveSelection,
+              decoration: InputDecoration(
+                  hintText: hintText,
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    child: icon,
+                  ),
+                  prefixIconConstraints:
+                      const BoxConstraints(maxWidth: 22 + 30),
+                  contentPadding: (maxLines > 1
+                      ? const EdgeInsets.symmetric(vertical: 10)
+                      : EdgeInsets.zero),
+                  fillColor: Colors.white,
+                  filled: true,
+                  disabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(20),
+                  )),
+            ),
           ),
         ],
       ),
