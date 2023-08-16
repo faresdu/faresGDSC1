@@ -59,6 +59,7 @@ class EventParticipant extends StatelessWidget {
                                   MediaQuery.of(context).size.width * 0.6),
                           child: Text(
                             member.email!,
+                            textDirection: TextDirection.ltr,
                             style: Constants.verySmallText,
                             overflow: TextOverflow.ellipsis,
                           ),
