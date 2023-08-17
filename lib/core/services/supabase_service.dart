@@ -128,6 +128,20 @@ class SupabaseService {
       throw 'Failed to get Member with id $id, ERROR : $e';
     }
   }
+
+  Future<List<Member>> getMembers(List<String> memberIds) async {
+    try {
+      final res = await supabaseClient
+          .from(GDSCTables.users)
+          .select('*')
+          .in_('user_id', memberIds)
+          .execute();
+      print(res.data);
+      return (res.data as List).map((e) => Member.fromJson(e)).toList();
+    } catch (e) {
+      throw 'Failed to get Members, ERROR : $e';
+    }
+  }
 }
 
 class SupabaseCredentials {
