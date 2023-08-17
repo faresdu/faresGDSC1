@@ -15,11 +15,13 @@ class LeaderboardViewModel extends BaseViewModel {
   List<LeaderboardMember> top3Members = [];
 
   getLeaderboard() async {
+    setBusy(true);
     List<LeaderboardMember> tempMembers =
         await userService.getLeaderboardMembers();
     top3Members = tempMembers.sublist(0, 3);
     members = tempMembers.sublist(3);
     print('fetched leaderboard members, $members');
+    setBusy(false);
     notifyListeners();
   }
 
