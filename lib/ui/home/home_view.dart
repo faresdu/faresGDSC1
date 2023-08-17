@@ -40,7 +40,7 @@ class _HomeViewState extends State<HomeView> {
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 30),
                     child: Column(
                       children: [
-                        Welcome(),
+                        const Welcome(),
                         SizedBox(
                           height: spacing / 4,
                         ),

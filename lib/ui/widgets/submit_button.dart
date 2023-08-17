@@ -5,6 +5,7 @@ class SubmitButton extends StatelessWidget {
   const SubmitButton(
       {required this.text,
       this.outlined = false,
+      this.style,
       required this.onPressed,
       this.isBusy = false,
       Key? key})
@@ -12,6 +13,7 @@ class SubmitButton extends StatelessWidget {
   final String text;
   final bool isBusy;
   final bool outlined;
+  final TextStyle? style;
   final void Function() onPressed;
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class SubmitButton extends StatelessWidget {
           ? const CircularProgressIndicator()
           : Text(
               text,
-              style: Constants.verySmallText.copyWith(
+              style: (style ?? Constants.verySmallText).copyWith(
                   color: outlined ? Constants.blueButton : Constants.white,
                   fontWeight: FontWeight.w700),
             ),

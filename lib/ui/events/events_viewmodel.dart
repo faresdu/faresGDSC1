@@ -83,8 +83,7 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
   Stream<List<Event>> get stream => eventService.eventsController.stream;
 
   bool canEditEvent(Event event) {
-    return event.isOwner(userService.user.id) ||
-        userService.user.isLeaderOrCoLeader();
+    return event.isOwner(userService.user.id);
   }
 
   bool canSeeOldEvents() {

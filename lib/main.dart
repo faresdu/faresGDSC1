@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         },
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.green,
+          primarySwatch: Colors.blue,
           fontFamily: GoogleFonts.cairo().fontFamily,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
