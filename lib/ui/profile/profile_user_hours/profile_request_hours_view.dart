@@ -81,9 +81,10 @@ class _ProfileRequestHoursViewState extends State<ProfileRequestHoursView> {
                                     viewmodel.setBusy(true);
                                     VolunteerHours? vol =
                                         await viewmodel.submit(context);
-                                    if (widget.onSubmit != null &&
-                                        vol != null) {
-                                      widget.onSubmit!(vol);
+                                    if (vol != null) {
+                                      if (widget.onSubmit != null) {
+                                        widget.onSubmit!(vol);
+                                      }
                                       Navigator.of(context).pop();
                                     }
                                     viewmodel.setBusy(false);

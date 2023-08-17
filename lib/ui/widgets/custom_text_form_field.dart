@@ -20,8 +20,10 @@ class CustomTextFormField extends StatelessWidget {
     this.enableInteractiveSelection,
     this.autoValidate = true,
     Key? key,
+    this.style,
   }) : super(key: key);
   final String? title;
+  final TextStyle? style;
   final String? hintText;
   final TextEditingController controller;
   final void Function(String)? onChange;
@@ -63,6 +65,7 @@ class CustomTextFormField extends StatelessWidget {
           Container(
             decoration: BoxDecoration(boxShadow: shadow),
             child: TextFormField(
+              style: style,
               maxLength: maxLength,
               keyboardType: type,
               maxLines: maxLines,
@@ -72,13 +75,13 @@ class CustomTextFormField extends StatelessWidget {
               onChanged: onChange,
               onSaved: onSaved,
               autovalidateMode: autovalidateMode,
+              enableInteractiveSelection: enableInteractiveSelection,
               onTap: enableInteractiveSelection == false && onTap != null
                   ? () {
                       FocusScope.of(context).requestFocus(FocusNode());
                       onTap!();
                     }
                   : onTap,
-              enableInteractiveSelection: enableInteractiveSelection,
               decoration: InputDecoration(
                   hintText: hintText,
                   prefixIcon: Padding(

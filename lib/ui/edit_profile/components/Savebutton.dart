@@ -8,6 +8,7 @@ class SaveButton extends StatefulWidget {
       this.onPressed,
       required this.color,
       required this.text,
+      this.disabled = false,
       this.padding,
       this.height,
       this.fontSize,
@@ -15,6 +16,7 @@ class SaveButton extends StatefulWidget {
       : super(key: key);
   final Function()? onPressed;
   final EdgeInsets? padding;
+  final bool disabled;
   final double? height;
   final double? fontSize;
   final Color color;
@@ -33,6 +35,7 @@ class _SaveButton extends State<SaveButton> {
     if (widget.onPressed != null) {
       try {
         await widget.onPressed!();
+        widget.isLoading = false;
       } catch (e) {
         setState(() {
           print(e);
@@ -58,7 +61,7 @@ class _SaveButton extends State<SaveButton> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
             elevation: widget.onPressed == null ? 1 : 5,
           ),
-          onPressed: widget.isLoading ? null : runFuture,
+          onPressed: widget.isLoading || widget.disabled ? null : runFuture,
           child: widget.isLoading
               ? const SizedBox(
                   width: 20,
