@@ -80,7 +80,9 @@ class AddEventViewModel extends BaseViewModel {
         if (e != null) {
           await eventService.editEvent(e);
 
-          if (oldImage != null && oldImage!.contains(s3Service.bucketName)) {
+          if (oldImage != null &&
+              uploadedImageUrl != null &&
+              oldImage!.contains(s3Service.bucketName)) {
             print("${S3FolderPaths.events}/${oldImage!.split("/").last}");
             await s3Service.deleteFile(
                 "${S3FolderPaths.events}/${oldImage!.split("/").last}");
@@ -117,7 +119,8 @@ class AddEventViewModel extends BaseViewModel {
           location: locationController.value.text,
           isOnline: isOnline,
           description: descriptionController.value.text,
-          flyer: uploadedImageUrl != null ? uploadedImageUrl!['url'] : null);
+          flyer:
+              uploadedImageUrl != null ? uploadedImageUrl!['url'] : oldImage);
     }
     return null;
   }

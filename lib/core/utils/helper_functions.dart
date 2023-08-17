@@ -50,8 +50,8 @@ abstract class HelperFunctions {
 
   static ImageProvider avatarImageProvider(
       {String imageUrl = '',
-      double height = 10,
-      double width = 10,
+      double height = 30,
+      double width = 30,
       BoxFit fit = BoxFit.cover}) {
     if (imageUrl.isEmpty) {
       return Image.asset('assets/images/avatar.png',

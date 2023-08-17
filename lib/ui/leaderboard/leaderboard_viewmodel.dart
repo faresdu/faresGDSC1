@@ -12,14 +12,31 @@ class LeaderboardViewModel extends BaseViewModel {
   final navService = locator<NavigationService>();
 
   List<LeaderboardMember> members = [];
+  List<LeaderboardMember> top3Members = [];
 
   getLeaderboard() async {
-    members = await userService.getLeaderboardMembers();
+    setBusy(true);
+    List<LeaderboardMember> tempMembers =
+        await userService.getLeaderboardMembers();
+    top3Members = tempMembers.sublist(0, 3);
+    members = tempMembers.sublist(3);
     print('fetched leaderboard members, $members');
+    setBusy(false);
     notifyListeners();
   }
 
   navigateToHierarchy() {
     navService.navigateTo(Routes.hierarchyView);
+  }
+
+  navigateToUserProfile(String id) {
+    navService.navigateTo(Routes.profileView, arguments: id);
+  }
+
+  String userName(String userName) {
+    if (userName.length > 14) {
+      return '...${userName.substring(0, 14)}';
+    }
+    return userName;
   }
 }

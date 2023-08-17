@@ -16,8 +16,12 @@ class Welcome extends StatelessWidget {
       children: [
         Container(
             margin: const EdgeInsets.symmetric(horizontal: 14),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), boxShadow: Constants.memberIconShadow),
-            child: ClipOval(child: HelperFunctions.profileImage(imageUrl: user.photo ?? '', height: 65, width: 65))),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                boxShadow: Constants.memberIconShadow),
+            child: ClipOval(
+                child: HelperFunctions.profileImage(
+                    imageUrl: user.photo ?? '', height: 65, width: 65))),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -28,8 +32,10 @@ class Welcome extends StatelessWidget {
               ),
             ),
             Text(
-              user.committee?.name ?? '',
-              style: TextStyle(height: 1, color: Constants.black2),
+              "${user.isLeaderOrCoLeader() ? user.getRole() : ''} ${user.committee.name}"
+                  .trim(),
+              style: Constants.smallText
+                  .copyWith(height: 1, color: Constants.grey),
             ),
           ],
         ),

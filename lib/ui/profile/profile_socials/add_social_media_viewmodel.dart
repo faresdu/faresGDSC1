@@ -21,6 +21,7 @@ class AddSocialMediaViewModel extends FutureViewModel {
 
   getSocialMedias() async {
     user = userService.user;
+
     socialMedias = (await _socialMediaService.getSupportedSocialMedias())
         .where((e) => user.socials.where((e2) => e2.id == e.id).isEmpty)
         .toList();

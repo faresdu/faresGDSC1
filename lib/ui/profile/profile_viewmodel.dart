@@ -1,28 +1,38 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gdsc_app/core/services/authentication_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
 import '../../core/app/app.router.dart';
+import '../../core/enums/s3.dart';
 import '../../core/models/member.dart';
+import '../../core/services/s3_service.dart';
 import '../../core/services/user_service.dart';
 import '../../core/utils/constants.dart';
+import '../../core/utils/helper_functions.dart';
 import 'components/profile_event_card.dart';
 import 'components/profile_social_media_card.dart';
 import 'components/profile_volunteer_hours_card.dart';
-import 'components/profile_volunteer_hours_card_big.dart';
 
 class ProfileViewModel extends BaseViewModel {
   final authService = locator<AuthenticationService>();
   final userService = locator<UserService>();
   final supabaseService = locator<SupabaseService>();
   final navService = locator<NavigationService>();
+  final s3Service = locator<S3Service>();
 
+  XFile? image;
+  Map<String, String>? uploadedImageUrl;
+  bool uploaded = false;
+  bool added = false;
+  String? oldImage;
   int index = 0;
   bool isUser = true;
   bool fromLogin = true;
