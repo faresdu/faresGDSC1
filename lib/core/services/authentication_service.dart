@@ -44,7 +44,7 @@ class AuthenticationService {
 
       //Unknown Error
     } catch (e) {
-      throw 'Unknown Authentication, ERROR : ${e}';
+      throw 'Unknown Authentication, ERROR : $e';
     }
   }
 

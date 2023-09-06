@@ -233,8 +233,9 @@ class _AddEventViewState extends State<EditEventView> {
                                     ? const CircularProgressIndicator()
                                     : SubmitButton(onPressed: () async {
                                         await viewmodel.editEvent();
-                                        if (viewmodel.added)
+                                        if (viewmodel.added) {
                                           Navigator.pop(context);
+                                        }
                                       }),
                               ),
                             ],

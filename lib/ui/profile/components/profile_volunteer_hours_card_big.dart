@@ -96,11 +96,12 @@ class ProfileVolunteerHoursCardBig extends StatelessWidget {
   }
 
   _getColor() {
-    if (volunteerHours.isPending())
+    if (volunteerHours.isPending()) {
       return Constants.yellow;
-    else if (volunteerHours.isAccepted())
+    }
+    else if (volunteerHours.isAccepted()) {
       return Constants.green;
-    else
-      return Constants.red;
+    }
+    return Constants.red;
   }
 }

@@ -6,13 +6,14 @@ import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
 
 class StartUpView extends StatelessWidget {
+  StartUpView({super.key});
   final navService = locator<NavigationService>();
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<StartUpViewModel>.reactive(
       viewModelBuilder: () => StartUpViewModel(),
-      onModelReady: (viewmodel) => viewmodel.checkUser(),
+      onViewModelReady: (viewmodel) => viewmodel.checkUser(),
       builder: (context, viewmodel, _) {
         return const Scaffold(
           body: Center(

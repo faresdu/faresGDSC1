@@ -209,8 +209,9 @@ class _AddEventViewState extends State<AddEventView> {
                                         text: 'إضـافـة',
                                         onPressed: () async {
                                           await viewmodel.addEvent();
-                                          if (viewmodel.added)
+                                          if (viewmodel.added) {
                                             Navigator.pop(context);
+                                          }
                                         }),
                               ),
                             ],

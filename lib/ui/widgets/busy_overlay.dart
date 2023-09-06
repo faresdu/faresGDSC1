@@ -10,8 +10,9 @@ class BusyOverlay extends StatefulWidget {
       {Key? key, required this.isBusy, required this.child, this.background})
       : super(key: key);
 
+
   @override
-  _BusyOverlayState createState() => _BusyOverlayState();
+  State<BusyOverlay> createState() => _BusyOverlayState();
 }
 
 class _BusyOverlayState extends State<BusyOverlay> {

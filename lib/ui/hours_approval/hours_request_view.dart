@@ -74,6 +74,8 @@ class _HoursRequestViewState extends State<HoursRequestView>
 }
 
 class HoursRequestBody extends StatelessWidget {
+  const HoursRequestBody({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const TabBarView(

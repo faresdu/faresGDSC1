@@ -1,7 +1,5 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
 import '../../core/models/post.dart';
@@ -34,7 +32,7 @@ class _PostCardState extends State<PostCard> {
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         boxShadow: Constants.shadow,
         borderRadius: BorderRadius.circular(20),
@@ -58,17 +56,17 @@ class _PostCardState extends State<PostCard> {
                           width: 50),
                     ),
                   ),
-                  SizedBox(width: 15),
+                  const SizedBox(width: 15),
                   InkWell(
                     onTap: widget.onUserTap,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(widget.post.posterName,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w900)),
                         Text("${widget.post.committee?.name}",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                                 color: Constants.grey)),
@@ -80,7 +78,7 @@ class _PostCardState extends State<PostCard> {
               Text(
                 DateHelper.daysSinceDate(widget.post.createdAt) >= 30 ?
                 DateHelper.getDate(widget.post.createdAt) : DateHelper.sincePosted(widget.post.createdAt),
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                     color: Constants.grey),
@@ -98,12 +96,12 @@ class _PostCardState extends State<PostCard> {
                 child: Column(
                   children: [
                     Container(
-                        alignment: Alignment(1, 0),
-                        margin: EdgeInsets.only(right: 15, left: 15, top: 8),
+                        alignment: const Alignment(1, 0),
+                        margin: const EdgeInsets.only(right: 15, left: 15, top: 8),
                         child: Text(
                           widget.post.content,
                           style:
-                              TextStyle(fontSize: 14, color: Constants.black),
+                              const TextStyle(fontSize: 14, color: Constants.black),
                         )),
                   ],
                 ),
@@ -114,13 +112,13 @@ class _PostCardState extends State<PostCard> {
           /// Options
 
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 40),
+            margin: const EdgeInsets.symmetric(horizontal: 40),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  margin: EdgeInsets.only(right: 15),
-                  child: Icon(
+                  margin: const EdgeInsets.only(right: 15),
+                  child: const Icon(
                     Icons.comments_disabled_outlined,
                     color: Constants.black2,
                   ),
@@ -139,10 +137,10 @@ class _PostCardState extends State<PostCard> {
                                 style: Constants.smallText
                                     .copyWith(color: Constants.black),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 12,
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.favorite,
                                 color: Constants.red,
                               )
@@ -160,10 +158,10 @@ class _PostCardState extends State<PostCard> {
                                 style: Constants.smallText
                                     .copyWith(color: Constants.black),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 12,
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.favorite_border,
                                 color: Constants.black,
                               )
