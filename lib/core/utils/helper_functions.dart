@@ -53,22 +53,12 @@ abstract class HelperFunctions {
       double height = 30,
       double width = 30,
       BoxFit fit = BoxFit.cover}) {
-    if (imageUrl.isEmpty) {
-      return Image.asset('assets/images/avatar.png',
-              height: height, width: width, fit: fit)
-          .image;
-    } else if (extension(imageUrl).contains('svg')) {
-      return Image(
-              height: height,
-              width: width,
-              fit: fit,
-              image: flutter_svg.Svg(imageUrl,
-                  source: flutter_svg.SvgSource.network))
-          .image;
-    } else {
-      return Image.network(imageUrl, height: height, width: width, fit: fit)
-          .image;
+    Widget p = profileImage(
+        imageUrl: imageUrl, height: height, width: width, fit: fit);
+    if (p is Image) {
+      return p.image;
     }
+    return p as ImageProvider;
   }
 
   static getFileSize(String filepath, int decimals,
