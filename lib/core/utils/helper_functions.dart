@@ -3,8 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as flutter_svg;
 import 'package:path/path.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 abstract class HelperFunctions {
   /// Returns SvgPicture or Image based on the passed image url
@@ -71,5 +71,17 @@ abstract class HelperFunctions {
     return noSuffix
         ? (bytes / pow(1024, i)).toStringAsFixed(decimals)
         : '${(bytes / pow(1024, i)).toStringAsFixed(decimals)} ${suffixes[i]}';
+  }
+
+  static openUrl(String url) async {
+    if (!url.startsWith('https://')) {
+      url = 'https://$url';
+    }
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      // can't launch url
+    }
   }
 }

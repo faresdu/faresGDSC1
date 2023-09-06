@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -41,12 +42,7 @@ class ProfileSocialMediaCard extends StatelessWidget {
                 ),
                 onPressed: () async {
                   if (socialMedia.link != null) {
-                    Uri uri = Uri.parse(socialMedia.link!);
-                    if (await canLaunchUrl(uri)) {
-                      await launchUrl(uri);
-                    } else {
-                      // can't launch url
-                    }
+                    HelperFunctions.openUrl(socialMedia.link!);
                   }
                 },
               ),
