@@ -1,5 +1,4 @@
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:gdsc_app/core/utils/string_extensions.dart';
 
 class FormValidators {
   static String? emailValidator(String? value) {

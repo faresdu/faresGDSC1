@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:gdsc_app/core/utils/constants.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({

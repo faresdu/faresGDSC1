@@ -5,7 +5,6 @@ import 'package:stacked/stacked.dart';
 
 import '../../core/utils/constants.dart';
 import '../Home/components/notification_card.dart';
-import '../widgets/notifications_card.dart';
 import 'addNotifitcaion_view.dart';
 import 'bottomSheetNotifitcation.dart';
 

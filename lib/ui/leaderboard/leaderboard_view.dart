@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/core/models/leaderboard_member.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
-import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:gdsc_app/ui/leaderboard/components/leaderboard_item.dart';
 import 'package:gdsc_app/ui/leaderboard/components/top3.dart';
 import 'package:gdsc_app/ui/leaderboard/leaderboard_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
-import 'package:gdsc_app/ui/widgets/custom_buttom.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../core/models/member.dart';
 
 class LeaderboardView extends StatelessWidget {
   const LeaderboardView({

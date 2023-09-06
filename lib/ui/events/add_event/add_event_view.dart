@@ -10,7 +10,6 @@ import 'package:gdsc_app/ui/widgets/custom_text_form_field.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../core/utils/constants.dart';
 
 class AddEventView extends StatefulWidget {
   const AddEventView({Key? key}) : super(key: key);
