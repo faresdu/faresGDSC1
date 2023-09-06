@@ -78,7 +78,8 @@ class _PostCardState extends State<PostCard> {
                 ],
               ),
               Text(
-                DateHelper.sincePosted(widget.post.createdAt),
+                DateHelper.daysSinceDate(widget.post.createdAt) >= 30 ?
+                DateHelper.getDate(widget.post.createdAt) : DateHelper.sincePosted(widget.post.createdAt),
                 style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,

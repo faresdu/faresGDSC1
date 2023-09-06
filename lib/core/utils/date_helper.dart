@@ -91,6 +91,12 @@ class DateHelper {
     }
   }
 
+
+  static int daysSinceDate(DateTime date) {
+    Duration dur = DateTime.now().difference(date);
+    return dur.inDays;
+  }
+
   static DateTimeAndTimeOfDay(DateTime dateTime, TimeOfDay timeOfDay) {
     return DateTime(dateTime.year, dateTime.month, dateTime.day, timeOfDay.hour,
         timeOfDay.minute);
