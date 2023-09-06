@@ -14,9 +14,9 @@ class MemberCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(12), //was 20
         ),
         color:
@@ -26,7 +26,7 @@ class MemberCard extends StatelessWidget {
               borderColor(), //(role=="قائد")? Color(0xFFA0461A):(role=="نائب القائد")? Color(0xFFE7B94A): Color(0xFF0682BC),
           width: 0.5,
         ),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.grey,
             spreadRadius: 0.25,
@@ -39,7 +39,7 @@ class MemberCard extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12), // <-- Radius
           ),
-          padding: EdgeInsets.symmetric(vertical: 12),
+          padding: const EdgeInsets.symmetric(vertical: 12),
         ),
         onPressed: onPressed,
         child: Column(
@@ -59,7 +59,7 @@ class MemberCard extends StatelessWidget {
                         width: 0.5,
                       ),
                       shape: BoxShape.circle,
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           color: Colors.grey,
                           spreadRadius: 0.25,
@@ -77,23 +77,23 @@ class MemberCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(member.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 18,
                             color: Colors.black,
                             fontWeight: FontWeight.bold)),
                     Text(role ?? 'عضو',
-                        style: TextStyle(fontSize: 13, color: Colors.black)),
+                        style: const TextStyle(fontSize: 13, color: Colors.black)),
                     if (member.major != null)
                       Text(member.major!,
-                          style: TextStyle(fontSize: 13, color: Colors.black))
+                          style: const TextStyle(fontSize: 13, color: Colors.black))
                   ],
                 )
               ],
             ),
 
             if (member.socials != null || member.socials!.isEmpty)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 36),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 36),
                 child: Divider(color: Color.fromARGB(191, 217, 217, 217)),
               ),
 
@@ -112,8 +112,8 @@ class MemberCard extends StatelessWidget {
   Widget socialImage(image) {
     return GestureDetector(
       child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 5),
-          padding: EdgeInsets.all(2.0),
+          margin: const EdgeInsets.symmetric(horizontal: 5),
+          padding: const EdgeInsets.all(2.0),
           child: HelperFunctions.socialMediaImage(url: image)),
       onTap: () async {
         //launchUrl(Uri.parse('https://www.google.com'));
@@ -143,17 +143,17 @@ class MemberCard extends StatelessWidget {
 
   Color cardBackgroundColor() {
     return (role == "قائد")
-        ? Color(0xFFF9EEED)
+        ? const Color(0xFFF9EEED)
         : (role == "نائب القائد")
-            ? Color(0xFFFDF9EE)
-            : Color(0xFFF6FAFC);
+            ? const Color(0xFFFDF9EE)
+            : const Color(0xFFF6FAFC);
   }
 
   Color borderColor() {
     return (role == "قائد")
-        ? Color(0xFFA0461A)
+        ? const Color(0xFFA0461A)
         : (role == "نائب القائد")
-            ? Color(0xFFE7B94A)
-            : Color(0xFF0682BC);
+            ? const Color(0xFFE7B94A)
+            : const Color(0xFF0682BC);
   }
 }

@@ -32,7 +32,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                 if (viewmodel.isOwner)
                   Container(
                       width: 160,
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       child: SubmitButton(
                           text: 'معلومات المشاركين',
                           outlined: true,

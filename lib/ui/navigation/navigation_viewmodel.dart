@@ -12,10 +12,10 @@ class NavigationViewModel extends BaseViewModel {
   NavigationViewModel() {
     pages = [
       HomeView(updateScreen: updateScreen),
-      ProfileView(),
-      LeaderboardView(),
-      TimeLineView(),
-      EventsView(),
+      const ProfileView(),
+      const LeaderboardView(),
+      const TimeLineView(),
+      const EventsView(),
     ];
   }
 

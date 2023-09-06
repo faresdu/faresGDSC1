@@ -69,16 +69,16 @@ class _AddPostViewState extends State<AddNotification> {
                                       width: 50),
                                 ),
                               ),
-                              SizedBox(width: 15),
+                              const SizedBox(width: 15),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(user.name,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w900)),
                                   Text(user.committee.name,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold,
                                           color: Constants.grey)),
@@ -140,7 +140,7 @@ Widget SubmitButton(
     ),
     child: Text(
       text,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
         fontSize: 14,
         fontWeight: FontWeight.w700,

@@ -68,7 +68,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     if (event.isSignedUp(userService.user.id)) {
       return EventCardButton(
         text: 'سجل خروج',
-        padding: EdgeInsets.symmetric(horizontal: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 2),
         fontSize: 12,
         height: 0,
         color: Constants.red.withOpacity(.9),
@@ -79,7 +79,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     } else if (event.isFull()) {
       return EventCardButton(
         text: 'المقاعد ممتلئة',
-        padding: EdgeInsets.symmetric(horizontal: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 2),
         fontSize: 12,
         height: 0,
         color: Constants.grey.withOpacity(.4),
@@ -91,7 +91,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     } else if (event.getPercentage() >= 75) {
       return EventCardButton(
         text: 'سجل - مقاعد محدودة',
-        padding: EdgeInsets.symmetric(horizontal: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 2),
         fontSize: 12,
         height: 0,
         color: Constants.blueButton.withOpacity(.9),
@@ -102,7 +102,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     }
     return EventCardButton(
       text: 'سجل',
-      padding: EdgeInsets.symmetric(horizontal: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 2),
       fontSize: 12,
       height: 0,
       color: Constants.green.withOpacity(.9),

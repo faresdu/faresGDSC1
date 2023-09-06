@@ -83,7 +83,7 @@ class EventAttendees extends StatelessWidget {
       children: [
         Image.asset('assets/images/event-attendees.png', width: 13),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 7),
+          margin: const EdgeInsets.symmetric(horizontal: 7),
           child: const Text(
             'المشاركين',
             style: TextStyle(

@@ -21,8 +21,8 @@ class ActivityCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 15),
-        padding: EdgeInsets.all(6),
+        margin: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.all(6),
         width: 160,
         decoration: BoxDecoration(
           color: Constants.white,

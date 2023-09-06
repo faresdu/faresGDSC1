@@ -30,7 +30,7 @@ class NotificationCard extends StatelessWidget {
               Text(
                 //"أكملت 30 ساعة تطوعية",
                 notification.title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 22,
                   letterSpacing: 0.5,
                   fontWeight: FontWeight.bold,
@@ -39,7 +39,7 @@ class NotificationCard extends StatelessWidget {
               Text(
                 //"أكملت لجنتك 500 ساعة تطوعية",
                 notification.name,
-                style: TextStyle(
+                style: const TextStyle(
                   height: 1.6,
                   fontSize: 17,
                   letterSpacing: -0.25,

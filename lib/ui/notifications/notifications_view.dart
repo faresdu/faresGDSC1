@@ -21,7 +21,7 @@ class NotificationView extends StatelessWidget {
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              bottomSheetNotification(context, AddNotification());
+              bottomSheetNotification(context, const AddNotification());
             },
             backgroundColor: Constants.blueButton,
             heroTag: 'addPostTag',
@@ -46,7 +46,7 @@ class NotificationView extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 26, fontWeight: FontWeight.w700),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         TextButton(
                           onPressed: () {
                             Navigator.pop(context);
@@ -74,7 +74,7 @@ class NotificationView extends StatelessWidget {
                           shrinkWrap: true,
                           children: viewmodel.notifications
                               .map((e) => Container(
-                                  margin: EdgeInsets.symmetric(vertical: 10),
+                                  margin: const EdgeInsets.symmetric(vertical: 10),
                                   child: NotificationCard(notification: e)))
                               .toList(),
                         ),
