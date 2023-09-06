@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/app/app.locator.dart';
 import 'package:gdsc_app/core/models/member.dart';

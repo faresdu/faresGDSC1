@@ -3,8 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as flutter_svg;
 import 'package:path/path.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 abstract class HelperFunctions {
   /// Returns SvgPicture or Image based on the passed image url
@@ -53,22 +53,12 @@ abstract class HelperFunctions {
       double height = 30,
       double width = 30,
       BoxFit fit = BoxFit.cover}) {
-    if (imageUrl.isEmpty) {
-      return Image.asset('assets/images/avatar.png',
-              height: height, width: width, fit: fit)
-          .image;
-    } else if (extension(imageUrl).contains('svg')) {
-      return Image(
-              height: height,
-              width: width,
-              fit: fit,
-              image: flutter_svg.Svg(imageUrl,
-                  source: flutter_svg.SvgSource.network))
-          .image;
-    } else {
-      return Image.network(imageUrl, height: height, width: width, fit: fit)
-          .image;
+    Widget p = profileImage(
+        imageUrl: imageUrl, height: height, width: width, fit: fit);
+    if (p is Image) {
+      return p.image;
     }
+    return p as ImageProvider;
   }
 
   static getFileSize(String filepath, int decimals,
@@ -81,5 +71,17 @@ abstract class HelperFunctions {
     return noSuffix
         ? (bytes / pow(1024, i)).toStringAsFixed(decimals)
         : '${(bytes / pow(1024, i)).toStringAsFixed(decimals)} ${suffixes[i]}';
+  }
+
+  static openUrl(String url) async {
+    if (!url.startsWith('https://')) {
+      url = 'https://$url';
+    }
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      // can't launch url
+    }
   }
 }

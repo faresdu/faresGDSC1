@@ -1,6 +1,5 @@
 import 'package:gdsc_app/core/app/app.router.dart';
 import 'package:gdsc_app/core/models/leaderboard_member.dart';
-import 'package:gdsc_app/core/models/member.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 

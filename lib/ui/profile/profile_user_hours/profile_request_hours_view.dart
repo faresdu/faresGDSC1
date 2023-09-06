@@ -66,11 +66,11 @@ class _ProfileRequestHoursViewState extends State<ProfileRequestHoursView> {
                             validator: FormValidators.hoursValidator,
                             onSaved: (value) =>
                                 viewmodel.hours = value!.parseInt,
-                            type: TextInputType.numberWithOptions(),
+                            type: const TextInputType.numberWithOptions(),
                             maxLines: 1,
                           ),
                           Container(
-                              margin: EdgeInsets.only(top: 50),
+                              margin: const EdgeInsets.only(top: 50),
                               padding: EdgeInsets.symmetric(
                                   horizontal:
                                       MediaQuery.of(context).size.width * 0.1),

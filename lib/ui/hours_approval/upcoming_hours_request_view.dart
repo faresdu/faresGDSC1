@@ -13,7 +13,7 @@ class UpcomingHoursRequestView extends StatelessWidget {
         onViewModelReady: ((viewModel) => viewModel.getUpcomingHourRequests()),
         builder: (context, viewmodel, _) {
           return Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: SingleChildScrollView(
                 child: Column(
                     children: viewmodel.upcomingRequests

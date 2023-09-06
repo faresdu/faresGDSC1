@@ -1,4 +1,3 @@
-import 'package:gdsc_app/core/models/user_social_media.dart';
 import 'package:gdsc_app/core/services/s3_service.dart';
 import 'package:gdsc_app/core/services/social_media_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';

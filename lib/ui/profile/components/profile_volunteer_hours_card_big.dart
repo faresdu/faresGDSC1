@@ -22,7 +22,7 @@ class ProfileVolunteerHoursCardBig extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
         color: Constants.white,
         boxShadow: Constants.cardShadow,
       ),
@@ -80,7 +80,7 @@ class ProfileVolunteerHoursCardBig extends StatelessWidget {
                             color: Constants.red,
                           ))
                       : Container(
-                          margin: EdgeInsets.all(4),
+                          margin: const EdgeInsets.all(4),
                           child: SvgPicture.asset(
                             'assets/icons/profile/trash.svg',
                             height: 25,
@@ -96,11 +96,12 @@ class ProfileVolunteerHoursCardBig extends StatelessWidget {
   }
 
   _getColor() {
-    if (volunteerHours.isPending())
+    if (volunteerHours.isPending()) {
       return Constants.yellow;
-    else if (volunteerHours.isAccepted())
+    }
+    else if (volunteerHours.isAccepted()) {
       return Constants.green;
-    else
-      return Constants.red;
+    }
+    return Constants.red;
   }
 }

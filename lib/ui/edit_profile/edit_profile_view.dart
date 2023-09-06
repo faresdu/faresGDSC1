@@ -72,14 +72,12 @@ class _EditProfileViewState extends State<EditProfileView> {
                             key: viewmodel.formKey,
                             child: Column(
                               children: [
-                                Container(
-                                  child: CustomTextFormField(
-                                    controller: viewmodel.userNameController,
-                                    validator: FormBuilderValidators.required(
-                                        errorText: "الرجاء ادخال الاسم"),
-                                    title: "الاسم",
-                                    shadow: Constants.inputShadow,
-                                  ),
+                                CustomTextFormField(
+                                  controller: viewmodel.userNameController,
+                                  validator: FormBuilderValidators.required(
+                                      errorText: "الرجاء ادخال الاسم"),
+                                  title: "الاسم",
+                                  shadow: Constants.inputShadow,
                                 ),
                                 Container(
                                   margin: const EdgeInsets.only(top: 8),

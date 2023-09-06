@@ -11,7 +11,7 @@ class HierarchyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 20),
       margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 25),
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20))),

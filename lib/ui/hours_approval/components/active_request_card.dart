@@ -26,7 +26,7 @@ class ActiveRequestCard extends StatelessWidget {
           left: 0,
           right: 0,
           child: Padding(
-            padding: EdgeInsets.only(right: 20),
+            padding: const EdgeInsets.only(right: 20),
             child: Container(
               height: 160,
               width: MediaQuery.of(context).size.width,
@@ -52,7 +52,7 @@ class ActiveRequestCard extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(request.createdAt ?? "السبت ، 2023-20-6",
                             style: Constants.superSmallText.copyWith(
                               color: Constants.grey.withOpacity(0.7),
@@ -111,7 +111,7 @@ class ActiveRequestCard extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Spacer(),
+                        const Spacer(),
                         ActionButton(
                             onTap: () {
                               try {

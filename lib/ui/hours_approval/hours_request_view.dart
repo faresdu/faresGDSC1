@@ -36,12 +36,12 @@ class _HoursRequestViewState extends State<HoursRequestView>
                   ),
                   elevation: 0,
                   bottom: PreferredSize(
-                    preferredSize: Size.fromHeight(60),
+                    preferredSize: const Size.fromHeight(60),
                     child: Container(
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(25)),
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: TabBar(
                         unselectedLabelStyle: const TextStyle(
                             color: Colors.black,
@@ -74,6 +74,8 @@ class _HoursRequestViewState extends State<HoursRequestView>
 }
 
 class HoursRequestBody extends StatelessWidget {
+  const HoursRequestBody({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const TabBarView(

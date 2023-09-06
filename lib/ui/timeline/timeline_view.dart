@@ -13,8 +13,9 @@ import 'add_post_view.dart';
 class TimeLineView extends StatefulWidget {
   const TimeLineView({Key? key}) : super(key: key);
 
+
   @override
-  _TimeLineViewState createState() => _TimeLineViewState();
+  State<TimeLineView> createState() => _TimeLineViewState();
 }
 
 class _TimeLineViewState extends State<TimeLineView> {
@@ -22,7 +23,7 @@ class _TimeLineViewState extends State<TimeLineView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<TimeLineViewModel>.reactive(
       viewModelBuilder: () => TimeLineViewModel(),
-      onModelReady: (model) => model.getPosts(),
+      onViewModelReady: (model) => model.getPosts(),
       builder: (context, viewmodel, _) {
         final user = Provider.of<GDSCUser>(context);
 

@@ -17,10 +17,21 @@ class TimeLineViewModel extends BaseViewModel {
 
   Future<void> getPosts() async {
     setBusy(true);
-
     await timelineService.getPosts().then((value) => posts = value);
+    posts.sort((a, b) =>
+    b.createdAt.microsecondsSinceEpoch -
+        a.createdAt.microsecondsSinceEpoch);
     notifyListeners();
     setBusy(false);
+  }
+
+  Future _addToPosts(String postId) async {
+    final post = await timelineService.getPost(postId);
+    posts.add(post);
+    posts.sort((a, b) =>
+    b.createdAt.microsecondsSinceEpoch -
+        a.createdAt.microsecondsSinceEpoch);
+    notifyListeners();
   }
 
   Future<String?> addPost(GDSCUser user) async {
@@ -33,7 +44,7 @@ class TimeLineViewModel extends BaseViewModel {
     try {
       setBusy(true);
       postId = await timelineService.addPost(description!, user.id);
-      await getPosts();
+      await _addToPosts(postId);
     } catch (e) {
       print(e.toString());
     }

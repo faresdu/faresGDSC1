@@ -33,15 +33,6 @@ class ProfileTimelineViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  void addToUserPosts(String postId) async {
-    final post = await timelineService.getPost(postId);
-    userPosts.add(post);
-    userPosts.sort((a, b) =>
-        b.createdAt.microsecondsSinceEpoch -
-        a.createdAt.microsecondsSinceEpoch);
-    notifyListeners();
-  }
-
   _updateLikedPosts(Post post, {bool removeFromList = false}) {
     final index = likedPosts.indexWhere((e) => e.id == post.id);
     if (isUser) {

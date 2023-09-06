@@ -85,10 +85,9 @@ class _ProfileTimelineViewState extends State<ProfileTimelineView> {
                                   CircleButton(
                                       onPressed: () => CustomModalBottomSheet(
                                           context,
-                                          AddPostView(
-                                            onSubmit: (id) =>
-                                                viewmodel.addToUserPosts(id),
-                                          )))
+                                          const AddPostView()
+                                      ),
+                                  ),
                               ],
                             ),
                           ),

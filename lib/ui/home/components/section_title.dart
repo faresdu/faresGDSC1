@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/utils/constants.dart';
@@ -16,7 +15,7 @@ class SectionTitle extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, letterSpacing: 0.25),
           ),
           InkWell(

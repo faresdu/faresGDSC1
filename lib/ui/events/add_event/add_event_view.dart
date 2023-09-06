@@ -10,7 +10,6 @@ import 'package:gdsc_app/ui/widgets/custom_text_form_field.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../core/utils/constants.dart';
 
 class AddEventView extends StatefulWidget {
   const AddEventView({Key? key}) : super(key: key);
@@ -210,8 +209,9 @@ class _AddEventViewState extends State<AddEventView> {
                                         text: 'إضـافـة',
                                         onPressed: () async {
                                           await viewmodel.addEvent();
-                                          if (viewmodel.added)
+                                          if (viewmodel.added) {
                                             Navigator.pop(context);
+                                          }
                                         }),
                               ),
                             ],

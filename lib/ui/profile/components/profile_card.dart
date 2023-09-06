@@ -46,7 +46,7 @@ class ProfileCard extends StatelessWidget {
                 ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           Text(
@@ -106,7 +106,7 @@ class ProfileCard extends StatelessWidget {
                   )),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           )
           // Container(

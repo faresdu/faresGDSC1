@@ -71,7 +71,7 @@ class ProfileEventsView extends StatelessWidget {
                               viewmodel.user.isLeaderOrCoLeader())
                             CircleButton(
                                 onPressed: () => CustomModalBottomSheet(
-                                    context, AddEventView(),
+                                    context, const AddEventView(),
                                     heightFactor: 0.92))
                         ],
                       ),

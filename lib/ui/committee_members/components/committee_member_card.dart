@@ -23,7 +23,7 @@ class CommitteeMemberCard extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: ClipOval(
                 child: HelperFunctions.profileImage(
                     imageUrl: member.photo ?? '', height: 55, width: 55),

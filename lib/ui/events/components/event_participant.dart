@@ -66,7 +66,7 @@ class EventParticipant extends StatelessWidget {
                         ),
                         IconButton(
                             padding: EdgeInsets.zero,
-                            constraints: BoxConstraints(),
+                            constraints: const BoxConstraints(),
                             onPressed: () async {
                               await Clipboard.setData(
                                   ClipboardData(text: member.email!));
@@ -100,7 +100,7 @@ class EventParticipant extends StatelessWidget {
                         ),
                         IconButton(
                             padding: EdgeInsets.zero,
-                            constraints: BoxConstraints(),
+                            constraints: const BoxConstraints(),
                             onPressed: () async {
                               await Clipboard.setData(
                                   ClipboardData(text: member.phoneNumber!));

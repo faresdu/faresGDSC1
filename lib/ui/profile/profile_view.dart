@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gdsc_app/ui/profile/components/profile_section_button.dart';
 import 'package:gdsc_app/ui/profile/profile_viewmodel.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 import '../../core/utils/constants.dart';
 import '../widgets/custom_app_bar.dart';
