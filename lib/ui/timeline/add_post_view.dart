@@ -10,8 +10,7 @@ import '../../core/utils/helper_functions.dart';
 import '../widgets/custom_text_form_field.dart';
 
 class AddPostView extends StatefulWidget {
-  const AddPostView({super.key, this.onSubmit});
-  final void Function(String postId)? onSubmit;
+  const AddPostView({super.key});
   @override
   State<AddPostView> createState() => _AddPostViewState();
 }
@@ -86,12 +85,8 @@ class _AddPostViewState extends State<AddPostView> {
                                   onPressed: () async {
                                     String? postId =
                                         await viewmodel.addPost(user);
-
-                                    if (widget.onSubmit != null &&
-                                        postId != null &&
-                                        viewmodel.descriptionController.text
-                                            .isNotEmpty) {
-                                      widget.onSubmit!(postId);
+                                    if (postId != null &&
+                                        viewmodel.descriptionController.text.isNotEmpty) {
                                       Navigator.pop(context);
                                     }
                                   },
