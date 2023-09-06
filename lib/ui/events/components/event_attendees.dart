@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/models/member.dart';
 import '../../../core/utils/constants.dart';
+import '../../../core/utils/helper_functions.dart';
 
 class EventAttendees extends StatelessWidget {
   const EventAttendees({
@@ -66,10 +67,7 @@ class EventAttendees extends StatelessWidget {
               radius: 11,
               backgroundColor: Constants.white,
               child: CircleAvatar(
-                backgroundImage: attendees[i].photo != null
-                    ? NetworkImage(attendees[i].photo!)
-                    : const AssetImage('assets/images/event-attendees.png')
-                        as ImageProvider,
+                backgroundImage: HelperFunctions.avatarImageProvider(imageUrl: attendees[i].photo ?? ''),
                 backgroundColor: Constants.red,
                 radius: 10,
               ),
