@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
+import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:gdsc_app/ui/events/add_event/edit_event_view.dart';
 import 'package:gdsc_app/ui/events/components/event_attendees.dart';
 import 'package:gdsc_app/ui/events/events_viewmodel.dart';
@@ -48,17 +49,11 @@ class EventCard extends StatelessWidget {
                     clipBehavior: Clip.antiAlias,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        boxShadow: [
-                          BoxShadow(
-                              blurRadius: 7,
-                              offset: const Offset(1, 3),
-                              color: Colors.black.withOpacity(0.25)),
-                        ]),
-                    child: Image.network(
-                      event.instructorProfilePicture!,
-                      width: 66,
-                      height: 66,
+                        boxShadow: Constants.shadow,
                     ),
+                    child: HelperFunctions.profileImage(imageUrl: event.instructorProfilePicture ?? '',
+                      width: 66,
+                      height: 66,)
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 15, right: 20),

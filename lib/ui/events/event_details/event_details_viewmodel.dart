@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/app/app.router.dart';
+import 'package:gdsc_app/core/enums/event_type_ids.dart';
 import 'package:gdsc_app/core/models/event.dart';
+import 'package:gdsc_app/core/models/event_type.dart';
 import 'package:gdsc_app/core/models/member.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -45,36 +47,37 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
   }
 
   Widget getSignUpButton(Event event) {
-    if (event.isSignedUp(user.id)) {
+    EventType type = event.getType(userService.user.id);
+
+    if (type.id == EventTypeIDs.isExpired) {
       return EventDetailsSignupButton(
-        text: 'سجل خروج',
-        color: Constants.red.withOpacity(.9),
-        onPressed: () async {
-          await eventService.signOutFromEvent(event.eventID);
-        },
+        eventType: type,
+        onPressed: null,
       );
-    } else if (event.startDate.isAfter(DateTime.now())) {
+    }
+    if (type.id == EventTypeIDs.isSignedUp) {
       return EventDetailsSignupButton(
-          text: 'الفعاليه منتهيه',
-          color: Constants.grey.withOpacity(.9),
-          onPressed: null);
-    } else if (event.isFull()) {
+          eventType: type,
+          onPressed: () async {
+            await eventService.signOutFromEvent(event.eventID);
+          });
+    }
+    if (type.id == EventTypeIDs.isFull) {
       return EventDetailsSignupButton(
-          text: 'المقاعد ممتلئة',
-          color: Constants.grey.withOpacity(.9),
-          onPressed: null);
-    } else if (event.getPercentage() >= 75) {
+        eventType: type,
+        onPressed: null,
+      );
+    }
+    if (type.id == EventTypeIDs.isAlmostFull) {
       return EventDetailsSignupButton(
-        text: 'احجز مقعدك',
-        color: Constants.darkGrey.withOpacity(.9),
+        eventType: type,
         onPressed: () async {
           await eventService.signUpToEvent(event.eventID);
         },
       );
     }
     return EventDetailsSignupButton(
-      text: 'احجز مقعدك',
-      color: Constants.darkBlue.withOpacity(.9),
+      eventType: type,
       onPressed: () async {
         await eventService.signUpToEvent(event.eventID);
       },

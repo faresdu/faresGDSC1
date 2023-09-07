@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/models/event_type.dart';
 import '../../../core/utils/constants.dart';
 
 class EventDetailsSignupButton extends StatefulWidget {
-  EventDetailsSignupButton(
-      {Key? key,
-      required this.onPressed,
-      required this.color,
-      required this.text,
-      this.isLoading = false})
-      : super(key: key);
+  EventDetailsSignupButton({
+    Key? key,
+    required this.onPressed,
+    this.isLoading = false,
+    required this.eventType,
+  }) : super(key: key);
   final Function()? onPressed;
-  final Color color;
-  final String text;
+  EventType eventType;
   bool isLoading = false;
+
   @override
   State<EventDetailsSignupButton> createState() =>
       _EventDetailsSignupButtonState();
@@ -44,7 +44,7 @@ class _EventDetailsSignupButtonState extends State<EventDetailsSignupButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: widget.color,
+        backgroundColor: widget.eventType.color,
         fixedSize: const Size(150, 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: widget.onPressed == null ? 1 : 5,
@@ -61,7 +61,7 @@ class _EventDetailsSignupButtonState extends State<EventDetailsSignupButton> {
                 ),
               )
             : Text(
-                widget.text,
+                widget.eventType.text,
                 style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,

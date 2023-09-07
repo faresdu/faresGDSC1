@@ -5,10 +5,11 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
 import '../../core/app/app.router.dart';
+import '../../core/enums/event_type_ids.dart';
+import '../../core/models/event_type.dart';
 import '../../core/models/member.dart';
 import '../../core/services/event_service.dart';
 import '../../core/services/supabase_service.dart';
-import '../../core/utils/constants.dart';
 import 'package:gdsc_app/ui/events/components/events_card_signup_button.dart';
 
 import 'components/events_card.dart';
@@ -36,31 +37,37 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
   }
 
   Widget getSignUpButton(Event event) {
-    if (event.isSignedUp(userService.user.id)) {
+    EventType type = event.getType(userService.user.id);
+
+    if (type.id == EventTypeIDs.isExpired) {
       return EventCardButton(
-          text: 'سجل خروج',
-          color: Constants.red.withOpacity(.9),
+        eventType: type,
+        onPressed: null,
+      );
+    }
+    if (type.id == EventTypeIDs.isSignedUp) {
+      return EventCardButton(
+          eventType: type,
           onPressed: () async {
             await eventService.signOutFromEvent(event.eventID);
           });
-    } else if (event.isFull()) {
+    }
+    if (type.id == EventTypeIDs.isFull) {
       return EventCardButton(
-        text: 'المقاعد ممتلئة',
-        color: Constants.grey.withOpacity(.4),
+        eventType: type,
         onPressed: null,
       );
-    } else if (event.getPercentage() >= 75) {
+    }
+    if (type.id == EventTypeIDs.isAlmostFull) {
       return EventCardButton(
-        text: 'احجز مقعدك - مقاعد محدودة',
-        color: Constants.blueButton.withOpacity(.9),
+        eventType: type,
         onPressed: () async {
           await eventService.signUpToEvent(event.eventID);
         },
       );
     }
     return EventCardButton(
-      text: 'احجز مقعدك',
-      color: Constants.green.withOpacity(.9),
+      eventType: type,
       onPressed: () async {
         await eventService.signUpToEvent(event.eventID);
       },

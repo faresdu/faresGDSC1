@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/models/event_type.dart';
 
 import '../../../core/utils/constants.dart';
 
@@ -6,19 +7,13 @@ class EventCardButton extends StatefulWidget {
   EventCardButton(
       {Key? key,
       this.onPressed,
-      required this.color,
-      required this.text,
-      this.padding,
-      this.height,
+      required this.eventType,
       this.fontSize,
       this.isLoading = false})
       : super(key: key);
   final Function()? onPressed;
-  final EdgeInsets? padding;
-  final double? height;
   final double? fontSize;
-  final Color color;
-  final String text;
+  final EventType eventType;
   bool isLoading = false;
 
   @override
@@ -48,33 +43,30 @@ class _EventCardButtonState extends State<EventCardButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: widget.padding ?? const EdgeInsets.only(top: 15),
-      child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: widget.color,
-            fixedSize: Size(double.maxFinite, (widget.height ?? 30)),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            elevation: widget.onPressed == null ? 1 : 5,
-          ),
-          onPressed: widget.isLoading ? null : runFuture,
-          child: widget.isLoading
-              ? const SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(
-                    color: Constants.white,
-                  ),
-                )
-              : Text(
-                  widget.text,
-                  style: TextStyle(
-                      fontSize: widget.fontSize ?? 14,
-                      color: Colors.white,
-                      fontWeight: FontWeight.normal,
-                      overflow: TextOverflow.ellipsis),
-                )),
-    );
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: widget.eventType.color,
+          fixedSize: const Size.fromWidth(double.maxFinite),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          elevation: widget.onPressed == null ? 1 : 5,
+        ),
+        onPressed: widget.isLoading ? null : runFuture,
+        child: widget.isLoading
+            ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  color: Constants.white,
+                ),
+              )
+            : Text(
+                widget.eventType.text,
+                style: TextStyle(
+                    fontSize: widget.fontSize ?? 14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.normal,
+                    overflow: TextOverflow.ellipsis),
+              ));
   }
 }

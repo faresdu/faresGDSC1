@@ -5,10 +5,12 @@ import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/models/member.dart';
 import 'package:gdsc_app/core/services/event_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
-import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/ui/events/components/events_card_signup_button.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+
+import '../../../core/enums/event_type_ids.dart';
+import '../../../core/models/event_type.dart';
 
 class ProfileEventsViewModel extends StreamViewModel<List<Event>> {
   final navService = locator<NavigationService>();
@@ -40,55 +42,39 @@ class ProfileEventsViewModel extends StreamViewModel<List<Event>> {
   }
 
   Widget getSignUpButton(Event event) {
-    if (event.isSignedUp(userService.user.id)) {
+    EventType type = event.getType(userService.user.id);
+
+    if (type.id == EventTypeIDs.isExpired) {
       return EventCardButton(
-        text: 'سجل خروج',
-        color: Constants.red.withOpacity(.9),
-        onPressed: () async {
-          try {
+        eventType: type,
+        onPressed: null,
+      );
+    }
+    if (type.id == EventTypeIDs.isSignedUp) {
+      return EventCardButton(
+          eventType: type,
+          onPressed: () async {
             await eventService.signOutFromEvent(event.eventID);
-            return true;
-          } catch (e) {
-            return false;
-          }
-        },
-      );
-    } else if (event.isFull()) {
+          });
+    }
+    if (type.id == EventTypeIDs.isFull) {
       return EventCardButton(
-        text: 'المقاعد ممتلئة',
-        color: Constants.grey.withOpacity(.4),
+        eventType: type,
         onPressed: null,
       );
-    } else if (event.startDate.isAfter(DateTime.now())) {
+    }
+    if (type.id == EventTypeIDs.isAlmostFull) {
       return EventCardButton(
-        text: 'الفعاليه منتهيه',
-        color: Constants.grey.withOpacity(.4),
-        onPressed: null,
-      );
-    } else if (event.getPercentage() >= 75) {
-      return EventCardButton(
-        text: 'احجز مقعدك - مقاعد محدودة',
-        color: Constants.blueButton.withOpacity(.9),
+        eventType: type,
         onPressed: () async {
-          try {
-            await eventService.signUpToEvent(event.eventID);
-            return true;
-          } catch (e) {
-            return false;
-          }
+          await eventService.signUpToEvent(event.eventID);
         },
       );
     }
     return EventCardButton(
-      text: 'احجز مقعدك',
-      color: Constants.green.withOpacity(.9),
+      eventType: type,
       onPressed: () async {
-        try {
-          await eventService.signUpToEvent(event.eventID);
-          return true;
-        } catch (e) {
-          return false;
-        }
+        await eventService.signUpToEvent(event.eventID);
       },
     );
   }
