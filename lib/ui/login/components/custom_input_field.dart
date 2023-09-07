@@ -10,6 +10,7 @@ class CustomInputField extends StatelessWidget {
   final Function(String?)? onFieldSubmitted;
   final FocusNode? focusNode;
   final bool autofocus;
+  final Iterable<String>? autofillHints;
 
   const CustomInputField({
     Key? key,
@@ -20,6 +21,7 @@ class CustomInputField extends StatelessWidget {
     this.onFieldSubmitted,
     this.focusNode,
     this.autofocus = false,
+    this.autofillHints,
   }) : super(key: key);
 
   @override
@@ -59,6 +61,7 @@ class CustomInputField extends StatelessWidget {
       onFieldSubmitted: onFieldSubmitted,
       focusNode: focusNode,
       autofocus: autofocus,
+      autofillHints: autofillHints,
       onTapOutside: (PointerDownEvent pointerDownEvent) {
         if (focusNode != null) {
           focusNode!.unfocus();
