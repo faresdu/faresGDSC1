@@ -90,19 +90,14 @@ class MemberCard extends StatelessWidget {
                 )
               ],
             ),
-
-            if (member.socials != null || member.socials!.isEmpty)
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 36),
                 child: Divider(color: Color.fromARGB(191, 217, 217, 217)),
               ),
-
-            /// Social Media icons
-            if (member.socials != null || member.socials!.isEmpty)
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:
-                      member.socials!.map((e) => socialImage(e.image)).toList())
+                      member.socials.map((e) => socialImage(e.image)).toList())
           ],
         ),
       ),

@@ -38,4 +38,11 @@ class LeaderboardViewModel extends BaseViewModel {
     }
     return userName;
   }
+
+  Future<void> refreshData() async {
+    setBusy(true);
+    await getLeaderboard();
+    notifyListeners();
+    setBusy(false);
+  }
 }

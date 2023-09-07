@@ -31,14 +31,15 @@ class _HomeViewState extends State<HomeView> {
         builder: (context, viewmodel, _) {
           return Scaffold(
             backgroundColor: Constants.background,
-            body: BusyOverlay(
-              isBusy: viewmodel.isBusy,
-              child: SingleChildScrollView(
-                child: SafeArea(
+            body: SafeArea(
+              child: BusyOverlay(
+                isBusy: viewmodel.isBusy,
+                child: RefreshIndicator(
+                  onRefresh: viewmodel.refreshData,
                   child: Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 30),
-                    child: Column(
+                    child: ListView(
                       children: [
                         const Welcome(),
                         SizedBox(

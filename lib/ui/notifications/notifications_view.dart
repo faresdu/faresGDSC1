@@ -6,7 +6,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../core/utils/constants.dart';
 import 'components/notification_card.dart';
-import 'addNotifitcaion_view.dart';
+import 'add_notifitcaion_view.dart';
 
 class NotificationView extends StatelessWidget {
   const NotificationView({super.key});

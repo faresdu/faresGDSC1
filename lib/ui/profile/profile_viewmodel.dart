@@ -28,7 +28,7 @@ class ProfileViewModel extends BaseViewModel {
   bool isUser = true;
   bool fromLogin = true;
 
-  late Member user;
+  late Member user = Member.anonymous();
   StreamSubscription? listener;
 
   setUser(BuildContext context) async {
