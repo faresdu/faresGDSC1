@@ -67,7 +67,7 @@ class _HoursRequestViewState extends State<HoursRequestView>
                     ),
                   ),
                 ),
-                body: HoursRequestBody(),
+                body: const HoursRequestBody(),
               ));
         });
   }

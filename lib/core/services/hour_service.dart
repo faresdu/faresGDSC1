@@ -15,7 +15,7 @@ class HourService {
 
   Future<List<HourRequest>> getUpcomingHourRequests() async {
     final Map<String, dynamic> payload = {
-      'committee_id': _userService.user.committee!.id
+      'committee_id': _userService.user.committee.id
     };
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
         .from(GDSCTables.volunteerHours)
@@ -28,7 +28,7 @@ class HourService {
 
   Future<List<HourRequest>> getPreviousHourRequests() async {
     final Map<String, dynamic> payload = {
-      'committee_id': _userService.user.committee!.id
+      'committee_id': _userService.user.committee.id
     };
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
         .from(GDSCTables.volunteerHours)

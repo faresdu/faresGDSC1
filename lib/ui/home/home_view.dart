@@ -5,8 +5,8 @@ import 'package:gdsc_app/ui/Home/home_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:stacked/stacked.dart';
 import '../../core/utils/constants.dart';
+import '../notifications/components/notification_card.dart';
 import 'components/activity_card.dart';
-import 'components/notification_card.dart';
 import 'components/section_title.dart';
 import 'components/welcome_widget.dart';
 
@@ -31,14 +31,15 @@ class _HomeViewState extends State<HomeView> {
         builder: (context, viewmodel, _) {
           return Scaffold(
             backgroundColor: Constants.background,
-            body: BusyOverlay(
-              isBusy: viewmodel.isBusy,
-              child: SingleChildScrollView(
-                child: SafeArea(
+            body: SafeArea(
+              child: BusyOverlay(
+                isBusy: viewmodel.isBusy,
+                child: RefreshIndicator(
+                  onRefresh: viewmodel.refreshData,
                   child: Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 30),
-                    child: Column(
+                    child: ListView(
                       children: [
                         const Welcome(),
                         SizedBox(
@@ -124,7 +125,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
             ),
-            floatingActionButton: FloatingActionButton(
+            floatingActionButton: !viewmodel.isAdmin()? null : FloatingActionButton(
               heroTag: 'toHoursRequestPage',
               backgroundColor: Constants.primaryLightBlue,
               onPressed: () {

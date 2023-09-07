@@ -45,37 +45,40 @@ class LeaderboardView extends StatelessWidget {
           ),
           body: BusyOverlay(
             isBusy: viewmodel.isBusy,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 5,
-                ),
-                if (viewmodel.top3Members.length >= 3)
-                  Top3(
-                    members: viewmodel.top3Members,
-                    navigateToProfile: viewmodel.navigateToUserProfile,
+            child: RefreshIndicator(
+              onRefresh: viewmodel.refreshData,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 5,
                   ),
-                const SizedBox(height: 20),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    decoration: BoxDecoration(
-                      boxShadow: Constants.shadow4,
+                  if (viewmodel.top3Members.length >= 3)
+                    Top3(
+                      members: viewmodel.top3Members,
+                      navigateToProfile: viewmodel.navigateToUserProfile,
                     ),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: viewmodel.members.length,
-                      itemBuilder: (context, index) {
-                        return LeaderboardItem(
-                          member: viewmodel.members[index],
-                          index: index,
-                          navigateToProfile: viewmodel.navigateToUserProfile,
-                        );
-                      },
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      decoration: BoxDecoration(
+                        boxShadow: Constants.shadow4,
+                      ),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: viewmodel.members.length,
+                        itemBuilder: (context, index) {
+                          return LeaderboardItem(
+                            member: viewmodel.members[index],
+                            index: index,
+                            navigateToProfile: viewmodel.navigateToUserProfile,
+                          );
+                        },
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );

@@ -38,15 +38,19 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   Future getNotifications() async {
     setBusy(true);
     fullNotifications = await notificationService.getNotifications(limit: 3);
-    featuredNotification = await getHours();
+    featuredNotification = await getFeaturedNotification();
     if (fullNotifications.isNotEmpty) {
       notifications = fullNotifications.take(4).toList();
-      notifyListeners();
     }
+    notifyListeners();
     setBusy(false);
   }
 
-  getHours() async {
+  bool isAdmin() {
+    return userService.user.isLeaderOrCoLeader();
+  }
+
+  Future<Notifications?> getFeaturedNotification() async {
     int hours = await hourService.getCumulativeHours();
     int committeeHours = await hourService.getCumulativeCommitteeHours();
 
@@ -112,10 +116,17 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     );
   }
 
-  navigateToEvent(Event event) async {
+  void navigateToEvent(Event event) async {
     navService.navigateTo(Routes.eventDetailsView, arguments: event);
   }
 
   @override
   Stream<List<Event>> get stream => eventService.eventsController.stream;
+
+  Future<void> refreshData() async {
+    setBusy(true);
+    await getNotifications();
+    notifyListeners();
+    setBusy(false);
+  }
 }

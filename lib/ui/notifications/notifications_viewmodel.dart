@@ -20,6 +20,10 @@ class NotificationsViewModel extends FutureViewModel {
     notifyListeners();
   }
 
+  bool isAdmin() {
+    return userService.user.isLeaderOrCoLeader();
+  }
+
   @override
   Future futureToRun() => getNotifications();
 
