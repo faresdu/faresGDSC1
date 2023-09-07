@@ -79,7 +79,7 @@ abstract class HelperFunctions {
     }
     Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
       // can't launch url
     }
