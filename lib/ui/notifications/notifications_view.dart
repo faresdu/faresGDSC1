@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/notifications/notifications_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
+import 'package:gdsc_app/ui/widgets/custom_bottom_modal_sheet.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../core/utils/constants.dart';
 import '../Home/components/notification_card.dart';
 import 'addNotifitcaion_view.dart';
-import 'bottomSheetNotifitcation.dart';
 
 class NotificationView extends StatelessWidget {
   const NotificationView({super.key});
@@ -21,7 +21,7 @@ class NotificationView extends StatelessWidget {
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              bottomSheetNotification(context, const AddNotification());
+              CustomModalBottomSheet(context, const AddNotification());
             },
             backgroundColor: Constants.blueButton,
             heroTag: 'addPostTag',
