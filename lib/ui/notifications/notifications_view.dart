@@ -5,7 +5,7 @@ import 'package:gdsc_app/ui/widgets/custom_bottom_modal_sheet.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../core/utils/constants.dart';
-import '../Home/components/notification_card.dart';
+import 'components/notification_card.dart';
 import 'addNotifitcaion_view.dart';
 
 class NotificationView extends StatelessWidget {
@@ -19,7 +19,7 @@ class NotificationView extends StatelessWidget {
       builder: (context, viewmodel, _) {
         return Scaffold(
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-          floatingActionButton: FloatingActionButton(
+          floatingActionButton: !viewmodel.isAdmin()? null : FloatingActionButton(
             onPressed: () {
               CustomModalBottomSheet(context, const AddNotification());
             },

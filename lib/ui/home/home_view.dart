@@ -5,8 +5,8 @@ import 'package:gdsc_app/ui/Home/home_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:stacked/stacked.dart';
 import '../../core/utils/constants.dart';
+import '../notifications/components/notification_card.dart';
 import 'components/activity_card.dart';
-import 'components/notification_card.dart';
 import 'components/section_title.dart';
 import 'components/welcome_widget.dart';
 
