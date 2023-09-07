@@ -46,6 +46,10 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     setBusy(false);
   }
 
+  bool isAdmin() {
+    return userService.user.isLeaderOrCoLeader();
+  }
+
   getHours() async {
     int hours = await hourService.getCumulativeHours();
     int committeeHours = await hourService.getCumulativeCommitteeHours();
