@@ -18,16 +18,17 @@ class ActivityCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 15),
-        padding: const EdgeInsets.all(6),
-        width: 160,
-        decoration: BoxDecoration(
-          color: Constants.white,
-          borderRadius: BorderRadius.circular(20),
+    return  Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          backgroundColor: Colors.white,
+          fixedSize: const Size.fromWidth(160),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          elevation: 3,
         ),
+        onPressed: onTap,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

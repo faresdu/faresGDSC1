@@ -70,7 +70,7 @@ class _HomeViewState extends State<HomeView> {
                                 .toList(),
                             options: CarouselOptions(
                                 viewportFraction: 1,
-                                height: 115,
+                                height: 134,
                                 enableInfiniteScroll: false,
                                 initialPage: _current,
                                 onPageChanged: (index, reason) {
@@ -97,7 +97,7 @@ class _HomeViewState extends State<HomeView> {
                                 });
                               }),
                         SizedBox(
-                          height: spacing / 2,
+                          height: spacing / 3,
                         ),
                         SectionTitle(
                           title: "الفعاليات",
@@ -106,7 +106,7 @@ class _HomeViewState extends State<HomeView> {
                           },
                         ),
                         SizedBox(
-                            height: 200,
+                            height: 220,
                             child: ListView(
                               scrollDirection: Axis.horizontal,
                               children: viewmodel.events
@@ -125,14 +125,16 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
             ),
-            floatingActionButton: !viewmodel.isAdmin()? null : FloatingActionButton(
-              heroTag: 'toHoursRequestPage',
-              backgroundColor: Constants.primaryLightBlue,
-              onPressed: () {
-                viewmodel.navigateToRequestsPage();
-              },
-              child: const Icon(Icons.menu),
-            ),
+            floatingActionButton: !viewmodel.isAdmin()
+                ? null
+                : FloatingActionButton(
+                    heroTag: 'toHoursRequestPage',
+                    backgroundColor: Constants.primaryLightBlue,
+                    onPressed: () {
+                      viewmodel.navigateToRequestsPage();
+                    },
+                    child: const Icon(Icons.menu),
+                  ),
           );
         });
   }

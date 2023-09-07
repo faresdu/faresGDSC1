@@ -1,16 +1,17 @@
 import 'package:gdsc_app/core/services/hour_service.dart';
 import 'package:gdsc_app/core/services/notification_service.dart';
 
+import '../../core/enums/event_type_ids.dart';
 import '../../core/models/event.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
 import '../../core/app/app.router.dart';
+import '../../core/models/event_type.dart';
 import '../../core/models/notifications.dart';
 import '../../core/services/event_service.dart';
 import '../../core/services/user_service.dart';
-import '../../core/utils/constants.dart';
 import '../events/components/events_card_signup_button.dart';
 
 class HomeViewModel extends StreamViewModel<List<Event>> {
@@ -69,47 +70,37 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   }
 
   Widget getSignUpButton(Event event) {
-    if (event.isSignedUp(userService.user.id)) {
+    EventType type = event.getType(userService.user.id);
+
+    if (type.id == EventTypeIDs.isExpired) {
       return EventCardButton(
-        text: 'سجل خروج',
-        padding: const EdgeInsets.symmetric(horizontal: 2),
-        fontSize: 12,
-        height: 0,
-        color: Constants.red.withOpacity(.9),
-        onPressed: () async {
-          await eventService.signOutFromEvent(event.eventID);
-        },
+        eventType: type,
+        onPressed: null,
       );
-    } else if (event.isFull()) {
+    }
+    if (type.id == EventTypeIDs.isSignedUp) {
       return EventCardButton(
-        text: 'المقاعد ممتلئة',
-        padding: const EdgeInsets.symmetric(horizontal: 2),
-        fontSize: 12,
-        height: 0,
-        color: Constants.grey.withOpacity(.4),
-        onPressed: () {
-          //show dialog
-          throw 'event is full';
-        },
+          eventType: type,
+          onPressed: () async {
+            await eventService.signOutFromEvent(event.eventID);
+          });
+    }
+    if (type.id == EventTypeIDs.isFull) {
+      return EventCardButton(
+        eventType: type,
+        onPressed: null,
       );
-    } else if (event.getPercentage() >= 75) {
+    }
+    if (type.id == EventTypeIDs.isAlmostFull) {
       return EventCardButton(
-        text: 'سجل - مقاعد محدودة',
-        padding: const EdgeInsets.symmetric(horizontal: 2),
-        fontSize: 12,
-        height: 0,
-        color: Constants.blueButton.withOpacity(.9),
+        eventType: type,
         onPressed: () async {
           await eventService.signUpToEvent(event.eventID);
         },
       );
     }
     return EventCardButton(
-      text: 'سجل',
-      padding: const EdgeInsets.symmetric(horizontal: 2),
-      fontSize: 12,
-      height: 0,
-      color: Constants.green.withOpacity(.9),
+      eventType: type,
       onPressed: () async {
         await eventService.signUpToEvent(event.eventID);
       },
