@@ -24,7 +24,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   void onData(List<Event>? data) {
     super.onData(data);
     if (data != null) {
-      events = data.take(4).toList();
+      events = data.where((e) => e.startDate.isAfter(DateTime.now())).take(4).toList();
       notifyListeners();
     }
   }

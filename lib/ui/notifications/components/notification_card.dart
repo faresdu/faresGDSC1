@@ -14,9 +14,9 @@ class NotificationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-      height: 120,
+      height: 100,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Constants.white,
@@ -29,6 +29,7 @@ class NotificationCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const Spacer(),
               Text(
                 //"أكملت 30 ساعة تطوعية",
                 notification.title,
@@ -49,6 +50,7 @@ class NotificationCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
+              const Spacer(),
             ],
           ),
           const Spacer(),
