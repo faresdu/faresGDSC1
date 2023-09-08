@@ -6,12 +6,10 @@ import '../../../core/utils/constants.dart';
 class EventCardButton extends StatefulWidget {
   EventCardButton(
       {Key? key,
-      this.onPressed,
       required this.eventType,
       this.fontSize,
       this.isLoading = false})
       : super(key: key);
-  final Function()? onPressed;
   final double? fontSize;
   final EventType eventType;
   bool isLoading = false;
@@ -25,9 +23,9 @@ class _EventCardButtonState extends State<EventCardButton> {
     setState(() {
       widget.isLoading = true;
     });
-    if (widget.onPressed != null) {
+    if (widget.eventType.onPressed != null) {
       try {
-        await widget.onPressed!();
+        await widget.eventType.onPressed!();
       } catch (e) {
         setState(() {
           print(e);
@@ -49,7 +47,7 @@ class _EventCardButtonState extends State<EventCardButton> {
           fixedSize: const Size.fromWidth(double.maxFinite),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          elevation: widget.onPressed == null ? 1 : 5,
+          elevation: widget.eventType.onPressed == null ? 1 : 5,
         ),
         onPressed: widget.isLoading ? null : runFuture,
         child: widget.isLoading

@@ -43,7 +43,7 @@ class _HomeViewState extends State<HomeView> {
                       children: [
                         const Welcome(),
                         SizedBox(
-                          height: spacing / 4,
+                          height: spacing / 8,
                         ),
                         if (viewmodel.featuredNotification != null)
                           NotificationCard(
@@ -51,7 +51,7 @@ class _HomeViewState extends State<HomeView> {
                             isNetworkImage: false,
                           ),
                         SizedBox(
-                          height: spacing / 2,
+                          height: spacing / 8,
                         ),
                         if (viewmodel.notifications.isNotEmpty)
                           SectionTitle(
@@ -70,7 +70,7 @@ class _HomeViewState extends State<HomeView> {
                                 .toList(),
                             options: CarouselOptions(
                                 viewportFraction: 1,
-                                height: 134,
+                                height: 116,
                                 enableInfiniteScroll: false,
                                 initialPage: _current,
                                 onPageChanged: (index, reason) {
@@ -96,17 +96,16 @@ class _HomeViewState extends State<HomeView> {
                                       curve: Curves.easeInOut);
                                 });
                               }),
-                        SizedBox(
-                          height: spacing / 3,
-                        ),
                         SectionTitle(
                           title: "الفعاليات",
                           onPressed: () {
                             widget.updateScreen(4);
                           },
                         ),
+                        const SizedBox(
+                            height: 5),
                         SizedBox(
-                            height: 220,
+                            height: 200,
                             child: ListView(
                               scrollDirection: Axis.horizontal,
                               children: viewmodel.events

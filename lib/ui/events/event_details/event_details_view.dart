@@ -3,6 +3,7 @@ import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 import '../../../core/utils/constants.dart';
+import '../../../core/utils/helper_functions.dart';
 import '../components/event_attendees.dart';
 import 'event_details_viewmodel.dart';
 
@@ -49,13 +50,11 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                   children: [
                     Expanded(
                       flex: 3,
-                      child: Container(
-                        child: viewmodel.eventDetails.flyer != null
-                            ? Image.network(
-                                viewmodel.eventDetails.flyer!,
-                                fit: BoxFit.contain,
-                              )
-                            : Image.asset('assets/images/temp-events-img.png'),
+                      child: Center(
+                        child: HelperFunctions.eventImage(
+                            imageUrl: viewmodel.eventDetails.flyer,
+                            fit: BoxFit.contain,
+                        ),
                       ),
                     ),
                     Flexible(

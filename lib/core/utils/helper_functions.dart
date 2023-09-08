@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:path/path.dart';
@@ -21,8 +22,8 @@ abstract class HelperFunctions {
         fit: fit,
       );
     } else {
-      return Image.network(
-        url,
+      return CachedNetworkImage(
+        imageUrl: url,
         height: height,
         width: width,
         fit: fit,
@@ -44,8 +45,21 @@ abstract class HelperFunctions {
       return SvgPicture.network(imageUrl,
           height: height, width: width, fit: fit);
     } else {
-      return Image.network(imageUrl, height: height, width: width, fit: fit);
+      return CachedNetworkImage(imageUrl: imageUrl, height: height, width: width, fit: fit);
     }
+  }
+
+  /// Returns an event Image based on the passed image url
+  static Widget eventImage(
+      {String? imageUrl,
+      double? height,
+      double? width,
+      BoxFit fit = BoxFit.cover}) {
+    if (imageUrl == null) {
+      return Image.asset('assets/images/temp-events-img.png',
+          height: height, width: width, fit: fit);
+    }
+    return CachedNetworkImage(imageUrl: imageUrl, height: height, width: width, fit: fit);
   }
 
   static ImageProvider avatarImageProvider(
@@ -57,6 +71,9 @@ abstract class HelperFunctions {
         imageUrl: imageUrl, height: height, width: width, fit: fit);
     if (p is Image) {
       return p.image;
+    }
+    if (p is CachedNetworkImage) {
+      return CachedNetworkImageProvider(p.imageUrl);
     }
     return p as ImageProvider;
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/app/app.router.dart';
-import 'package:gdsc_app/core/enums/event_type_ids.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/models/event_type.dart';
 import 'package:gdsc_app/core/models/member.dart';
@@ -11,7 +10,6 @@ import '../../../core/app/app.locator.dart';
 import '../../../core/services/event_service.dart';
 import '../../../core/services/supabase_service.dart';
 import '../../../core/services/user_service.dart';
-import '../../../core/utils/constants.dart';
 import '../components/event_details_signup_button.dart';
 
 class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
@@ -31,7 +29,7 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
     user = userService.user;
   }
 
-  get isOwner => eventDetails.instructorID == user.id;
+  get isOwner => eventDetails.instructorID == user.id || userService.user.isLeaderOrCoLeader();
 
   @override
   void onData(List<Event>? data) {
@@ -47,40 +45,9 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
   }
 
   Widget getSignUpButton(Event event) {
-    EventType type = event.getType(userService.user.id);
-
-    if (type.id == EventTypeIDs.isExpired) {
-      return EventDetailsSignupButton(
-        eventType: type,
-        onPressed: null,
-      );
-    }
-    if (type.id == EventTypeIDs.isSignedUp) {
-      return EventDetailsSignupButton(
-          eventType: type,
-          onPressed: () async {
-            await eventService.signOutFromEvent(event.eventID);
-          });
-    }
-    if (type.id == EventTypeIDs.isFull) {
-      return EventDetailsSignupButton(
-        eventType: type,
-        onPressed: null,
-      );
-    }
-    if (type.id == EventTypeIDs.isAlmostFull) {
-      return EventDetailsSignupButton(
-        eventType: type,
-        onPressed: () async {
-          await eventService.signUpToEvent(event.eventID);
-        },
-      );
-    }
+    EventType type = eventService.getEventType(event);
     return EventDetailsSignupButton(
       eventType: type,
-      onPressed: () async {
-        await eventService.signUpToEvent(event.eventID);
-      },
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/utils/helper_functions.dart';
 
 import '../../../core/models/event.dart';
 import '../../../core/utils/constants.dart';
@@ -18,31 +19,27 @@ class ActivityCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           backgroundColor: Colors.white,
           fixedSize: const Size.fromWidth(160),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           elevation: 3,
         ),
         onPressed: onTap,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            event.flyer != null
-                ? Image.network(
-                    event.flyer!,
-                    width: 90,
-                    height: 90,
-                  )
-                : Image.asset(
-                    'assets/images/temp-events-img.png',
-                    width: 90,
-                    height: 90,
-                  ),
+            const Spacer(),
+            HelperFunctions.eventImage(
+              imageUrl: event.flyer,
+              height: 90,
+              width: 90,
+            ),
             Text(
               event.title,
               style: Constants.extraSmallText.copyWith(
@@ -53,7 +50,8 @@ class ActivityCard extends StatelessWidget {
               style: Constants.superSmallText
                   .copyWith(color: Constants.grey, fontWeight: FontWeight.bold),
             ),
-            signUpButton
+            signUpButton,
+            const Spacer()
           ],
         ),
       ),
