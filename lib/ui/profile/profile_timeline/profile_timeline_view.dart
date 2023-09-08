@@ -94,27 +94,23 @@ class _ProfileTimelineViewState extends State<ProfileTimelineView> {
                           Expanded(
                               child: TabBarView(
                             children: [
-                              SingleChildScrollView(
-                                child: Column(
-                                  children: viewmodel.userPosts
-                                      .map((e) => PostCard(
-                                          post: e,
-                                          onLike: viewmodel.likePost,
-                                          onUnLike: viewmodel.unLikePost,
-                                          userId: user.id))
-                                      .toList(),
-                                ),
+                              ListView(
+                                children: viewmodel.userPosts
+                                    .map((e) => PostCard(
+                                        post: e,
+                                        onLike: viewmodel.likePost,
+                                        onUnLike: viewmodel.unLikePost,
+                                        userId: user.id))
+                                    .toList(),
                               ),
-                              SingleChildScrollView(
-                                child: Column(
-                                  children: viewmodel.likedPosts
-                                      .map((e) => PostCard(
-                                          post: e,
-                                          onLike: viewmodel.likePost,
-                                          onUnLike: viewmodel.unLikePost,
-                                          userId: user.id))
-                                      .toList(),
-                                ),
+                              ListView(
+                                children: viewmodel.likedPosts
+                                    .map((e) => PostCard(
+                                        post: e,
+                                        onLike: viewmodel.likePost,
+                                        onUnLike: viewmodel.unLikePost,
+                                        userId: user.id))
+                                    .toList(),
                               )
                             ],
                           ))

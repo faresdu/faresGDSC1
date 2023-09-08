@@ -9,7 +9,6 @@ import 'package:gdsc_app/ui/events/components/events_card_signup_button.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import '../../../core/enums/event_type_ids.dart';
 import '../../../core/models/event_type.dart';
 
 class ProfileEventsViewModel extends StreamViewModel<List<Event>> {
@@ -42,40 +41,9 @@ class ProfileEventsViewModel extends StreamViewModel<List<Event>> {
   }
 
   Widget getSignUpButton(Event event) {
-    EventType type = event.getType(userService.user.id);
-
-    if (type.id == EventTypeIDs.isExpired) {
-      return EventCardButton(
-        eventType: type,
-        onPressed: null,
-      );
-    }
-    if (type.id == EventTypeIDs.isSignedUp) {
-      return EventCardButton(
-          eventType: type,
-          onPressed: () async {
-            await eventService.signOutFromEvent(event.eventID);
-          });
-    }
-    if (type.id == EventTypeIDs.isFull) {
-      return EventCardButton(
-        eventType: type,
-        onPressed: null,
-      );
-    }
-    if (type.id == EventTypeIDs.isAlmostFull) {
-      return EventCardButton(
-        eventType: type,
-        onPressed: () async {
-          await eventService.signUpToEvent(event.eventID);
-        },
-      );
-    }
+    EventType type = eventService.getEventType(event);
     return EventCardButton(
       eventType: type,
-      onPressed: () async {
-        await eventService.signUpToEvent(event.eventID);
-      },
     );
   }
 

@@ -7,6 +7,8 @@ import 'package:rxdart/rxdart.dart';
 import 'package:supabase/supabase.dart';
 
 import '../app/app.locator.dart';
+import '../models/event_type.dart';
+import '../utils/constants.dart';
 
 class EventService {
   final _supabaseService = locator<SupabaseService>();
@@ -15,7 +17,7 @@ class EventService {
   late List<Event> events;
 
   BehaviorSubject<List<Event>> eventsController =
-      BehaviorSubject<List<Event>>();
+  BehaviorSubject<List<Event>>();
 
   Future<List<Event>> getEvents({bool filtered = false}) async {
     try {
@@ -127,8 +129,8 @@ class EventService {
         .stream(['event_id'])
         .execute()
         .asyncMap<List<Event>>((event) {
-          return getEvents();
-        });
+      return getEvents();
+    });
   }
 
   Future<void> listenToAllEvents() async {
@@ -141,5 +143,46 @@ class EventService {
     eventsController.stream.listen((newEvents) {
       events = newEvents;
     });
+  }
+
+  EventType getEventType(Event event) {
+    if (event.startDate.isBefore(DateTime.now())) {
+      return EventType(
+          text: 'الفعاليه منتهية',
+          color: Constants.grey,
+          onPressed: null
+      );
+    }
+    if (event.isFull()) {
+      return EventType(
+        text: 'المقاعد ممتلئة',
+        color: Constants.grey,
+        onPressed: null,
+      );
+    }
+
+    if (event.isSignedUp(_userService.user.id)) {
+      return EventType(
+        text: 'سجل خروج',
+        color: Constants.red,
+        onPressed: () async {
+          await signOutFromEvent(event.eventID);
+        },
+      );
+    }
+    if (event.getPercentage() >= 75) {
+      return EventType(text: 'احجز مقعدك',
+          color: Constants.blueButton,
+          onPressed: () async {
+            await signUpToEvent(event.eventID);
+          }
+      );
+    }
+    return EventType(
+        text: 'احجز مقعدك',
+        color: Constants.green,
+        onPressed: () async {
+          await signUpToEvent(event.eventID);
+        });
   }
 }

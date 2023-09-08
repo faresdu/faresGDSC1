@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -90,8 +91,8 @@ class ProfileSocialMediaCard extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Image.network(
-                      socialMedia.image,
+                    child: CachedNetworkImage(
+                      imageUrl: socialMedia.image,
                       height: 55,
                     ),
                   ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'event_type.dart';
 import 'member.dart';
 
 class Event {
@@ -88,7 +87,9 @@ class Event {
 
   factory Event.fromJson(Map<String, dynamic> map) {
     List<Member> members = [];
-    if (map["attendees"] != null && (map['attendees'] as List).first != null && (map['attendees'] as List).first['user_id'] != null) {
+    if (map["attendees"] != null &&
+        (map['attendees'] as List).first != null &&
+        (map['attendees'] as List).first['user_id'] != null) {
       members = (map["attendees"] as List).map((e) {
         return Member.fromJson(e);
       }).toList();
@@ -101,7 +102,8 @@ class Event {
       title: map['title'] ?? '',
       flyer: map['flyer'],
       description: map['description'],
-      startDate: DateTime.tryParse(map['start_date'] ?? '') ?? DateTime.utc(1900),
+      startDate:
+          DateTime.tryParse(map['start_date'] ?? '') ?? DateTime.utc(1900),
       endDate: DateTime.tryParse(map['end_date'] ?? ''),
       attendees: members,
       maxAttendees: map['max_attendees'] ?? 0,
@@ -109,21 +111,5 @@ class Event {
       host: map['event_host'],
       isOnline: map['is_online'] ?? false,
     );
-  }
-
-  EventType getType(String userId) {
-    if (startDate.isBefore(DateTime.now())) {
-      return EventType.isExpired();
-    }
-    if (isFull()) {
-      return EventType.isFull();
-    }
-    if (isSignedUp(userId)) {
-      return EventType.isSignedUp();
-    }
-    if (getPercentage() >= 75) {
-      return EventType.isAlmostFull();
-    }
-    return EventType.isEmpty();
   }
 }

@@ -21,7 +21,7 @@ class _EventsViewState extends State<EventsView> {
         builder: (context, viewmodel, _) {
           return Scaffold(
             backgroundColor: Constants.background,
-            floatingActionButton: viewmodel.user.isLeaderOrCoLeader()
+            floatingActionButton: viewmodel.isAdmin()
                 ? FloatingActionButton(
                     onPressed: () {
                       CustomModalBottomSheet(context, const AddEventView(),
@@ -44,20 +44,46 @@ class _EventsViewState extends State<EventsView> {
               ),
               leadingWidth: 100,
             ),
-            body: SingleChildScrollView(
-              child: SafeArea(
+            body: SafeArea(
+              child: DefaultTabController(
+                length: viewmodel.isAdmin() ? 2 : 1,
                 child: Column(children: [
-                  if (viewmodel.canSeeOldEvents())
-                    TextButton(
-                      onPressed: () {
-                        viewmodel.switchFilter();
-                      },
-                      child: Text(viewmodel.filtered
-                          ? 'see all events'
-                          : 'see new events'),
+                  if (viewmodel.isAdmin())
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 16, horizontal: 10),
+                      decoration: BoxDecoration(
+                          boxShadow: Constants.shadow3,
+                          color: Constants.white,
+                          borderRadius: BorderRadius.circular(25)),
+                      width: MediaQuery.of(context).size.width * 0.93,
+                      child: TabBar(
+                        unselectedLabelStyle: Constants.smallText.copyWith(
+                            color: Colors.black, fontWeight: FontWeight.w700),
+                        labelStyle: Constants.smallText.copyWith(
+                            color: Colors.white, fontWeight: FontWeight.w700),
+                        unselectedLabelColor: Colors.black,
+                        indicator: BoxDecoration(
+                            color: Constants.blueButton,
+                            borderRadius: BorderRadius.circular(25)),
+                        tabs: const <Widget>[
+                          Tab(text: 'الفعاليات الجديدة'),
+                          Tab(text: 'جميع الفعاليات'),
+                        ],
+                      ),
                     ),
-                  Column(
-                    children: viewmodel.getCards(),
+                  Expanded(
+                    child: TabBarView(
+                      children: [
+                        ListView(
+                          children: viewmodel.getNewCards(),
+                        ),
+                        if (viewmodel.isAdmin())
+                          ListView(
+                            children: viewmodel.getAllCards(),
+                          ),
+                      ],
+                    ),
                   )
                 ]),
               ),

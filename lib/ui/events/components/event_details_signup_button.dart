@@ -6,11 +6,9 @@ import '../../../core/utils/constants.dart';
 class EventDetailsSignupButton extends StatefulWidget {
   EventDetailsSignupButton({
     Key? key,
-    required this.onPressed,
     this.isLoading = false,
     required this.eventType,
   }) : super(key: key);
-  final Function()? onPressed;
   EventType eventType;
   bool isLoading = false;
 
@@ -24,9 +22,9 @@ class _EventDetailsSignupButtonState extends State<EventDetailsSignupButton> {
     setState(() {
       widget.isLoading = true;
     });
-    if (widget.onPressed != null) {
+    if (widget.eventType.onPressed != null) {
       try {
-        await widget.onPressed!();
+        await widget.eventType.onPressed!();
       } catch (e) {
         setState(() {
           print(e);
@@ -47,7 +45,7 @@ class _EventDetailsSignupButtonState extends State<EventDetailsSignupButton> {
         backgroundColor: widget.eventType.color,
         fixedSize: const Size(150, 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        elevation: widget.onPressed == null ? 1 : 5,
+        elevation: widget.eventType.onPressed == null ? 1 : 5,
       ),
       // onPressed: isLoading ? null : runFuture,
       onPressed: widget.isLoading ? null : runFuture,

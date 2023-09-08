@@ -1,7 +1,6 @@
 import 'package:gdsc_app/core/services/hour_service.dart';
 import 'package:gdsc_app/core/services/notification_service.dart';
 
-import '../../core/enums/event_type_ids.dart';
 import '../../core/models/event.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
@@ -70,40 +69,9 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   }
 
   Widget getSignUpButton(Event event) {
-    EventType type = event.getType(userService.user.id);
-
-    if (type.id == EventTypeIDs.isExpired) {
-      return EventCardButton(
-        eventType: type,
-        onPressed: null,
-      );
-    }
-    if (type.id == EventTypeIDs.isSignedUp) {
-      return EventCardButton(
-          eventType: type,
-          onPressed: () async {
-            await eventService.signOutFromEvent(event.eventID);
-          });
-    }
-    if (type.id == EventTypeIDs.isFull) {
-      return EventCardButton(
-        eventType: type,
-        onPressed: null,
-      );
-    }
-    if (type.id == EventTypeIDs.isAlmostFull) {
-      return EventCardButton(
-        eventType: type,
-        onPressed: () async {
-          await eventService.signUpToEvent(event.eventID);
-        },
-      );
-    }
+    EventType type = eventService.getEventType(event);
     return EventCardButton(
       eventType: type,
-      onPressed: () async {
-        await eventService.signUpToEvent(event.eventID);
-      },
     );
   }
 

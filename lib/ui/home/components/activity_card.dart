@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/utils/helper_functions.dart';
 
 import '../../../core/models/event.dart';
 import '../../../core/utils/constants.dart';
@@ -32,17 +33,7 @@ class ActivityCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            event.flyer != null
-                ? Image.network(
-                    event.flyer!,
-                    width: 90,
-                    height: 90,
-                  )
-                : Image.asset(
-                    'assets/images/temp-events-img.png',
-                    width: 90,
-                    height: 90,
-                  ),
+            HelperFunctions.eventImage(imageUrl: event.flyer, width: 90, height: 90),
             Text(
               event.title,
               style: Constants.extraSmallText.copyWith(

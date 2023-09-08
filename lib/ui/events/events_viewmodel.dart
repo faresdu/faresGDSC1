@@ -5,7 +5,6 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
 import '../../core/app/app.router.dart';
-import '../../core/enums/event_type_ids.dart';
 import '../../core/models/event_type.dart';
 import '../../core/models/member.dart';
 import '../../core/services/event_service.dart';
@@ -22,10 +21,10 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
 
   List<Event> events = [];
   late Member user;
+
   EventsViewModel() {
     user = userService.user;
   }
-  bool filtered = false;
 
   @override
   void onData(List<Event>? data) {
@@ -37,40 +36,9 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
   }
 
   Widget getSignUpButton(Event event) {
-    EventType type = event.getType(userService.user.id);
-
-    if (type.id == EventTypeIDs.isExpired) {
-      return EventCardButton(
-        eventType: type,
-        onPressed: null,
-      );
-    }
-    if (type.id == EventTypeIDs.isSignedUp) {
-      return EventCardButton(
-          eventType: type,
-          onPressed: () async {
-            await eventService.signOutFromEvent(event.eventID);
-          });
-    }
-    if (type.id == EventTypeIDs.isFull) {
-      return EventCardButton(
-        eventType: type,
-        onPressed: null,
-      );
-    }
-    if (type.id == EventTypeIDs.isAlmostFull) {
-      return EventCardButton(
-        eventType: type,
-        onPressed: () async {
-          await eventService.signUpToEvent(event.eventID);
-        },
-      );
-    }
+    EventType type = eventService.getEventType(event);
     return EventCardButton(
       eventType: type,
-      onPressed: () async {
-        await eventService.signUpToEvent(event.eventID);
-      },
     );
   }
 
@@ -93,24 +61,29 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
     return event.isOwner(userService.user.id);
   }
 
-  bool canSeeOldEvents() {
+  bool isAdmin() {
     return userService.user.isLeaderOrCoLeader();
   }
 
-  void switchFilter() {
-    filtered = !filtered;
-    notifyListeners();
+  List<Widget> getNewCards() {
+    List<Event> eventList =
+        events.where((e) => e.startDate.isAfter(DateTime.now())).toList();
+    return eventList
+        .map(
+          (e) => EventCard(
+            event: e,
+            signUpButton: getSignUpButton(e),
+            canEdit: canEditEvent(e),
+            onPressed: () {
+              navigateToEvent(e);
+            },
+          ),
+        )
+        .toList();
   }
 
-  List<Widget> getCards() {
-    List<Event> eventList;
-    if (filtered) {
-      eventList =
-          events.where((e) => e.startDate.isAfter(DateTime.now())).toList();
-    } else {
-      eventList = events;
-    }
-    return eventList
+  List<Widget> getAllCards() {
+    return events
         .map(
           (e) => EventCard(
             event: e,
