@@ -11,8 +11,8 @@ abstract class HelperFunctions {
   /// Returns SvgPicture or Image based on the passed image url
   static Widget socialMediaImage(
       {required String url,
-      double height = 50.0,
-      double width = 50.0,
+      double? height,
+      double? width,
       BoxFit fit = BoxFit.contain}) {
     if (extension(url).contains('svg')) {
       return SvgPicture.network(
