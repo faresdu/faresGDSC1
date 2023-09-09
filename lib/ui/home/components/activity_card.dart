@@ -20,7 +20,7 @@ class ActivityCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -43,7 +43,10 @@ class ActivityCard extends StatelessWidget {
             Text(
               event.title,
               style: Constants.extraSmallText.copyWith(
-                  fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
+                color: Constants.black,
+                fontWeight: FontWeight.bold,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             Text(
               "${DateHelper.getDate(event.startDate)}  -  ${event.isOnline ? "اونلاين" : "حضوري"}",

@@ -15,7 +15,7 @@ class NotificationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 15),
       height: 100,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),

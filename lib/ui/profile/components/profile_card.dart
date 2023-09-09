@@ -28,11 +28,6 @@ class ProfileCard extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Center(
-                child: ClipOval(
-                    child: HelperFunctions.profileImage(
-                        imageUrl: member.photo ?? '', height: 80, width: 80)),
-              ),
               if (edit != null)
                 Container(
                   alignment: Alignment.topLeft,
@@ -44,6 +39,11 @@ class ProfileCard extends StatelessWidget {
                     ),
                   ),
                 ),
+              Center(
+                child: ClipOval(
+                    child: HelperFunctions.profileImage(
+                        imageUrl: member.photo ?? '', height: 80, width: 80)),
+              ),
             ],
           ),
           const SizedBox(
