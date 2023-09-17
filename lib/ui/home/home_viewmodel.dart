@@ -57,7 +57,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     return Notifications(
         title: "أكملت $hours ساعة تطوعية",
         name: "أكملت لجنتك $committeeHours ساعة تطوعية",
-        picture: "assets/images/achievement.png");
+        picture: "assets/images/home/achievement.png");
   }
 
   void navigateToRequestsPage() {

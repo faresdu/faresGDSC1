@@ -56,7 +56,7 @@ abstract class HelperFunctions {
       double? width,
       BoxFit fit = BoxFit.cover}) {
     if (imageUrl == null) {
-      return Image.asset('assets/images/temp-events-img.png',
+      return Image.asset('assets/images/events/temp-events-img.png',
           height: height, width: width, fit: fit);
     }
     return CachedNetworkImage(imageUrl: imageUrl, height: height, width: width, fit: fit);

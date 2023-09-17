@@ -28,7 +28,7 @@ class LoginView extends StatelessWidget {
                     child: Column(
                       children: [
                         const SizedBox(height: 90),
-                        Image.asset('assets/images/logo.png'),
+                        Image.asset('assets/images/GDSC/middle_logo.png'),
                         const SizedBox(height: 65),
 
                         //Email Input Field

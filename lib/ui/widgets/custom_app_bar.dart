@@ -8,7 +8,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.leading,
       this.actions,
       this.leadingWidth,
-      this.preferredSize = const Size.fromHeight(56)});
+      this.preferredSize = const Size.fromHeight(65)});
   @override
   final Size preferredSize;
 
@@ -20,9 +20,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: 0,
+      elevation: 3,
       backgroundColor: Constants.white,
       foregroundColor: Constants.black,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       leading: leading,
       leadingWidth: leadingWidth,
       title: Text(

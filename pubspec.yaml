@@ -52,8 +52,11 @@ flutter:
   uses-material-design: true
   assets:
     - assets/icons/
+    - assets/icons/events/
     - assets/icons/navigation/
     - assets/icons/navigation2/
-    - assets/icons/events/
     - assets/icons/profile/
     - assets/images/
+    - assets/images/events/
+    - assets/images/GDSC/
+    - assets/images/home/

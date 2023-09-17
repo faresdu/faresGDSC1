@@ -35,11 +35,8 @@ class LeaderboardView extends StatelessWidget {
                 ),
               ),
             ],
-            leading: Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Image.asset(
-                "./assets/images/BarLogo.png",
-              ),
+            leading: Image.asset(
+              "./assets/images/GDSC/GDSC.png",
             ),
             leadingWidth: 100,
           ),
