@@ -6,10 +6,9 @@ import '../../../core/utils/constants.dart';
 
 class NotificationCard extends StatelessWidget {
   const NotificationCard(
-      {super.key, required this.notification, this.isNetworkImage = true});
+      {super.key, required this.notification});
 
   final Notifications notification;
-  final bool isNetworkImage;
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +17,9 @@ class NotificationCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 15),
       height: 100,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Constants.white,
-        boxShadow: Constants.shadow
-      ),
+          borderRadius: BorderRadius.circular(20),
+          color: Constants.white,
+          boxShadow: Constants.shadow),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,16 +51,11 @@ class NotificationCard extends StatelessWidget {
               const Spacer(),
             ],
           ),
-          const Spacer(),
-          if (notification.picture != null && isNetworkImage)
-            HelperFunctions.profileImage(
-                imageUrl: notification.picture!,
-                height: 60,
-                width: 60,
-                fit: BoxFit.contain),
-          if (notification.picture != null && !isNetworkImage)
-            Image.asset(notification.picture!,
-                height: 60, width: 60, fit: BoxFit.contain)
+          HelperFunctions.notificationImage(
+              imageUrl: notification.picture ?? '',
+              height: 70,
+              width: 70,
+              fit: BoxFit.contain),
         ],
       ),
     );

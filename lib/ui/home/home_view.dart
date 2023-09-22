@@ -48,7 +48,6 @@ class _HomeViewState extends State<HomeView> {
                         if (viewmodel.featuredNotification != null)
                           NotificationCard(
                             notification: viewmodel.featuredNotification!,
-                            isNetworkImage: false,
                           ),
                         SizedBox(
                           height: spacing / 8,
