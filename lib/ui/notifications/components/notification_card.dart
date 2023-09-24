@@ -53,8 +53,8 @@ class NotificationCard extends StatelessWidget {
           ),
           HelperFunctions.notificationImage(
               imageUrl: notification.picture ?? '',
-              height: 70,
-              width: 70,
+              height: 60,
+              width: 60,
               fit: BoxFit.contain),
         ],
       ),
