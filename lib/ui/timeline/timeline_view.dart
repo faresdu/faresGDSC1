@@ -14,7 +14,6 @@ import 'add_post_view.dart';
 class TimeLineView extends StatefulWidget {
   const TimeLineView({Key? key}) : super(key: key);
 
-
   @override
   State<TimeLineView> createState() => _TimeLineViewState();
 }
@@ -57,29 +56,35 @@ class _TimeLineViewState extends State<TimeLineView> {
               child: BusyOverlay(
                 isBusy: viewmodel.isBusy,
                 child: RefreshIndicator(
-                  onRefresh: viewmodel.getPosts,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: viewmodel.posts
-                              .map((e) => PostCard(
-                            post: e,
+                    onRefresh: viewmodel.refreshPost,
+                    child: ListView.builder(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+                      itemCount: viewmodel.posts.length + 1,
+                      controller: viewmodel.scrollController,
+                      itemBuilder: ((context, index) {
+                        if (index < viewmodel.posts.length) {
+                          final item = viewmodel.posts[index];
+                          return PostCard(
+                            post: item,
                             userId: user.id,
                             onLike: viewmodel.likePost,
                             onUnLike: viewmodel.unLikePost,
-                            onUserTap: () =>
-                                viewmodel.navigateToMemberProfile(
-                                    e.posterId),
-                          ))
-                              .toList(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                            onUserTap: () => viewmodel
+                                .navigateToMemberProfile(item.posterId),
+                          );
+                        } else {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            child: Center(
+                              child: (viewmodel.posts.length + 1) != Null
+                                  ? CircularProgressIndicator()
+                                  : Text('No more posts'),
+                            ),
+                          );
+                        }
+                      }),
+                    )),
               ),
             ),
           ),

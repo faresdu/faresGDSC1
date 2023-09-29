@@ -11,13 +11,14 @@ import '../models/post.dart';
 class TimelineService {
   final _supabaseService = locator<SupabaseService>();
   final _userService = locator<UserService>();
-  Future<List<Post>> getPosts() async {
+  Future<List<Post>> getPosts(int from, int to) async {
     try {
       final PostgrestResponse<dynamic> res = await _supabaseService
           .supabaseClient
           .from(GDSCViews.posts)
           .select('*, Committees:committee_id(*)')
-          .order("created_at", ascending: false)
+          .range(from, to)
+          .order('created_at', ascending: false)
           .execute();
       print(jsonEncode(res.data.first));
       return (res.data as List).map((e) => Post.fromJson(e)).toList();

@@ -14,12 +14,57 @@ class TimeLineViewModel extends BaseViewModel {
   String? description;
   final formKey = GlobalKey<FormState>();
   List<Post> posts = [];
+  late int numPage = 1;
+  final int numOfPostPerReq = 5;
+  late int from;
+  late int to;
+  late bool isLastPage = false;
+  final int nextPageTrigger = 3;
+  late ScrollController scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  void initScroller() {
+    scrollController.addListener(() {
+      if (scrollController.position.maxScrollExtent ==
+          scrollController.offset) {
+        getPosts();
+      }
+    });
+  }
 
   Future<void> getPosts() async {
+    initScroller();
     setBusy(true);
-    await timelineService.getPosts().then((value) => posts = value);
+    from = (numPage - 1) * 5;
+    to = from + (numOfPostPerReq - 1);
+    await timelineService
+        .getPosts(from, to)
+        .then((value) => posts.addAll(value))
+        .catchError((onError) => "");
+    isLastPage = posts.length < numOfPostPerReq;
     posts.sort((a, b) =>
-    b.createdAt.microsecondsSinceEpoch -
+        b.createdAt.microsecondsSinceEpoch -
+        a.createdAt.microsecondsSinceEpoch);
+
+    numPage += 1;
+    notifyListeners();
+    setBusy(false);
+  }
+
+  Future<void> refreshPost() async {
+    setBusy(true);
+    await timelineService
+        .getPosts(0, to)
+        .then((value) => posts = value)
+        .catchError((onError) => posts);
+    isLastPage = posts.length < numOfPostPerReq;
+    posts.sort((a, b) =>
+        b.createdAt.microsecondsSinceEpoch -
         a.createdAt.microsecondsSinceEpoch);
     notifyListeners();
     setBusy(false);
@@ -27,9 +72,9 @@ class TimeLineViewModel extends BaseViewModel {
 
   Future _addToPosts(String postId) async {
     final post = await timelineService.getPost(postId);
-    posts.add(post);
+    posts.insert(0, post);
     posts.sort((a, b) =>
-    b.createdAt.microsecondsSinceEpoch -
+        b.createdAt.microsecondsSinceEpoch -
         a.createdAt.microsecondsSinceEpoch);
     notifyListeners();
   }
