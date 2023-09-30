@@ -172,11 +172,8 @@ class StackedRouter extends _i1.RouterBase {
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.StartUpView: (data) {
-      final args = data.getArgs<StartUpViewArguments>(
-        orElse: () => const StartUpViewArguments(),
-      );
       return _i20.MaterialPageRoute<dynamic>(
-        builder: (context) => _i2.StartUpView(key: args.key),
+        builder: (context) => _i2.StartUpView(),
         settings: data,
       );
     },
@@ -286,44 +283,19 @@ class StackedRouter extends _i1.RouterBase {
 
   @override
   List<_i1.RouteDef> get routes => _routes;
-
   @override
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-class StartUpViewArguments {
-  const StartUpViewArguments({this.key});
-
-  final _i20.Key? key;
-
-  @override
-  String toString() {
-    return '{"key": "$key"}';
-  }
-
-  @override
-  bool operator ==(covariant StartUpViewArguments other) {
-    if (identical(this, other)) return true;
-    return other.key == key;
-  }
-
-  @override
-  int get hashCode {
-    return key.hashCode;
-  }
-}
-
 extension NavigatorStateExtension on _i21.NavigationService {
-  Future<dynamic> navigateToStartUpView({
-    _i20.Key? key,
+  Future<dynamic> navigateToStartUpView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  }) async {
+  ]) async {
     return navigateTo<dynamic>(Routes.startUpView,
-        arguments: StartUpViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -568,16 +540,14 @@ extension NavigatorStateExtension on _i21.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithStartUpView({
-    _i20.Key? key,
+  Future<dynamic> replaceWithStartUpView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  }) async {
+  ]) async {
     return replaceWith<dynamic>(Routes.startUpView,
-        arguments: StartUpViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

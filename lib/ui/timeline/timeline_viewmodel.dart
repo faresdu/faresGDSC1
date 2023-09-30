@@ -1,32 +1,55 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/app/app.router.dart';
+import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/services/timeline_service.dart';
-import 'package:gdsc_app/ui/timeline/add_post/posts_viewmodel.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../core/app/app.locator.dart';
 import '../../core/models/post.dart';
-import '../widgets/custom_bottom_modal_sheet.dart';
-import 'add_post/add_post_view.dart';
 
-class TimeLineViewModel extends PostsViewModel {
+class TimeLineViewModel extends BaseViewModel {
   final timelineService = locator<TimelineService>();
   final navService = locator<NavigationService>();
-  @override
+  TextEditingController descriptionController = TextEditingController();
+  String? description;
+  final formKey = GlobalKey<FormState>();
   List<Post> posts = [];
 
   Future<void> getPosts() async {
     setBusy(true);
     await timelineService.getPosts().then((value) => posts = value);
     posts.sort((a, b) =>
-        b.createdAt.microsecondsSinceEpoch -
+    b.createdAt.microsecondsSinceEpoch -
         a.createdAt.microsecondsSinceEpoch);
     notifyListeners();
     setBusy(false);
   }
 
-  navigateToAddPosts(BuildContext context) async {
-    await CustomModalBottomSheet(
-        context, AddPostView(postsvm: this), heightFactor: 0.75);
+  Future _addToPosts(String postId) async {
+    final post = await timelineService.getPost(postId);
+    posts.add(post);
+    posts.sort((a, b) =>
+    b.createdAt.microsecondsSinceEpoch -
+        a.createdAt.microsecondsSinceEpoch);
+    notifyListeners();
+  }
+
+  Future<String?> addPost(GDSCUser user) async {
+    if (!formKey.currentState!.validate()) {
+      return null;
+    }
+    //Success
+    formKey.currentState?.save();
+    String? postId;
+    try {
+      setBusy(true);
+      postId = await timelineService.addPost(description!, user.id);
+      await _addToPosts(postId);
+    } catch (e) {
+      print(e.toString());
+    }
+    setBusy(false);
+    return postId;
   }
 
   _like(Post post, String userId, {bool unlike = false}) {

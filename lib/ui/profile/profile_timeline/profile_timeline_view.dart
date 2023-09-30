@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/profile/profile_timeline/profile_timeline_viewmodel.dart';
+import 'package:gdsc_app/ui/timeline/add_post_view.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:gdsc_app/ui/widgets/post_card.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +9,7 @@ import 'package:stacked/stacked.dart';
 import '../../../core/models/gdsc_user.dart';
 import '../../../core/utils/constants.dart';
 import '../../widgets/circle_button.dart';
+import '../../widgets/custom_bottom_modal_sheet.dart';
 
 class ProfileTimelineView extends StatefulWidget {
   const ProfileTimelineView({Key? key}) : super(key: key);
@@ -48,20 +50,14 @@ class _ProfileTimelineViewState extends State<ProfileTimelineView> {
                                       color: Constants.white,
                                       borderRadius: BorderRadius.circular(25)),
                                   width: viewmodel.isUser
-                                      ? MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width * 0.75
-                                      : MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width *
-                                      0.93,
+                                      ? MediaQuery.of(context).size.width * 0.75
+                                      : MediaQuery.of(context).size.width *
+                                          0.93,
                                   child: TabBar(
                                     unselectedLabelStyle: Constants.smallText
                                         .copyWith(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700),
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700),
                                     labelStyle: Constants.smallText.copyWith(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w700),
@@ -69,7 +65,7 @@ class _ProfileTimelineViewState extends State<ProfileTimelineView> {
                                     indicator: BoxDecoration(
                                         color: Constants.blueButton,
                                         borderRadius:
-                                        BorderRadius.circular(25)),
+                                            BorderRadius.circular(25)),
                                     tabs: <Widget>[
                                       Tab(
                                         text: viewmodel.isUser
@@ -87,38 +83,37 @@ class _ProfileTimelineViewState extends State<ProfileTimelineView> {
                                 const Spacer(),
                                 if (viewmodel.isUser)
                                   CircleButton(
-                                    onPressed: () {
-                                      viewmodel.navigateToAddPosts(context);
-                                    },
+                                      onPressed: () => CustomModalBottomSheet(
+                                          context,
+                                          const AddPostView()
+                                      ),
                                   ),
                               ],
                             ),
                           ),
                           Expanded(
                               child: TabBarView(
-                                children: [
-                                  ListView(
-                                    children: viewmodel.posts
-                                        .map((e) =>
-                                        PostCard(
-                                            post: e,
-                                            onLike: viewmodel.likePost,
-                                            onUnLike: viewmodel.unLikePost,
-                                            userId: user.id))
-                                        .toList(),
-                                  ),
-                                  ListView(
-                                    children: viewmodel.likedPosts
-                                        .map((e) =>
-                                        PostCard(
-                                            post: e,
-                                            onLike: viewmodel.likePost,
-                                            onUnLike: viewmodel.unLikePost,
-                                            userId: user.id))
-                                        .toList(),
-                                  )
-                                ],
-                              ))
+                            children: [
+                              ListView(
+                                children: viewmodel.userPosts
+                                    .map((e) => PostCard(
+                                        post: e,
+                                        onLike: viewmodel.likePost,
+                                        onUnLike: viewmodel.unLikePost,
+                                        userId: user.id))
+                                    .toList(),
+                              ),
+                              ListView(
+                                children: viewmodel.likedPosts
+                                    .map((e) => PostCard(
+                                        post: e,
+                                        onLike: viewmodel.likePost,
+                                        onUnLike: viewmodel.unLikePost,
+                                        userId: user.id))
+                                    .toList(),
+                              )
+                            ],
+                          ))
                         ])),
               ));
         });

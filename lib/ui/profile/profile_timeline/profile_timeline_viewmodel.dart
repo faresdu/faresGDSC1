@@ -1,37 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/ui/timeline/add_post/posts_viewmodel.dart';
+import 'package:stacked/stacked.dart';
 
 import '../../../core/app/app.locator.dart';
 import '../../../core/models/member.dart';
 import '../../../core/models/post.dart';
 import '../../../core/services/timeline_service.dart';
 import '../../../core/services/user_service.dart';
-import '../../timeline/add_post/add_post_view.dart';
-import '../../widgets/custom_bottom_modal_sheet.dart';
 
-class ProfileTimelineViewModel extends PostsViewModel {
+class ProfileTimelineViewModel extends BaseViewModel {
   final userService = locator<UserService>();
   final timelineService = locator<TimelineService>();
 
   final key = GlobalKey(debugLabel: 'profile_timeline');
 
   bool isUser = true;
-  @override
-  List<Post> posts = [];
+
+  List<Post> userPosts = [];
   List<Post> likedPosts = [];
 
   Future<void> getPosts(BuildContext context) async {
     setBusy(true);
-    Member? member = (ModalRoute
-        .of(context)!
-        .settings
-        .arguments as Member?);
+    Member? member = (ModalRoute.of(context)!.settings.arguments as Member?);
     if (member != null) {
       isUser = false;
     } else {
       member = userService.user;
     }
-    posts = member.posts;
+    userPosts = member.posts;
 
     likedPosts = await timelineService.getLikedPosts(id: member.id);
     notifyListeners();
@@ -44,15 +39,15 @@ class ProfileTimelineViewModel extends PostsViewModel {
       if (!removeFromList && index == -1) {
         likedPosts.add(post);
         likedPosts.sort((a, b) =>
-        b.createdAt.microsecondsSinceEpoch -
+            b.createdAt.microsecondsSinceEpoch -
             a.createdAt.microsecondsSinceEpoch);
       }
       if (removeFromList && index != -1) {
         likedPosts.remove(post);
       }
     } else if (!isUser && index != -1) {
-      int uPIndex = posts.indexWhere((e) => e.id == post.id);
-      if (uPIndex != -1) posts[uPIndex] = post;
+      int uPIndex = userPosts.indexWhere((e) => e.id == post.id);
+      if (uPIndex != -1) userPosts[uPIndex] = post;
       likedPosts[index] = post;
     }
   }
@@ -93,12 +88,5 @@ class ProfileTimelineViewModel extends PostsViewModel {
       _updateLikedPosts(post);
     }
     notifyListeners();
-  }
-
-  navigateToAddPosts(BuildContext context) async {
-    return await CustomModalBottomSheet(
-        context,
-        AddPostView(postsvm: this)
-    );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
 
-Future CustomModalBottomSheet(BuildContext context, Widget? child,
+void CustomModalBottomSheet(BuildContext context, Widget? child,
     {double heightFactor = 0.7, bool isScrollControlled = true}) async {
   await showModalBottomSheet(
     context: context,
