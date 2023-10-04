@@ -77,9 +77,9 @@ class _TimeLineViewState extends State<TimeLineView> {
                           return Padding(
                             padding: EdgeInsets.symmetric(vertical: 5),
                             child: Center(
-                              child: (viewmodel.posts.length + 1) != Null
-                                  ? CircularProgressIndicator()
-                                  : Text('No more posts'),
+                              child: viewmodel.noMorePosts == true
+                                  ? Text('No more posts')
+                                  : null,
                             ),
                           );
                         }

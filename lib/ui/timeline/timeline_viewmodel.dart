@@ -14,14 +14,14 @@ class TimeLineViewModel extends BaseViewModel {
   String? description;
   final formKey = GlobalKey<FormState>();
   List<Post> posts = [];
-  late int numPage = 1;
+  int numPage = 1;
   final int numOfPostPerReq = 5;
   late int from;
   late int to;
-  late bool isLastPage = false;
+  bool isLastPage = false;
   final int nextPageTrigger = 3;
-  late ScrollController scrollController = ScrollController();
-
+  ScrollController scrollController = ScrollController();
+  bool noMorePosts = false;
   @override
   void dispose() {
     scrollController.dispose();
@@ -31,7 +31,8 @@ class TimeLineViewModel extends BaseViewModel {
   void initScroller() {
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent ==
-          scrollController.offset) {
+              scrollController.offset &&
+          !noMorePosts) {
         getPosts();
       }
     });
@@ -45,7 +46,7 @@ class TimeLineViewModel extends BaseViewModel {
     await timelineService
         .getPosts(from, to)
         .then((value) => posts.addAll(value))
-        .catchError((onError) => "");
+        .catchError((onError) => noMorePosts = true);
     isLastPage = posts.length < numOfPostPerReq;
     posts.sort((a, b) =>
         b.createdAt.microsecondsSinceEpoch -
