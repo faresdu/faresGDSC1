@@ -23,7 +23,7 @@ class _TimeLineViewState extends State<TimeLineView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<TimeLineViewModel>.reactive(
       viewModelBuilder: () => TimeLineViewModel(),
-      onViewModelReady: (model) => model.getPosts(),
+      onViewModelReady: (model) => model.initTimeline(),
       builder: (context, viewmodel, _) {
         final user = Provider.of<GDSCUser>(context);
 

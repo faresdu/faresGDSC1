@@ -28,6 +28,11 @@ class TimeLineViewModel extends BaseViewModel {
     super.dispose();
   }
 
+  void initTimeline() {
+    initScroller();
+    getPosts();
+  }
+
   void initScroller() {
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent ==
@@ -38,14 +43,18 @@ class TimeLineViewModel extends BaseViewModel {
     });
   }
 
-  Future<void> getPosts() async {
-    initScroller();
+  Future<void> getPosts({bool resetPosts = false}) async {
     setBusy(true);
-    from = (numPage - 1) * 5;
-    to = from + (numOfPostPerReq - 1);
+    if (resetPosts) {
+      reset();
+    } else {
+      from = (numPage - 1) * 5;
+      to = from + (numOfPostPerReq - 1);
+    }
+
     await timelineService
         .getPosts(from, to)
-        .then((value) => posts.addAll(value))
+        .then((value) => resetPosts ? posts = value : posts.addAll(value))
         .catchError((onError) => noMorePosts = true);
     isLastPage = posts.length < numOfPostPerReq;
     posts.sort((a, b) =>
@@ -57,18 +66,15 @@ class TimeLineViewModel extends BaseViewModel {
     setBusy(false);
   }
 
+  Future<void> reset() async {
+    noMorePosts = false;
+    numPage = 1;
+    from = 0;
+    to = (numOfPostPerReq - 1);
+  }
+
   Future<void> refreshPost() async {
-    setBusy(true);
-    await timelineService
-        .getPosts(0, to)
-        .then((value) => posts = value)
-        .catchError((onError) => posts);
-    isLastPage = posts.length < numOfPostPerReq;
-    posts.sort((a, b) =>
-        b.createdAt.microsecondsSinceEpoch -
-        a.createdAt.microsecondsSinceEpoch);
-    notifyListeners();
-    setBusy(false);
+    getPosts(resetPosts: true);
   }
 
   Future _addToPosts(String postId) async {
