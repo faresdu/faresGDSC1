@@ -26,20 +26,22 @@ class _ProfileViewState extends State<ProfileView> {
             backgroundColor: Constants.background,
             appBar: CustomAppBar(
                 title: 'المـلـف الـشـخـصـي',
+                elevation: 0,
+                roundedBorder: false,
                 leading: !viewmodel.fromLogin
                     ? null
                     : viewmodel.isUser
-                    ? IconButton(
-                  onPressed: () async {
-                    await viewmodel.signOut();
-                  },
-                  icon: const Icon(
-                    Icons.logout_rounded,
-                    size: 40,
-                    color: Constants.black,
-                  ),
-                )
-                    : null),
+                        ? IconButton(
+                            onPressed: () async {
+                              await viewmodel.signOut();
+                            },
+                            icon: const Icon(
+                              Icons.logout_rounded,
+                              size: 40,
+                              color: Constants.black,
+                            ),
+                          )
+                        : null),
             body: SafeArea(
               child: Center(
                   child: BusyOverlay(

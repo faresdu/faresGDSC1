@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:gdsc_app/ui/notifications/notifications_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import '../../../core/utils/constants.dart';
-import '../../core/models/gdsc_user.dart';
 import '../../core/utils/helper_functions.dart';
 
 class AddNotification extends StatefulWidget {
@@ -19,8 +17,6 @@ class _AddPostViewState extends State<AddNotification> {
     return ViewModelBuilder<NotificationsViewModel>.reactive(
         viewModelBuilder: () => NotificationsViewModel(),
         builder: (context, viewmodel, _) {
-          final user = Provider.of<GDSCUser>(context);
-
           return Padding(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -52,7 +48,7 @@ class _AddPostViewState extends State<AddNotification> {
                                     sizeX: 90,
                                     sizeY: 40,
                                     onPressed: () {
-                                      viewmodel.addNotification(user);
+                                      viewmodel.addNotification();
                                       Navigator.pop(context);
                                     }),
                               ),
@@ -64,7 +60,7 @@ class _AddPostViewState extends State<AddNotification> {
                                 padding: const EdgeInsets.only(top: 4),
                                 child: ClipOval(
                                   child: HelperFunctions.profileImage(
-                                      imageUrl: user.photo ?? '',
+                                      imageUrl: viewmodel.user.photo ?? '',
                                       height: 50,
                                       width: 50),
                                 ),
@@ -73,11 +69,11 @@ class _AddPostViewState extends State<AddNotification> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(user.name,
+                                  Text(viewmodel.user.name,
                                       style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w900)),
-                                  Text(user.committee.name,
+                                  Text(viewmodel.user.committee.name,
                                       style: const TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold,

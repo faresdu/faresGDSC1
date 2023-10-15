@@ -123,7 +123,7 @@ class EventCard extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 2),
                             child: Row(
                               children: [
-                                Image.asset("./assets/images/Place Marker.png"),
+                                Image.asset("./assets/icons/events/Place Marker.png"),
                                 const SizedBox(
                                   width: 8,
                                 ),

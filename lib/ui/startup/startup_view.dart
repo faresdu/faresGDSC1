@@ -18,7 +18,7 @@ class StartUpView extends StatelessWidget {
         return const Scaffold(
           body: Center(
             child: Image(
-              image: AssetImage('assets/images/logo.png'),
+              image: AssetImage('assets/images/GDSC/middle_logo.png'),
             ),
           ),
         );

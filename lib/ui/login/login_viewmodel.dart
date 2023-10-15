@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gdsc_app/core/app/app.locator.dart';
 import 'package:gdsc_app/core/app/app.router.dart';
 import 'package:gdsc_app/core/services/event_service.dart';
@@ -40,15 +41,20 @@ class LoginViewModel extends BaseViewModel {
     }
   }
 
-  submitLogin(context) {
+  submitLogin(context) async {
+    passwordFocus.unfocus();
+    TextInput.finishAutofillContext();
     if (!formKey.currentState!.validate()) {
       print('Login Failed : invalid login information');
       return;
     }
     //Success
     formKey.currentState?.save();
-
-    loginAndNavigate(context);
+    setBusy(true);
+    notifyListeners();
+    await loginAndNavigate(context);
+    setBusy(false);
+    notifyListeners();
   }
 
   @override

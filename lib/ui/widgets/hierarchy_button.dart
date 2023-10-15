@@ -11,17 +11,15 @@ class HierarchyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 20),
-      margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 25),
-      decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20))),
-      child: TextButton(
-        style: TextButton.styleFrom(
+      margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          backgroundColor: Constants.primaryLightBlue,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20), // <-- Radius
+              borderRadius: BorderRadius.circular(20),
             ),
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            backgroundColor: Constants.primaryLightBlue),
+        ),
         onPressed: onPressed,
         child: Center(
           child: Text(name,
