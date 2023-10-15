@@ -81,7 +81,7 @@ class EventAttendees extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset('assets/images/event-attendees.png', width: 13),
+        Image.asset('assets/icons/events/event-attendees.png', width: 13),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 7),
           child: const Text(

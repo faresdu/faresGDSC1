@@ -9,7 +9,7 @@
         </intent>
     </queries>
    <application
-        android:label="gdsc_app"
+        android:label="GDSC"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

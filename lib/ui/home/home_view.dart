@@ -48,7 +48,6 @@ class _HomeViewState extends State<HomeView> {
                         if (viewmodel.featuredNotification != null)
                           NotificationCard(
                             notification: viewmodel.featuredNotification!,
-                            isNetworkImage: false,
                           ),
                         SizedBox(
                           height: spacing / 8,
@@ -64,9 +63,12 @@ class _HomeViewState extends State<HomeView> {
                           CarouselSlider(
                             carouselController: controller,
                             items: viewmodel.notifications
-                                .map((e) => NotificationCard(
-                                      notification: e,
-                                    ))
+                                .map((e) => Container(
+                              margin: const EdgeInsets.symmetric(vertical: 8),
+                                  child: NotificationCard(
+                                        notification: e,
+                                      ),
+                                ))
                                 .toList(),
                             options: CarouselOptions(
                                 viewportFraction: 1,

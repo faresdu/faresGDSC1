@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,62 +17,56 @@ class ProfileSocialMediaCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(15),
-      height: 80,
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: Constants.cardShadow,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-            child: Container(
-              height: 80,
-              decoration: const BoxDecoration(
-                color: Constants.darkBlue,
-              ),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.navigate_next,
-                  size: 50,
-                  color: Constants.white,
-                  textDirection: TextDirection.ltr,
+      child: ElevatedButton(
+        onPressed:  () async {
+          if (socialMedia.link != null) {
+            HelperFunctions.openUrl(socialMedia.link!);
+          }
+        },
+        clipBehavior: Clip.antiAlias,
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          backgroundColor: Constants.white,
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                height: 80,
+                decoration: const BoxDecoration(
+                  color: Constants.darkBlue,
                 ),
-                onPressed: () async {
-                  if (socialMedia.link != null) {
-                    HelperFunctions.openUrl(socialMedia.link!);
-                  }
-                },
+                child: const Icon(
+                    Icons.navigate_next,
+                    size: 50,
+                    color: Constants.white,
+                    textDirection: TextDirection.ltr,
+                  ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Container(
-              color: Constants.white,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Center(
-                            widthFactor: 1,
-                            child: Text(
-                              socialMedia.name,
-                              style: GoogleFonts.cairo(
-                                textStyle: const TextStyle(
-                                  color: Constants.black,
-                                  height: 1.7,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 28,
-                                ),
+            Expanded(
+              flex: 4,
+              child: Container(
+                color: Constants.white,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            socialMedia.name,
+                            style: GoogleFonts.cairo(
+                              textStyle: const TextStyle(
+                                color: Constants.black,
+                                height: 1.7,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 28,
                               ),
-                            )),
-                        Center(
-                          widthFactor: 1,
-                          child: Text(
+                            ),
+                          ),
+                          Text(
                             "@${socialMedia.username}",
                             textDirection: TextDirection.ltr,
                             style: GoogleFonts.cairo(
@@ -85,22 +78,22 @@ class ProfileSocialMediaCard extends StatelessWidget {
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: CachedNetworkImage(
-                      imageUrl: socialMedia.image,
-                      height: 55,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: HelperFunctions.socialMediaImage(
+                        url: socialMedia.image,
+                        height: 55,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

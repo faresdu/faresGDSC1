@@ -8,9 +8,6 @@ import 'package:gdsc_app/ui/widgets/post_card.dart';
 import 'package:stacked/stacked.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/custom_bottom_modal_sheet.dart';
-import 'add_post_view.dart';
-
 class TimeLineView extends StatefulWidget {
   const TimeLineView({Key? key}) : super(key: key);
 
@@ -32,8 +29,7 @@ class _TimeLineViewState extends State<TimeLineView> {
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              CustomModalBottomSheet(context, const AddPostView(),
-                  heightFactor: 0.75);
+              viewmodel.navigateToAddPosts(context);
             },
             backgroundColor: Constants.blueButton,
             heroTag: 'addPostTag',
@@ -44,11 +40,8 @@ class _TimeLineViewState extends State<TimeLineView> {
           ),
           appBar: CustomAppBar(
               title: "المنشورات",
-              leading: Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Image.asset(
-                  "./assets/images/BarLogo.png",
-                ),
+              leading: Image.asset(
+                "./assets/images/GDSC/GDSC.png",
               ),
               leadingWidth: 100),
           body: SafeArea(

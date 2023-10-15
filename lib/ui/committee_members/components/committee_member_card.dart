@@ -12,14 +12,16 @@ class CommitteeMemberCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onTap!(member.id),
-      child: Card(
-        elevation: 3,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20),
+      child: ElevatedButton(
+        onPressed: () => onTap!(member.id),
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          backgroundColor: Colors.white,
+          elevation: 3,
         ),
-        color: Colors.white,
         child: Row(
           children: [
             Container(

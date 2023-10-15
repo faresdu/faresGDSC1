@@ -7,6 +7,7 @@ class CommitteeLeaderCard extends StatelessWidget {
   final Member member;
   final bool isCoLeader;
   final void Function(String id)? onTap;
+
   const CommitteeLeaderCard(
       {required this.member, this.isCoLeader = false, this.onTap, Key? key})
       : super(key: key);
@@ -22,66 +23,65 @@ class CommitteeLeaderCard extends StatelessWidget {
             top: 25,
             left: 0,
             right: 0,
-            child: InkWell(
-              onTap: () => onTap!(member.id),
-              child: Card(
+            child: ElevatedButton(
+              onPressed: () => onTap!(member.id),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.zero,
                 elevation: 3,
+                backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    Container(
-                      height: 86,
-                      width: 50,
-                      decoration: const BoxDecoration(
-                          color: Constants.lightBlue,
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(15),
-                            bottomRight: Radius.circular(15),
-                          )),
-                      child: Center(
-                        child: RotatedBox(
-                          quarterTurns: -3,
-                          child: Text(
-                            (isCoLeader ? 'النائب' : 'القائد'),
-                            style: Constants.veryLargeText.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600),
-                          ),
+                    borderRadius: BorderRadius.circular(15)),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    height: 86,
+                    width: 50,
+                    decoration: const BoxDecoration(
+                        color: Constants.lightBlue,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(15),
+                          bottomRight: Radius.circular(15),
+                        )),
+                    child: Center(
+                      child: RotatedBox(
+                        quarterTurns: -3,
+                        child: Text(
+                          (isCoLeader ? 'النائب' : 'القائد'),
+                          style: Constants.veryLargeText.copyWith(
+                              color: Colors.white, fontWeight: FontWeight.w600),
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 30,
+                  ),
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  Text(
+                    member.name,
+                    style: Constants.mediumText.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
                     ),
-                    Text(
-                      member.name,
-                      style: Constants.mediumText.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const Spacer(),
-                    Container(
-                      height: 86,
-                      width: 80,
-                      decoration: const BoxDecoration(
-                          color: Constants.primaryLightBlue,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                            bottomLeft: Radius.circular(15),
-                          )),
-                      child: const Center(
-                          child: Icon(
-                        Icons.arrow_back_ios_new,
-                        color: Colors.white,
-                        size: 30,
-                      )),
-                    ),
-                  ],
-                ),
+                  ),
+                  const Spacer(),
+                  Container(
+                    height: 86,
+                    width: 80,
+                    decoration: const BoxDecoration(
+                        color: Constants.primaryLightBlue,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          bottomLeft: Radius.circular(15),
+                        )),
+                    child: const Center(
+                        child: Icon(
+                      Icons.arrow_back_ios_new,
+                      color: Colors.white,
+                      size: 30,
+                    )),
+                  ),
+                ],
               ),
             ),
           ),

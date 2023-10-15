@@ -20,7 +20,6 @@ class CommitteeMembersViewModel extends BaseViewModel {
         (ModalRoute.of(context)!.settings.arguments! as List).first;
 
     committee = (ModalRoute.of(context)!.settings.arguments! as List).last;
-
     for (var i = 0; i < tempMembers.length; i++) {
       if (tempMembers[i].id == committee.leaderID) {
         leader = tempMembers[i];
