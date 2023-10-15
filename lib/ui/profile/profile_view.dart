@@ -26,6 +26,8 @@ class _ProfileViewState extends State<ProfileView> {
             backgroundColor: Constants.background,
             appBar: CustomAppBar(
                 title: 'المـلـف الـشـخـصـي',
+                elevation: 0,
+                roundedBorder: false,
                 leading: !viewmodel.fromLogin
                     ? null
                     : viewmodel.isUser
