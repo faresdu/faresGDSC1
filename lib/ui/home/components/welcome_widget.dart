@@ -32,7 +32,7 @@ class Welcome extends StatelessWidget {
               ),
             ),
             Text(
-              "${user.isLeaderOrCoLeader() ? user.getRole() : ''} ${user.committee.name}"
+              "${user.isLeaderOrCoLeader() | user.isConsultant() ? user.getRole() : ''} ${user.committee.name}"
                   .trim(),
               style: Constants.smallText
                   .copyWith(height: 1, color: Constants.grey),

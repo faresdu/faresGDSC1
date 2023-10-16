@@ -19,56 +19,61 @@ class Member {
   final List<VolunteerHours> volunteerHours;
   final int hours;
   final bool isAdmin;
+  final String? gender;
 
-  Member({
-    required this.id,
-    required this.sID,
-    required this.name,
-    this.email,
-    this.phoneNumber,
-    this.major,
-    this.photo,
-    this.isAdmin = false,
-    required this.committee,
-    required this.socials,
-    required this.events,
-    required this.posts,
-    required this.volunteerHours,
-    required this.hours,
-  });
+  Member(
+      {required this.id,
+      required this.sID,
+      required this.name,
+      this.email,
+      this.phoneNumber,
+      this.major,
+      this.photo,
+      this.isAdmin = false,
+      required this.committee,
+      required this.socials,
+      required this.events,
+      required this.posts,
+      required this.volunteerHours,
+      required this.hours,
+      required this.gender});
 
   factory Member.anonymous() {
     return Member(
-      id: '',
-      sID: '',
-      name: '',
-      major: '',
-      socials: [],
-      events: [],
-      posts: [],
-      committee: Committee.anonymous(),
-      volunteerHours: [],
-      hours: 0,
-    );
+        id: '',
+        sID: '',
+        name: '',
+        major: '',
+        socials: [],
+        events: [],
+        posts: [],
+        committee: Committee.anonymous(),
+        volunteerHours: [],
+        hours: 0,
+        gender: '');
   }
 
   bool isLeader() => id == committee.leaderID;
 
   bool isCoLeader() => id == committee.coLeaderID;
 
-  bool isConsultant() => false;
+  bool isConsultant() => id == committee.consultantID;
 
   bool isLeaderOrCoLeader() => isLeader() || isCoLeader() || isAdmin;
 
+  bool isMale() => gender == "male";
+
+  bool isFemale() => gender == "female";
+
   String getRole() {
     if (isLeader()) {
-      return "قائد";
+      return isFemale() ? "قائدة" : "قائد";
     } else if (isCoLeader()) {
-      return "نائب قائد";
+      return isFemale() ? "نائبة قائد" : "نائب قائد";
     } else if (isConsultant()) {
-      return "مستشار";
+      return isFemale() ? "مستشارة" : "مستشار";
     }
-    return 'عضو';
+    return isFemale() ? "عضوة" : 'عضو';
   }
 
   static int getHours(List<VolunteerHours> volunteerHours) {
@@ -147,7 +152,8 @@ class Member {
           socials: socials,
           volunteerHours: volunteers,
           hours: getHours(volunteers),
-          isAdmin: map['is_admin'] ?? false);
+          isAdmin: map['is_admin'] ?? false,
+          gender: map['gender']);
     } catch (e) {
       throw 'Failed to make User, ERROR : $e';
     }

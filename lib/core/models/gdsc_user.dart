@@ -19,6 +19,7 @@ class GDSCUser extends Member {
       required List<Post> posts,
       required List<VolunteerHours> volunteers,
       required int hours,
+      String? gender,
       String? email,
       String? phoneNumber,
       bool isAdmin = false})
@@ -36,23 +37,24 @@ class GDSCUser extends Member {
             posts: posts,
             volunteerHours: volunteers,
             hours: hours,
-            isAdmin: isAdmin);
+            isAdmin: isAdmin,
+            gender: gender);
 
   factory GDSCUser.anonymous() {
     Member m = Member.anonymous();
     return GDSCUser(
-      id: m.id,
-      sID: m.sID,
-      name: m.name,
-      major: m.major,
-      photo: m.photo,
-      committee: m.committee,
-      socials: m.socials,
-      events: m.events,
-      posts: m.posts,
-      volunteers: m.volunteerHours,
-      hours: m.hours,
-    );
+        id: m.id,
+        sID: m.sID,
+        name: m.name,
+        major: m.major,
+        photo: m.photo,
+        committee: m.committee,
+        socials: m.socials,
+        events: m.events,
+        posts: m.posts,
+        volunteers: m.volunteerHours,
+        hours: m.hours,
+        gender: m.gender);
   }
 
   factory GDSCUser.fromJson(Map<String, dynamic> map) {
@@ -71,6 +73,7 @@ class GDSCUser extends Member {
         hours: m.hours,
         email: m.email,
         phoneNumber: m.phoneNumber,
-        isAdmin: m.isAdmin);
+        isAdmin: m.isAdmin,
+        gender: m.gender);
   }
 }

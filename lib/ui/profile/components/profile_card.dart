@@ -54,7 +54,7 @@ class ProfileCard extends StatelessWidget {
             style: Constants.veryLargeText
                 .copyWith(fontWeight: FontWeight.bold, height: 1),
           ),
-          if (member.isLeaderOrCoLeader())
+          if (member.isLeaderOrCoLeader() || member.isConsultant())
             Text(
               "${member.getRole()} ${member.committee.name}",
               style: Constants.smallText

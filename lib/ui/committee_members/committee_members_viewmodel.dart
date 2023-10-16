@@ -12,6 +12,7 @@ class CommitteeMembersViewModel extends BaseViewModel {
 
   Member? leader;
   Member? coLeader;
+  Member? consultant;
   late Committee committee;
   List<Member> members = [];
 
@@ -25,6 +26,8 @@ class CommitteeMembersViewModel extends BaseViewModel {
         leader = tempMembers[i];
       } else if (tempMembers[i].id == committee.coLeaderID) {
         coLeader = tempMembers[i];
+      } else if (tempMembers[i].id == committee.consultantID) {
+        consultant = tempMembers[i];
       } else {
         members.add(tempMembers[i]);
       }
