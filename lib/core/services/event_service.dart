@@ -17,7 +17,7 @@ class EventService {
   late List<Event> events;
 
   BehaviorSubject<List<Event>> eventsController =
-  BehaviorSubject<List<Event>>();
+      BehaviorSubject<List<Event>>();
 
   Future<List<Event>> getEvents({bool filtered = false}) async {
     try {
@@ -52,9 +52,18 @@ class EventService {
       if (res.error != null) {
         throw res.error!.message;
       }
+      final eId = res.data[0]["event_id"];
+      if (eId != null) {
+        await showEvent(eId);
+      }
     } catch (e) {
       throw 'Failed to add Event, ERROR : $e';
     }
+  }
+
+  Future<void> showEvent(String eId) async {
+    await signUpToEvent(eId);
+    await signOutFromEvent(eId);
   }
 
   Future<void> editEvent(Event event) async {
@@ -67,6 +76,10 @@ class EventService {
           .execute();
       if (res.error != null) {
         throw res.error!.message;
+      }
+      final eId = res.data[0]["event_id"];
+      if (eId != null) {
+        await showEvent(eId);
       }
     } catch (e) {
       throw 'Failed to edit Event, ERROR : $e';
@@ -129,8 +142,8 @@ class EventService {
         .stream(['event_id'])
         .execute()
         .asyncMap<List<Event>>((event) {
-      return getEvents();
-    });
+          return getEvents();
+        });
   }
 
   Future<void> listenToAllEvents() async {
@@ -148,10 +161,7 @@ class EventService {
   EventType getEventType(Event event) {
     if (event.startDate.isBefore(DateTime.now())) {
       return EventType(
-          text: 'الفعاليه منتهية',
-          color: Constants.grey,
-          onPressed: null
-      );
+          text: 'الفعاليه منتهية', color: Constants.grey, onPressed: null);
     }
     if (event.isFull()) {
       return EventType(
@@ -171,12 +181,12 @@ class EventService {
       );
     }
     if (event.getPercentage() >= 75) {
-      return EventType(text: 'احجز مقعدك',
+      return EventType(
+          text: 'احجز مقعدك',
           color: Constants.blueButton,
           onPressed: () async {
             await signUpToEvent(event.eventID);
-          }
-      );
+          });
     }
     return EventType(
         text: 'احجز مقعدك',
