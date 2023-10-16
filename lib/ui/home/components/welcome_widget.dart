@@ -21,7 +21,10 @@ class Welcome extends StatelessWidget {
                 boxShadow: Constants.memberIconShadow),
             child: ClipOval(
                 child: HelperFunctions.profileImage(
-                    imageUrl: user.photo ?? '', height: 65, width: 65))),
+                    imageUrl: user.photo ?? '',
+                    gender: user.gender ?? "",
+                    height: 65,
+                    width: 65))),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

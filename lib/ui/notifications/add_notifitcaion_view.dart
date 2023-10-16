@@ -61,6 +61,7 @@ class _AddPostViewState extends State<AddNotification> {
                                 child: ClipOval(
                                   child: HelperFunctions.profileImage(
                                       imageUrl: viewmodel.user.photo ?? '',
+                                      gender: viewmodel.user.gender ?? "",
                                       height: 50,
                                       width: 50),
                                 ),

@@ -175,6 +175,7 @@ class Top3Item extends StatelessWidget {
           child: ClipOval(
             child: HelperFunctions.profileImage(
               imageUrl: member.profilePicture,
+              gender: member.gender ?? "",
               width: profileRaduis,
               height: profileRaduis,
             ),
