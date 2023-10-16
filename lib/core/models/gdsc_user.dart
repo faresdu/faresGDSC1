@@ -7,35 +7,36 @@ import 'committee.dart';
 import 'event.dart';
 
 class GDSCUser extends Member {
-  GDSCUser({
-    required String id,
-    required String sID,
-    required String name,
-    String? major,
-    String? photo,
-    required Committee committee,
-    required List<UserSocialMedia> socials,
-    required List<Event> events,
-    required List<Post> posts,
-    required List<VolunteerHours> volunteers,
-    required int hours,
-    String? email,
-    String? phoneNumber,
-  }) : super(
-          id: id,
-          sID: sID,
-          name: name,
-          email: email,
-          phoneNumber: phoneNumber,
-          photo: photo,
-          major: major,
-          committee: committee,
-          socials: socials,
-          events: events,
-          posts: posts,
-          volunteerHours: volunteers,
-          hours: hours,
-        );
+  GDSCUser(
+      {required String id,
+      required String sID,
+      required String name,
+      String? major,
+      String? photo,
+      required Committee committee,
+      required List<UserSocialMedia> socials,
+      required List<Event> events,
+      required List<Post> posts,
+      required List<VolunteerHours> volunteers,
+      required int hours,
+      String? email,
+      String? phoneNumber,
+      bool isAdmin = false})
+      : super(
+            id: id,
+            sID: sID,
+            name: name,
+            email: email,
+            phoneNumber: phoneNumber,
+            photo: photo,
+            major: major,
+            committee: committee,
+            socials: socials,
+            events: events,
+            posts: posts,
+            volunteerHours: volunteers,
+            hours: hours,
+            isAdmin: isAdmin);
 
   factory GDSCUser.anonymous() {
     Member m = Member.anonymous();
@@ -69,6 +70,7 @@ class GDSCUser extends Member {
         volunteers: m.volunteerHours,
         hours: m.hours,
         email: m.email,
-        phoneNumber: m.phoneNumber);
+        phoneNumber: m.phoneNumber,
+        isAdmin: m.isAdmin);
   }
 }

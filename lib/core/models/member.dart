@@ -18,6 +18,7 @@ class Member {
   final List<Post> posts;
   final List<VolunteerHours> volunteerHours;
   final int hours;
+  final bool isAdmin;
 
   Member({
     required this.id,
@@ -27,6 +28,7 @@ class Member {
     this.phoneNumber,
     this.major,
     this.photo,
+    this.isAdmin = false,
     required this.committee,
     required this.socials,
     required this.events,
@@ -54,13 +56,17 @@ class Member {
 
   bool isCoLeader() => id == committee.coLeaderID;
 
-  bool isLeaderOrCoLeader() => isLeader() || isCoLeader();
+  bool isConsultant() => false;
+
+  bool isLeaderOrCoLeader() => isLeader() || isCoLeader() || isAdmin;
 
   String getRole() {
     if (isLeader()) {
       return "قائد";
     } else if (isCoLeader()) {
       return "نائب قائد";
+    } else if (isConsultant()) {
+      return "مستشار";
     }
     return 'عضو';
   }
@@ -126,22 +132,22 @@ class Member {
             a.createdAt.microsecondsSinceEpoch);
       }
       return Member(
-        id: map['user_id'] ?? '',
-        sID: map['student_id'] ?? '',
-        name: map['name'] ?? '',
-        email: map['email'] ?? '',
-        phoneNumber: map['phone_number'] ?? '',
-        major: map['major'] ?? '',
-        photo: map['profile_picture'],
-        committee: map['committee'] != null
-            ? Committee.fromJson(map['committee'])
-            : Committee.anonymous(),
-        events: events,
-        posts: posts,
-        socials: socials,
-        volunteerHours: volunteers,
-        hours: getHours(volunteers),
-      );
+          id: map['user_id'] ?? '',
+          sID: map['student_id'] ?? '',
+          name: map['name'] ?? '',
+          email: map['email'] ?? '',
+          phoneNumber: map['phone_number'] ?? '',
+          major: map['major'] ?? '',
+          photo: map['profile_picture'],
+          committee: map['committee'] != null
+              ? Committee.fromJson(map['committee'])
+              : Committee.anonymous(),
+          events: events,
+          posts: posts,
+          socials: socials,
+          volunteerHours: volunteers,
+          hours: getHours(volunteers),
+          isAdmin: map['is_admin'] ?? false);
     } catch (e) {
       throw 'Failed to make User, ERROR : $e';
     }
