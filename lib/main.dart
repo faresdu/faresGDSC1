@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
+import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,8 @@ import 'core/app/app.router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await setupLocator();
+  await SupabaseService.initialize();
+  setupLocator();
   runApp(const MyApp());
 }
 

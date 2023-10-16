@@ -9,16 +9,11 @@ import 'package:supabase/supabase.dart';
 import '../models/leaderboard_member.dart';
 
 class SupabaseService {
-  late SupabaseClient supabaseClient;
+  static late SupabaseClient _supabaseClient;
+  SupabaseClient get supabaseClient => _supabaseClient;
 
-  static Future<SupabaseService> getInstance() async {
-    final service = SupabaseService();
-    await service._initializeSupabase();
-    return service;
-  }
-
-  Future<void> _initializeSupabase() async {
-    supabaseClient = SupabaseClient(
+  static Future<void> initialize() async {
+    _supabaseClient = SupabaseClient(
       SupabaseCredentials.APIUrl,
       SupabaseCredentials.APIKey,
     );
@@ -30,7 +25,7 @@ class SupabaseService {
     }
   }
 
-  Future<void> _restoreCurrentUser() async {
+  static Future<void> _restoreCurrentUser() async {
     //Pull PERSIST_SESSION_KEY
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? session = prefs.getString('PERSIST_SESSION_KEY');
@@ -38,7 +33,7 @@ class SupabaseService {
     if (session != null) {
       //Recover Session
       GotrueSessionResponse response =
-          await supabaseClient.auth.recoverSession(session);
+          await _supabaseClient.auth.recoverSession(session);
 
       //Error Occurred
       if (response.error != null) {
@@ -48,7 +43,7 @@ class SupabaseService {
             'PERSIST_SESSION_KEY', response.data!.persistSessionString);
       }
       print(
-          'Recovered Successfully : ${supabaseClient.auth.currentUser?.email}');
+          'Recovered Successfully : ${_supabaseClient.auth.currentUser?.email}');
     }
   }
 
