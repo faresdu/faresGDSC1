@@ -38,6 +38,11 @@ class CommitteeMembersView extends StatelessWidget {
                           isCoLeader: true,
                           onTap: viewmodel.navigateToMemberProfile,
                         ),
+                      if (viewmodel.consultant != null)
+                        CommitteeLeaderCard(
+                          member: viewmodel.consultant!,
+                          onTap: viewmodel.navigateToMemberProfile,
+                        ),
                       const SizedBox(
                         height: 10,
                       ),

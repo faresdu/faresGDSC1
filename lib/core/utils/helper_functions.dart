@@ -88,7 +88,7 @@ abstract class HelperFunctions {
       height: height,
       width: width,
       fit: fit,
-      defaultUrl: "assets/images/man.png",
+      defaultUrl: "assets/images/man2.png",
       isAsset: false,
     );
   }
@@ -96,6 +96,7 @@ abstract class HelperFunctions {
   /// Returns SvgPicture or Image based on the passed image url
   static Widget profileImage({
     String imageUrl = '',
+    String gender = "",
     double? height,
     double? width,
     BoxFit fit = BoxFit.cover,
@@ -105,7 +106,9 @@ abstract class HelperFunctions {
       height: height,
       width: width,
       fit: fit,
-      defaultUrl: "assets/images/man.png",
+      defaultUrl: gender == "female"
+          ? "assets/images/woman.png"
+          : "assets/images/man2.png",
       isAsset: false,
     );
   }

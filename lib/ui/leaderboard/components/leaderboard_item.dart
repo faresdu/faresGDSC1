@@ -44,7 +44,10 @@ class LeaderboardItem extends StatelessWidget {
                   ClipOval(
                     clipBehavior: Clip.hardEdge,
                     child: HelperFunctions.profileImage(
-                        imageUrl: member.profilePicture, width: 55, height: 55),
+                        imageUrl: member.profilePicture,
+                        gender: member.gender ?? "",
+                        width: 55,
+                        height: 55),
                   ),
                   const SizedBox(
                     width: 20,

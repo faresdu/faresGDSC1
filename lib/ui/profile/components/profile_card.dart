@@ -42,7 +42,10 @@ class ProfileCard extends StatelessWidget {
               Center(
                 child: ClipOval(
                     child: HelperFunctions.profileImage(
-                        imageUrl: member.photo ?? '', height: 80, width: 80)),
+                        imageUrl: member.photo ?? '',
+                        gender: member.gender ?? "",
+                        height: 80,
+                        width: 80)),
               ),
             ],
           ),
@@ -54,7 +57,7 @@ class ProfileCard extends StatelessWidget {
             style: Constants.veryLargeText
                 .copyWith(fontWeight: FontWeight.bold, height: 1),
           ),
-          if (member.isLeaderOrCoLeader())
+          if (member.isLeaderOrCoLeader() || member.isConsultant())
             Text(
               "${member.getRole()} ${member.committee.name}",
               style: Constants.smallText

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
@@ -52,6 +51,7 @@ class _PostCardState extends State<PostCard> {
                     child: ClipOval(
                       child: HelperFunctions.profileImage(
                           imageUrl: widget.post.posterProfilePicture ?? '',
+                          gender: widget.post.posterGender ?? "",
                           height: 50,
                           width: 50),
                     ),
@@ -76,8 +76,9 @@ class _PostCardState extends State<PostCard> {
                 ],
               ),
               Text(
-                DateHelper.daysSinceDate(widget.post.createdAt) >= 30 ?
-                DateHelper.getDate(widget.post.createdAt) : DateHelper.sincePosted(widget.post.createdAt),
+                DateHelper.daysSinceDate(widget.post.createdAt) >= 30
+                    ? DateHelper.getDate(widget.post.createdAt)
+                    : DateHelper.sincePosted(widget.post.createdAt),
                 style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
@@ -97,11 +98,12 @@ class _PostCardState extends State<PostCard> {
                   children: [
                     Container(
                         alignment: const Alignment(1, 0),
-                        margin: const EdgeInsets.only(right: 15, left: 15, top: 8),
+                        margin:
+                            const EdgeInsets.only(right: 15, left: 15, top: 8),
                         child: Text(
                           widget.post.content,
-                          style:
-                              const TextStyle(fontSize: 14, color: Constants.black),
+                          style: const TextStyle(
+                              fontSize: 14, color: Constants.black),
                         )),
                   ],
                 ),

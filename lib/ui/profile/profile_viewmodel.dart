@@ -49,7 +49,10 @@ class ProfileViewModel extends BaseViewModel {
       }
     } else {
       user = userService.user;
-      listener = userService.userSubject.listen((e) => user = e);
+      listener = userService.userSubject.listen((e) {
+        user = e;
+        notifyListeners();
+      });
     }
     setBusy(false);
   }

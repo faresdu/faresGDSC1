@@ -18,7 +18,8 @@ class CommitteeMemberCard extends StatelessWidget {
         onPressed: () => onTap!(member.id),
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           backgroundColor: Colors.white,
           elevation: 3,
         ),
@@ -28,7 +29,10 @@ class CommitteeMemberCard extends StatelessWidget {
               margin: const EdgeInsets.all(10),
               child: ClipOval(
                 child: HelperFunctions.profileImage(
-                    imageUrl: member.photo ?? '', height: 55, width: 55),
+                    imageUrl: member.photo ?? '',
+                    gender: member.gender ?? "",
+                    height: 55,
+                    width: 55),
               ),
             ),
             Text(

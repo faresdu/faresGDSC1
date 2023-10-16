@@ -68,7 +68,7 @@ class SupabaseService {
           .from(GDSCViews.leaderboard)
           .select('*, Committees:committee_id(*)')
           .execute();
-      print(res.data);
+      // print(res.data);
       return (res.data as List)
           .map((e) => LeaderboardMember.fromJson(e))
           .toList();
@@ -109,6 +109,7 @@ class SupabaseService {
           .eq('user_id', id)
           .single()
           .execute();
+      print(res.data);
       return GDSCUser.fromJson(res.data);
     } catch (e) {
       throw 'Failed to get User with id $id, ERROR : $e';
@@ -136,7 +137,7 @@ class SupabaseService {
           .select('*')
           .in_('user_id', memberIds)
           .execute();
-      print(res.data);
+      // print(res.data);
       return (res.data as List).map((e) => Member.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Members, ERROR : $e';
