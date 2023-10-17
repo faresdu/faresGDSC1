@@ -13,6 +13,7 @@ class HoursRequestViewModel extends BaseViewModel {
     await hourService
         .getUpcomingHourRequests()
         .then((value) => upcomingRequests = value);
+    upcomingRequests.sort((a, b) => b.createdAtMillis - a.createdAtMillis);
     notifyListeners();
   }
 
@@ -33,6 +34,8 @@ class HoursRequestViewModel extends BaseViewModel {
     await hourService
         .getPreviousHourRequests()
         .then((value) => previousRequests = value);
+    previousRequests.sort((a, b) => b.createdAtMillis - a.createdAtMillis);
+
     notifyListeners();
   }
 }

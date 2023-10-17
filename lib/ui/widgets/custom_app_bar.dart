@@ -5,16 +5,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar(
       {super.key,
       this.title = '',
+      this.bottom,
       this.leading,
       this.actions,
       this.elevation = 3,
       this.roundedBorder = true,
+      this.radius = 10,
       this.leadingWidth,
       this.preferredSize = const Size.fromHeight(65)});
   @override
   final Size preferredSize;
+  final PreferredSizeWidget? bottom;
   final double elevation;
   final bool roundedBorder;
+  final double radius;
   final String title;
   final Widget? leading;
   final double? leadingWidth;
@@ -27,7 +31,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Constants.white,
       foregroundColor: Constants.black,
       shape: roundedBorder
-          ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+          ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius))
           : null,
       leading: leading,
       leadingWidth: leadingWidth,
@@ -40,6 +44,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: actions,
       centerTitle: true,
+      bottom: bottom,
     );
   }
 }
