@@ -61,9 +61,9 @@ class EventService {
     }
   }
 
-  Future<void> showEvent(String eId) async {
-    await signUpToEvent(eId);
-    await signOutFromEvent(eId);
+  Future<void> showEvent(String eId, {bool attended = false}) async {
+    attended ? await signOutFromEvent(eId) : await signUpToEvent(eId);
+    attended ? await signUpToEvent(eId) : await signOutFromEvent(eId);
   }
 
   Future<void> editEvent(Event event) async {
@@ -78,8 +78,12 @@ class EventService {
         throw res.error!.message;
       }
       final eId = res.data[0]["event_id"];
+      final editedEvent = Event.fromJson(res.data[0]);
       if (eId != null) {
-        await showEvent(eId);
+        final attended = editedEvent.attendees
+            .where((element) => element.id == _userService.user.id)
+            .isNotEmpty;
+        await showEvent(eId, attended: attended);
       }
     } catch (e) {
       throw 'Failed to edit Event, ERROR : $e';
