@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/ui/hours_approval/previous_hours_request_view.dart';
 import 'package:gdsc_app/ui/hours_approval/upcoming_hours_request_view.dart';
+import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:stacked/stacked.dart';
 
 import 'hours_request_viewmodel.dart';
@@ -23,18 +24,10 @@ class _HoursRequestViewState extends State<HoursRequestView>
           return DefaultTabController(
               length: 2,
               child: Scaffold(
-                appBar: AppBar(
-                  backgroundColor: Constants.background,
-                  centerTitle: true,
-                  title: const Text(
-                    'الطلبات',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 19,
-                    ),
-                  ),
-                  elevation: 0,
+                appBar: CustomAppBar(
+                  title: 'الطلبات',
+                  preferredSize: const Size.fromHeight(110),
+                  radius: 60,
                   bottom: PreferredSize(
                     preferredSize: const Size.fromHeight(60),
                     child: Container(
@@ -42,31 +35,31 @@ class _HoursRequestViewState extends State<HoursRequestView>
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(25)),
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: TabBar(
-                        unselectedLabelStyle: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700),
-                        labelStyle: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700),
-                        unselectedLabelColor: Colors.black,
-                        indicator: BoxDecoration(
-                            color: Constants.blueButton,
-                            borderRadius: BorderRadius.circular(25)),
-                        tabs: const <Widget>[
-                          Tab(
-                            text: 'القادمة',
-                          ),
-                          Tab(
-                            text: 'السابقة',
-                          ),
-                        ],
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 2),
+                        child: TabBar(
+                          unselectedLabelStyle: Constants.mediumText.copyWith(
+                              color: Colors.black, fontWeight: FontWeight.w700),
+                          labelStyle: Constants.mediumText.copyWith(
+                              color: Colors.white, fontWeight: FontWeight.w700),
+                          unselectedLabelColor: Colors.black,
+                          indicator: BoxDecoration(
+                              color: Constants.blueButton,
+                              borderRadius: BorderRadius.circular(25)),
+                          tabs: const <Widget>[
+                            Tab(
+                              text: 'القادمة',
+                            ),
+                            Tab(
+                              text: 'السابقة',
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
+                backgroundColor: Constants.grayBackGround,
                 body: const HoursRequestBody(),
               ));
         });

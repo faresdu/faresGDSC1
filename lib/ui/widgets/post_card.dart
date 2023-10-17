@@ -30,7 +30,7 @@ class _PostCardState extends State<PostCard> {
     bool liked = isLiked();
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         boxShadow: Constants.shadow,
