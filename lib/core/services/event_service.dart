@@ -78,7 +78,8 @@ class EventService {
         throw res.error!.message;
       }
       final eId = res.data[0]["event_id"];
-      final editedEvent = Event.fromJson(res.data[0]);
+      final editedEvent =
+          events.firstWhere((element) => element.eventID == eId);
       if (eId != null) {
         final attended = editedEvent.attendees
             .where((element) => element.id == _userService.user.id)

@@ -49,8 +49,9 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     setBusy(false);
   }
 
-  bool isAdmin() {
-    return userService.user.isLeaderOrCoLeader();
+  bool isHrAdmin() {
+    return userService.user.isLeaderOrCoLeader() &&
+        (userService.user.isHr() || userService.user.isAdmin);
   }
 
   Future<Notifications?> getFeaturedNotification() async {

@@ -13,6 +13,7 @@ class GDSCUser extends Member {
       required String name,
       String? major,
       String? photo,
+      String? role,
       required Committee committee,
       required List<UserSocialMedia> socials,
       required List<Event> events,
@@ -37,6 +38,7 @@ class GDSCUser extends Member {
             posts: posts,
             volunteerHours: volunteers,
             hours: hours,
+            role: role,
             isAdmin: isAdmin,
             gender: gender);
 
@@ -54,7 +56,8 @@ class GDSCUser extends Member {
         posts: m.posts,
         volunteers: m.volunteerHours,
         hours: m.hours,
-        gender: m.gender);
+        gender: m.gender,
+        role: m.role);
   }
 
   factory GDSCUser.fromJson(Map<String, dynamic> map) {
@@ -74,6 +77,7 @@ class GDSCUser extends Member {
         email: m.email,
         phoneNumber: m.phoneNumber,
         isAdmin: m.isAdmin,
-        gender: m.gender);
+        gender: m.gender,
+        role: m.role);
   }
 }
