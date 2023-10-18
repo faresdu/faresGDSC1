@@ -1,13 +1,14 @@
 import 'dart:io';
 
+import 'package:gdsc_app/core/app/api-config.dart';
 import 'package:path/path.dart';
 import 'package:simple_s3/simple_s3.dart';
 import 'package:uuid/uuid.dart';
 
 class S3Service {
   final SimpleS3 _simpleS3 = SimpleS3();
-  final bucketName = "gdsc-ksu-bucket";
-  final poolID = "us-east-1:a1886d46-8df6-490c-8504-062e487fb313";
+  final bucketName = APIConfig.s3BucketName;
+  final poolID = APIConfig.s3PoolID;
   final region = AWSRegions.usEast1;
   final uuid = const Uuid();
   Future<Map<String, String>> uploadFile(File file,
