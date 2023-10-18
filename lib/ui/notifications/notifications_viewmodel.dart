@@ -20,11 +20,6 @@ class NotificationsViewModel extends FutureViewModel {
 
   Future getNotifications() async {
     notifications = await notificationService.getNotifications();
-    try {
-      notifications.sort((a, b) =>
-          b.createdAt!.millisecondsSinceEpoch -
-          a.createdAt!.millisecondsSinceEpoch);
-    } catch (e) {}
     notifyListeners();
   }
 

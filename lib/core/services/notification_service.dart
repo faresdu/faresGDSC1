@@ -17,11 +17,13 @@ class NotificationService {
             .from(GDSCViews.notifications)
             .select()
             .limit(limit)
+            .order('created_at')
             .execute();
       } else {
         res = await _supabaseService.supabaseClient
             .from(GDSCViews.notifications)
             .select()
+            .order('created_at')
             .execute();
       }
       return (res.data as List).map((e) => Notifications.fromJson(e)).toList();
