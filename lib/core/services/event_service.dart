@@ -4,6 +4,7 @@ import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase/supabase.dart';
 
 import '../app/app.locator.dart';
@@ -86,7 +87,11 @@ class EventService {
             .isNotEmpty;
         await showEvent(eId, attended: attended);
       }
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to edit Event, ERROR : $e';
     }
   }
@@ -102,7 +107,11 @@ class EventService {
       if (res.error != null) {
         throw res.error!.message;
       }
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to delete Event, ERROR : $e';
     }
   }
@@ -119,7 +128,11 @@ class EventService {
       if (res.error != null) {
         throw res.error!.message;
       }
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to sign up to Event, ERROR : $e';
     }
   }
@@ -136,7 +149,11 @@ class EventService {
       if (res.error != null) {
         throw res.error!.message;
       }
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to sign out from Event, ERROR : $e';
     }
   }

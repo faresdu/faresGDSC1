@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:gdsc_app/core/enums/tables.dart';
 import 'package:gdsc_app/core/enums/views.dart';
 import 'package:gdsc_app/core/models/hour_request.dart';
@@ -5,6 +6,7 @@ import 'package:gdsc_app/core/models/volunteer_hours.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:gdsc_app/core/utils/string_extensions.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase/supabase.dart';
 
 import '../app/app.locator.dart';
@@ -87,8 +89,14 @@ class HourService {
           .map((e) => (e['hours']).toString().parseInt)
           .fold(0, (int p, c) => p + c);
       return hours;
-    } catch (e) {
-      print(e);
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
+      if (kDebugMode) {
+        print(e);
+      }
       return 0;
     }
   }
@@ -103,8 +111,14 @@ class HourService {
           .match(payload)
           .execute();
       return res.data.first['hours'].toString().parseInt;
-    } catch (e) {
-      print(e);
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
+      if (kDebugMode) {
+        print(e);
+      }
       return 0;
     }
   }

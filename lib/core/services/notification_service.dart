@@ -1,6 +1,7 @@
 import 'package:gdsc_app/core/enums/tables.dart';
 import 'package:gdsc_app/core/enums/views.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase/supabase.dart';
 
 import '../app/app.locator.dart';
@@ -27,7 +28,11 @@ class NotificationService {
             .execute();
       }
       return (res.data as List).map((e) => Notifications.fromJson(e)).toList();
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to get Notifications, ERROR : $e';
     }
   }
@@ -40,7 +45,11 @@ class NotificationService {
           .insert(notification.toJson(id))
           .execute();
       print('added notification code: ${res.status}');
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to add Notification, ERROR : $e';
     }
   }
