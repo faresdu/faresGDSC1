@@ -24,7 +24,6 @@ class NotificationService {
             .select()
             .execute();
       }
-      print('notifications: ${res.data}');
       return (res.data as List).map((e) => Notifications.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Notifications, ERROR : $e';

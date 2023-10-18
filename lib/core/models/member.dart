@@ -19,6 +19,7 @@ class Member {
   final List<VolunteerHours> volunteerHours;
   final int hours;
   final bool isAdmin;
+  final String? role;
   final String? gender;
 
   Member(
@@ -30,6 +31,7 @@ class Member {
       this.major,
       this.photo,
       this.isAdmin = false,
+      this.role,
       required this.committee,
       required this.socials,
       required this.events,
@@ -60,6 +62,8 @@ class Member {
   bool isConsultant() => id == committee.consultantID;
 
   bool isLeaderOrCoLeader() => isLeader() || isCoLeader() || isAdmin;
+
+  bool isHr() => role == "hr";
 
   bool isMale() => gender == "male";
 
@@ -153,6 +157,7 @@ class Member {
           volunteerHours: volunteers,
           hours: getHours(volunteers),
           isAdmin: map['is_admin'] ?? false,
+          role: map['role'],
           gender: map['gender']);
     } catch (e) {
       throw 'Failed to make User, ERROR : $e';

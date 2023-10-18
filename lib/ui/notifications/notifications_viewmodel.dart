@@ -14,10 +14,17 @@ class NotificationsViewModel extends FutureViewModel {
   TextEditingController descriptionController = TextEditingController();
   late GDSCUser user = userService.user;
 
+  final formKey = GlobalKey<FormState>();
+
   List<Notifications> notifications = [];
 
   Future getNotifications() async {
     notifications = await notificationService.getNotifications();
+    try {
+      notifications.sort((a, b) =>
+          b.createdAt!.millisecondsSinceEpoch -
+          a.createdAt!.millisecondsSinceEpoch);
+    } catch (e) {}
     notifyListeners();
   }
 
@@ -28,14 +35,19 @@ class NotificationsViewModel extends FutureViewModel {
   @override
   Future futureToRun() => getNotifications();
 
-  addNotification() async {
+  addNotification(BuildContext context) async {
+    if (!formKey.currentState!.validate()) {
+      return null;
+    }
     try {
       setBusy(true);
       await notificationService.addNotification(
           Notifications(
-              title: descriptionController.value.text.trim(), name: userService.user.name),
+              title: descriptionController.value.text.trim(),
+              name: userService.user.name),
           userService.user.id);
       await getNotifications();
+      Navigator.pop(context);
     } catch (e) {
       print(e.toString());
     }
