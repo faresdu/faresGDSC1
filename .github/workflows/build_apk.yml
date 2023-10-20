@@ -42,7 +42,7 @@ jobs:
           channel: 'stable'
           architecture: x64
       - run: cd ios
-      - run: pod init
+      - run: pod init .
       - run: cd ..
       - run: flutter pub get
       - run: flutter build ios
