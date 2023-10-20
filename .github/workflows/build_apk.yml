@@ -41,5 +41,8 @@ jobs:
           flutter-version: '3.13.0'
           channel: 'stable'
           architecture: x64
+      - run: cd ios
+      - run: pod init
+      - run: cd ..
       - run: flutter pub get
       - run: flutter build ios
