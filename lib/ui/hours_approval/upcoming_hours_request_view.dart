@@ -14,15 +14,13 @@ class UpcomingHoursRequestView extends StatelessWidget {
         builder: (context, viewmodel, _) {
           return Container(
               padding: const EdgeInsets.all(10),
-              child: SingleChildScrollView(
-                child: Column(
-                    children: viewmodel.upcomingRequests
-                        .map((e) => ActiveRequestCard(
-                              request: e,
-                              onUpdate: viewmodel.updateHourRequest,
-                            ))
-                        .toList()),
-              ));
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: viewmodel.upcomingRequests.length,
+                  itemBuilder: (context, index) => ActiveRequestCard(
+                        request: viewmodel.upcomingRequests[index],
+                        onUpdate: viewmodel.updateHourRequest,
+                      )));
         });
   }
 }

@@ -13,20 +13,72 @@ class TimeLineViewModel extends PostsViewModel {
   final navService = locator<NavigationService>();
   @override
   List<Post> posts = [];
+  int numPage = 1;
+  final int numOfPostPerReq = 5;
+  late int from;
+  late int to;
+  bool isLastPage = false;
+  final int nextPageTrigger = 3;
+  ScrollController scrollController = ScrollController();
+  bool noMorePosts = false;
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
-  Future<void> getPosts() async {
+  void initTimeline() {
+    initScroller();
+    getPosts();
+  }
+
+  void initScroller() {
+    scrollController.addListener(() {
+      if (scrollController.position.maxScrollExtent ==
+              scrollController.offset &&
+          !noMorePosts) {
+        getPosts();
+      }
+    });
+  }
+
+  Future<void> getPosts({bool resetPosts = false}) async {
     setBusy(true);
-    await timelineService.getPosts().then((value) => posts = value);
+    if (resetPosts) {
+      reset();
+    } else {
+      from = (numPage - 1) * 5;
+      to = from + (numOfPostPerReq - 1);
+    }
+
+    await timelineService
+        .getPosts(from, to)
+        .then((value) => resetPosts ? posts = value : posts.addAll(value))
+        .catchError((onError) => noMorePosts = true);
+    isLastPage = posts.length < numOfPostPerReq;
     posts.sort((a, b) =>
         b.createdAt.microsecondsSinceEpoch -
         a.createdAt.microsecondsSinceEpoch);
+
+    numPage += 1;
     notifyListeners();
     setBusy(false);
   }
 
+  Future<void> reset() async {
+    noMorePosts = false;
+    numPage = 1;
+    from = 0;
+    to = (numOfPostPerReq - 1);
+  }
+
+  Future<void> refreshPost() async {
+    getPosts(resetPosts: true);
+  }
+
   navigateToAddPosts(BuildContext context) async {
-    await CustomModalBottomSheet(
-        context, AddPostView(postsvm: this), heightFactor: 0.75);
+    await CustomModalBottomSheet(context, AddPostView(postsvm: this),
+        heightFactor: 0.75);
   }
 
   _like(Post post, String userId, {bool unlike = false}) {

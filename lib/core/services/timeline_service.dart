@@ -4,6 +4,7 @@ import 'package:gdsc_app/core/enums/tables.dart';
 import 'package:gdsc_app/core/enums/views.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase/supabase.dart';
 import '../app/app.locator.dart';
 import '../models/post.dart';
@@ -11,17 +12,22 @@ import '../models/post.dart';
 class TimelineService {
   final _supabaseService = locator<SupabaseService>();
   final _userService = locator<UserService>();
-  Future<List<Post>> getPosts() async {
+  Future<List<Post>> getPosts(int from, int to) async {
     try {
       final PostgrestResponse<dynamic> res = await _supabaseService
           .supabaseClient
           .from(GDSCViews.posts)
           .select('*, Committees:committee_id(*)')
-          .order("created_at", ascending: false)
+          .range(from, to)
+          .order('created_at', ascending: false)
           .execute();
       print(jsonEncode(res.data.first));
       return (res.data as List).map((e) => Post.fromJson(e)).toList();
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to get Posts, ERROR : $e';
     }
   }
@@ -35,7 +41,11 @@ class TimelineService {
           .eq('id', postId)
           .execute();
       return (Post.fromJson((res.data as List).first));
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to get Posts, ERROR : $e';
     }
   }
@@ -52,7 +62,11 @@ class TimelineService {
           .execute();
       if (res.data == null) throw 'User has no Liked Posts';
       return (res.data as List).map((e) => Post.fromJson(e)).toList();
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to get Liked Posts, ERROR : $e';
     }
   }
@@ -79,10 +93,13 @@ class TimelineService {
           .execute();
       print(res.status);
       if (res.status! > 299 || res.status! < 200) {
-        print('erroooooor');
-        throw Error();
+        throw res.error!.message;
       }
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to unLike Post, ERROR : $e';
     }
   }
@@ -95,8 +112,12 @@ class TimelineService {
           .delete()
           .match(payload)
           .execute();
-      if (res.status! > 299 || res.status! < 200) throw 'Error';
-    } catch (e) {
+      if (res.status! > 299 || res.status! < 200) throw res.error!.message;
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to unLike Post, ERROR : $e';
     }
   }

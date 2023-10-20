@@ -24,7 +24,10 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   void onData(List<Event>? data) {
     super.onData(data);
     if (data != null) {
-      events = data.where((e) => e.startDate.isAfter(DateTime.now())).take(4).toList();
+      events = data
+          .where((e) => e.startDate.isAfter(DateTime.now()))
+          .take(4)
+          .toList();
       notifyListeners();
     }
   }
@@ -46,8 +49,9 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     setBusy(false);
   }
 
-  bool isAdmin() {
-    return userService.user.isLeaderOrCoLeader();
+  bool isHrAdmin() {
+    return userService.user.isLeaderOrCoLeader() &&
+        (userService.user.isHr() || userService.user.isAdmin);
   }
 
   Future<Notifications?> getFeaturedNotification() async {
@@ -55,8 +59,8 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     int committeeHours = await hourService.getCumulativeCommitteeHours();
 
     return Notifications(
-        title: "أكملت $hours ساعة تطوعية",
-        name: "أكملت لجنتك $committeeHours ساعة تطوعية",
+      title: "أكملت $hours ساعة تطوعية",
+      name: "أكملت لجنتك $committeeHours ساعة تطوعية",
     );
   }
 
@@ -84,7 +88,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
 
   Future<void> refreshData() async {
     setBusy(true);
-    await getNotifications();
+    await Future.wait([getNotifications(), userService.updateUser()]);
     notifyListeners();
     setBusy(false);
   }

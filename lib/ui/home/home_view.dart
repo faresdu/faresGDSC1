@@ -64,11 +64,12 @@ class _HomeViewState extends State<HomeView> {
                             carouselController: controller,
                             items: viewmodel.notifications
                                 .map((e) => Container(
-                              margin: const EdgeInsets.symmetric(vertical: 8),
-                                  child: NotificationCard(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 8),
+                                      child: NotificationCard(
                                         notification: e,
                                       ),
-                                ))
+                                    ))
                                 .toList(),
                             options: CarouselOptions(
                                 viewportFraction: 1,
@@ -104,8 +105,7 @@ class _HomeViewState extends State<HomeView> {
                             widget.updateScreen(4);
                           },
                         ),
-                        const SizedBox(
-                            height: 5),
+                        const SizedBox(height: 5),
                         SizedBox(
                             height: 200,
                             child: ListView(
@@ -126,7 +126,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
             ),
-            floatingActionButton: !viewmodel.isAdmin()
+            floatingActionButton: !viewmodel.isHrAdmin()
                 ? null
                 : FloatingActionButton(
                     heroTag: 'toHoursRequestPage',

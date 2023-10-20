@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:gdsc_app/core/enums/tables.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase/supabase.dart';
 
 import '../app/app.locator.dart';
@@ -18,7 +20,9 @@ class UserService {
     userStream.listen(userSubject.sink.add);
 
     user = await userSubject.stream.first;
-    print('set user with student id ${user.sID}');
+    if (kDebugMode) {
+      print('set user with student id ${user.sID}');
+    }
     userSubject.sink.add(user);
     userSubject.stream.listen((newUser) {
       user = newUser;
@@ -38,7 +42,14 @@ class UserService {
           .from(GDSCTables.users)
           .update(payload)
           .match({'user_id': user.id}).execute();
-    } catch (e) {
+      if (res.hasError) {
+        throw res.error!.message;
+      }
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to update User info, ERROR : $e';
     }
   }

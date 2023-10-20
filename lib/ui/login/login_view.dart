@@ -32,14 +32,16 @@ class LoginView extends StatelessWidget {
                             Image.asset('assets/images/GDSC/middle_logo.png'),
                             const SizedBox(height: 65),
                             CustomInputField(
-                              hintText: 'الإيميل الجامعي أو الرقم الجامعي',
+                              hintText: 'الإيميل أو الرقم الجامعي',
                               validator: (value) {
                                 //checking if its a valid student ID or email
                                 if (FormValidators.studentIDValidator(value) !=
                                         null &&
-                                    FormValidators.emailValidator(value) != null) {
+                                    FormValidators.emailValidator(value) !=
+                                        null) {
                                   // only if both have errors then input is incorrect
-                                  return FormValidators.studentIDValidator(value);
+                                  return FormValidators.studentIDValidator(
+                                      value);
                                 }
                                 //the value is correct
                                 return null;

@@ -25,7 +25,10 @@ class EventParticipant extends StatelessWidget {
             children: [
               ClipOval(
                 child: HelperFunctions.profileImage(
-                    imageUrl: member.photo ?? '', height: 45, width: 45),
+                    imageUrl: member.photo ?? '',
+                    gender: member.gender ?? "",
+                    height: 45,
+                    width: 45),
               ),
               const SizedBox(
                 width: 10,

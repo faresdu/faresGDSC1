@@ -6,6 +6,7 @@ class Post {
   final String posterId;
   final String posterName;
   final String? posterProfilePicture;
+  final String? posterGender;
   final String content;
   final Committee? committee;
   final List<String>? likerIds;
@@ -18,6 +19,7 @@ class Post {
     required this.posterId,
     required this.posterName,
     this.posterProfilePicture,
+    this.posterGender,
     required this.content,
     this.likerIds,
     required this.likes,
@@ -36,6 +38,7 @@ class Post {
         posterId: map['poster_id'] ?? '',
         posterName: map['poster_name'] ?? '',
         posterProfilePicture: map['poster_profile_picture'] ?? '',
+        posterGender: map['poster_gender'],
         content: map['content'] ?? '',
         likerIds: likers,
         likes: map['likes'] != null ? map['likes'].toString().parseInt : 0,
@@ -51,6 +54,7 @@ class Post {
       "poster_id": posterId,
       "poster_name": posterName,
       "poster_profile_picture": posterProfilePicture,
+      "poster_gender": posterGender,
       "content": content,
       "likers": likerIds,
       "likes": likes,
