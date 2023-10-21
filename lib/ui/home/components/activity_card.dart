@@ -23,7 +23,7 @@ class ActivityCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.all(8),
           backgroundColor: Colors.white,
           fixedSize: const Size.fromWidth(160),
           shape:

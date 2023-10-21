@@ -108,7 +108,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         const SizedBox(height: 5),
                         SizedBox(
-                            height: 200,
+                            height: 215,
                             child: ListView(
                               scrollDirection: Axis.horizontal,
                               children: viewmodel.events
