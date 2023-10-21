@@ -101,13 +101,6 @@ class AddEventViewModel extends BaseViewModel {
   Event? makeEvent() {
     if (dateTime != null && timeOfDay != null) {
       DateTime d = DateHelper.DateTimeAndTimeOfDay(dateTime!, timeOfDay!);
-      print(titleController.value.text);
-      print(d);
-      print(isOnline);
-      print(attendeesController.value.text);
-      print(locationController.value.text);
-      print(descriptionController.value.text);
-      print(image?.path);
       return Event(
           eventID: eventID,
           instructorID: userService.user.id,
