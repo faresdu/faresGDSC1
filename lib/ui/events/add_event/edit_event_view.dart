@@ -66,8 +66,8 @@ class _AddEventViewState extends State<EditEventView> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   IconButton(
-                                    onPressed: () {
-                                      viewmodel.deleteEvent();
+                                    onPressed: ()async {
+                                      await viewmodel.deleteEvent();
                                       Navigator.pop(context);
                                     },
                                     icon: const Icon(
