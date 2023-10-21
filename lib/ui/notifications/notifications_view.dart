@@ -24,7 +24,6 @@ class NotificationView extends StatelessWidget {
               CustomModalBottomSheet(context, const AddNotification());
             },
             backgroundColor: Constants.blueButton,
-            heroTag: 'addPostTag',
             child: const Icon(
               Icons.add,
               size: 30,
