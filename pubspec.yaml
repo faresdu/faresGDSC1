@@ -49,16 +49,6 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.2.1
   stacked_generator: ^1.3.3
-  flutter_launcher_icons: "^0.13.1"
-
-flutter_launcher_icons:
-  android: true
-  adaptive_icon_background: #ffffff
-  adaptive_icon_foreground: "assets/icons/appicon.png"
-  ios: true
-  remove_alpha_ios: true
-  image_path: "assets/icons/appicon.png"
-#  dart run flutter_launcher_icons
 
 flutter:
   uses-material-design: true
