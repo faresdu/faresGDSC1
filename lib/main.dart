@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/app/api-config.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
+import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,8 @@ import 'core/app/app.router.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  await setupLocator();
+  await SupabaseService.initialize();
+  setupLocator();
   await SentryFlutter.init(
     (options) {
       options.dsn = APIConfig.sentryUrl;
