@@ -82,6 +82,7 @@ class _AddPostViewState extends State<AddNotification> {
                                       text: "نشر",
                                       sizeX: 90,
                                       sizeY: 40,
+
                                       onPressed: () async {
                                         await viewmodel
                                             .addNotification(context);

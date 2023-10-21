@@ -28,13 +28,17 @@ class NotificationCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Spacer(),
-              Text(
-                //"أكملت 30 ساعة تطوعية",
-                notification.title,
-                style: const TextStyle(
-                  fontSize: 22,
-                  letterSpacing: 0.5,
-                  fontWeight: FontWeight.bold,
+              SizedBox(
+                width: MediaQuery.of(context).size.width* 0.63,
+                child: Text(
+                  //"أكملت 30 ساعة تطوعية",
+                  notification.title,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    letterSpacing: 0.4,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               Text(
