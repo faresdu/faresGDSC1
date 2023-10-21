@@ -20,6 +20,7 @@ class NotificationView extends StatelessWidget {
         return Scaffold(
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: !viewmodel.isAdmin()? null : FloatingActionButton(
+            heroTag: null,
             onPressed: () {
               CustomModalBottomSheet(context, const AddNotification());
             },
