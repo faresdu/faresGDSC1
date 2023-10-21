@@ -21,10 +21,11 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final controller = CarouselController();
   int _current = 1;
-  double spacing = 45;
+
 
   @override
   Widget build(BuildContext context) {
+    double spacing = MediaQuery.of(context).size.height/4;
     return ViewModelBuilder<HomeViewModel>.reactive(
         viewModelBuilder: () => HomeViewModel(),
         onViewModelReady: (model) => model.getNotifications(),

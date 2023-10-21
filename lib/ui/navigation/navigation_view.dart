@@ -28,14 +28,13 @@ class _NavigationViewState extends State<NavigationView> {
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
-            bottomNavigationBar: Container(
-              height: 65,
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                boxShadow: Constants.shadow,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
-              ),
-              child: BottomAppBar(
+            bottomNavigationBar: BottomAppBar(
+              child: Container(
+                height: 65,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
