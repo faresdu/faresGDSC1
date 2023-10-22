@@ -8,7 +8,6 @@ import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
-
 class LeaderboardView extends StatelessWidget {
   const LeaderboardView({
     Key? key,

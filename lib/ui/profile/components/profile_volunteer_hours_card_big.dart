@@ -28,22 +28,35 @@ class ProfileVolunteerHoursCardBig extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Column(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  volunteerHours.reasoning == null ||
-                          volunteerHours.reasoning!.trim().isEmpty
-                      ? 'السبب لم يذكر'
-                      : volunteerHours.reasoning!,
-                  style: Constants.mediumText
-                      .copyWith(fontWeight: FontWeight.w700),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.65,
+                  child: Text(
+                    volunteerHours.reasoning == null ||
+                            volunteerHours.reasoning!.trim().isEmpty
+                        ? 'السبب لم يذكر'
+                        : volunteerHours.reasoning!,
+                    style: Constants.mediumText
+                        .copyWith(fontWeight: FontWeight.w700, height: 1.4),
+                  ),
                 ),
+                Text(
+                  DateHelper.sincePosted(volunteerHours.createdAt),
+                  style:
+                      Constants.verySmallText.copyWith(color: Constants.grey),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
                 Row(
                   children: [
                     SvgPicture.asset(
@@ -60,33 +73,15 @@ class ProfileVolunteerHoursCardBig extends StatelessWidget {
                     ),
                   ],
                 ),
-              ],
-            ),
-            Column(
-              children: [
-                Text(
-                  DateHelper.sincePosted(volunteerHours.createdAt),
-                  style:
-                      Constants.verySmallText.copyWith(color: Constants.grey),
-                ),
-                if (isOwner)
-                  volunteerHours.isPending()
-                      ? IconButton(
-                          constraints: const BoxConstraints(),
-                          onPressed: onPressed,
-                          icon: SvgPicture.asset(
-                            'assets/icons/profile/trash.svg',
-                            height: 25,
-                            color: Constants.red,
-                          ))
-                      : Container(
-                          margin: const EdgeInsets.all(4),
-                          child: SvgPicture.asset(
-                            'assets/icons/profile/trash.svg',
-                            height: 25,
-                            color: Constants.grey,
-                          ),
-                        )
+                if (isOwner && volunteerHours.isPending())
+                  IconButton(
+                      constraints: const BoxConstraints(),
+                      onPressed: onPressed,
+                      icon: SvgPicture.asset(
+                        'assets/icons/profile/trash.svg',
+                        height: 25,
+                        color: Constants.red,
+                      ))
               ],
             )
           ],
@@ -98,8 +93,7 @@ class ProfileVolunteerHoursCardBig extends StatelessWidget {
   _getColor() {
     if (volunteerHours.isPending()) {
       return Constants.yellow;
-    }
-    else if (volunteerHours.isAccepted()) {
+    } else if (volunteerHours.isAccepted()) {
       return Constants.green;
     }
     return Constants.red;
