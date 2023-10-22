@@ -10,7 +10,6 @@ class BusyOverlay extends StatefulWidget {
       {Key? key, required this.isBusy, required this.child, this.background})
       : super(key: key);
 
-
   @override
   State<BusyOverlay> createState() => _BusyOverlayState();
 }
@@ -30,8 +29,8 @@ class _BusyOverlayState extends State<BusyOverlay> {
           ),
         if (widget.isBusy)
           const Center(
-            child: SpinKitCircle(
-              color: Constants.black,
+            child: SpinKitFadingCircle(
+              color: Constants.black3,
             ),
           ),
       ],

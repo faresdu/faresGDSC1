@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/app/api-config.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
@@ -19,7 +20,8 @@ Future<void> main() async {
   setupLocator();
   await SentryFlutter.init(
     (options) {
-      options.dsn = APIConfig.sentryUrl;
+      options.debug = kDebugMode;
+      options.dsn = kDebugMode ? '' : APIConfig.sentryUrl;
       // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
       // We recommend adjusting this value in production.
       options.tracesSampleRate = 0.01;

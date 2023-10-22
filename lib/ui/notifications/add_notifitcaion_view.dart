@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/form_validators.dart';
 import 'package:gdsc_app/ui/notifications/notifications_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/custom_text_form_field.dart';
+import 'package:gdsc_app/ui/widgets/rounded_submit_button.dart';
 import 'package:stacked/stacked.dart';
 import '../../../core/utils/constants.dart';
 import '../../core/utils/helper_functions.dart';
@@ -77,17 +78,12 @@ class _AddPostViewState extends State<AddNotification> {
                                     ),
                                   ],
                                 ),
-                                Container(
-                                  child: SubmitButton(
-                                      text: "نشر",
-                                      sizeX: 90,
-                                      sizeY: 40,
-
-                                      onPressed: () async {
-                                        await viewmodel
-                                            .addNotification(context);
-                                      }),
-                                ),
+                                RoundedSubmitButton(
+                                    text: "نشر",
+                                    isBusy: viewmodel.isBusy,
+                                    onPressed: () async {
+                                      await viewmodel.addNotification(context);
+                                    }),
                               ],
                             ),
                             CustomTextFormField(
@@ -95,7 +91,8 @@ class _AddPostViewState extends State<AddNotification> {
                               validator: (value) =>
                                   FormValidators.minCharsValidator(value, 5),
                               controller: viewmodel.descriptionController,
-                              maxLines: 5,
+                              maxLines: 1,
+                              maxLength: 22,
                             ),
                           ],
                         ),
