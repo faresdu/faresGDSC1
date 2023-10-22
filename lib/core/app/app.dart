@@ -62,10 +62,7 @@ import '../services/event_service.dart';
     LazySingleton<NotificationService>(classType: NotificationService),
     LazySingleton<S3Service>(classType: S3Service),
     LazySingleton<SocialMediaService>(classType: SocialMediaService),
-    Presolve(
-      classType: SupabaseService,
-      presolveUsing: SupabaseService.getInstance,
-    ),
+    LazySingleton(classType: SupabaseService,),
   ],
 )
 class AppSetup {}

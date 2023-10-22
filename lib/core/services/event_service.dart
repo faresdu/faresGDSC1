@@ -185,14 +185,6 @@ class EventService {
       return EventType(
           text: 'الفعاليه منتهية', color: Constants.grey, onPressed: null);
     }
-    if (event.isFull()) {
-      return EventType(
-        text: 'المقاعد ممتلئة',
-        color: Constants.grey,
-        onPressed: null,
-      );
-    }
-
     if (event.isSignedUp(_userService.user.id)) {
       return EventType(
         text: 'سجل خروج',
@@ -200,6 +192,13 @@ class EventService {
         onPressed: () async {
           await signOutFromEvent(event.eventID);
         },
+      );
+    }
+    if (event.isFull()) {
+      return EventType(
+        text: 'المقاعد ممتلئة',
+        color: Constants.grey,
+        onPressed: null,
       );
     }
     if (event.getPercentage() >= 75) {

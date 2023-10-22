@@ -68,7 +68,7 @@ class EventAttendees extends StatelessWidget {
               backgroundColor: Constants.white,
               child: CircleAvatar(
                 backgroundImage: HelperFunctions.avatarImageProvider(imageUrl: attendees[i].photo ?? ''),
-                backgroundColor: Constants.red,
+                backgroundColor: Colors.transparent,
                 radius: 10,
               ),
             ),
