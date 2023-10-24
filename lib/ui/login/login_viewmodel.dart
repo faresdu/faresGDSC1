@@ -13,6 +13,7 @@ class LoginViewModel extends BaseViewModel {
   final navService = locator<NavigationService>();
   final authService = locator<AuthenticationService>();
   final eventService = locator<EventService>();
+  TextEditingController resetPasswordController = TextEditingController();
   //Form data
   String? email;
   String? password;
@@ -62,6 +63,7 @@ class LoginViewModel extends BaseViewModel {
     super.dispose();
     emailFocus.dispose();
     passwordFocus.dispose();
+    resetPasswordController.dispose();
   }
 
   void fixEmail(String? value) {
@@ -72,5 +74,20 @@ class LoginViewModel extends BaseViewModel {
       print(email);
       email = value.trim();
     }
+  }
+
+  Future<void> resetPasswordThroughEmail() async {
+    if (resetPasswordController.text == "") {
+      print("it's null");
+      return;
+    }
+    print(resetPasswordController.text);
+    setBusy(true);
+    try {
+      await authService.resetPassword(resetPasswordController.text);
+    } catch (e) {
+      print(e);
+    }
+    setBusy(false);
   }
 }

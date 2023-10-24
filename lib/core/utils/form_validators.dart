@@ -6,7 +6,7 @@ class FormValidators {
       FormBuilderValidators.required(
           errorText: ' الرجاء إدخال البريد الكتروني او الرقم الجامعي'),
       FormBuilderValidators.email(
-          errorText: 'الرجاء إدخال بريد الكتروني او رقم جامعي صحيح')
+          errorText: 'الرجاء إدخال بريد الكتروني او رقم جامعي صحيح'),
     ])(value);
   }
 

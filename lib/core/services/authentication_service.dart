@@ -76,4 +76,15 @@ class AuthenticationService {
       throw 'Failed to sign out, ERROR : $e';
     }
   }
+
+  Future<void> resetPassword(email) async {
+    print(email);
+    try {
+      await _supabaseService.supabaseClient.auth.api
+          .resetPasswordForEmail(email);
+    } catch (e) {
+      print(e);
+      throw 'Failed to reset password, ERROR : $e';
+    }
+  }
 }
