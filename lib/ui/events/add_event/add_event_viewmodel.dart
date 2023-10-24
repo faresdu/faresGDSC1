@@ -22,6 +22,7 @@ class AddEventViewModel extends BaseViewModel {
 
   String eventID = '';
   TextEditingController titleController = TextEditingController();
+  TextEditingController hostController = TextEditingController();
   DateTime? dateTime;
   TimeOfDay? timeOfDay;
   TextEditingController dateTimeController = TextEditingController();
@@ -112,6 +113,9 @@ class AddEventViewModel extends BaseViewModel {
           location: locationController.value.text,
           isOnline: isOnline,
           description: descriptionController.value.text,
+          host: hostController.value.text.isNotEmpty
+              ? hostController.value.text
+              : null,
           flyer:
               uploadedImageUrl != null ? uploadedImageUrl!['url'] : oldImage);
     }
@@ -159,6 +163,7 @@ class AddEventViewModel extends BaseViewModel {
     attendeesController.text = event.maxAttendees.toString();
     locationController.text = event.location;
     descriptionController.text = event.description ?? "";
+    hostController.text = event.host ?? "";
     dateTimeController.text =
         dateTime != null ? DateHelper.getDate(dateTime!) : '';
     timeOfDayController.text =
