@@ -85,6 +85,19 @@ class Event {
     };
   }
 
+  factory Event.anonymous() {
+    return Event(
+        eventID: "",
+        instructorID: "",
+        instructorName: "",
+        title: "",
+        startDate: DateTime.utc(1900),
+        attendees: [],
+        maxAttendees: 0,
+        location: "",
+        isOnline: false);
+  }
+
   factory Event.fromJson(Map<String, dynamic> map) {
     List<Member> members = [];
     if (map["attendees"] != null &&

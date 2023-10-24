@@ -66,7 +66,7 @@ class _AddEventViewState extends State<EditEventView> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   IconButton(
-                                    onPressed: ()async {
+                                    onPressed: () async {
                                       await viewmodel.deleteEvent();
                                       Navigator.pop(context);
                                     },
@@ -215,6 +215,12 @@ class _AddEventViewState extends State<EditEventView> {
                                 validator: FormBuilderValidators.required(
                                     errorText: 'الرجاء ادخال الموقع'),
                                 maxLength: 30,
+                              ),
+                              CustomTextFormField(
+                                title: 'المحاضر أو المضيف',
+                                hintText: 'ان وجد',
+                                controller: viewmodel.hostController,
+                                maxLength: 25,
                               ),
                               CustomTextFormField(
                                 title: 'الوصف',
