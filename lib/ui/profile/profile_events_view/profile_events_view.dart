@@ -101,7 +101,7 @@ class ProfileEventsView extends StatelessWidget {
                                           event: e,
                                           signUpButton:
                                               viewmodel.getSignUpButton(e),
-                                          canEdit: true,
+                                          canEdit: viewmodel.canEditEvent(e),
                                           onPressed: () {
                                             viewmodel.navigateToEvent(e);
                                           },
