@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/app/api-config.dart';
+import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
+import 'package:gdsc_app/core/services/event_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,7 +41,10 @@ class MyApp extends StatelessWidget {
       providers: [
         StreamProvider(
             create: (_) => locator<UserService>().userSubject.stream,
-            initialData: GDSCUser.anonymous())
+            initialData: GDSCUser.anonymous()),
+        StreamProvider(
+            create: (_) => locator<EventService>().eventsController.stream,
+            initialData: [Event.anonymous()])
       ],
       child: MaterialApp(
         builder: (context, child) {
