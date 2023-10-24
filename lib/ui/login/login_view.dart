@@ -31,7 +31,6 @@ class LoginView extends StatelessWidget {
                         child: Column(
                           children: [
                             Image.asset('assets/images/GDSC/middle_logo.png'),
-                            const SizedBox(height: 65),
                             CustomInputField(
                               hintText: 'الإيميل الجامعي أو الرقم الجامعي',
                               validator: (value) {
