@@ -76,18 +76,16 @@ class LoginViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> resetPasswordThroughEmail() async {
-    if (resetPasswordController.text == "") {
-      print("it's null");
-      return;
-    }
-    print(resetPasswordController.text);
+  Future<bool> resetPasswordThroughEmail() async {
+    bool isReset = false;
     setBusy(true);
     try {
       await authService.resetPassword(resetPasswordController.text);
+      isReset = true;
     } catch (e) {
       print(e);
     }
     setBusy(false);
+    return isReset;
   }
 }

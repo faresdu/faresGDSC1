@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/core/utils/form_validators.dart';
 import 'package:gdsc_app/ui/login/components/custom_input_field.dart';
@@ -113,7 +114,7 @@ class LoginView extends StatelessWidget {
         scrollable: true,
         content: Container(
           width: MediaQuery.of(context).size.width * 0.7,
-          height: MediaQuery.of(context).size.height * 0.11,
+          height: MediaQuery.of(context).size.height * 0.16,
           child: Form(
             key: formKey,
             child: CustomTextFormField(
@@ -121,12 +122,8 @@ class LoginView extends StatelessWidget {
               title: 'البريد الالكتروني',
               hintText: 'example@gmail.com',
               autofocus: true,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'الرجاء ادخال البريد الالكتروني';
-                }
-                return null;
-              },
+              validator: (value) => FormValidators.emailValidator(value,
+                  message: 'الرجاء إدخال بريد الكتروني صحيح'),
               onSaved: (value) {
                 viewmodel.resetPasswordController.text = value;
               },
@@ -137,25 +134,29 @@ class LoginView extends StatelessWidget {
           Center(
             child: TextButton(
               autofocus: true,
-              onPressed: () {
+              onPressed: () async {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
-                  viewmodel.resetPasswordThroughEmail();
+                  bool success = await viewmodel.resetPasswordThroughEmail();
+
                   viewmodel.resetPasswordController.text = "";
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Constants.green,
-                      content: Text(
-                        'تم إرسال طلب استعادة كلمة المرور',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Constants.white,
-                            fontSize: 18,
-                            fontFamily: 'Cairo',
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
+                    success
+                        ? SnackBar(
+                            backgroundColor: Constants.green,
+                            content: Text('تم إرسال طلب استعادة كلمة المرور',
+                                textAlign: TextAlign.center,
+                                style: Constants.mediumText
+                                    .copyWith(color: Constants.white)),
+                          )
+                        : SnackBar(
+                            backgroundColor: Constants.red,
+                            content: Text('حاول مجددا',
+                                textAlign: TextAlign.center,
+                                style: Constants.mediumText
+                                    .copyWith(color: Constants.white)),
+                          ),
                   );
                 }
               },
