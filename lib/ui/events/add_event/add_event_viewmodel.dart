@@ -96,6 +96,9 @@ class AddEventViewModel extends BaseViewModel {
   }
 
   Future<void> deleteEvent() async {
+    print(
+      "_${eventID}_",
+    );
     await eventService.deleteEvent(eventID);
   }
 
