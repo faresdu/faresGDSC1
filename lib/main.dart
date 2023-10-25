@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/app/api-config.dart';
@@ -61,7 +62,7 @@ class MyApp extends StatelessWidget {
         ),
         navigatorKey: StackedService.navigatorKey,
         onGenerateRoute: StackedRouter().onGenerateRoute,
-
+        localizationsDelegates: const [DefaultCupertinoLocalizations.delegate],
         // localizationsDelegates: const [
         //   GlobalCupertinoLocalizations.delegate,
         //   GlobalMaterialLocalizations.delegate,

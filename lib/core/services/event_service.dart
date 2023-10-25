@@ -1,12 +1,15 @@
+import 'package:gdsc_app/core/enums/s3.dart';
 import 'package:gdsc_app/core/enums/tables.dart';
 import 'package:gdsc_app/core/enums/views.dart';
 import 'package:gdsc_app/core/models/event.dart';
+import 'package:gdsc_app/core/services/s3_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase/supabase.dart';
 
+import '../app/api-config.dart';
 import '../app/app.locator.dart';
 import '../models/event_type.dart';
 import '../utils/constants.dart';
@@ -14,6 +17,7 @@ import '../utils/constants.dart';
 class EventService {
   final _supabaseService = locator<SupabaseService>();
   final _userService = locator<UserService>();
+  final _s3Service = locator<S3Service>();
 
   late List<Event> events;
 
@@ -104,6 +108,13 @@ class EventService {
           .delete()
           .eq('event_id', id)
           .execute();
+      print(res.data);
+      final deletedEvent = Event.fromJson(res.data[0]);
+      if (deletedEvent.flyer != null &&
+          deletedEvent.flyer!.contains(APIConfig.s3BucketName)) {
+        _s3Service.deleteFile(
+            "${S3FolderPaths.events}/${deletedEvent.flyer!.split("/").last}");
+      }
       if (res.error != null) {
         throw res.error!.message;
       }
