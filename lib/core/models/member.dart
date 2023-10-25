@@ -18,51 +18,66 @@ class Member {
   final List<Post> posts;
   final List<VolunteerHours> volunteerHours;
   final int hours;
+  final bool isAdmin;
+  final String? role;
+  final String? gender;
 
-  Member({
-    required this.id,
-    required this.sID,
-    required this.name,
-    this.email,
-    this.phoneNumber,
-    this.major,
-    this.photo,
-    required this.committee,
-    required this.socials,
-    required this.events,
-    required this.posts,
-    required this.volunteerHours,
-    required this.hours,
-  });
+  Member(
+      {required this.id,
+      required this.sID,
+      required this.name,
+      this.email,
+      this.phoneNumber,
+      this.major,
+      this.photo,
+      this.isAdmin = false,
+      this.role,
+      required this.committee,
+      required this.socials,
+      required this.events,
+      required this.posts,
+      required this.volunteerHours,
+      required this.hours,
+      required this.gender});
 
   factory Member.anonymous() {
     return Member(
-      id: '',
-      sID: '',
-      name: '',
-      major: '',
-      socials: [],
-      events: [],
-      posts: [],
-      committee: Committee.anonymous(),
-      volunteerHours: [],
-      hours: 0,
-    );
+        id: '',
+        sID: '',
+        name: '',
+        major: '',
+        socials: [],
+        events: [],
+        posts: [],
+        committee: Committee.anonymous(),
+        volunteerHours: [],
+        hours: 0,
+        gender: '');
   }
 
   bool isLeader() => id == committee.leaderID;
 
   bool isCoLeader() => id == committee.coLeaderID;
 
-  bool isLeaderOrCoLeader() => isLeader() || isCoLeader();
+  bool isConsultant() => id == committee.consultantID;
+
+  bool isLeaderOrCoLeader() => isLeader() || isCoLeader() || isAdmin;
+
+  bool isHr() => role == "hr";
+
+  bool isMale() => gender == "male";
+
+  bool isFemale() => gender == "female";
 
   String getRole() {
     if (isLeader()) {
-      return "قائد";
+      return isFemale() ? "قائدة" : "قائد";
     } else if (isCoLeader()) {
-      return "نائب قائد";
+      return isFemale() ? "نائبة قائد" : "نائب قائد";
+    } else if (isConsultant()) {
+      return isFemale() ? "مستشارة" : "مستشار";
     }
-    return 'عضو';
+    return isFemale() ? "عضوة" : 'عضو';
   }
 
   static int getHours(List<VolunteerHours> volunteerHours) {
@@ -126,22 +141,24 @@ class Member {
             a.createdAt.microsecondsSinceEpoch);
       }
       return Member(
-        id: map['user_id'] ?? '',
-        sID: map['student_id'] ?? '',
-        name: map['name'] ?? '',
-        email: map['email'] ?? '',
-        phoneNumber: map['phone_number'] ?? '',
-        major: map['major'] ?? '',
-        photo: map['profile_picture'],
-        committee: map['committee'] != null
-            ? Committee.fromJson(map['committee'])
-            : Committee.anonymous(),
-        events: events,
-        posts: posts,
-        socials: socials,
-        volunteerHours: volunteers,
-        hours: getHours(volunteers),
-      );
+          id: map['user_id'] ?? '',
+          sID: map['student_id'] ?? '',
+          name: map['name'] ?? '',
+          email: map['email'] ?? '',
+          phoneNumber: map['phone_number'] ?? '',
+          major: map['major'] ?? '',
+          photo: map['profile_picture'],
+          committee: map['committee'] != null
+              ? Committee.fromJson(map['committee'])
+              : Committee.anonymous(),
+          events: events,
+          posts: posts,
+          socials: socials,
+          volunteerHours: volunteers,
+          hours: getHours(volunteers),
+          isAdmin: map['is_admin'] ?? false,
+          role: map['role'],
+          gender: map['gender']);
     } catch (e) {
       throw 'Failed to make User, ERROR : $e';
     }

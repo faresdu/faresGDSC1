@@ -12,12 +12,14 @@ class SubmitButton extends StatelessWidget {
       Key? key,
       this.borderRadius,
       this.width,
-      this.height})
+      this.height,
+      this.color})
       : super(key: key);
   final String text;
   final bool disabled;
   final bool isBusy;
   final bool outlined;
+  final Color? color;
   final double? width;
   final double? height;
   final BorderRadiusGeometry? borderRadius;
@@ -33,7 +35,7 @@ class SubmitButton extends StatelessWidget {
             ? null
             : disabled
                 ? Constants.lightGrey
-                : Constants.blueButton,
+                : color ?? Constants.blueButton,
         shape: RoundedRectangleBorder(
             borderRadius: borderRadius ?? BorderRadius.circular(10)),
       ),

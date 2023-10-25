@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/ui/hierarchy/hierarchy_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
@@ -22,6 +23,7 @@ class _HierarchyViewState extends State<HierarchyView> {
             appBar: const CustomAppBar(
               title: 'الهيكلة',
             ),
+            backgroundColor: Constants.grayBackGround.withOpacity(0.95),
             body: SafeArea(
               child: BusyOverlay(
                 isBusy: viewmodel.isBusy,
@@ -30,11 +32,11 @@ class _HierarchyViewState extends State<HierarchyView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: viewmodel.committees
-                        .map((e) => HierarchyButton(
+                        .map((c) => HierarchyButton(
                             onPressed: () {
-                              viewmodel.navigateToCommittee(e);
+                              viewmodel.navigateToCommittee(c);
                             },
-                            name: e.name))
+                            committee: c))
                         .toList(),
                   ),
                 ),

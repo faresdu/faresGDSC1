@@ -4,6 +4,7 @@ import 'package:gdsc_app/core/models/social_media.dart';
 import 'package:gdsc_app/core/models/user_social_media.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 class SocialMediaService {
   final _supabaseService = locator<SupabaseService>();
@@ -19,7 +20,11 @@ class SocialMediaService {
       }
       print(res.toJson());
       return (res.data as List).map((e) => SocialMedia.fromJson(e)).toList();
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to fetch social medias: $e';
     }
   }
@@ -36,7 +41,11 @@ class SocialMediaService {
         throw res.error!.message;
       }
       return UserSocialMedia.fromJson(res.data.first);
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to insert social media: $e';
     }
   }
@@ -53,7 +62,11 @@ class SocialMediaService {
       if (res.error != null) {
         throw res.error!.message;
       }
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to delete social media: $e';
     }
   }

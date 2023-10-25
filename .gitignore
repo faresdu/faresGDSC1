@@ -10,6 +10,7 @@
 .svn/
 migrate_working_dir/
 pubspec.lock
+.vscode/
 
 # IntelliJ related
 *.iml
@@ -32,8 +33,6 @@ pubspec.lock
 .pub-cache/
 .pub/
 /build/
-ios/
-android/
 
 # Symbolication related
 app.*.symbols

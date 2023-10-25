@@ -82,22 +82,24 @@ class MemberCard extends StatelessWidget {
                             color: Colors.black,
                             fontWeight: FontWeight.bold)),
                     Text(role ?? 'عضو',
-                        style: const TextStyle(fontSize: 13, color: Colors.black)),
+                        style:
+                            const TextStyle(fontSize: 13, color: Colors.black)),
                     if (member.major != null)
                       Text(member.major!,
-                          style: const TextStyle(fontSize: 13, color: Colors.black))
+                          style: const TextStyle(
+                              fontSize: 13, color: Colors.black))
                   ],
                 )
               ],
             ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 36),
-                child: Divider(color: Color.fromARGB(191, 217, 217, 217)),
-              ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:
-                      member.socials.map((e) => socialImage(e.image)).toList())
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 36),
+              child: Divider(color: Color.fromARGB(191, 217, 217, 217)),
+            ),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:
+                    member.socials.map((e) => socialImage(e.image)).toList())
           ],
         ),
       ),
@@ -124,6 +126,7 @@ class MemberCard extends StatelessWidget {
     if (member.photo != null && member.photo!.isNotEmpty) {
       return HelperFunctions.profileImage(
           imageUrl: member.photo!,
+          gender: member.gender ?? "",
           height: 65, //was 50
           width: 65, //was 50
           fit: BoxFit.cover);

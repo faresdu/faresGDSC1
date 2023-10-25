@@ -12,146 +12,163 @@ class ActiveRequestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          height: 183,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+      decoration: BoxDecoration(
+        // boxShadow: Constants.shadow,
+        borderRadius: BorderRadius.circular(20),
+        color: Constants.white,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 45,
+            width: 45,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: HelperFunctions.avatarImageProvider(
+                      imageUrl: request.userAvatar ?? ''),
+                  fit: BoxFit.fill),
+              shape: BoxShape.circle,
+            ),
           ),
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Container(
-              height: 160,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.white70,
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.035,
-                  right: MediaQuery.of(context).size.width * 0.15,
-                  top: 10,
-                  bottom: 10,
-                ),
-                child: Column(
+          const SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          request.reasoning,
-                          style: const TextStyle(
-                            color: Constants.black,
-                            fontWeight: FontWeight.w700,
-                          ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      child: Text(
+                        request.userName,
+                        style: Constants.smallText.copyWith(
+                          color: Constants.black,
+                          fontWeight: FontWeight.w700,
                         ),
-                        const Spacer(),
-                        Text(request.createdAt ?? "السبت ، 2023-20-6",
-                            style: Constants.superSmallText.copyWith(
-                              color: Constants.grey.withOpacity(0.7),
-                              fontWeight: FontWeight.w700,
-                            )),
-                      ],
+                      ),
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    const Spacer(),
+                    Text(request.createdAt ?? "السبت ، 2023-20-6",
+                        style: Constants.superSmallText.copyWith(
+                          color: Constants.grey.withOpacity(0.7),
+                          fontWeight: FontWeight.w700,
+                        )),
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
 
-                    /// requester name
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.person,
-                          color: Colors.black,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          request.userName,
-                          style: TextStyle(
-                            color: Constants.grey.withOpacity(0.7),
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
+                ///requester hours
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.access_time_filled,
+                      color: Colors.black,
                     ),
                     const SizedBox(
-                      height: 7,
+                      width: 10,
                     ),
-
-                    ///requester hours
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.access_time_filled,
-                          color: Colors.black,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          getHoursString(),
-                          style: TextStyle(
-                            color: Constants.grey.withOpacity(0.7),
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      children: [
-                        const Spacer(),
-                        ActionButton(
-                            onTap: () {
-                              try {
-                                onUpdate!(request, true);
-                              } catch (e) {}
-                            },
-                            isApprove: true),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        ActionButton(
-                            onTap: () {
-                              try {
-                                onUpdate!(request, false);
-                              } catch (e) {}
-                            },
-                            isApprove: false),
-                      ],
+                    Text(
+                      getHoursString(),
+                      style: Constants.verySmallText.copyWith(
+                        color: Constants.grey,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ),
-          ),
-        ),
+                const SizedBox(
+                  height: 10,
+                ),
 
-        ///Avatar
-        Positioned(
-            child: Container(
-          height: 50,
-          width: 50,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: HelperFunctions.avatarImageProvider(
-                    imageUrl: request.userAvatar ?? ''),
-                fit: BoxFit.fill),
-            shape: BoxShape.circle,
-          ),
-        ))
-      ],
+                ///reasoning
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.description,
+                      color: Colors.black,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.58,
+                      child: Text(
+                        request.reasoning,
+                        style: Constants.verySmallText.copyWith(
+                          color: Constants.grey,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                request.approved == null
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ActionButton(
+                              onTap: () {
+                                try {
+                                  onUpdate!(request, true);
+                                } catch (e) {}
+                              },
+                              isApprove: true),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          ActionButton(
+                              onTap: () {
+                                try {
+                                  onUpdate!(request, false);
+                                } catch (e) {}
+                              },
+                              isApprove: false),
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            // padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                color: request.approved!
+                                    ? Constants.lightGreen.withOpacity(0.35)
+                                    : Constants.red.withOpacity(0.35),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 1, horizontal: 8),
+                              child: Text(
+                                request.approved! ? "مقبول" : "مرفوض",
+                                textAlign: TextAlign.center,
+                                style: Constants.smallText.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: request.approved!
+                                        ? Constants.green
+                                        : Constants.red),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 

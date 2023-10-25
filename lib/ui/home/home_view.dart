@@ -21,10 +21,11 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final controller = CarouselController();
   int _current = 1;
-  double spacing = 45;
+
 
   @override
   Widget build(BuildContext context) {
+    double spacing = MediaQuery.of(context).size.height/4;
     return ViewModelBuilder<HomeViewModel>.reactive(
         viewModelBuilder: () => HomeViewModel(),
         onViewModelReady: (model) => model.getNotifications(),
@@ -64,11 +65,12 @@ class _HomeViewState extends State<HomeView> {
                             carouselController: controller,
                             items: viewmodel.notifications
                                 .map((e) => Container(
-                              margin: const EdgeInsets.symmetric(vertical: 8),
-                                  child: NotificationCard(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 8),
+                                      child: NotificationCard(
                                         notification: e,
                                       ),
-                                ))
+                                    ))
                                 .toList(),
                             options: CarouselOptions(
                                 viewportFraction: 1,
@@ -104,10 +106,9 @@ class _HomeViewState extends State<HomeView> {
                             widget.updateScreen(4);
                           },
                         ),
-                        const SizedBox(
-                            height: 5),
+                        const SizedBox(height: 5),
                         SizedBox(
-                            height: 200,
+                            height: 215,
                             child: ListView(
                               scrollDirection: Axis.horizontal,
                               children: viewmodel.events
@@ -126,10 +127,10 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
             ),
-            floatingActionButton: !viewmodel.isAdmin()
+            floatingActionButton: !viewmodel.isHrAdmin()
                 ? null
                 : FloatingActionButton(
-                    heroTag: 'toHoursRequestPage',
+                    heroTag: null,
                     backgroundColor: Constants.primaryLightBlue,
                     onPressed: () {
                       viewmodel.navigateToRequestsPage();

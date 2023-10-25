@@ -5,11 +5,11 @@ import 'package:gdsc_app/core/utils/helper_functions.dart';
 
 class CommitteeLeaderCard extends StatelessWidget {
   final Member member;
-  final bool isCoLeader;
+  final bool? isCoLeader;
   final void Function(String id)? onTap;
 
   const CommitteeLeaderCard(
-      {required this.member, this.isCoLeader = false, this.onTap, Key? key})
+      {required this.member, this.isCoLeader, this.onTap, Key? key})
       : super(key: key);
 
   @override
@@ -47,9 +47,13 @@ class CommitteeLeaderCard extends StatelessWidget {
                       child: RotatedBox(
                         quarterTurns: -3,
                         child: Text(
-                          (isCoLeader ? 'النائب' : 'القائد'),
-                          style: Constants.veryLargeText.copyWith(
-                              color: Colors.white, fontWeight: FontWeight.w600),
+                          (getRoleText()),
+                          style: (isCoLeader == null
+                                  ? Constants.mediumText
+                                  : Constants.veryLargeText)
+                              .copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600),
                         ),
                       ),
                     ),
@@ -90,11 +94,21 @@ class CommitteeLeaderCard extends StatelessWidget {
             top: 10,
             child: ClipOval(
               child: HelperFunctions.profileImage(
-                  imageUrl: member.photo ?? '', height: 45, width: 45),
+                  imageUrl: member.photo ?? '',
+                  gender: member.gender ?? "",
+                  height: 45,
+                  width: 45),
             ),
           ),
         ],
       ),
     );
+  }
+
+  getRoleText() {
+    if (isCoLeader != null) {
+      return isCoLeader! ? 'النائب' : 'القائد';
+    }
+    return "مستشار";
   }
 }

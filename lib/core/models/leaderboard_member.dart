@@ -5,6 +5,7 @@ class LeaderboardMember {
   final String name;
   final String profilePicture;
   final Committee? committee;
+  final String? gender;
   final int hours;
 
   LeaderboardMember(
@@ -12,6 +13,7 @@ class LeaderboardMember {
       required this.id,
       required this.name,
       this.committee,
+      this.gender,
       required this.hours});
 
   factory LeaderboardMember.fromJson(Map<String, dynamic> map) {
@@ -20,6 +22,7 @@ class LeaderboardMember {
         name: map['name'] ?? '',
         hours: map['hours'] ?? 0,
         profilePicture: map['profile_picture'] ?? '',
-        committee: Committee.fromJson(map['Committees']));
+        committee: Committee.fromJson(map['Committees']),
+        gender: map['gender']);
   }
 }

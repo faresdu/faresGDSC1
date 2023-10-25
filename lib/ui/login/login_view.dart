@@ -33,7 +33,7 @@ class LoginView extends StatelessWidget {
                           children: [
                             Image.asset('assets/images/GDSC/middle_logo.png'),
                             CustomInputField(
-                              hintText: 'الإيميل الجامعي أو الرقم الجامعي',
+                              hintText: 'الإيميل أو الرقم الجامعي',
                               validator: (value) {
                                 //checking if its a valid student ID or email
                                 if (FormValidators.studentIDValidator(value) !=

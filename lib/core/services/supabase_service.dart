@@ -3,34 +3,35 @@ import 'package:gdsc_app/core/enums/views.dart';
 import 'package:gdsc_app/core/models/committee.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/models/member.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase/supabase.dart';
 
+import '../app/api-config.dart';
 import '../models/leaderboard_member.dart';
 
 class SupabaseService {
-  late SupabaseClient supabaseClient;
+  static late SupabaseClient _supabaseClient;
+  SupabaseClient get supabaseClient => _supabaseClient;
 
-  static Future<SupabaseService> getInstance() async {
-    final service = SupabaseService();
-    await service._initializeSupabase();
-    return service;
-  }
-
-  Future<void> _initializeSupabase() async {
-    supabaseClient = SupabaseClient(
-      SupabaseCredentials.APIUrl,
-      SupabaseCredentials.APIKey,
+  static Future<void> initialize() async {
+    _supabaseClient = SupabaseClient(
+      APIConfig.supabaseAPIUrl,
+      APIConfig.supabaseAPIKey,
     );
 
     try {
       await _restoreCurrentUser();
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       print('No Current User : $e');
     }
   }
 
-  Future<void> _restoreCurrentUser() async {
+  static Future<void> _restoreCurrentUser() async {
     //Pull PERSIST_SESSION_KEY
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? session = prefs.getString('PERSIST_SESSION_KEY');
@@ -38,7 +39,7 @@ class SupabaseService {
     if (session != null) {
       //Recover Session
       GotrueSessionResponse response =
-          await supabaseClient.auth.recoverSession(session);
+          await _supabaseClient.auth.recoverSession(session);
 
       //Error Occurred
       if (response.error != null) {
@@ -48,7 +49,7 @@ class SupabaseService {
             'PERSIST_SESSION_KEY', response.data!.persistSessionString);
       }
       print(
-          'Recovered Successfully : ${supabaseClient.auth.currentUser?.email}');
+          'Recovered Successfully : ${_supabaseClient.auth.currentUser?.email}');
     }
   }
 
@@ -57,7 +58,11 @@ class SupabaseService {
       final PostgrestResponse<dynamic> res =
           await supabaseClient.from(GDSCTables.committees).select().execute();
       return (res.data as List).map((e) => Committee.fromJson(e)).toList();
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to get Committees, ERROR : $e';
     }
   }
@@ -67,12 +72,16 @@ class SupabaseService {
       final PostgrestResponse<dynamic> res = await supabaseClient
           .from(GDSCViews.leaderboard)
           .select('*, Committees:committee_id(*)')
+          .neq('name', null)
           .execute();
-      print(res.data);
       return (res.data as List)
           .map((e) => LeaderboardMember.fromJson(e))
           .toList();
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to get Leaderboard : $e';
     }
   }
@@ -86,7 +95,11 @@ class SupabaseService {
           .execute();
       // print(res.data);
       return (res.data as List).map((e) => Member.fromJson(e)).toList();
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to get Committee Members, ERROR : $e';
     }
   }
@@ -109,8 +122,13 @@ class SupabaseService {
           .eq('user_id', id)
           .single()
           .execute();
+      print(res.data);
       return GDSCUser.fromJson(res.data);
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to get User with id $id, ERROR : $e';
     }
   }
@@ -124,7 +142,11 @@ class SupabaseService {
           .single()
           .execute();
       return Member.fromJson(res.data);
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to get Member with id $id, ERROR : $e';
     }
   }
@@ -136,16 +158,14 @@ class SupabaseService {
           .select('*')
           .in_('user_id', memberIds)
           .execute();
-      print(res.data);
+      // print(res.data);
       return (res.data as List).map((e) => Member.fromJson(e)).toList();
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to get Members, ERROR : $e';
     }
   }
-}
-
-class SupabaseCredentials {
-  static const String APIKey =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp2dWV1eGNlZXB1aGV0eHNhcXlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjU1ODI3MTcsImV4cCI6MTk4MTE1ODcxN30.3WQNjKpe1Ny0UaBrYdiuRFH-hU2xd3HeZjHxAyxdeMQ';
-  static const String APIUrl = 'https://jvueuxceepuhetxsaqyp.supabase.co';
 }

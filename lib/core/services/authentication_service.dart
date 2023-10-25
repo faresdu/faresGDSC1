@@ -1,5 +1,6 @@
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase/supabase.dart';
 
@@ -43,7 +44,11 @@ class AuthenticationService {
       throw 'Authentication Failed : ${e.message}';
 
       //Unknown Error
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Unknown Authentication, ERROR : $e';
     }
   }
@@ -71,8 +76,13 @@ class AuthenticationService {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.remove('PERSIST_SESSION_KEY');
       await _supabaseService.supabaseClient.auth.signOut();
+
       print('Signed out Successfully');
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to sign out, ERROR : $e';
     }
   }

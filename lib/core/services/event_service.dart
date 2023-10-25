@@ -1,11 +1,15 @@
+import 'package:gdsc_app/core/enums/s3.dart';
 import 'package:gdsc_app/core/enums/tables.dart';
 import 'package:gdsc_app/core/enums/views.dart';
 import 'package:gdsc_app/core/models/event.dart';
+import 'package:gdsc_app/core/services/s3_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase/supabase.dart';
 
+import '../app/api-config.dart';
 import '../app/app.locator.dart';
 import '../models/event_type.dart';
 import '../utils/constants.dart';
@@ -13,11 +17,12 @@ import '../utils/constants.dart';
 class EventService {
   final _supabaseService = locator<SupabaseService>();
   final _userService = locator<UserService>();
+  final _s3Service = locator<S3Service>();
 
   late List<Event> events;
 
   BehaviorSubject<List<Event>> eventsController =
-  BehaviorSubject<List<Event>>();
+      BehaviorSubject<List<Event>>();
 
   Future<List<Event>> getEvents({bool filtered = false}) async {
     try {
@@ -52,9 +57,18 @@ class EventService {
       if (res.error != null) {
         throw res.error!.message;
       }
+      final eId = res.data[0]["event_id"];
+      if (eId != null) {
+        await showEvent(eId);
+      }
     } catch (e) {
       throw 'Failed to add Event, ERROR : $e';
     }
+  }
+
+  Future<void> showEvent(String eId, {bool attended = false}) async {
+    attended ? await signOutFromEvent(eId) : await signUpToEvent(eId);
+    attended ? await signUpToEvent(eId) : await signOutFromEvent(eId);
   }
 
   Future<void> editEvent(Event event) async {
@@ -68,7 +82,20 @@ class EventService {
       if (res.error != null) {
         throw res.error!.message;
       }
-    } catch (e) {
+      final eId = res.data[0]["event_id"];
+      final editedEvent =
+          events.firstWhere((element) => element.eventID == eId);
+      if (eId != null) {
+        final attended = editedEvent.attendees
+            .where((element) => element.id == _userService.user.id)
+            .isNotEmpty;
+        await showEvent(eId, attended: attended);
+      }
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to edit Event, ERROR : $e';
     }
   }
@@ -81,10 +108,21 @@ class EventService {
           .delete()
           .eq('event_id', id)
           .execute();
+      print(res.data);
+      final deletedEvent = Event.fromJson(res.data[0]);
+      if (deletedEvent.flyer != null &&
+          deletedEvent.flyer!.contains(APIConfig.s3BucketName)) {
+        _s3Service.deleteFile(
+            "${S3FolderPaths.events}/${deletedEvent.flyer!.split("/").last}");
+      }
       if (res.error != null) {
         throw res.error!.message;
       }
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to delete Event, ERROR : $e';
     }
   }
@@ -101,7 +139,11 @@ class EventService {
       if (res.error != null) {
         throw res.error!.message;
       }
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to sign up to Event, ERROR : $e';
     }
   }
@@ -118,7 +160,11 @@ class EventService {
       if (res.error != null) {
         throw res.error!.message;
       }
-    } catch (e) {
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
       throw 'Failed to sign out from Event, ERROR : $e';
     }
   }
@@ -129,8 +175,8 @@ class EventService {
         .stream(['event_id'])
         .execute()
         .asyncMap<List<Event>>((event) {
-      return getEvents();
-    });
+          return getEvents();
+        });
   }
 
   Future<void> listenToAllEvents() async {
@@ -148,19 +194,8 @@ class EventService {
   EventType getEventType(Event event) {
     if (event.startDate.isBefore(DateTime.now())) {
       return EventType(
-          text: 'الفعاليه منتهية',
-          color: Constants.grey,
-          onPressed: null
-      );
+          text: 'الفعاليه منتهية', color: Constants.grey, onPressed: null);
     }
-    if (event.isFull()) {
-      return EventType(
-        text: 'المقاعد ممتلئة',
-        color: Constants.grey,
-        onPressed: null,
-      );
-    }
-
     if (event.isSignedUp(_userService.user.id)) {
       return EventType(
         text: 'سجل خروج',
@@ -170,13 +205,20 @@ class EventService {
         },
       );
     }
+    if (event.isFull()) {
+      return EventType(
+        text: 'المقاعد ممتلئة',
+        color: Constants.grey,
+        onPressed: null,
+      );
+    }
     if (event.getPercentage() >= 75) {
-      return EventType(text: 'احجز مقعدك',
+      return EventType(
+          text: 'احجز مقعدك',
           color: Constants.blueButton,
           onPressed: () async {
             await signUpToEvent(event.eventID);
-          }
-      );
+          });
     }
     return EventType(
         text: 'احجز مقعدك',

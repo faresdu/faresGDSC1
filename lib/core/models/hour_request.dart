@@ -1,4 +1,3 @@
-
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:gdsc_app/core/utils/string_extensions.dart';
 
@@ -9,6 +8,7 @@ class HourRequest {
   final String? userAvatar;
   final String userName;
   final int hours;
+  final int createdAtMillis;
   final String reasoning;
   bool? approved;
   final String? createdAt;
@@ -20,6 +20,7 @@ class HourRequest {
       required this.userName,
       required this.hours,
       required this.reasoning,
+      required this.createdAtMillis,
       this.userAvatar,
       this.approved,
       this.createdAt});
@@ -32,6 +33,7 @@ class HourRequest {
       userName: '',
       hours: 0,
       reasoning: '',
+      createdAtMillis: DateTime.utc(1900).millisecondsSinceEpoch,
     );
   }
   static String _getDate(DateTime date) {
@@ -48,6 +50,9 @@ class HourRequest {
       hours: map['hours'].toString().parseInt,
       reasoning: map['reasoning'] ?? 'السبب لم يذكر',
       approved: map['approved'],
+      createdAtMillis:
+          DateTime.tryParse(map['created_at'])?.millisecondsSinceEpoch ??
+              DateTime.utc(1900).millisecondsSinceEpoch,
       createdAt:
           _getDate(DateTime.tryParse(map['created_at']) ?? DateTime.utc(1900)),
     );

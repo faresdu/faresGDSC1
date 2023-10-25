@@ -21,7 +21,10 @@ class Welcome extends StatelessWidget {
                 boxShadow: Constants.memberIconShadow),
             child: ClipOval(
                 child: HelperFunctions.profileImage(
-                    imageUrl: user.photo ?? '', height: 65, width: 65))),
+                    imageUrl: user.photo ?? '',
+                    gender: user.gender ?? "",
+                    height: 65,
+                    width: 65))),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -32,7 +35,7 @@ class Welcome extends StatelessWidget {
               ),
             ),
             Text(
-              "${user.isLeaderOrCoLeader() ? user.getRole() : ''} ${user.committee.name}"
+              "${user.isLeaderOrCoLeader() | user.isConsultant() ? user.getRole() : ''} ${user.committee.name}"
                   .trim(),
               style: Constants.smallText
                   .copyWith(height: 1, color: Constants.grey),

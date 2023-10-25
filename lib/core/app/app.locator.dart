@@ -21,10 +21,10 @@ import '../services/user_service.dart';
 
 final locator = StackedLocator.instance;
 
-Future<void> setupLocator({
+void setupLocator({
   String? environment,
   EnvironmentFilter? environmentFilter,
-}) async {
+}) {
 // Register environments
   locator.registerEnvironment(
       environment: environment, environmentFilter: environmentFilter);
@@ -39,6 +39,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => NotificationService());
   locator.registerLazySingleton(() => S3Service());
   locator.registerLazySingleton(() => SocialMediaService());
-  final supabaseService = await SupabaseService.getInstance();
-  locator.registerSingleton(supabaseService);
+  locator.registerLazySingleton(() => SupabaseService());
 }

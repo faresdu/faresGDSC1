@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
@@ -21,9 +23,20 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
 
   List<Event> events = [];
   late Member user;
+  late StreamSubscription listener;
 
   EventsViewModel() {
     user = userService.user;
+    listener = userService.userSubject.listen((value) {
+      user = value;
+      notifyListeners();
+    });
+  }
+
+  @override
+  void dispose() {
+    listener.cancel();
+    super.dispose();
   }
 
   @override

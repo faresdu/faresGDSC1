@@ -16,6 +16,16 @@ class LeaderboardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double getWidth() {
+      if ((index + 4) < 10) {
+        return MediaQuery.of(context).size.width * 0.46;
+      }
+      if ((index + 4) < 100) {
+        return MediaQuery.of(context).size.width * 0.43;
+      }
+      return MediaQuery.of(context).size.width * 0.4;
+    }
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -31,7 +41,11 @@ class LeaderboardItem extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    width: (index + 4) < 10 ? 35 : 50,
+                    width: (index + 4) < 10
+                        ? 32
+                        : (index + 4) < 100
+                            ? 40
+                            : 51,
                     height: 35,
                     padding: const EdgeInsets.only(right: 15),
                     margin: const EdgeInsets.only(left: 4),
@@ -44,10 +58,13 @@ class LeaderboardItem extends StatelessWidget {
                   ClipOval(
                     clipBehavior: Clip.hardEdge,
                     child: HelperFunctions.profileImage(
-                        imageUrl: member.profilePicture, width: 55, height: 55),
+                        imageUrl: member.profilePicture,
+                        gender: member.gender ?? "",
+                        width: 55,
+                        height: 55),
                   ),
                   const SizedBox(
-                    width: 20,
+                    width: 10,
                   ),
                   InkWell(
                     onTap: () {
@@ -58,10 +75,14 @@ class LeaderboardItem extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          member.name,
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
+                        SizedBox(
+                          width: getWidth(),
+                          child: Text(
+                            member.name,
+                            overflow: TextOverflow.ellipsis,
+                            style: Constants.verySmallText
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
                         ),
                         Text("${member.committee?.name}",
                             style: const TextStyle(
