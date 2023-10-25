@@ -27,7 +27,6 @@ class _HoursRequestViewState extends State<HoursRequestView>
                 appBar: CustomAppBar(
                   title: 'الطلبات',
                   preferredSize: const Size.fromHeight(110),
-                  radius: 60,
                   bottom: PreferredSize(
                     preferredSize: const Size.fromHeight(60),
                     child: Container(

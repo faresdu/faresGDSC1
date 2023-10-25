@@ -130,7 +130,7 @@ class _HomeViewState extends State<HomeView> {
             floatingActionButton: !viewmodel.isHrAdmin()
                 ? null
                 : FloatingActionButton(
-                    heroTag: 'toHoursRequestPage',
+                    heroTag: null,
                     backgroundColor: Constants.primaryLightBlue,
                     onPressed: () {
                       viewmodel.navigateToRequestsPage();

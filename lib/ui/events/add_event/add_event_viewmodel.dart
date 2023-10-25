@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/enums/s3.dart';
 import 'package:gdsc_app/core/services/s3_service.dart';
+import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,6 +23,7 @@ class AddEventViewModel extends BaseViewModel {
 
   String eventID = '';
   TextEditingController titleController = TextEditingController();
+  TextEditingController hostController = TextEditingController();
   DateTime? dateTime;
   TimeOfDay? timeOfDay;
   TextEditingController dateTimeController = TextEditingController();
@@ -112,6 +114,9 @@ class AddEventViewModel extends BaseViewModel {
           location: locationController.value.text,
           isOnline: isOnline,
           description: descriptionController.value.text,
+          host: hostController.value.text.isNotEmpty
+              ? hostController.value.text
+              : null,
           flyer:
               uploadedImageUrl != null ? uploadedImageUrl!['url'] : oldImage);
     }
@@ -159,6 +164,7 @@ class AddEventViewModel extends BaseViewModel {
     attendeesController.text = event.maxAttendees.toString();
     locationController.text = event.location;
     descriptionController.text = event.description ?? "";
+    hostController.text = event.host ?? "";
     dateTimeController.text =
         dateTime != null ? DateHelper.getDate(dateTime!) : '';
     timeOfDayController.text =
@@ -166,5 +172,35 @@ class AddEventViewModel extends BaseViewModel {
     oldImage = event.flyer;
     // image
     notifyListeners();
+  }
+
+  Future<bool?> confirmDeletionDialog(BuildContext context) async {
+    return await showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('حذف الفعالية', style: Constants.mediumText),
+            content: Text('هل انت متاكد من حذف الفعالة؟'),
+            actions: [
+              TextButton(
+                child: Text('الغاء', style: Constants.smallText),
+                onPressed: () {
+                  // Close the dialog and return false
+                  Navigator.of(context).pop(false);
+                },
+              ),
+              TextButton(
+                child: Text(
+                  'حذف',
+                  style: Constants.smallText.copyWith(color: Constants.red),
+                ),
+                onPressed: () {
+                  // Close the dialog and return true
+                  Navigator.of(context).pop(true);
+                },
+              ),
+            ],
+          );
+        });
   }
 }

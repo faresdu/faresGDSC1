@@ -1,6 +1,10 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/app/api-config.dart';
+import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
+import 'package:gdsc_app/core/services/event_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,7 +23,8 @@ Future<void> main() async {
   setupLocator();
   await SentryFlutter.init(
     (options) {
-      options.dsn = APIConfig.sentryUrl;
+      options.debug = kDebugMode;
+      options.dsn = kDebugMode ? '' : APIConfig.sentryUrl;
       // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
       // We recommend adjusting this value in production.
       options.tracesSampleRate = 0.01;
@@ -37,7 +42,10 @@ class MyApp extends StatelessWidget {
       providers: [
         StreamProvider(
             create: (_) => locator<UserService>().userSubject.stream,
-            initialData: GDSCUser.anonymous())
+            initialData: GDSCUser.anonymous()),
+        StreamProvider(
+            create: (_) => locator<EventService>().eventsController.stream,
+            initialData: [Event.anonymous()])
       ],
       child: MaterialApp(
         builder: (context, child) {
@@ -54,7 +62,7 @@ class MyApp extends StatelessWidget {
         ),
         navigatorKey: StackedService.navigatorKey,
         onGenerateRoute: StackedRouter().onGenerateRoute,
-
+        localizationsDelegates: const [DefaultCupertinoLocalizations.delegate],
         // localizationsDelegates: const [
         //   GlobalCupertinoLocalizations.delegate,
         //   GlobalMaterialLocalizations.delegate,

@@ -7,6 +7,7 @@ import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:gdsc_app/ui/events/add_event/add_event_viewmodel.dart';
+import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../core/utils/constants.dart';
@@ -65,14 +66,22 @@ class _AddEventViewState extends State<EditEventView> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  IconButton(
-                                    onPressed: ()async {
-                                      await viewmodel.deleteEvent();
-                                      Navigator.pop(context);
-                                    },
-                                    icon: const Icon(
-                                      Icons.delete,
-                                      size: 24,
+                                  Container(
+                                    margin:
+                                        EdgeInsets.only(right: 4, bottom: 4),
+                                    child: SubmitButton(
+                                      text: "حذف الفعاليه",
+                                      color: Constants.red.withOpacity(0.85),
+                                      onPressed: () async {
+                                        bool? confirmed = await viewmodel
+                                            .confirmDeletionDialog(context);
+                                        if (confirmed == true) {
+                                          await viewmodel.deleteEvent();
+                                          Navigator.pop(context);
+                                        }
+                                      },
+                                      width: 20,
+                                      height: 10,
                                     ),
                                   ),
                                   viewmodel.image == null
@@ -217,6 +226,12 @@ class _AddEventViewState extends State<EditEventView> {
                                 maxLength: 30,
                               ),
                               CustomTextFormField(
+                                title: 'المحاضر أو المضيف',
+                                hintText: 'ان وجد',
+                                controller: viewmodel.hostController,
+                                maxLength: 25,
+                              ),
+                              CustomTextFormField(
                                 title: 'الوصف',
                                 hintText: 'وصف الفعاليه',
                                 controller: viewmodel.descriptionController,
@@ -231,12 +246,14 @@ class _AddEventViewState extends State<EditEventView> {
                                             0.1),
                                 child: viewmodel.isBusy
                                     ? const CircularProgressIndicator()
-                                    : SubmitButton(onPressed: () async {
-                                        await viewmodel.editEvent();
-                                        if (viewmodel.added) {
-                                          Navigator.pop(context);
-                                        }
-                                      }),
+                                    : SubmitButton(
+                                        text: 'تعديل',
+                                        onPressed: () async {
+                                          await viewmodel.editEvent();
+                                          if (viewmodel.added) {
+                                            Navigator.pop(context);
+                                          }
+                                        }),
                               ),
                             ],
                           ),
@@ -311,24 +328,24 @@ class _AddEventViewState extends State<EditEventView> {
     );
   }
 
-  Widget SubmitButton({required Function() onPressed}) {
-    return TextButton(
-      onPressed: onPressed,
-      style: TextButton.styleFrom(
-        minimumSize: const Size(double.infinity, 35),
-        backgroundColor: Constants.blueButton,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-      child: const Text(
-        'تعديل',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
-    );
-  }
+  // Widget SubmitButton({required Function() onPressed}) {
+  //   return TextButton(
+  //     onPressed: onPressed,
+  //     style: TextButton.styleFrom(
+  //       minimumSize: const Size(double.infinity, 35),
+  //       backgroundColor: Constants.blueButton,
+  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+  //     ),
+  //     child: const Text(
+  //       'تعديل',
+  //       style: TextStyle(
+  //         color: Colors.white,
+  //         fontSize: 16,
+  //         fontWeight: FontWeight.w700,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget CustomTextField(
       {required String title,

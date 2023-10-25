@@ -72,8 +72,8 @@ class SupabaseService {
       final PostgrestResponse<dynamic> res = await supabaseClient
           .from(GDSCViews.leaderboard)
           .select('*, Committees:committee_id(*)')
+          .neq('name', null)
           .execute();
-      // print(res.data);
       return (res.data as List)
           .map((e) => LeaderboardMember.fromJson(e))
           .toList();

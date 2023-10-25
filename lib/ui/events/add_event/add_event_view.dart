@@ -10,7 +10,6 @@ import 'package:gdsc_app/ui/widgets/custom_text_form_field.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
-
 class AddEventView extends StatefulWidget {
   const AddEventView({Key? key}) : super(key: key);
 
@@ -86,6 +85,7 @@ class _AddEventViewState extends State<AddEventView> {
                                     ),
                               CustomTextFormField(
                                 title: 'العنوان',
+                                hintText: 'عنوان الفعاليه',
                                 controller: viewmodel.titleController,
                                 validator: FormBuilderValidators.required(
                                     errorText: 'الرجاء ادخال العنوان'),
@@ -189,6 +189,12 @@ class _AddEventViewState extends State<AddEventView> {
                                 validator: FormBuilderValidators.required(
                                     errorText: 'الرجاء ادخال الموقع'),
                                 maxLength: 30,
+                              ),
+                              CustomTextFormField(
+                                title: 'المحاضر أو المضيف',
+                                hintText: 'ان وجد',
+                                controller: viewmodel.hostController,
+                                maxLength: 25,
                               ),
                               CustomTextFormField(
                                 title: 'الوصف',

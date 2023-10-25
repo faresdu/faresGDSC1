@@ -44,7 +44,7 @@ class CustomTextFormField extends StatelessWidget {
     return Container(
       margin: maxLength == null
           ? const EdgeInsets.symmetric(horizontal: 10, vertical: 5)
-          : const EdgeInsets.fromLTRB(10, 5, 10, 0),
+          : const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

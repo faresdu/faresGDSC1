@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
+import 'package:provider/provider.dart';
 import '../../../core/models/member.dart';
 import '../../../core/utils/constants.dart';
 
@@ -15,6 +17,10 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int participations = Provider.of<List<Event>>(context)
+        .where((element) =>
+            element.attendees.where((e) => e.id == member.id).isNotEmpty)
+        .length;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
       decoration: BoxDecoration(
@@ -78,7 +84,7 @@ class ProfileCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               buildProfileInfoBox(
-                  number: member.events.length,
+                  number: participations,
                   bottomText: 'المشاركات',
                   icon: const Icon(
                     Icons.event_note_rounded,
