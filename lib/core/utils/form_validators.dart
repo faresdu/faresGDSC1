@@ -1,12 +1,13 @@
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 class FormValidators {
-  static String? emailValidator(String? value) {
+  static String? emailValidator(String? value, {String? message}) {
     return FormBuilderValidators.compose<String>([
       FormBuilderValidators.required(
-          errorText: ' الرجاء إدخال البريد الكتروني او الرقم الجامعي'),
+          errorText:
+              message ?? ' الرجاء إدخال البريد الكتروني او الرقم الجامعي'),
       FormBuilderValidators.email(
-          errorText: 'الرجاء إدخال بريد الكتروني او رقم جامعي صحيح')
+          errorText: message ?? 'الرجاء إدخال بريد الكتروني او رقم جامعي صحيح'),
     ])(value);
   }
 
