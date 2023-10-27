@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:gdsc_app/core/app/app.router.dart';
 import 'package:gdsc_app/core/services/timeline_service.dart';
 import 'package:gdsc_app/ui/timeline/add_post/posts_viewmodel.dart';
@@ -21,6 +22,25 @@ class TimeLineViewModel extends PostsViewModel {
   final int nextPageTrigger = 3;
   ScrollController scrollController = ScrollController();
   bool noMorePosts = false;
+
+  Future<void> onDelete(Post post) async {
+    setBusy(true);
+    try {
+      await timelineService.deletePost(post.id);
+      posts.remove(post);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      posts.add(post);
+      posts.sort((a, b) =>
+          b.createdAt.microsecondsSinceEpoch -
+          a.createdAt.microsecondsSinceEpoch);
+    }
+    notifyListeners();
+    setBusy(false);
+  }
+
   @override
   void dispose() {
     scrollController.dispose();

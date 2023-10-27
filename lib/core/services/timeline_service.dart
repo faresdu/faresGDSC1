@@ -108,7 +108,7 @@ class TimelineService {
     try {
       final payload = {'post_id': postId, 'user_id': userId};
       final res = await _supabaseService.supabaseClient
-          .from('post_likes')
+          .from(GDSCTables.postLikes)
           .delete()
           .match(payload)
           .execute();
@@ -119,6 +119,25 @@ class TimelineService {
         stackTrace: sT,
       );
       throw 'Failed to unLike Post, ERROR : $e';
+    }
+  }
+
+  deletePost(String postId) async {
+    try {
+      final res = await _supabaseService.supabaseClient
+          .from(GDSCTables.posts)
+          .delete()
+          .eq("post_id", postId)
+          .execute();
+      if (res.error != null) {
+        throw res.error!;
+      }
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
+      throw 'Failed to delete Post, ERROR : $e';
     }
   }
 }

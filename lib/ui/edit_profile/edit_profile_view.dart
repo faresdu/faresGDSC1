@@ -53,6 +53,9 @@ class _EditProfileViewState extends State<EditProfileView> {
                                     ? Image.file(File(viewmodel.image!.path))
                                         .image
                                     : HelperFunctions.avatarImageProvider(
+                                        gender:
+                                            viewmodel.userService.user.gender ??
+                                                '',
                                         imageUrl:
                                             viewmodel.userService.user.photo ??
                                                 ""),

@@ -33,7 +33,11 @@ class _ProfileViewState extends State<ProfileView> {
                     : viewmodel.isUser
                         ? IconButton(
                             onPressed: () async {
-                              await viewmodel.signOut();
+                              bool? confirmed =
+                                  await viewmodel.showWarningDialog(context);
+                              if (confirmed != null && confirmed == true) {
+                                await viewmodel.signOut();
+                              }
                             },
                             icon: const Icon(
                               Icons.logout_rounded,

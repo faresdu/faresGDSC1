@@ -175,32 +175,7 @@ class AddEventViewModel extends BaseViewModel {
   }
 
   Future<bool?> confirmDeletionDialog(BuildContext context) async {
-    return await showDialog<bool>(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('حذف الفعالية', style: Constants.mediumText),
-            content: Text('هل انت متاكد من حذف الفعالة؟'),
-            actions: [
-              TextButton(
-                child: Text('الغاء', style: Constants.smallText),
-                onPressed: () {
-                  // Close the dialog and return false
-                  Navigator.of(context).pop(false);
-                },
-              ),
-              TextButton(
-                child: Text(
-                  'حذف',
-                  style: Constants.smallText.copyWith(color: Constants.red),
-                ),
-                onPressed: () {
-                  // Close the dialog and return true
-                  Navigator.of(context).pop(true);
-                },
-              ),
-            ],
-          );
-        });
+    return await HelperFunctions.warningDialog(context,
+        title: 'حذف الفعالية', content: 'هل انت متاكد من حذف الفعالية؟');
   }
 }

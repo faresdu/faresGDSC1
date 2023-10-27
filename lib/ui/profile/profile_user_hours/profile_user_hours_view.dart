@@ -61,10 +61,10 @@ class _ProfileUserHoursViewState extends State<ProfileUserHoursView> {
                                     borderRadius: BorderRadius.circular(25)),
                                 tabs: const <Widget>[
                                   Tab(
-                                    text: 'مقبوله',
+                                    text: 'مقبولة',
                                   ),
                                   Tab(
-                                    text: 'قيد الانتظار',
+                                    text: 'قيد الأنتظار',
                                   ),
                                 ],
                               ),

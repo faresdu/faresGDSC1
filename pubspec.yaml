@@ -42,6 +42,7 @@ dependencies:
   cached_network_image: ^3.2.3
   sentry_flutter: ^7.10.1
   flutter_dotenv: ^5.1.0
+  flutter_slidable: ^3.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
