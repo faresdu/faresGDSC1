@@ -25,14 +25,14 @@ class Top3Item extends StatelessWidget {
       this.smBottomLeft = 0,
       this.offsetX = 0,
       this.offsetY = 4,
-      this.fontSize = 15,
+      this.fontSize = 14,
       this.numFontSize = 15,
       this.profileTop = 42,
-      this.profileRight = 15,
+      this.profileRight = 16,
       this.profileRaduis = 80,
       this.numSize = 37,
       this.top = 130,
-      this.right = 36,
+      this.right = 38,
       this.color})
       : super(key: key);
   final LeaderboardMember member;
@@ -111,11 +111,15 @@ class Top3Item extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            member.name,
-                            style: TextStyle(
-                                fontSize: fontSize,
-                                fontWeight: FontWeight.bold),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 3),
+                            child: Text(
+                              member.name,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: fontSize,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,

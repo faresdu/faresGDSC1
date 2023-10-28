@@ -45,4 +45,11 @@ class LeaderboardViewModel extends BaseViewModel {
     notifyListeners();
     setBusy(false);
   }
+
+  static String shortcutName(String shortcutNamee) {
+    if (shortcutNamee.length > 16) {
+      return '${shortcutNamee.substring(0, 16)}...';
+    }
+    return shortcutNamee;
+  }
 }
