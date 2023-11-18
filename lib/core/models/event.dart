@@ -83,7 +83,6 @@ class Event {
       'description': description,
       'end_date': endDate?.toString(),
       'event_host': host,
-      'gender': gender
     };
   }
 
