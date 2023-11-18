@@ -29,10 +29,10 @@ class AddPostViewModel extends BaseViewModel {
   }
 
   Future<String?> addPost(GDSCUser user) async {
-    setBusy(true);
     if (!formKey.currentState!.validate()) {
       return null;
     }
+    setBusy(true);
     //Success
     formKey.currentState?.save();
     String? postId;

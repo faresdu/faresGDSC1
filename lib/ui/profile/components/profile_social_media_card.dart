@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
+import 'package:gdsc_app/ui/widgets/deletable_item_card.dart';
 import 'package:gdsc_app/ui/profile/components/social_media_card.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,32 +16,11 @@ class ProfileSocialMediaCard extends StatelessWidget {
   final void Function(UserSocialMedia socialMedia) onDelete;
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-        key: const ValueKey(0),
-        endActionPane: ActionPane(
-          extentRatio: 0.2,
-          motion: const ScrollMotion(),
-          children: [
-            Builder(builder: (cont) {
-              return ElevatedButton(
-                onPressed: () {
-                  onDelete(socialMedia);
-                  Slidable.of(cont)?.close();
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
-                  backgroundColor: Constants.red.withOpacity(0.9),
-                  padding: const EdgeInsets.all(14),
-                ),
-                child: const Icon(
-                  Icons.delete,
-                  color: Constants.white,
-                  size: 26,
-                ),
-              );
-            }),
-          ],
-        ),
-        child: SocialMediaCard(socialMedia: socialMedia));
+    return DeletableItemCard<UserSocialMedia>(
+      item: socialMedia,
+      onDelete: onDelete,
+      endAction: true,
+      widget: SocialMediaCard(socialMedia: socialMedia),
+    );
   }
 }

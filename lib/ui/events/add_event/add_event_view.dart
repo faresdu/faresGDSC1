@@ -85,7 +85,7 @@ class _AddEventViewState extends State<AddEventView> {
                                     ),
                               CustomTextFormField(
                                 title: 'العنوان',
-                                hintText: 'عنوان الفعاليه',
+                                hintText: 'عنوان الفعالية',
                                 controller: viewmodel.titleController,
                                 validator: FormBuilderValidators.required(
                                     errorText: 'الرجاء ادخال العنوان'),
@@ -184,7 +184,7 @@ class _AddEventViewState extends State<AddEventView> {
                               ),
                               CustomTextFormField(
                                 title: 'الموقع',
-                                hintText: 'موقع الفعاليه',
+                                hintText: 'موقع الفعالية',
                                 controller: viewmodel.locationController,
                                 validator: FormBuilderValidators.required(
                                     errorText: 'الرجاء ادخال الموقع'),
@@ -192,13 +192,13 @@ class _AddEventViewState extends State<AddEventView> {
                               ),
                               CustomTextFormField(
                                 title: 'المحاضر أو المضيف',
-                                hintText: 'ان وجد',
+                                hintText: 'إن وجد',
                                 controller: viewmodel.hostController,
                                 maxLength: 25,
                               ),
                               CustomTextFormField(
                                 title: 'الوصف',
-                                hintText: 'وصف الفعاليه',
+                                hintText: 'وصف الفعالية',
                                 controller: viewmodel.descriptionController,
                                 maxLines: 4,
                                 maxLength: 150,

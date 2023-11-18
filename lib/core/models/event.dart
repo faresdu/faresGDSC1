@@ -17,23 +17,24 @@ class Event {
   final String location;
   final String? host;
   final bool isOnline;
+  final String? gender;
 
-  Event({
-    required this.eventID,
-    required this.instructorID,
-    required this.instructorName,
-    this.instructorProfilePicture,
-    required this.title,
-    this.flyer,
-    this.description,
-    required this.startDate,
-    this.endDate,
-    required this.attendees,
-    required this.maxAttendees,
-    required this.location,
-    this.host,
-    required this.isOnline,
-  });
+  Event(
+      {required this.eventID,
+      required this.instructorID,
+      required this.instructorName,
+      this.instructorProfilePicture,
+      required this.title,
+      this.flyer,
+      this.description,
+      required this.startDate,
+      this.endDate,
+      required this.attendees,
+      required this.maxAttendees,
+      required this.location,
+      this.host,
+      required this.isOnline,
+      this.gender});
 
   int getRemainingSeats() {
     if (isFull()) return 0;
@@ -82,6 +83,7 @@ class Event {
       'description': description,
       'end_date': endDate?.toString(),
       'event_host': host,
+      'gender': gender
     };
   }
 
@@ -108,21 +110,21 @@ class Event {
       }).toList();
     }
     return Event(
-      eventID: map['event_id'] ?? '',
-      instructorID: map['instructor_id'] ?? '',
-      instructorName: map['name'] ?? '',
-      instructorProfilePicture: map['profile_picture'],
-      title: map['title'] ?? '',
-      flyer: map['flyer'],
-      description: map['description'],
-      startDate:
-          DateTime.tryParse(map['start_date'] ?? '') ?? DateTime.utc(1900),
-      endDate: DateTime.tryParse(map['end_date'] ?? ''),
-      attendees: members,
-      maxAttendees: map['max_attendees'] ?? 0,
-      location: map['location'] ?? '',
-      host: map['event_host'],
-      isOnline: map['is_online'] ?? false,
-    );
+        eventID: map['event_id'] ?? '',
+        instructorID: map['instructor_id'] ?? '',
+        instructorName: map['name'] ?? '',
+        instructorProfilePicture: map['profile_picture'],
+        title: map['title'] ?? '',
+        flyer: map['flyer'],
+        description: map['description'],
+        startDate:
+            DateTime.tryParse(map['start_date'] ?? '') ?? DateTime.utc(1900),
+        endDate: DateTime.tryParse(map['end_date'] ?? ''),
+        attendees: members,
+        maxAttendees: map['max_attendees'] ?? 0,
+        location: map['location'] ?? '',
+        host: map['event_host'],
+        isOnline: map['is_online'] ?? false,
+        gender: map['gender']);
   }
 }

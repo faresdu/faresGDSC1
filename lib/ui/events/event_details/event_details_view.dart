@@ -52,8 +52,8 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                       flex: 3,
                       child: Center(
                         child: HelperFunctions.eventImage(
-                            imageUrl: viewmodel.eventDetails.flyer,
-                            fit: BoxFit.contain,
+                          imageUrl: viewmodel.eventDetails.flyer,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ),
@@ -91,7 +91,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                       ],
                     ),
                     Container(
-                      margin: const EdgeInsets.symmetric(vertical: 15.0),
+                      margin: const EdgeInsets.symmetric(vertical: 10.0),
                       child: Divider(
                         height: 1,
                         color: Constants.grey.withOpacity(.5),
@@ -106,12 +106,14 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                     ),
                     Expanded(
                       flex: 3,
-                      child: Text(
-                        viewmodel.eventDetails.description ?? 'لا يوجد وصف',
-                        style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Constants.grey),
+                      child: SingleChildScrollView(
+                        child: Text(
+                          viewmodel.eventDetails.description ?? 'لا يوجد وصف',
+                          style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: Constants.grey),
+                        ),
                       ),
                     ),
                     Row(

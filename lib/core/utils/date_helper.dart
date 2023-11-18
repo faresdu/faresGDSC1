@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/models/semester.dart';
+import 'package:gdsc_app/core/models/semester_break.dart';
 
 class DateHelper {
   static final Map<int, String> day = {
@@ -91,7 +93,6 @@ class DateHelper {
     }
   }
 
-
   static int daysSinceDate(DateTime date) {
     Duration dur = DateTime.now().difference(date);
     return dur.inDays;
@@ -100,5 +101,27 @@ class DateHelper {
   static DateTimeAndTimeOfDay(DateTime dateTime, TimeOfDay timeOfDay) {
     return DateTime(dateTime.year, dateTime.month, dateTime.day, timeOfDay.hour,
         timeOfDay.minute);
+  }
+
+  static int getSemesterWeek(Semester semester, {DateTime? date}) {
+    final currentDate = date ?? DateTime.now();
+    Duration breakDuration = const Duration();
+    List<SemesterBreak> relevantBreaks = semester.semesterBreaks
+        .where((b) =>
+            b.breakStartDate.millisecondsSinceEpoch <
+                currentDate.millisecondsSinceEpoch &&
+            b.breakEndDate.day - b.breakStartDate.day >= 4)
+        .toList();
+    for (final breakPeriod in relevantBreaks) {
+      final breakStartDate = breakPeriod.breakStartDate;
+      final breakEndDate = breakPeriod.breakEndDate;
+      final duration = breakEndDate.difference(breakStartDate);
+      breakDuration += duration + const Duration(days: 1);
+    }
+
+    final totalDays = currentDate.difference(semester.startDate).inDays;
+    final adjustedDays = totalDays - breakDuration.inDays;
+    final currentWeek = (adjustedDays / 7).ceil();
+    return currentWeek;
   }
 }

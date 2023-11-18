@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/ui/notifications/components/deletable_notification_card.dart';
 import 'package:gdsc_app/ui/notifications/notifications_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:gdsc_app/ui/widgets/custom_bottom_modal_sheet.dart';
@@ -19,17 +20,19 @@ class NotificationView extends StatelessWidget {
       builder: (context, viewmodel, _) {
         return Scaffold(
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-          floatingActionButton: !viewmodel.isAdmin()? null : FloatingActionButton(
-            heroTag: null,
-            onPressed: () {
-              CustomModalBottomSheet(context, const AddNotification());
-            },
-            backgroundColor: Constants.blueButton,
-            child: const Icon(
-              Icons.add,
-              size: 30,
-            ),
-          ),
+          floatingActionButton: !viewmodel.isAdmin()
+              ? null
+              : FloatingActionButton(
+                  heroTag: null,
+                  onPressed: () {
+                    CustomModalBottomSheet(context, const AddNotification());
+                  },
+                  backgroundColor: Constants.blueButton,
+                  child: const Icon(
+                    Icons.add,
+                    size: 30,
+                  ),
+                ),
           body: SafeArea(
             child: Container(
               color: Constants.background,
@@ -74,8 +77,14 @@ class NotificationView extends StatelessWidget {
                           shrinkWrap: true,
                           children: viewmodel.notifications
                               .map((e) => Container(
-                                  margin: const EdgeInsets.symmetric(vertical: 10),
-                                  child: NotificationCard(notification: e)))
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  child: viewmodel.user.id == e.userId
+                                      ? DeletableNotificationCard(
+                                          notification: e,
+                                          onDelete:
+                                              viewmodel.deleteNotification)
+                                      : NotificationCard(notification: e)))
                               .toList(),
                         ),
                       ),

@@ -5,6 +5,7 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:flutter/foundation.dart' as _i21;
 import 'package:flutter/material.dart' as _i20;
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/committee_members/committe_members_view.dart'
@@ -33,7 +34,7 @@ import 'package:gdsc_app/ui/profile/profile_view.dart' as _i9;
 import 'package:gdsc_app/ui/startup/startup_view.dart' as _i2;
 import 'package:gdsc_app/ui/timeline/timeline_view.dart' as _i5;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i21;
+import 'package:stacked_services/stacked_services.dart' as _i22;
 
 class Routes {
   static const startUpView = '/';
@@ -294,7 +295,7 @@ class StackedRouter extends _i1.RouterBase {
 class StartUpViewArguments {
   const StartUpViewArguments({this.key});
 
-  final _i20.Key? key;
+  final _i21.Key? key;
 
   @override
   String toString() {
@@ -313,9 +314,9 @@ class StartUpViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i21.NavigationService {
+extension NavigatorStateExtension on _i22.NavigationService {
   Future<dynamic> navigateToStartUpView({
-    _i20.Key? key,
+    _i21.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -569,7 +570,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
   }
 
   Future<dynamic> replaceWithStartUpView({
-    _i20.Key? key,
+    _i21.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
