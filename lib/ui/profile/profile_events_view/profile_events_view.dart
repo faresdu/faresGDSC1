@@ -61,7 +61,7 @@ class ProfileEventsView extends StatelessWidget {
                                 ),
                                 if (viewmodel.user.isLeaderOrCoLeader())
                                   const Tab(
-                                    text: 'المنشأه',
+                                    text: 'المنشأة',
                                   ),
                               ],
                             ),

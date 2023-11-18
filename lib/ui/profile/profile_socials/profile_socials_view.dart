@@ -3,9 +3,12 @@ import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/ui/profile/components/profile_social_media_card.dart';
 import 'package:gdsc_app/ui/profile/profile_socials/add_social_media_view.dart';
 import 'package:gdsc_app/ui/profile/profile_socials/profile_socials_viewmodel.dart';
+import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:gdsc_app/ui/widgets/custom_bottom_modal_sheet.dart';
 import 'package:stacked/stacked.dart';
+
+import '../components/social_media_card.dart';
 
 class ProfileSocialsView extends StatefulWidget {
   const ProfileSocialsView({Key? key}) : super(key: key);
@@ -26,10 +29,18 @@ class _ProfileSocialsViewState extends State<ProfileSocialsView> {
             ),
             backgroundColor: Constants.background,
             body: SafeArea(
-              child: Column(
-                children: viewmodel.socials
-                    .map((e) => ProfileSocialMediaCard(socialMedia: e))
-                    .toList(),
+              child: BusyOverlay(
+                isBusy: viewmodel.isBusy,
+                child: Column(
+                  children: (viewmodel.isUser
+                          ? viewmodel.socials.map((e) => ProfileSocialMediaCard(
+                                socialMedia: e,
+                                onDelete: viewmodel.deleteSocial,
+                              ))
+                          : viewmodel.socials
+                              .map((e) => SocialMediaCard(socialMedia: e)))
+                      .toList(),
+                ),
               ),
             ),
             floatingActionButton: viewmodel.isUser

@@ -51,8 +51,8 @@ class _TimeLineViewState extends State<TimeLineView> {
                 child: RefreshIndicator(
                     onRefresh: viewmodel.refreshPost,
                     child: ListView.builder(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 20),
                       itemCount: viewmodel.posts.length + 1,
                       controller: viewmodel.scrollController,
                       itemBuilder: ((context, index) {
@@ -63,15 +63,16 @@ class _TimeLineViewState extends State<TimeLineView> {
                             userId: user.id,
                             onLike: viewmodel.likePost,
                             onUnLike: viewmodel.unLikePost,
+                            onDelete: viewmodel.onDelete,
                             onUserTap: () => viewmodel
                                 .navigateToMemberProfile(item.posterId),
                           );
                         } else {
                           return Padding(
-                            padding: EdgeInsets.symmetric(vertical: 5),
+                            padding: const EdgeInsets.symmetric(vertical: 5),
                             child: Center(
                               child: viewmodel.noMorePosts == true
-                                  ? Text('No more posts')
+                                  ? const Text('No more posts')
                                   : null,
                             ),
                           );

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/timeline/add_post/posts_viewmodel.dart';
 
@@ -22,10 +23,7 @@ class ProfileTimelineViewModel extends PostsViewModel {
 
   Future<void> getPosts(BuildContext context) async {
     setBusy(true);
-    Member? member = (ModalRoute
-        .of(context)!
-        .settings
-        .arguments as Member?);
+    Member? member = (ModalRoute.of(context)!.settings.arguments as Member?);
     if (member != null) {
       isUser = false;
     } else {
@@ -44,7 +42,7 @@ class ProfileTimelineViewModel extends PostsViewModel {
       if (!removeFromList && index == -1) {
         likedPosts.add(post);
         likedPosts.sort((a, b) =>
-        b.createdAt.microsecondsSinceEpoch -
+            b.createdAt.microsecondsSinceEpoch -
             a.createdAt.microsecondsSinceEpoch);
       }
       if (removeFromList && index != -1) {
@@ -95,10 +93,25 @@ class ProfileTimelineViewModel extends PostsViewModel {
     notifyListeners();
   }
 
+  Future<void> onDelete(Post post) async {
+    setBusy(true);
+    try {
+      await timelineService.deletePost(post.id);
+      posts.remove(post);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      posts.add(post);
+      posts.sort((a, b) =>
+          b.createdAt.microsecondsSinceEpoch -
+          a.createdAt.microsecondsSinceEpoch);
+    }
+    notifyListeners();
+    setBusy(false);
+  }
+
   navigateToAddPosts(BuildContext context) async {
-    return await CustomModalBottomSheet(
-        context,
-        AddPostView(postsvm: this)
-    );
+    return await CustomModalBottomSheet(context, AddPostView(postsvm: this));
   }
 }

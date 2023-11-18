@@ -46,7 +46,7 @@ class _NavigationViewState extends State<NavigationView> {
                         color: viewmodel.currentTab == 4
                             ? Constants.red
                             : Constants.darkGrey,
-                        text: 'فعاليات',
+                        text: 'الفعاليات',
                         imagePath: 'assets/icons/navigation2/events.svg'),
                     NavigationButton(
                         onPressed: () {

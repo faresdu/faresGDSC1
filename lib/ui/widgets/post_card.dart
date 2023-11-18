@@ -9,6 +9,7 @@ class PostCard extends StatefulWidget {
   final String userId;
   final Function(Post post, String userId) onLike;
   final Function(Post post, String userId) onUnLike;
+  final Function(Post post)? onDelete;
   final void Function()? onUserTap;
 
   const PostCard({
@@ -18,6 +19,7 @@ class PostCard extends StatefulWidget {
     required this.onUnLike,
     required this.userId,
     this.onUserTap,
+    this.onDelete,
   }) : super(key: key);
 
   @override
@@ -28,7 +30,6 @@ class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     bool liked = isLiked();
-
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       padding: const EdgeInsets.all(16),
@@ -75,14 +76,53 @@ class _PostCardState extends State<PostCard> {
                   ),
                 ],
               ),
-              Text(
-                DateHelper.daysSinceDate(widget.post.createdAt) >= 30
-                    ? DateHelper.getDate(widget.post.createdAt)
-                    : DateHelper.sincePosted(widget.post.createdAt),
-                style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Constants.grey),
+              Column(
+                children: [
+                  Text(
+                    DateHelper.daysSinceDate(widget.post.createdAt) >= 30
+                        ? DateHelper.getDate(widget.post.createdAt)
+                        : DateHelper.sincePosted(widget.post.createdAt),
+                    style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Constants.grey),
+                  ),
+                  if (widget.post.posterId == widget.userId)
+                    SizedBox(
+                      height: 20,
+                      child: PopupMenuButton(
+                          icon: const Icon(Icons.more_horiz),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14)),
+                          onSelected: (value) async {
+                            if (value == 'delete') {
+                              ///TODO: show warning
+                              bool? confirmed =
+                                  await HelperFunctions.warningDialog(context,
+                                      title: 'حذف المنشور',
+                                      content: 'هل انت متاكد من حذف المنشور؟');
+                              if (confirmed != null &&
+                                  confirmed == true &&
+                                  widget.onDelete != null) {
+                                widget.onDelete!(widget.post);
+                              }
+                            }
+                          },
+                          itemBuilder: (context) => [
+                                PopupMenuItem(
+                                  padding: EdgeInsets.symmetric(horizontal: 8),
+                                  value: 'delete',
+                                  child: Text(
+                                    'حذف المنشوره',
+                                    textAlign: TextAlign.center,
+                                    style: Constants.verySmallText.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Constants.red),
+                                  ),
+                                )
+                              ]),
+                    )
+                ],
               ),
             ],
           ),

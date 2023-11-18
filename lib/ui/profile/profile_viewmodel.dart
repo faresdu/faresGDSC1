@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/services/authentication_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
+import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -55,6 +56,13 @@ class ProfileViewModel extends BaseViewModel {
       });
     }
     setBusy(false);
+  }
+
+  Future<bool?> showWarningDialog(BuildContext context) async {
+    return await HelperFunctions.warningDialog(context,
+        title: 'تسجيل الخروج',
+        content: 'هل انت متاكد من تسجيل الخروج؟',
+        confirmButtonText: 'نعم');
   }
 
   @override

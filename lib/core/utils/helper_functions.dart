@@ -2,10 +2,13 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'constants.dart';
 
 abstract class HelperFunctions {
   static Widget defaultImage({
@@ -151,10 +154,12 @@ abstract class HelperFunctions {
     double height = 30,
     double width = 30,
     BoxFit fit = BoxFit.cover,
+    String gender = "",
   }) {
     Widget p = profileImage(
       imageUrl: imageUrl,
       height: height,
+      gender: gender,
       width: width,
       fit: fit,
     );
@@ -189,5 +194,52 @@ abstract class HelperFunctions {
     } else {
       // can't launch url
     }
+  }
+
+  static Future<bool?> warningDialog(BuildContext context,
+      {required String title,
+      required String content,
+      String confirmButtonText = 'حذف'}) async {
+    final titleWidget = Text(
+      title,
+      style: Constants.mediumText.copyWith(fontWeight: FontWeight.bold),
+    );
+    final contentWidget = Text(
+      content,
+      style: Constants.smallText,
+    );
+    final actions = [
+      TextButton(
+        child: Text('الغاء', style: Constants.smallText),
+        onPressed: () {
+          Navigator.of(context).pop(false);
+        },
+      ),
+      TextButton(
+        child: Text(
+          confirmButtonText,
+          style: Constants.smallText.copyWith(color: Constants.red),
+        ),
+        onPressed: () {
+          Navigator.of(context).pop(true);
+        },
+      ),
+    ];
+    return await showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          if (Platform.isIOS) {
+            return CupertinoAlertDialog(
+              title: titleWidget,
+              content: contentWidget,
+              actions: actions,
+            );
+          }
+          return AlertDialog(
+            title: titleWidget,
+            content: contentWidget,
+            actions: actions,
+          );
+        });
   }
 }
