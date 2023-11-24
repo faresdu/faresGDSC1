@@ -41,10 +41,12 @@ class _HomeViewState extends State<HomeView> {
                 child: RefreshIndicator(
                   onRefresh: viewmodel.refreshData,
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 30),
+                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                     child: ListView(
                       children: [
+                        SizedBox(
+                          height: spacing / 16,
+                        ),
                         Welcome(currentWeek: viewmodel.currentWeek),
                         SizedBox(
                           height: spacing / 8,

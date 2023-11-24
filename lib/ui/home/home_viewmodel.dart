@@ -109,6 +109,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   Future<void> refreshData() async {
     setBusy(true);
     await Future.wait([init(), userService.updateUser()]);
+
     notifyListeners();
     setBusy(false);
   }

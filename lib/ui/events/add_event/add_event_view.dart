@@ -190,6 +190,17 @@ class _AddEventViewState extends State<AddEventView> {
                                     errorText: 'الرجاء ادخال الموقع'),
                                 maxLength: 30,
                               ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 16),
+                                child: CustomTextFormField(
+                                  title: 'رابط الموقع',
+                                  hintText: 'إن وجد',
+                                  controller: viewmodel.locationLinkController,
+                                  validator: (value) =>
+                                      FormValidators.linkValidator(value,
+                                          required: false),
+                                ),
+                              ),
                               CustomTextFormField(
                                 title: 'المحاضر أو المضيف',
                                 hintText: 'إن وجد',

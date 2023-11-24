@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:gdsc_app/core/enums/tables.dart';
 import 'package:gdsc_app/core/models/semester.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
+import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase/supabase.dart';
@@ -25,9 +26,11 @@ class SemesterService {
       }
 
       /// supabase gte lte doesn't work with dates for some reason so im doing it clientside
-
-      final List<Semester> semesters =
-          (res.data as List).map((s) => Semester.fromJson(s)).toList();
+      print(res.data);
+      final List<Semester> semesters = (res.data as List).map((s) {
+        print(s);
+        return Semester.fromJson(s);
+      }).toList();
 
       final DateTime currentDate = DateTime.now();
 
@@ -45,5 +48,10 @@ class SemesterService {
       );
       rethrow;
     }
+  }
+
+  Future<int> getWeek(DateTime date) async {
+    Semester semester = await semesterSubject.single;
+    return DateHelper.getSemesterWeek(semester, date: date);
   }
 }

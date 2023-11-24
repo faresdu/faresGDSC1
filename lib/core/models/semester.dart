@@ -22,10 +22,11 @@ class Semester {
 
   factory Semester.fromJson(Map<String, dynamic> map) {
     List<SemesterBreak> semBreaks = [];
-    if (map["semester_breaks"] != null &&
-        (map['semester_breaks'] as List).first != null &&
-        (map['semester_breaks'] as List).first['semester_id'] != null) {
-      semBreaks = (map["semester_breaks"] as List).map((e) {
+
+    List? semBreaksMap = map['semester_breaks'] as List?;
+
+    if (semBreaksMap != null && semBreaksMap.isNotEmpty) {
+      semBreaks = semBreaksMap.map((e) {
         return SemesterBreak.fromJson(e);
       }).toList();
     }

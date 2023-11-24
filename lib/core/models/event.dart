@@ -18,6 +18,7 @@ class Event {
   final String? host;
   final bool isOnline;
   final String? gender;
+  final String? locationLink;
 
   Event(
       {required this.eventID,
@@ -34,7 +35,8 @@ class Event {
       required this.location,
       this.host,
       required this.isOnline,
-      this.gender});
+      this.gender,
+      this.locationLink});
 
   int getRemainingSeats() {
     if (isFull()) return 0;
@@ -83,7 +85,7 @@ class Event {
       'description': description,
       'end_date': endDate?.toString(),
       'event_host': host,
-      'gender': gender
+      'location_link': locationLink
     };
   }
 
@@ -116,7 +118,8 @@ class Event {
         instructorProfilePicture: map['profile_picture'],
         title: map['title'] ?? '',
         flyer: map['flyer'],
-        description: map['description'],
+        description:
+            map['description'].toString().isEmpty ? null : map['description'],
         startDate:
             DateTime.tryParse(map['start_date'] ?? '') ?? DateTime.utc(1900),
         endDate: DateTime.tryParse(map['end_date'] ?? ''),
@@ -125,6 +128,7 @@ class Event {
         location: map['location'] ?? '',
         host: map['event_host'],
         isOnline: map['is_online'] ?? false,
-        gender: map['gender']);
+        gender: map['gender'],
+        locationLink: map['location_link']);
   }
 }

@@ -51,9 +51,10 @@ class FormValidators {
     ])(value);
   }
 
-  static String? linkValidator(String? value) {
+  static String? linkValidator(String? value, {bool required = true}) {
     return FormBuilderValidators.compose<String>([
-      FormBuilderValidators.required(errorText: 'الرجاء ادخال رابط المنصه'),
+      if (required)
+        FormBuilderValidators.required(errorText: 'الرجاء ادخال رابط المنصه'),
       FormBuilderValidators.url(errorText: 'الرجاء ادخال رابط صحيح')
     ])(value);
   }
