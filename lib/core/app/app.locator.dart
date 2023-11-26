@@ -21,10 +21,10 @@ import '../services/user_service.dart';
 
 final locator = StackedLocator.instance;
 
-void setupLocator({
+Future<void> setupLocator({
   String? environment,
   EnvironmentFilter? environmentFilter,
-}) {
+}) async {
 // Register environments
   locator.registerEnvironment(
       environment: environment, environmentFilter: environmentFilter);

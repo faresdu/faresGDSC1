@@ -65,7 +65,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   }
 
   void navigateToRequestsPage() {
-    navService.navigateTo(Routes.hoursRequestView);
+    navService.navigateTo(Routes.committeesHoursView);
   }
 
   void navigateToNotifications() {
