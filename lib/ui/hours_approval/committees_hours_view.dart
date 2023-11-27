@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/app/app.locator.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/ui/hours_approval/hours_request_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
@@ -12,8 +13,9 @@ class CommitteesHoursView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<HoursRequestViewModel>.reactive(
-        viewModelBuilder: () => HoursRequestViewModel(),
+    return ViewModelBuilder<HoursRequestViewModel>.nonReactive(
+        viewModelBuilder: () => locator<HoursRequestViewModel>(),
+        onViewModelReady: (viewmodel) => viewmodel.getRelatedCommittees(),
         builder: (context, viewmodel, _) {
           return Scaffold(
             appBar: const CustomAppBar(
@@ -30,7 +32,8 @@ class CommitteesHoursView extends StatelessWidget {
                     children: viewmodel.committees
                         .map((c) => HierarchyButton(
                             onPressed: () {
-                              viewmodel.navigateToCommittee(c);
+                              viewmodel.currentCommittee = c;
+                              viewmodel.navigateToRequestsPage();
                             },
                             committee: c))
                         .toList(),

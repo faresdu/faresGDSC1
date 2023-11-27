@@ -5,6 +5,7 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:flutter/foundation.dart' as _i21;
 import 'package:flutter/material.dart' as _i20;
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/committee_members/committe_members_view.dart'
@@ -16,7 +17,7 @@ import 'package:gdsc_app/ui/events/event_participants/event_participants_view.da
     as _i19;
 import 'package:gdsc_app/ui/events/events_view.dart' as _i6;
 import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart' as _i8;
-import 'package:gdsc_app/ui/hours_approval/committees_hours_view.dart' as _i22;
+import 'package:gdsc_app/ui/hours_approval/committees_hours_view.dart' as _i23;
 import 'package:gdsc_app/ui/hours_approval/hours_request_view.dart' as _i12;
 import 'package:gdsc_app/ui/leaderboard/leaderboard_view.dart' as _i11;
 import 'package:gdsc_app/ui/login/login_view.dart' as _i3;
@@ -34,7 +35,7 @@ import 'package:gdsc_app/ui/profile/profile_view.dart' as _i9;
 import 'package:gdsc_app/ui/startup/startup_view.dart' as _i2;
 import 'package:gdsc_app/ui/timeline/timeline_view.dart' as _i5;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i21;
+import 'package:stacked_services/stacked_services.dart' as _i22;
 
 class Routes {
   static const startUpView = '/';
@@ -74,7 +75,6 @@ class Routes {
   static const eventParticipantsView = '/event-participants-view';
 
   static const committeesHoursView = '/committees-hours-view';
-
   static const all = <String>{
     startUpView,
     loginView,
@@ -174,7 +174,7 @@ class StackedRouter extends _i1.RouterBase {
     ),
     _i1.RouteDef(
       Routes.committeesHoursView,
-      page: _i22.CommitteesHoursView,
+      page: _i23.CommitteesHoursView,
     ),
   ];
 
@@ -290,9 +290,9 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i22.CommitteesHoursView: (data) {
+    _i23.CommitteesHoursView: (data) {
       return _i20.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i22.CommitteesHoursView(),
+        builder: (context) => const _i23.CommitteesHoursView(),
         settings: data,
       );
     },
@@ -308,7 +308,7 @@ class StackedRouter extends _i1.RouterBase {
 class StartUpViewArguments {
   const StartUpViewArguments({this.key});
 
-  final _i20.Key? key;
+  final _i21.Key? key;
 
   @override
   String toString() {
@@ -327,9 +327,9 @@ class StartUpViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i21.NavigationService {
+extension NavigatorStateExtension on _i22.NavigationService {
   Future<dynamic> navigateToStartUpView({
-    _i20.Key? key,
+    _i21.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -583,7 +583,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
   }
 
   Future<dynamic> replaceWithStartUpView({
-    _i20.Key? key,
+    _i21.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,

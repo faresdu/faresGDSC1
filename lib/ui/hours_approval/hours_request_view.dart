@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/app/app.locator.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/ui/hours_approval/previous_hours_request_view.dart';
 import 'package:gdsc_app/ui/hours_approval/upcoming_hours_request_view.dart';
@@ -18,8 +19,8 @@ class _HoursRequestViewState extends State<HoursRequestView>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<HoursRequestViewModel>.reactive(
-        viewModelBuilder: () => HoursRequestViewModel(),
+    return ViewModelBuilder<HoursRequestViewModel>.nonReactive(
+        viewModelBuilder: () => locator<HoursRequestViewModel>(),
         builder: (context, viewmodel, _) {
           return DefaultTabController(
               length: 2,

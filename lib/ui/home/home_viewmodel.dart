@@ -50,7 +50,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   }
 
   bool isHrAdmin() {
-    return userService.user.isLeaderOrCoLeader() &&
+    return userService.user.isLeaderOrCoLeader() ||
         (userService.user.isHr() || userService.user.isAdmin);
   }
 

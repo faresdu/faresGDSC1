@@ -1,8 +1,8 @@
 import 'package:gdsc_app/core/app/app.router.dart';
 import 'package:gdsc_app/core/models/hour_request.dart';
-import 'package:gdsc_app/core/models/member.dart';
 import 'package:gdsc_app/core/services/hour_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
+import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -12,35 +12,40 @@ import '../../core/models/committee.dart';
 class HoursRequestViewModel extends BaseViewModel {
   final hourService = locator<HourService>();
   final navService = locator<NavigationService>();
-  final userService = locator<SupabaseService>();
+  final userService = locator<UserService>();
+  final appService = locator<SupabaseService>();
   List<HourRequest> upcomingRequests = [];
   List<HourRequest> previousRequests = [];
   List<Committee> committees = [];
+  var currentCommittee;
 
-  Future futureToRun() => getCommittees();
-
-  getCommittees() async {
-    await userService.getCommittees().then((value) => committees = value);
+  getRelatedCommittees() async {
+    await appService.getCommittees().then((value) => committees = value);
+    if (userService.user.isAdmin || userService.user.isHrAdmin()) {
+      // simply it will DO NOTHING and return all committees
+    } else if (userService.user.isLeader() || userService.user.isCoLeader()) {
+      // will return the committee for only the leader or co-leader
+      committees.removeWhere(
+          (committee) => committee.id != userService.user.committee.id);
+    } else {
+      // will return the committees for only the hr mebmbers reposnsible for
+      committees.removeWhere(
+          (committee) => committee.responsibleCommittee != userService.user.id);
+    }
     notifyListeners();
   }
 
   void navigateToRequestsPage() {
     navService.navigateTo(Routes.hoursRequestView);
-  }
-
-  navigateToCommittee(Committee committee) async {
-    setBusy(true);
-    List<Member> members = await userService.getCommitteeMembers(committee.id);
-    setBusy(false);
-    navService.navigateTo(Routes.committeeMembersView,
-        arguments: [members, committee]);
+    print(currentCommittee.name);
+    notifyListeners();
   }
 
   getUpcomingHourRequests() async {
+    print(currentCommittee.id);
     await hourService
         .getUpcomingHourRequests()
         .then((value) => upcomingRequests = value);
-    upcomingRequests.sort((a, b) => b.createdAtMillis - a.createdAtMillis);
     notifyListeners();
   }
 
@@ -62,7 +67,6 @@ class HoursRequestViewModel extends BaseViewModel {
         .getPreviousHourRequests()
         .then((value) => previousRequests = value);
     previousRequests.sort((a, b) => b.createdAtMillis - a.createdAtMillis);
-
     notifyListeners();
   }
 }
