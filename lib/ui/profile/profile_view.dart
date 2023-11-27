@@ -109,6 +109,17 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
                         onTap: () => viewmodel.navigateToProfileSocials(),
                       ),
+                      if (viewmodel.isUser)
+                        ProfileSectionButton(
+                          title: 'الفواتير',
+                          color: Constants.green,
+                          icon: const Icon(
+                            Icons.receipt,
+                            color: Constants.green,
+                            size: 30,
+                          ),
+                          onTap: () => viewmodel.navigateToProfileSocials(),
+                        ),
                     ],
                   ),
                 ),
