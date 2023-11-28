@@ -12,6 +12,7 @@ import '../notifications/components/notification_card.dart';
 import 'components/activity_card.dart';
 import 'components/section_title.dart';
 import 'components/welcome_widget.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({required this.updateScreen, Key? key}) : super(key: key);
@@ -28,7 +29,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     double spacing = MediaQuery.of(context).size.height / 4;
-
+    // The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+    OneSignal.Notifications.requestPermission(true);
     return ViewModelBuilder<HomeViewModel>.reactive(
         viewModelBuilder: () => HomeViewModel(),
         onViewModelReady: (model) => model.init(),
