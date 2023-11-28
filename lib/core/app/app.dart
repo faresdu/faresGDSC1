@@ -1,4 +1,5 @@
 import 'package:gdsc_app/core/services/s3_service.dart';
+import 'package:gdsc_app/core/services/semester_service.dart';
 import 'package:gdsc_app/core/services/social_media_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
@@ -62,7 +63,10 @@ import '../services/event_service.dart';
     LazySingleton<NotificationService>(classType: NotificationService),
     LazySingleton<S3Service>(classType: S3Service),
     LazySingleton<SocialMediaService>(classType: SocialMediaService),
-    LazySingleton(classType: SupabaseService,),
+    LazySingleton<SemesterService>(classType: SemesterService),
+    LazySingleton(
+      classType: SupabaseService,
+    ),
   ],
 )
 class AppSetup {}

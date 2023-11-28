@@ -3,8 +3,11 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/Home/home_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
+import '../../core/models/semester.dart';
 import '../../core/utils/constants.dart';
+import '../../core/utils/date_helper.dart';
 import '../notifications/components/notification_card.dart';
 import 'components/activity_card.dart';
 import 'components/section_title.dart';
@@ -22,13 +25,13 @@ class _HomeViewState extends State<HomeView> {
   final controller = CarouselController();
   int _current = 1;
 
-
   @override
   Widget build(BuildContext context) {
-    double spacing = MediaQuery.of(context).size.height/4;
+    double spacing = MediaQuery.of(context).size.height / 4;
+
     return ViewModelBuilder<HomeViewModel>.reactive(
         viewModelBuilder: () => HomeViewModel(),
-        onViewModelReady: (model) => model.getNotifications(),
+        onViewModelReady: (model) => model.init(),
         builder: (context, viewmodel, _) {
           return Scaffold(
             backgroundColor: Constants.background,
@@ -38,11 +41,13 @@ class _HomeViewState extends State<HomeView> {
                 child: RefreshIndicator(
                   onRefresh: viewmodel.refreshData,
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 30),
+                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                     child: ListView(
                       children: [
-                        const Welcome(),
+                        SizedBox(
+                          height: spacing / 16,
+                        ),
+                        Welcome(currentWeek: viewmodel.currentWeek),
                         SizedBox(
                           height: spacing / 8,
                         ),

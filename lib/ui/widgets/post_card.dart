@@ -96,7 +96,6 @@ class _PostCardState extends State<PostCard> {
                               borderRadius: BorderRadius.circular(14)),
                           onSelected: (value) async {
                             if (value == 'delete') {
-                              ///TODO: show warning
                               bool? confirmed =
                                   await HelperFunctions.warningDialog(context,
                                       title: 'حذف المنشور',
@@ -142,8 +141,8 @@ class _PostCardState extends State<PostCard> {
                             const EdgeInsets.only(right: 15, left: 15, top: 8),
                         child: Text(
                           widget.post.content,
-                          style: const TextStyle(
-                              fontSize: 14, color: Constants.black),
+                          style: Constants.verySmallText
+                              .copyWith(color: Constants.black),
                         )),
                   ],
                 ),

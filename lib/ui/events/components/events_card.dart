@@ -46,26 +46,32 @@ class EventCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         boxShadow: Constants.shadow,
-                    ),
-                    child: HelperFunctions.profileImage(imageUrl: event.instructorProfilePicture ?? '',
-                      width: 66,
-                      height: 66,)
-                  ),
+                      ),
+                      child: HelperFunctions.profileImage(
+                          imageUrl: event.instructorProfilePicture ?? '',
+                          width: 66,
+                          height: 66,
+                          gender: event.gender ?? "")),
                   Padding(
                     padding: const EdgeInsets.only(top: 15, right: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          event.title,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Constants.black,
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width *
+                              (canEdit ? 0.45 : 0.56),
+                          child: Text(
+                            event.title,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Constants.black,
+                            ),
                           ),
                         ),
                         Text(
@@ -123,7 +129,8 @@ class EventCard extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 2),
                             child: Row(
                               children: [
-                                Image.asset("./assets/icons/events/Place Marker.png"),
+                                Image.asset(
+                                    "./assets/icons/events/Place Marker.png"),
                                 const SizedBox(
                                   width: 8,
                                 ),

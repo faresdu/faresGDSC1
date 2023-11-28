@@ -32,6 +32,8 @@ class AddEventViewModel extends BaseViewModel {
   bool isOnline = false;
   TextEditingController attendeesController = TextEditingController();
   TextEditingController locationController = TextEditingController();
+  TextEditingController locationLinkController = TextEditingController();
+
   TextEditingController descriptionController = TextEditingController();
   XFile? image;
   Map<String, String>? uploadedImageUrl;
@@ -114,6 +116,9 @@ class AddEventViewModel extends BaseViewModel {
           location: locationController.value.text,
           isOnline: isOnline,
           description: descriptionController.value.text,
+          locationLink: locationLinkController.value.text.isNotEmpty
+              ? locationLinkController.value.text
+              : null,
           host: hostController.value.text.isNotEmpty
               ? hostController.value.text
               : null,
@@ -164,6 +169,7 @@ class AddEventViewModel extends BaseViewModel {
     attendeesController.text = event.maxAttendees.toString();
     locationController.text = event.location;
     descriptionController.text = event.description ?? "";
+    locationLinkController.text = event.locationLink ?? "";
     hostController.text = event.host ?? "";
     dateTimeController.text =
         dateTime != null ? DateHelper.getDate(dateTime!) : '';

@@ -21,11 +21,13 @@ class RoundedSubmitButton extends StatelessWidget {
       onPressed: isBusy ? null : onPressed,
       style: TextButton.styleFrom(
         fixedSize: fixedSize,
-        backgroundColor: Constants.blueButton,
+        backgroundColor: isBusy ? Constants.greyDivider : Constants.blueButton,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
       child: isBusy
-          ? const CircularProgressIndicator()
+          ? const CircularProgressIndicator(
+              color: Constants.white,
+            )
           : Text(
               text,
               style: const TextStyle(

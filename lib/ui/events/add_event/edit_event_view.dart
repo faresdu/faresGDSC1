@@ -225,6 +225,17 @@ class _AddEventViewState extends State<EditEventView> {
                                     errorText: 'الرجاء ادخال الموقع'),
                                 maxLength: 30,
                               ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 16),
+                                child: CustomTextFormField(
+                                  title: 'رابط الموقع',
+                                  hintText: 'إن وجد',
+                                  controller: viewmodel.locationLinkController,
+                                  validator: (value) =>
+                                      FormValidators.linkValidator(value,
+                                          required: false),
+                                ),
+                              ),
                               CustomTextFormField(
                                 title: 'المحاضر أو المضيف',
                                 hintText: 'ان وجد',
@@ -324,74 +335,6 @@ class _AddEventViewState extends State<EditEventView> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  // Widget SubmitButton({required Function() onPressed}) {
-  //   return TextButton(
-  //     onPressed: onPressed,
-  //     style: TextButton.styleFrom(
-  //       minimumSize: const Size(double.infinity, 35),
-  //       backgroundColor: Constants.blueButton,
-  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-  //     ),
-  //     child: const Text(
-  //       'تعديل',
-  //       style: TextStyle(
-  //         color: Colors.white,
-  //         fontSize: 16,
-  //         fontWeight: FontWeight.w700,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  Widget CustomTextField(
-      {required String title,
-      required TextEditingController controller,
-      autofocus = false,
-      int maxLines = 1,
-      Widget? icon,
-      TextInputType? type,
-      bool readOnly = false}) {
-    return _TextWithChild(
-      title: title,
-      child: TextField(
-        readOnly: readOnly,
-        keyboardType: type,
-        maxLines: maxLines,
-        autofocus: autofocus,
-        controller: controller,
-        decoration: InputDecoration(
-            prefixIcon: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: icon,
-            ),
-            prefixIconConstraints: const BoxConstraints(maxWidth: 22 + 30),
-            contentPadding: EdgeInsets.zero,
-            fillColor: Colors.white,
-            filled: true,
-            disabledBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(20),
-            )),
       ),
     );
   }

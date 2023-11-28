@@ -52,8 +52,8 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                       flex: 3,
                       child: Center(
                         child: HelperFunctions.eventImage(
-                            imageUrl: viewmodel.eventDetails.flyer,
-                            fit: BoxFit.contain,
+                          imageUrl: viewmodel.eventDetails.flyer,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ),
@@ -68,11 +68,10 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        buildEventDateBox(
-                          day: viewmodel.eventDetails.startDate.day,
-                          month: DateHelper.getMonth(
-                              viewmodel.eventDetails.startDate),
-                        ),
+                        BuildEventDateBox(
+                            day: viewmodel.eventDetails.startDate.day,
+                            month: DateHelper.getMonth(
+                                viewmodel.eventDetails.startDate)),
                         buildEventInfoBox(
                           topText: DateHelper.getWeekDay(
                               viewmodel.eventDetails.startDate),
@@ -83,6 +82,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                         ),
                         buildEventInfoBox(
                             topText: 'الموقع',
+                            link: viewmodel.eventDetails.locationLink,
                             bottomText: viewmodel.eventDetails.location),
                         buildEventInfoBox(
                             topText: 'المحاضر',
@@ -91,7 +91,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                       ],
                     ),
                     Container(
-                      margin: const EdgeInsets.symmetric(vertical: 15.0),
+                      margin: const EdgeInsets.symmetric(vertical: 10.0),
                       child: Divider(
                         height: 1,
                         color: Constants.grey.withOpacity(.5),
@@ -106,12 +106,14 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                     ),
                     Expanded(
                       flex: 3,
-                      child: Text(
-                        viewmodel.eventDetails.description ?? 'لا يوجد وصف',
-                        style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Constants.grey),
+                      child: SingleChildScrollView(
+                        child: Text(
+                          viewmodel.eventDetails.description ?? 'لا يوجد وصف',
+                          style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: Constants.grey),
+                        ),
                       ),
                     ),
                     Row(
@@ -150,6 +152,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
   Widget buildEventInfoBox({
     required String topText,
     required String bottomText,
+    String? link,
     Function()? onPressed,
   }) {
     return GestureDetector(
@@ -158,25 +161,54 @@ class _EventDetailsViewState extends State<EventDetailsView> {
         children: [
           Text(
             topText,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
+            style: Constants.verySmallText.copyWith(
+              fontWeight: FontWeight.bold,
             ),
           ),
-          Text(bottomText,
-              style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: Constants.grey))
+          if (link != null)
+            InkWell(
+              onTap: () async {
+                HelperFunctions.openUrl(link);
+              },
+              child: Container(
+                padding: const EdgeInsets.only(bottom: 1),
+                decoration: const BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                  color: Constants.blue,
+                  width: 2, // Underline thickness
+                ))),
+                child: Text(
+                  bottomText,
+                  style: Constants.extraSmallText.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Constants.blue,
+                      height: 1.5),
+                ),
+              ),
+            )
+          else
+            Text(bottomText,
+                style: Constants.extraSmallText.copyWith(
+                    fontWeight: FontWeight.bold, color: Constants.grey))
         ],
       ),
     );
   }
+}
 
-  Widget buildEventDateBox({
-    required int day,
-    required String month,
-  }) {
+class BuildEventDateBox extends StatelessWidget {
+  const BuildEventDateBox({
+    super.key,
+    required this.day,
+    required this.month,
+  });
+
+  final int day;
+  final String month;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       height: 50,
       width: 50,

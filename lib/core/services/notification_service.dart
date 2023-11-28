@@ -37,20 +37,44 @@ class NotificationService {
     }
   }
 
-  Future<void> addNotification(Notifications notification, String id) async {
+  Future<void> addNotification(Notifications notification) async {
     try {
       final PostgrestResponse<dynamic> res = await _supabaseService
           .supabaseClient
           .from(GDSCTables.notifications)
-          .insert(notification.toJson(id))
+          .insert(notification.toJson())
           .execute();
       print('added notification code: ${res.status}');
+      if (res.hasError) {
+        print(res.error!.message);
+        throw res.error!.message;
+      }
     } catch (e, sT) {
       await Sentry.captureException(
         e,
         stackTrace: sT,
       );
       throw 'Failed to add Notification, ERROR : $e';
+    }
+  }
+
+  Future<void> deleteNotification(String id) async {
+    try {
+      final PostgrestResponse<dynamic> res = await _supabaseService
+          .supabaseClient
+          .from(GDSCTables.notifications)
+          .delete()
+          .eq('notification_id', id)
+          .execute();
+      if (res.hasError) {
+        throw res.error!.message;
+      }
+    } catch (e, sT) {
+      await Sentry.captureException(
+        e,
+        stackTrace: sT,
+      );
+      throw 'Failed to delete Notification, ERROR : $e';
     }
   }
 }

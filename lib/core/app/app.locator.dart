@@ -14,6 +14,7 @@ import '../services/event_service.dart';
 import '../services/hour_service.dart';
 import '../services/notification_service.dart';
 import '../services/s3_service.dart';
+import '../services/semester_service.dart';
 import '../services/social_media_service.dart';
 import '../services/supabase_service.dart';
 import '../services/timeline_service.dart';
@@ -21,10 +22,10 @@ import '../services/user_service.dart';
 
 final locator = StackedLocator.instance;
 
-void setupLocator({
+Future<void> setupLocator({
   String? environment,
   EnvironmentFilter? environmentFilter,
-}) {
+}) async {
 // Register environments
   locator.registerEnvironment(
       environment: environment, environmentFilter: environmentFilter);
@@ -39,5 +40,6 @@ void setupLocator({
   locator.registerLazySingleton(() => NotificationService());
   locator.registerLazySingleton(() => S3Service());
   locator.registerLazySingleton(() => SocialMediaService());
+  locator.registerLazySingleton(() => SemesterService());
   locator.registerLazySingleton(() => SupabaseService());
 }

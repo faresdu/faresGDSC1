@@ -5,6 +5,7 @@ import 'package:gdsc_app/core/app/api-config.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/services/event_service.dart';
+import 'package:gdsc_app/core/services/semester_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,6 +16,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'core/app/app.locator.dart';
 import 'core/app/app.router.dart';
+import 'core/models/semester.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
             initialData: GDSCUser.anonymous()),
         StreamProvider(
             create: (_) => locator<EventService>().eventsController.stream,
-            initialData: [Event.anonymous()])
+            initialData: [Event.anonymous()]),
       ],
       child: MaterialApp(
         builder: (context, child) {

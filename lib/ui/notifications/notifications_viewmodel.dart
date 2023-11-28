@@ -23,6 +23,18 @@ class NotificationsViewModel extends FutureViewModel {
     notifyListeners();
   }
 
+  Future deleteNotification(Notifications notification) async {
+    setBusy(true);
+    try {
+      await notificationService.deleteNotification(notification.id!);
+      notifications.remove(notification);
+    } catch (e) {
+      notifications.add(notification);
+    }
+    setBusy(false);
+    notifyListeners();
+  }
+
   bool isAdmin() {
     return userService.user.isLeaderOrCoLeader();
   }
@@ -37,10 +49,11 @@ class NotificationsViewModel extends FutureViewModel {
     try {
       setBusy(true);
       await notificationService.addNotification(
-          Notifications(
-              title: descriptionController.value.text.trim(),
-              name: userService.user.name),
-          userService.user.id);
+        Notifications(
+            userId: userService.user.id,
+            title: descriptionController.value.text.trim(),
+            name: userService.user.name),
+      );
       await getNotifications();
       Navigator.pop(context);
     } catch (e) {
