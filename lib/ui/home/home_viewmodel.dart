@@ -47,7 +47,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   int? currentWeek;
   Future init() async {
     setBusy(true);
-    semesterService.semesterSubject
+    semesterStream = semesterService.semesterSubject
         .listen((value) => currentWeek = getWeek(value));
     fullNotifications = await notificationService.getNotifications(limit: 3);
     featuredNotification = await getFeaturedNotification();

@@ -8,11 +8,14 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../core/services/authentication_service.dart';
+import '../../core/services/semester_service.dart';
 
 class LoginViewModel extends BaseViewModel {
   final navService = locator<NavigationService>();
   final authService = locator<AuthenticationService>();
   final eventService = locator<EventService>();
+  final semesterService = locator<SemesterService>();
+
   TextEditingController resetPasswordController = TextEditingController();
   //Form data
   String? email;
@@ -28,6 +31,9 @@ class LoginViewModel extends BaseViewModel {
       await authService.loginWithEmail(email: email!, password: password!);
       eventService.listenToAllEvents();
       navService.clearStackAndShow(Routes.navigationView);
+      try {
+        semesterService.getCurrentSemester();
+      } catch (e) {}
     } catch (e) {
       showDialog(
           context: context,
