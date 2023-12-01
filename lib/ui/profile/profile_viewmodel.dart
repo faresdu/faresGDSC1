@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/services/authentication_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
@@ -89,8 +90,14 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future<void> signOut() async {
-    await authService.signOut();
-    navService.clearStackAndShow(Routes.loginView);
+    try {
+      await authService.signOut();
+      navService.clearStackAndShow(Routes.loginView);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 
   void navigateToEditProfile() {
@@ -115,5 +122,9 @@ class ProfileViewModel extends BaseViewModel {
   void navigateToProfileSocials() {
     navService.navigateTo(Routes.profileSocialsView,
         arguments: isUser ? null : user);
+  }
+
+  void navigateToProfileReceipts() {
+    navService.navigateTo(Routes.profileReceiptsView);
   }
 }

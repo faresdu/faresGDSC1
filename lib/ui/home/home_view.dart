@@ -23,7 +23,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final controller = CarouselController();
-  int _current = 1;
+  int _current = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,9 @@ class _HomeViewState extends State<HomeView> {
                         SizedBox(
                           height: spacing / 16,
                         ),
-                        Welcome(currentWeek: viewmodel.currentWeek),
+                        Welcome(
+                            user: viewmodel.user,
+                            currentWeek: viewmodel.currentWeek),
                         SizedBox(
                           height: spacing / 8,
                         ),
@@ -61,9 +63,8 @@ class _HomeViewState extends State<HomeView> {
                         if (viewmodel.notifications.isNotEmpty)
                           SectionTitle(
                             title: "التنبيهات",
-                            onPressed: () {
-                              viewmodel.navigateToNotifications();
-                            },
+                            onPressed: () =>
+                                viewmodel.navigateToNotifications(),
                           ),
                         if (viewmodel.notifications.isNotEmpty)
                           CarouselSlider(
@@ -82,6 +83,8 @@ class _HomeViewState extends State<HomeView> {
                                 height: 116,
                                 enableInfiniteScroll: false,
                                 initialPage: _current,
+                                autoPlay: true,
+                                autoPlayInterval: const Duration(seconds: 6),
                                 onPageChanged: (index, reason) {
                                   _current = index;
                                   setState(() {});

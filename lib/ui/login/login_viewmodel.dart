@@ -30,10 +30,10 @@ class LoginViewModel extends BaseViewModel {
     try {
       await authService.loginWithEmail(email: email!, password: password!);
       eventService.listenToAllEvents();
-      navService.clearStackAndShow(Routes.navigationView);
       try {
         semesterService.getCurrentSemester();
       } catch (e) {}
+      navService.clearStackAndShow(Routes.navigationView);
     } catch (e) {
       showDialog(
           context: context,

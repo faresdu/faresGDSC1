@@ -118,7 +118,7 @@ class _ProfileViewState extends State<ProfileView> {
                             color: Constants.green,
                             size: 30,
                           ),
-                          onTap: () => viewmodel.navigateToProfileSocials(),
+                          onTap: () => viewmodel.navigateToProfileReceipts(),
                         ),
                     ],
                   ),
