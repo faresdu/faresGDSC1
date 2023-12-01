@@ -7,6 +7,7 @@ import 'package:gdsc_app/ui/widgets/custom_bottom_modal_sheet.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:gdsc_app/ui/widgets/circle_button.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
+import 'package:gdsc_app/ui/widgets/custom_tab_bar.dart';
 import 'package:stacked/stacked.dart';
 
 class ProfileUserHoursView extends StatefulWidget {
@@ -36,89 +37,57 @@ class _ProfileUserHoursViewState extends State<ProfileUserHoursView> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     if (viewmodel.isUser)
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 16, horizontal: 10),
-                        child: Row(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  boxShadow: Constants.shadow3,
-                                  color: Constants.white,
-                                  borderRadius: BorderRadius.circular(25)),
-                              width: MediaQuery.of(context).size.width * 0.75,
-                              child: TabBar(
-                                unselectedLabelStyle: Constants.smallText
-                                    .copyWith(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700),
-                                labelStyle: Constants.smallText.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700),
-                                unselectedLabelColor: Colors.black,
-                                indicator: BoxDecoration(
-                                    color: Constants.blueButton,
-                                    borderRadius: BorderRadius.circular(25)),
-                                tabs: const <Widget>[
-                                  Tab(
-                                    text: 'مقبولة',
-                                  ),
-                                  Tab(
-                                    text: 'قيد الأنتظار',
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const Spacer(),
-                            CircleButton(onPressed: () {
-                              CustomModalBottomSheet(
-                                  context,
-                                  ProfileRequestHoursView(
-                                    onSubmit: (val) => setState(() =>
-                                        viewmodel.pendingUserHours.add(val)),
-                                  ));
-                            })
-                          ],
-                        ),
+                      CustomTapBar(
+                        tabs: const [
+                          Tab(
+                            text: 'مقبولة',
+                          ),
+                          Tab(
+                            text: 'قيد الأنتظار',
+                          ),
+                        ],
+                        widget: CircleButton(onPressed: () {
+                          CustomModalBottomSheet(
+                              context,
+                              ProfileRequestHoursView(
+                                onSubmit: (val) => setState(
+                                    () => viewmodel.pendingUserHours.add(val)),
+                              ));
+                        }),
                       ),
                     if (viewmodel.isUser)
                       Expanded(
                           child: TabBarView(
                         children: [
-                          SingleChildScrollView(
-                            child: Column(
-                                children: viewmodel.approvedUserHours
+                          ListView(
+                              children: viewmodel.approvedUserHours
+                                  .map((e) => ProfileVolunteerHoursCardBig(
+                                        volunteerHours: e,
+                                        isOwner: true,
+                                      ))
+                                  .toList()),
+                          BusyOverlay(
+                            isBusy: viewmodel.isBusy,
+                            child: ListView(
+                                children: viewmodel.pendingUserHours
                                     .map((e) => ProfileVolunteerHoursCardBig(
                                           volunteerHours: e,
                                           isOwner: true,
+                                          onPressed: () =>
+                                              viewmodel.removeHourRequest(e),
                                         ))
                                     .toList()),
-                          ),
-                          BusyOverlay(
-                            isBusy: viewmodel.isBusy,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                  children: viewmodel.pendingUserHours
-                                      .map((e) => ProfileVolunteerHoursCardBig(
-                                            volunteerHours: e,
-                                            isOwner: true,
-                                            onPressed: () =>
-                                                viewmodel.removeHourRequest(e),
-                                          ))
-                                      .toList()),
-                            ),
                           ),
                         ],
                       ))
                     else
                       Expanded(
-                        child: SingleChildScrollView(
-                            child: Column(
-                                children: viewmodel.approvedUserHours
-                                    .map((e) => ProfileVolunteerHoursCardBig(
-                                          volunteerHours: e,
-                                        ))
-                                    .toList())),
+                        child: ListView(
+                            children: viewmodel.approvedUserHours
+                                .map((e) => ProfileVolunteerHoursCardBig(
+                                      volunteerHours: e,
+                                    ))
+                                .toList()),
                       ),
                   ],
                 ),

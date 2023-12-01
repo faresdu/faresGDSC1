@@ -31,7 +31,7 @@ class _ProfileSocialsViewState extends State<ProfileSocialsView> {
             body: SafeArea(
               child: BusyOverlay(
                 isBusy: viewmodel.isBusy,
-                child: Column(
+                child: ListView(
                   children: (viewmodel.isUser
                           ? viewmodel.socials.map((e) => ProfileSocialMediaCard(
                                 socialMedia: e,

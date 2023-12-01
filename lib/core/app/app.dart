@@ -12,6 +12,7 @@ import 'package:gdsc_app/ui/login/login_view.dart';
 import 'package:gdsc_app/ui/notifications/notifications_view.dart';
 import 'package:gdsc_app/ui/edit_profile/edit_profile_view.dart';
 import 'package:gdsc_app/ui/profile/profile_events_view/profile_events_view.dart';
+import 'package:gdsc_app/ui/profile/profile_receipts/profile_receipts_view.dart';
 import 'package:gdsc_app/ui/profile/profile_socials/profile_socials_view.dart';
 import 'package:gdsc_app/ui/profile/profile_timeline/profile_timeline_view.dart';
 import 'package:gdsc_app/ui/profile/profile_user_hours/profile_user_hours_view.dart';
@@ -49,7 +50,8 @@ import '../services/event_service.dart';
     MaterialRoute(page: ProfileEventsView),
     MaterialRoute(page: ProfileTimelineView),
     MaterialRoute(page: ProfileSocialsView),
-    MaterialRoute(page: EventParticipantsView)
+    MaterialRoute(page: EventParticipantsView),
+    MaterialRoute(page: ProfileReceiptsView)
   ],
   // flutter pub run build_runner build
   // Register all Services

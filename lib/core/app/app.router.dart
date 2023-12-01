@@ -5,8 +5,8 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/foundation.dart' as _i21;
-import 'package:flutter/material.dart' as _i20;
+import 'package:flutter/foundation.dart' as _i22;
+import 'package:flutter/material.dart' as _i21;
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/committee_members/committe_members_view.dart'
     as _i10;
@@ -24,6 +24,8 @@ import 'package:gdsc_app/ui/navigation/navigation_view.dart' as _i4;
 import 'package:gdsc_app/ui/notifications/notifications_view.dart' as _i13;
 import 'package:gdsc_app/ui/profile/profile_events_view/profile_events_view.dart'
     as _i16;
+import 'package:gdsc_app/ui/profile/profile_receipts/profile_receipts_view.dart'
+    as _i20;
 import 'package:gdsc_app/ui/profile/profile_socials/profile_socials_view.dart'
     as _i18;
 import 'package:gdsc_app/ui/profile/profile_timeline/profile_timeline_view.dart'
@@ -34,7 +36,7 @@ import 'package:gdsc_app/ui/profile/profile_view.dart' as _i9;
 import 'package:gdsc_app/ui/startup/startup_view.dart' as _i2;
 import 'package:gdsc_app/ui/timeline/timeline_view.dart' as _i5;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i22;
+import 'package:stacked_services/stacked_services.dart' as _i23;
 
 class Routes {
   static const startUpView = '/';
@@ -73,6 +75,8 @@ class Routes {
 
   static const eventParticipantsView = '/event-participants-view';
 
+  static const profileReceiptsView = '/profile-receipts-view';
+
   static const all = <String>{
     startUpView,
     loginView,
@@ -92,6 +96,7 @@ class Routes {
     profileTimelineView,
     profileSocialsView,
     eventParticipantsView,
+    profileReceiptsView,
   };
 }
 
@@ -169,6 +174,10 @@ class StackedRouter extends _i1.RouterBase {
       Routes.eventParticipantsView,
       page: _i19.EventParticipantsView,
     ),
+    _i1.RouteDef(
+      Routes.profileReceiptsView,
+      page: _i20.ProfileReceiptsView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -176,110 +185,116 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<StartUpViewArguments>(
         orElse: () => const StartUpViewArguments(),
       );
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => _i2.StartUpView(key: args.key),
         settings: data,
       );
     },
     _i3.LoginView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.LoginView(),
         settings: data,
       );
     },
     _i4.NavigationView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.NavigationView(),
         settings: data,
       );
     },
     _i5.TimeLineView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.TimeLineView(),
         settings: data,
       );
     },
     _i6.EventsView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.EventsView(),
         settings: data,
       );
     },
     _i7.EventDetailsView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.EventDetailsView(),
         settings: data,
       );
     },
     _i8.HierarchyView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.HierarchyView(),
         settings: data,
       );
     },
     _i9.ProfileView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i9.ProfileView(),
         settings: data,
       );
     },
     _i10.CommitteeMembersView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.CommitteeMembersView(),
         settings: data,
       );
     },
     _i11.LeaderboardView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i11.LeaderboardView(),
         settings: data,
       );
     },
     _i12.HoursRequestView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i12.HoursRequestView(),
         settings: data,
       );
     },
     _i13.NotificationView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i13.NotificationView(),
         settings: data,
       );
     },
     _i14.EditProfileView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i14.EditProfileView(),
         settings: data,
       );
     },
     _i15.ProfileUserHoursView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i15.ProfileUserHoursView(),
         settings: data,
       );
     },
     _i16.ProfileEventsView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i16.ProfileEventsView(),
         settings: data,
       );
     },
     _i17.ProfileTimelineView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i17.ProfileTimelineView(),
         settings: data,
       );
     },
     _i18.ProfileSocialsView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i18.ProfileSocialsView(),
         settings: data,
       );
     },
     _i19.EventParticipantsView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i19.EventParticipantsView(),
+        settings: data,
+      );
+    },
+    _i20.ProfileReceiptsView: (data) {
+      return _i21.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i20.ProfileReceiptsView(),
         settings: data,
       );
     },
@@ -295,7 +310,7 @@ class StackedRouter extends _i1.RouterBase {
 class StartUpViewArguments {
   const StartUpViewArguments({this.key});
 
-  final _i21.Key? key;
+  final _i22.Key? key;
 
   @override
   String toString() {
@@ -314,9 +329,9 @@ class StartUpViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i22.NavigationService {
+extension NavigatorStateExtension on _i23.NavigationService {
   Future<dynamic> navigateToStartUpView({
-    _i21.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -569,8 +584,22 @@ extension NavigatorStateExtension on _i22.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToProfileReceiptsView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.profileReceiptsView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> replaceWithStartUpView({
-    _i21.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -817,6 +846,20 @@ extension NavigatorStateExtension on _i22.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.eventParticipantsView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithProfileReceiptsView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.profileReceiptsView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
