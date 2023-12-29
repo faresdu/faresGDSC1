@@ -24,7 +24,7 @@ class ProfileReceiptsView extends StatelessWidget {
                     width: 90,
                     child: SubmitButton(
                       outlined: true,
-                      onPressed: () {},
+                      onPressed: () => viewmodel.navigateToBankAccounts(),
                       style: Constants.verySmallText.copyWith(height: 1.4),
                       text: 'حساباتي\nالبنكيه',
                     ),
@@ -48,7 +48,8 @@ class ProfileReceiptsView extends StatelessWidget {
                         ],
                         widget: CircleButton(onPressed: () {}),
                       ),
-                      Expanded(child: TabBarView(children: []))
+                      const Expanded(
+                          child: TabBarView(children: [Column(), Column()]))
                     ],
                   ),
                   // key: view,

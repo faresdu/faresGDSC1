@@ -13,6 +13,7 @@ import '../services/authentication_service.dart';
 import '../services/event_service.dart';
 import '../services/hour_service.dart';
 import '../services/notification_service.dart';
+import '../services/receipt_service.dart';
 import '../services/s3_service.dart';
 import '../services/semester_service.dart';
 import '../services/social_media_service.dart';
@@ -41,5 +42,6 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => S3Service());
   locator.registerLazySingleton(() => SocialMediaService());
   locator.registerLazySingleton(() => SemesterService());
+  locator.registerLazySingleton(() => ReceiptService());
   locator.registerLazySingleton(() => SupabaseService());
 }

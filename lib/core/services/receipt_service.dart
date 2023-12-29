@@ -75,14 +75,15 @@ class ReceiptService {
 
   Future<List<BankAccount>> fetchBankAccounts(String userId) async {
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService
-          .supabaseClient
-          .from(GDSCTables.receipts)
-          .select('*')
-          .eq('deleted_at', null)
-          .execute();
+      final PostgrestResponse<dynamic> res =
+          await _supabaseService.supabaseClient
+              .from(GDSCTables.bankAccounts)
+              .select('*')
+              .eq('user_id', userId)
+              // .eq('deleted_at', null)
+              .execute();
       if (res.hasError) {
-        throw 'Unable to fetch all Receipts: ${res.error}';
+        throw 'Unable to fetch all BankAccounts: ${res.error}';
       }
       return (res.data as List).map((e) => BankAccount.fromJson(e)).toList();
     } catch (e, sT) {

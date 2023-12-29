@@ -1,18 +1,18 @@
 class BankAccount {
-  final String id;
+  final String? id;
   final String userId;
   final String iban;
   final String bankName;
   final String accountHolderName;
-  final DateTime createdAt;
+  final DateTime? createdAt;
 
   BankAccount(
-      {required this.id,
+      {this.id,
       required this.userId,
       required this.iban,
       required this.bankName,
       required this.accountHolderName,
-      required this.createdAt});
+      this.createdAt});
 
   factory BankAccount.anonymous() {
     return BankAccount(
@@ -33,6 +33,7 @@ class BankAccount {
         accountHolderName: map["account_holder_name"],
         createdAt: DateTime.parse(map['created_at']));
   }
+
   Map<String, dynamic> toJson({bool deleted = false}) {
     return {
       'user_id': userId,
