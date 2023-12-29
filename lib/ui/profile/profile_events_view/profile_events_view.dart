@@ -50,9 +50,21 @@ class ProfileEventsView extends StatelessWidget {
                     Expanded(
                         child: TabBarView(
                       children: [
-                        SingleChildScrollView(
-                          child: Column(
-                              children: viewmodel.signedUpEvents
+                        ListView(
+                            children: viewmodel.signedUpEvents
+                                .map((e) => EventCard(
+                                      event: e,
+                                      signUpButton:
+                                          viewmodel.getSignUpButton(e),
+                                      canEdit: viewmodel.canEditEvent(e),
+                                      onPressed: () {
+                                        viewmodel.navigateToEvent(e);
+                                      },
+                                    ))
+                                .toList()),
+                        if (viewmodel.user.isLeaderOrCoLeader())
+                          ListView(
+                              children: viewmodel.createdEvents
                                   .map((e) => EventCard(
                                         event: e,
                                         signUpButton:
@@ -62,23 +74,7 @@ class ProfileEventsView extends StatelessWidget {
                                           viewmodel.navigateToEvent(e);
                                         },
                                       ))
-                                  .toList()),
-                        ),
-                        if (viewmodel.user.isLeaderOrCoLeader())
-                          SingleChildScrollView(
-                            child: Column(
-                                children: viewmodel.createdEvents
-                                    .map((e) => EventCard(
-                                          event: e,
-                                          signUpButton:
-                                              viewmodel.getSignUpButton(e),
-                                          canEdit: viewmodel.canEditEvent(e),
-                                          onPressed: () {
-                                            viewmodel.navigateToEvent(e);
-                                          },
-                                        ))
-                                    .toList()),
-                          )
+                                  .toList())
                       ],
                     ))
                   ],
