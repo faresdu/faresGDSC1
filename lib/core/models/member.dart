@@ -71,11 +71,17 @@ class Member {
 
   bool isFemale() => gender == "female";
 
-  String getRole() {
+  String getRole({bool short = false}) {
     if (isLeader()) {
       return isFemale() ? "قائدة" : "قائد";
     } else if (isCoLeader()) {
-      return isFemale() ? "نائبة قائد" : "نائب قائد";
+      return isFemale()
+          ? short
+              ? "نائبة"
+              : "نائبة قائد"
+          : short
+              ? "نائب"
+              : "نائب قائد";
     } else if (isConsultant()) {
       return isFemale() ? "مستشارة" : "مستشار";
     }

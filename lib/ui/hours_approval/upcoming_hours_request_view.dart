@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/core/app/app.locator.dart';
 import 'package:gdsc_app/ui/hours_approval/components/active_request_card.dart';
 import 'package:gdsc_app/ui/hours_approval/hours_request_viewmodel.dart';
 import 'package:stacked/stacked.dart';
@@ -9,9 +8,10 @@ class UpcomingHoursRequestView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<HoursRequestViewModel>.nonReactive(
-        viewModelBuilder: () => locator<HoursRequestViewModel>(),
-        onViewModelReady: ((viewModel) => viewModel.getUpcomingHourRequests()),
+    return ViewModelBuilder<HoursRequestViewModel>.reactive(
+        viewModelBuilder: () => HoursRequestViewModel(),
+        onViewModelReady: ((viewModel) =>
+            viewModel.getUpcomingHourRequests(context)),
         builder: (context, viewmodel, _) {
           return Container(
               padding: const EdgeInsets.all(10),

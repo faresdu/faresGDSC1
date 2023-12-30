@@ -1,6 +1,7 @@
 import 'package:gdsc_app/core/app/app.locator.dart';
 import 'package:gdsc_app/core/app/app.router.dart';
 import 'package:gdsc_app/core/services/event_service.dart';
+import 'package:gdsc_app/core/services/semester_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -11,6 +12,7 @@ class StartUpViewModel extends BaseViewModel {
   final navService = locator<NavigationService>();
   final supabaseService = locator<SupabaseService>();
   final authService = locator<AuthenticationService>();
+  final semesterService = locator<SemesterService>();
   final eventService = locator<EventService>();
 
   navigateToLogin() {
@@ -20,6 +22,9 @@ class StartUpViewModel extends BaseViewModel {
   checkUser() async {
     try {
       await authService.setUser();
+      try {
+        semesterService.getCurrentSemester();
+      } catch (e) {}
       eventService.listenToAllEvents();
       navService.clearStackAndShow(Routes.navigationView);
     } catch (e) {
