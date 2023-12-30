@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/core/app/app.locator.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/ui/hours_approval/previous_hours_request_view.dart';
 import 'package:gdsc_app/ui/hours_approval/upcoming_hours_request_view.dart';
+import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:stacked/stacked.dart';
 
@@ -19,9 +19,8 @@ class _HoursRequestViewState extends State<HoursRequestView>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<HoursRequestViewModel>.nonReactive(
-        onViewModelReady: (viewModel) => viewModel.init(),
-        viewModelBuilder: () => locator<HoursRequestViewModel>(),
+    return ViewModelBuilder<HoursRequestViewModel>.reactive(
+        viewModelBuilder: () => HoursRequestViewModel(),
         builder: (context, viewmodel, _) {
           return DefaultTabController(
               length: 2,
@@ -75,35 +74,50 @@ class HoursRequestBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-                margin: const EdgeInsets.fromLTRB(10, 16, 10, 0),
-                decoration: BoxDecoration(
-                  // color: Constants.black,
-                  border: Border.all(
-                    color: Constants.black,
-                    width: 2,
+    return ViewModelBuilder<HoursRequestViewModel>.reactive(
+        onViewModelReady: (viewModel) => viewModel.init(context),
+        viewModelBuilder: () => HoursRequestViewModel(),
+        builder: (context, viewmodel, _) {
+          return SafeArea(
+            child: BusyOverlay(
+              isBusy: viewmodel.isBusy,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                          margin: const EdgeInsets.fromLTRB(10, 16, 10, 0),
+                          decoration: BoxDecoration(
+                            // color: Constants.black,
+                            border: Border.all(
+                              color: Constants.black,
+                              width: 2,
+                            ),
+                          ),
+                          child: IconButton(
+                            onPressed: () => onPressed(context),
+                            icon: Icon(Icons.filter_alt_outlined, size: 25),
+                            constraints: BoxConstraints(),
+                            padding: EdgeInsets.all(8),
+                          )),
+                    ],
                   ),
-                ),
-                child: IconButton(
-                  onPressed: () => onPressed(context),
-                  icon: Icon(Icons.filter_alt_outlined, size: 25),
-                  constraints: BoxConstraints(),
-                  padding: EdgeInsets.all(8),
-                )),
-          ],
-        ),
-        Expanded(
-          child: TabBarView(children: [
-            UpcomingHoursRequestView(),
-            PreviousHoursRequestView()
-          ]),
-        ),
-      ],
-    );
+                  Expanded(
+                    child: TabBarView(children: [
+                      UpcomingHoursRequestView(
+                        upcomingRequests: viewmodel.upcomingRequests,
+                        updateHourRequest: viewmodel.updateHourRequest,
+                      ),
+                      PreviousHoursRequestView(
+                        previousRequests: viewmodel.previousRequests,
+                      )
+                    ]),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

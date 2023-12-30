@@ -29,7 +29,8 @@ class HoursRequestViewModel extends BaseViewModel {
   List<int> semesterWeeks = [];
   List<int> selectedSemesterWeeksList = [];
 
-  void init() async {
+  void init(BuildContext context) async {
+    setBusy(true);
     await semesterService
         .getCurrentSemester()
         .then((value) => currentSemesterWeek = value);
@@ -38,6 +39,9 @@ class HoursRequestViewModel extends BaseViewModel {
     for (var i = 1; i <= currentWeek; i++) {
       semesterWeeks.add(i);
     }
+    await Future.wait(
+        [getUpcomingHourRequests(context), getPreviousHourRequests(context)]);
+    setBusy(false);
   }
 
   getRelatedCommittees() async {
@@ -62,7 +66,7 @@ class HoursRequestViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  getUpcomingHourRequests(BuildContext context) async {
+  Future<void> getUpcomingHourRequests(BuildContext context) async {
     assignCommittee(context);
     try {
       await hourService
@@ -94,7 +98,7 @@ class HoursRequestViewModel extends BaseViewModel {
     }
   }
 
-  void updateHourRequest(HourRequest request, bool status) async {
+  Future<void> updateHourRequest(HourRequest request, bool status) async {
     try {
       await hourService.updateHourRequest(request.id, status);
       upcomingRequests.remove(request);
@@ -106,7 +110,7 @@ class HoursRequestViewModel extends BaseViewModel {
     }
   }
 
-  getPreviousHourRequests(BuildContext context) async {
+  Future<void> getPreviousHourRequests(BuildContext context) async {
     assignCommittee(context);
 
     try {
@@ -127,7 +131,7 @@ class HoursRequestViewModel extends BaseViewModel {
     navService.navigateTo(Routes.hoursRequestView, arguments: [committee]);
   }
 
-  void openFilterDialog(BuildContext context) async {
+  Future<void> openFilterDialog(BuildContext context) async {
     await FilterListDialog.display<int>(
       context,
       hideSearchField: true,
