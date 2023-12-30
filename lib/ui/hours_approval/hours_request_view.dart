@@ -60,17 +60,14 @@ class _HoursRequestViewState extends State<HoursRequestView>
                   ),
                 ),
                 backgroundColor: Constants.grayBackGround,
-                body: HoursRequestBody(
-                    onPressed: (c) => viewmodel.openFilterDialog(c)),
+                body: HoursRequestBody(),
               ));
         });
   }
 }
 
 class HoursRequestBody extends StatelessWidget {
-  const HoursRequestBody({super.key, required this.onPressed});
-
-  final void Function(BuildContext context) onPressed;
+  const HoursRequestBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +93,8 @@ class HoursRequestBody extends StatelessWidget {
                             ),
                           ),
                           child: IconButton(
-                            onPressed: () => onPressed(context),
+                            onPressed: () =>
+                                viewmodel.openFilterDialog(context),
                             icon: Icon(Icons.filter_alt_outlined, size: 25),
                             constraints: BoxConstraints(),
                             padding: EdgeInsets.all(8),

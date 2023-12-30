@@ -41,6 +41,7 @@ class HoursRequestViewModel extends BaseViewModel {
     }
     await Future.wait(
         [getUpcomingHourRequests(context), getPreviousHourRequests(context)]);
+    notifyListeners();
     setBusy(false);
   }
 
