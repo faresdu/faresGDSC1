@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/hour_request.dart';
+import 'package:gdsc_app/core/utils/helper_functions.dart';
+
 import '../../../core/utils/constants.dart';
 import '../../widgets/action_button.dart';
-import 'package:gdsc_app/core/utils/helper_functions.dart';
 
 class ActiveRequestCard extends StatelessWidget {
   final Function(HourRequest request, bool status)? onUpdate;
   final HourRequest request;
+
   const ActiveRequestCard({this.onUpdate, required this.request, Key? key})
       : super(key: key);
 
@@ -68,22 +70,49 @@ class ActiveRequestCard extends StatelessWidget {
                 ///requester hours
                 Row(
                   children: [
-                    const Icon(
-                      Icons.access_time_filled,
-                      color: Colors.black,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      getHoursString(),
-                      style: Constants.verySmallText.copyWith(
-                        color: Constants.grey,
-                        fontWeight: FontWeight.w400,
+                    Row(children: [
+                      const Icon(
+                        Icons.access_time_filled,
+                        color: Colors.black,
                       ),
-                    ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        getHoursString(),
+                        style: Constants.verySmallText.copyWith(
+                          color: Constants.grey,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ])
                   ],
                 ),
+                if (request.semesterWeek != null) ...[
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  //Semester week
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.calendar_month,
+                        color: Colors.black,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "اسبوع ${request.semesterWeek}",
+                        style: Constants.verySmallText.copyWith(
+                          color: Constants.grey,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+
                 const SizedBox(
                   height: 10,
                 ),

@@ -20,6 +20,7 @@ class _HoursRequestViewState extends State<HoursRequestView>
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HoursRequestViewModel>.nonReactive(
+        onViewModelReady: (viewModel) => viewModel.init(),
         viewModelBuilder: () => locator<HoursRequestViewModel>(),
         builder: (context, viewmodel, _) {
           return DefaultTabController(
@@ -60,18 +61,49 @@ class _HoursRequestViewState extends State<HoursRequestView>
                   ),
                 ),
                 backgroundColor: Constants.grayBackGround,
-                body: const HoursRequestBody(),
+                body: HoursRequestBody(
+                    onPressed: (c) => viewmodel.openFilterDialog(c)),
               ));
         });
   }
 }
 
 class HoursRequestBody extends StatelessWidget {
-  const HoursRequestBody({super.key});
+  const HoursRequestBody({super.key, required this.onPressed});
+
+  final void Function(BuildContext context) onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return const TabBarView(
-        children: [UpcomingHoursRequestView(), PreviousHoursRequestView()]);
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+                margin: const EdgeInsets.fromLTRB(10, 16, 10, 0),
+                decoration: BoxDecoration(
+                  // color: Constants.black,
+                  border: Border.all(
+                    color: Constants.black,
+                    width: 2,
+                  ),
+                ),
+                child: IconButton(
+                  onPressed: () => onPressed(context),
+                  icon: Icon(Icons.filter_alt_outlined, size: 25),
+                  constraints: BoxConstraints(),
+                  padding: EdgeInsets.all(8),
+                )),
+          ],
+        ),
+        Expanded(
+          child: TabBarView(children: [
+            UpcomingHoursRequestView(),
+            PreviousHoursRequestView()
+          ]),
+        ),
+      ],
+    );
   }
 }

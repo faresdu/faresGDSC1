@@ -17,7 +17,7 @@ class CommitteesHoursView extends StatelessWidget {
         builder: (context, viewmodel, _) {
           return Scaffold(
             appBar: const CustomAppBar(
-              title: 'اللجان',
+              title: 'طلبات ساعات اللجان',
             ),
             backgroundColor: Constants.grayBackGround.withOpacity(0.95),
             body: SafeArea(
