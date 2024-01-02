@@ -45,6 +45,32 @@ class HoursRequestViewModel extends BaseViewModel {
     setBusy(false);
   }
 
+  get getUpcomingRequests {
+    return selectedSemesterWeeksList.isEmpty
+        ? upcomingRequests
+        : upcomingRequests
+            .where(
+                (req) => selectedSemesterWeeksList.contains(req.semesterWeek))
+            .toList();
+  }
+
+  get getPreviousRequests {
+    return selectedSemesterWeeksList.isEmpty
+        ? previousRequests
+        : previousRequests
+            .where(
+                (req) => selectedSemesterWeeksList.contains(req.semesterWeek))
+            .toList();
+  }
+
+  get selectedWeeksText {
+    if (selectedSemesterWeeksList.length == semesterWeeks.length) {
+      return "جميع الاسابيع";
+    } else {
+      return "عدد الاسابيع المحدده: ${selectedSemesterWeeksList.length}";
+    }
+  }
+
   getRelatedCommittees() async {
     setBusy(true);
     await appService.getCommittees().then((value) => committees = value);

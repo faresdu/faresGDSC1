@@ -86,29 +86,60 @@ class HoursRequestBody extends StatelessWidget {
                       Container(
                           margin: const EdgeInsets.fromLTRB(10, 16, 10, 0),
                           decoration: BoxDecoration(
-                            // color: Constants.black,
-                            border: Border.all(
-                              color: Constants.black,
-                              width: 2,
-                            ),
+                            color:
+                                viewmodel.selectedSemesterWeeksList.isNotEmpty
+                                    ? Constants.lightBlue.withOpacity(0.4)
+                                    : null,
+                            border:
+                                viewmodel.selectedSemesterWeeksList.isNotEmpty
+                                    ? Border.all(
+                                        color: Constants.primaryLightBlue,
+                                        width: 2,
+                                      )
+                                    : null,
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           child: IconButton(
                             onPressed: () =>
                                 viewmodel.openFilterDialog(context),
-                            icon: Icon(Icons.filter_alt_outlined, size: 25),
+                            icon: Icon(
+                              Icons.filter_alt_outlined,
+                              size: 25,
+                              color:
+                                  viewmodel.selectedSemesterWeeksList.isNotEmpty
+                                      ? Constants.blueButton
+                                      : Constants.black,
+                            ),
                             constraints: BoxConstraints(),
                             padding: EdgeInsets.all(8),
                           )),
+                      // container that shows the number of weeks selected
+                      if (viewmodel.selectedSemesterWeeksList.isNotEmpty)
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(10, 16, 10, 0),
+                          decoration: BoxDecoration(
+                            color: Constants.lightBlue.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          child: Text(
+                            viewmodel.selectedWeeksText,
+                            style: Constants.smallText.copyWith(
+                                color: Constants.blueButton,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
                     ],
                   ),
                   Expanded(
                     child: TabBarView(children: [
                       UpcomingHoursRequestView(
-                        upcomingRequests: viewmodel.upcomingRequests,
+                        upcomingRequests: viewmodel.getUpcomingRequests,
                         updateHourRequest: viewmodel.updateHourRequest,
                       ),
                       PreviousHoursRequestView(
-                        previousRequests: viewmodel.previousRequests,
+                        previousRequests: viewmodel.getPreviousRequests,
                       )
                     ]),
                   ),
