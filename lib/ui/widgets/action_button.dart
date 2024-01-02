@@ -19,16 +19,16 @@ class ActionButton extends StatelessWidget {
     return InkWell(
         onTap: onTap,
         child: Container(
-          height: 25,
-          width: 80,
+          height: 30,
+          width: 90,
           decoration: BoxDecoration(
-            color: isApprove ? Constants.lightGreen : Constants.white,
+            color: isApprove ? Constants.green : Constants.white,
             border: isApprove
                 ? null
                 : Border.all(
                     color: Constants.red,
                   ),
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
             children: [
@@ -50,8 +50,8 @@ class ActionButton extends StatelessWidget {
                 text ?? (isApprove ? 'قبول' : 'رفض'),
                 style: TextStyle(
                   color: isApprove ? Constants.white : Constants.black,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
                 ),
               )
             ],

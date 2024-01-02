@@ -10,6 +10,7 @@ class HourRequest {
   final int hours;
   final int createdAtMillis;
   final String reasoning;
+  int? semesterWeek;
   bool? approved;
   final String? createdAt;
 
@@ -21,6 +22,7 @@ class HourRequest {
       required this.hours,
       required this.reasoning,
       required this.createdAtMillis,
+      this.semesterWeek,
       this.userAvatar,
       this.approved,
       this.createdAt});
@@ -36,6 +38,7 @@ class HourRequest {
       createdAtMillis: DateTime.utc(1900).millisecondsSinceEpoch,
     );
   }
+
   static String _getDate(DateTime date) {
     return "${DateHelper.getWeekDay(date)} , ${DateHelper.getDate(date, dash: true)}";
   }

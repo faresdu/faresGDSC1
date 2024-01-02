@@ -63,6 +63,8 @@ class Member {
 
   bool isLeaderOrCoLeader() => isLeader() || isCoLeader() || isAdmin;
 
+  bool isHrAdmin() => (isLeader() || isCoLeader()) && isHr();
+
   bool isHr() => role == "hr";
 
   bool isMale() => gender == "male";
