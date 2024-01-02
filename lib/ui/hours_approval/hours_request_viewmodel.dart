@@ -164,6 +164,7 @@ class HoursRequestViewModel extends BaseViewModel {
       hideSearchField: true,
       hideSelectedTextCount: true,
       backgroundColor: Constants.background,
+      headlineText: "اختر الاسابيع",
       resetButtonText: "إعادة ضبط",
       applyButtonText: "تطبيق",
       allButtonText: "الكل",
