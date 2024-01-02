@@ -1,5 +1,10 @@
+import 'dart:async';
+
+import 'package:gdsc_app/core/models/semester.dart';
 import 'package:gdsc_app/core/services/hour_service.dart';
 import 'package:gdsc_app/core/services/notification_service.dart';
+import 'package:gdsc_app/core/services/semester_service.dart';
+import 'package:gdsc_app/core/utils/date_helper.dart';
 
 import '../../core/models/event.dart';
 import 'package:stacked/stacked.dart';
@@ -19,6 +24,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   final userService = locator<UserService>();
   final notificationService = locator<NotificationService>();
   final hourService = locator<HourService>();
+  final semesterService = locator<SemesterService>();
 
   @override
   void onData(List<Event>? data) {
@@ -37,9 +43,12 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   Notifications? featuredNotification;
   List<Notifications> notifications = [];
   List<Notifications> fullNotifications = [];
-
-  Future getNotifications() async {
+  late StreamSubscription semesterStream;
+  int? currentWeek;
+  Future init() async {
     setBusy(true);
+    semesterService.semesterSubject
+        .listen((value) => currentWeek = getWeek(value));
     fullNotifications = await notificationService.getNotifications(limit: 3);
     featuredNotification = await getFeaturedNotification();
     if (fullNotifications.isNotEmpty) {
@@ -47,6 +56,16 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     }
     notifyListeners();
     setBusy(false);
+  }
+
+  int getWeek(Semester semester) {
+    return (DateHelper.getSemesterWeek(semester));
+  }
+
+  @override
+  void dispose() async {
+    await semesterStream.cancel();
+    super.dispose();
   }
 
   bool isHrAdmin() {
@@ -59,6 +78,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     int committeeHours = await hourService.getCumulativeCommitteeHours();
 
     return Notifications(
+      userId: '',
       title: "أكملت $hours ساعة تطوعية",
       name: "أكملت لجنتك $committeeHours ساعة تطوعية",
     );
@@ -88,7 +108,8 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
 
   Future<void> refreshData() async {
     setBusy(true);
-    await Future.wait([getNotifications(), userService.updateUser()]);
+    await Future.wait([init(), userService.updateUser()]);
+
     notifyListeners();
     setBusy(false);
   }

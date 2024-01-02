@@ -85,7 +85,7 @@ class _AddEventViewState extends State<AddEventView> {
                                     ),
                               CustomTextFormField(
                                 title: 'العنوان',
-                                hintText: 'عنوان الفعاليه',
+                                hintText: 'عنوان الفعالية',
                                 controller: viewmodel.titleController,
                                 validator: FormBuilderValidators.required(
                                     errorText: 'الرجاء ادخال العنوان'),
@@ -184,21 +184,32 @@ class _AddEventViewState extends State<AddEventView> {
                               ),
                               CustomTextFormField(
                                 title: 'الموقع',
-                                hintText: 'موقع الفعاليه',
+                                hintText: 'موقع الفعالية',
                                 controller: viewmodel.locationController,
                                 validator: FormBuilderValidators.required(
                                     errorText: 'الرجاء ادخال الموقع'),
                                 maxLength: 30,
                               ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 16),
+                                child: CustomTextFormField(
+                                  title: 'رابط الموقع',
+                                  hintText: 'إن وجد',
+                                  controller: viewmodel.locationLinkController,
+                                  validator: (value) =>
+                                      FormValidators.linkValidator(value,
+                                          required: false),
+                                ),
+                              ),
                               CustomTextFormField(
                                 title: 'المحاضر أو المضيف',
-                                hintText: 'ان وجد',
+                                hintText: 'إن وجد',
                                 controller: viewmodel.hostController,
                                 maxLength: 25,
                               ),
                               CustomTextFormField(
                                 title: 'الوصف',
-                                hintText: 'وصف الفعاليه',
+                                hintText: 'وصف الفعالية',
                                 controller: viewmodel.descriptionController,
                                 maxLines: 4,
                                 maxLength: 150,
