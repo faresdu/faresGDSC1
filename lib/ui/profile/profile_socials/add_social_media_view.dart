@@ -57,7 +57,9 @@ class _AddSocialMediaViewState extends State<AddSocialMediaView> {
                               title: 'اختر نوع منصة التواصل',
                               socialMedias: viewmodel.socialMedias,
                               onChanged: (String? value) {
-                                viewmodel.selectedSocialId = value;
+                                setState(() {
+                                  viewmodel.selectedSocialId = value;
+                                });
                               },
                             ),
                             CustomTextFormField(

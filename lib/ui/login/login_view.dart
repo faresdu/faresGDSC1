@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/core/utils/form_validators.dart';
 import 'package:gdsc_app/ui/login/components/custom_input_field.dart';
 import 'package:gdsc_app/ui/login/components/login_button.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:gdsc_app/ui/widgets/custom_text_form_field.dart';
+import 'package:gdsc_app/ui/widgets/show_snackbar.dart';
 import 'package:stacked/stacked.dart';
 
 import 'login_viewmodel.dart';
@@ -141,23 +141,11 @@ class LoginView extends StatelessWidget {
 
                   viewmodel.resetPasswordController.text = "";
                   Navigator.of(context).pop();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    success
-                        ? SnackBar(
-                            backgroundColor: Constants.green,
-                            content: Text('تم إرسال طلب استعادة كلمة المرور',
-                                textAlign: TextAlign.center,
-                                style: Constants.mediumText
-                                    .copyWith(color: Constants.white)),
-                          )
-                        : SnackBar(
-                            backgroundColor: Constants.red,
-                            content: Text('حاول مجددا',
-                                textAlign: TextAlign.center,
-                                style: Constants.mediumText
-                                    .copyWith(color: Constants.white)),
-                          ),
-                  );
+                  showSnackBar(context,
+                      success: success,
+                      message: success
+                          ? 'تم إرسال طلب استعادة كلمة المرور'
+                          : 'حاول مجددا');
                 }
               },
               child: Container(
