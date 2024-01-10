@@ -249,8 +249,8 @@
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
-				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				E9CF766D2B15983B00A3D173 /* Embed Foundation Extensions */,
+				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				19F97C395CAD77E971A246F5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
