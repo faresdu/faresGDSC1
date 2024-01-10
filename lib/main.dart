@@ -39,8 +39,7 @@ Future<void> main() async {
 
   OneSignal.initialize("8ed8e100-8ab7-4e8e-8f73-df85c635660b");
 
-// The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
-  OneSignal.Notifications.requestPermission(true);
+
 }
 
 class MyApp extends StatelessWidget {
