@@ -69,7 +69,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   }
 
   bool isHrAdmin() {
-    return userService.user.isLeaderOrCoLeader() &&
+    return userService.user.isLeaderOrCoLeader() ||
         (userService.user.isHr() || userService.user.isAdmin);
   }
 
@@ -84,8 +84,8 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     );
   }
 
-  void navigateToRequestsPage() {
-    navService.navigateTo(Routes.hoursRequestView);
+  void navigateToCommitteesRequestsPage() {
+    navService.navigateTo(Routes.committeesHoursView);
   }
 
   void navigateToNotifications() {

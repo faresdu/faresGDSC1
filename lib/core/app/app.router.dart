@@ -17,6 +17,7 @@ import 'package:gdsc_app/ui/events/event_participants/event_participants_view.da
     as _i19;
 import 'package:gdsc_app/ui/events/events_view.dart' as _i6;
 import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart' as _i8;
+import 'package:gdsc_app/ui/hours_approval/committees_hours_view.dart' as _i23;
 import 'package:gdsc_app/ui/hours_approval/hours_request_view.dart' as _i12;
 import 'package:gdsc_app/ui/leaderboard/leaderboard_view.dart' as _i11;
 import 'package:gdsc_app/ui/login/login_view.dart' as _i3;
@@ -73,6 +74,7 @@ class Routes {
 
   static const eventParticipantsView = '/event-participants-view';
 
+  static const committeesHoursView = '/committees-hours-view';
   static const all = <String>{
     startUpView,
     loginView,
@@ -92,6 +94,7 @@ class Routes {
     profileTimelineView,
     profileSocialsView,
     eventParticipantsView,
+    committeesHoursView
   };
 }
 
@@ -168,6 +171,10 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(
       Routes.eventParticipantsView,
       page: _i19.EventParticipantsView,
+    ),
+    _i1.RouteDef(
+      Routes.committeesHoursView,
+      page: _i23.CommitteesHoursView,
     ),
   ];
 
@@ -280,6 +287,12 @@ class StackedRouter extends _i1.RouterBase {
     _i19.EventParticipantsView: (data) {
       return _i20.MaterialPageRoute<dynamic>(
         builder: (context) => const _i19.EventParticipantsView(),
+        settings: data,
+      );
+    },
+    _i23.CommitteesHoursView: (data) {
+      return _i20.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i23.CommitteesHoursView(),
         settings: data,
       );
     },

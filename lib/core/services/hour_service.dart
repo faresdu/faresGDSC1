@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:gdsc_app/core/enums/tables.dart';
 import 'package:gdsc_app/core/enums/views.dart';
+import 'package:gdsc_app/core/models/committee.dart';
 import 'package:gdsc_app/core/models/hour_request.dart';
 import 'package:gdsc_app/core/models/volunteer_hours.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
@@ -15,10 +16,8 @@ class HourService {
   final _supabaseService = locator<SupabaseService>();
   final _userService = locator<UserService>();
 
-  Future<List<HourRequest>> getUpcomingHourRequests() async {
-    final Map<String, dynamic> payload = {
-      'committee_id': _userService.user.committee.id
-    };
+  Future<List<HourRequest>> getUpcomingHourRequests(String committeeId) async {
+    final Map<String, dynamic> payload = {'committee_id': committeeId};
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
         .from(GDSCTables.volunteerHours)
         .select('*, Users!inner(name, profile_picture)')
@@ -28,10 +27,8 @@ class HourService {
     return (res.data as List).map((e) => HourRequest.fromJson(e)).toList();
   }
 
-  Future<List<HourRequest>> getPreviousHourRequests() async {
-    final Map<String, dynamic> payload = {
-      'committee_id': _userService.user.committee.id
-    };
+  Future<List<HourRequest>> getPreviousHourRequests(String committeeId) async {
+    final Map<String, dynamic> payload = {'committee_id': committeeId};
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
         .from(GDSCTables.volunteerHours)
         .select('*, Users!inner(name, profile_picture)')

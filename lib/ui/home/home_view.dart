@@ -3,11 +3,8 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/Home/home_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
-import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
-import '../../core/models/semester.dart';
 import '../../core/utils/constants.dart';
-import '../../core/utils/date_helper.dart';
 import '../notifications/components/notification_card.dart';
 import 'components/activity_card.dart';
 import 'components/section_title.dart';
@@ -140,7 +137,7 @@ class _HomeViewState extends State<HomeView> {
                     heroTag: null,
                     backgroundColor: Constants.primaryLightBlue,
                     onPressed: () {
-                      viewmodel.navigateToRequestsPage();
+                      viewmodel.navigateToCommitteesRequestsPage();
                     },
                     child: const Icon(Icons.menu),
                   ),
