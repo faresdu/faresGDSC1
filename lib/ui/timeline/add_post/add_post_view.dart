@@ -5,14 +5,18 @@ import 'package:gdsc_app/ui/timeline/add_post/posts_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/rounded_submit_button.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
+
 import '../../../../core/utils/constants.dart';
 import '../../../core/models/gdsc_user.dart';
 import '../../../core/utils/helper_functions.dart';
 import '../../widgets/custom_text_form_field.dart';
+import '../../widgets/show_snackbar.dart';
 
 class AddPostView extends StatefulWidget {
   const AddPostView({super.key, required this.postsvm});
+
   final PostsViewModel postsvm;
+
   @override
   State<AddPostView> createState() => _AddPostViewState();
 }
@@ -92,6 +96,9 @@ class _AddPostViewState extends State<AddPostView> {
                                         viewmodel.descriptionController.text
                                             .isNotEmpty) {
                                       Navigator.pop(context);
+                                      showSnackBar(context,
+                                          success: true,
+                                          message: 'تم نشر المنشور بنجاح');
                                     }
                                   },
                                 ),

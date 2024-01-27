@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
 import '../../../core/models/gdsc_user.dart';
+import '../../../core/models/member.dart';
 import '../../../core/models/semester.dart';
 import '../../../core/utils/constants.dart';
 import 'package:provider/provider.dart';
@@ -10,14 +11,15 @@ import 'calender_week.dart';
 
 class Welcome extends StatelessWidget {
   final int? currentWeek;
+  final Member user;
   const Welcome({
+    required this.user,
     this.currentWeek,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<GDSCUser>(context);
     String getName() {
       if (user.name.split(" ").length > 2 && user.name.length > 18) {
         return "أهلا ${user.name.split(" ").first} ${user.name.split(" ").last}";

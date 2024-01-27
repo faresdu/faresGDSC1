@@ -1,22 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gdsc_app/core/app/api-config.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/services/event_service.dart';
-import 'package:gdsc_app/core/services/semester_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:stacked_services/stacked_services.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:stacked_services/stacked_services.dart';
+
 import 'core/app/app.locator.dart';
 import 'core/app/app.router.dart';
-import 'core/models/semester.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,11 +34,9 @@ Future<void> main() async {
     appRunner: () => runApp(const MyApp()),
   );
   //Remove this method to stop OneSignal Debugging
-  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  kDebugMode ? OneSignal.Debug.setLogLevel(OSLogLevel.verbose) : false;
 
   OneSignal.initialize("8ed8e100-8ab7-4e8e-8f73-df85c635660b");
-
-
 }
 
 class MyApp extends StatelessWidget {

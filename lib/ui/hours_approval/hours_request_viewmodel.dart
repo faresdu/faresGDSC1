@@ -29,6 +29,14 @@ class HoursRequestViewModel extends BaseViewModel {
   List<int> semesterWeeks = [];
   List<int> selectedSemesterWeeksList = [];
 
+  HoursRequestViewModel();
+
+  factory HoursRequestViewModel.init(BuildContext context) {
+    final vm = HoursRequestViewModel();
+    vm.assignCommittee(context);
+    return vm;
+  }
+
   void init(BuildContext context) async {
     setBusy(true);
     await semesterService
@@ -39,10 +47,9 @@ class HoursRequestViewModel extends BaseViewModel {
     for (var i = 1; i <= currentWeek; i++) {
       semesterWeeks.add(i);
     }
-    await Future.wait(
-        [getUpcomingHourRequests(context), getPreviousHourRequests(context)]);
-    notifyListeners();
+    await Future.wait([getUpcomingHourRequests(), getPreviousHourRequests()]);
     setBusy(false);
+    notifyListeners();
   }
 
   get getUpcomingRequests {
@@ -93,8 +100,7 @@ class HoursRequestViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future<void> getUpcomingHourRequests(BuildContext context) async {
-    assignCommittee(context);
+  Future<void> getUpcomingHourRequests() async {
     try {
       await hourService
           .getUpcomingHourRequests(currentCommittee.id)
@@ -127,6 +133,7 @@ class HoursRequestViewModel extends BaseViewModel {
 
   Future<void> updateHourRequest(HourRequest request, bool status) async {
     try {
+      setBusy(true);
       await hourService.updateHourRequest(request.id, status);
       upcomingRequests.remove(request);
       request.approved = status;
@@ -135,11 +142,10 @@ class HoursRequestViewModel extends BaseViewModel {
     } catch (e) {
       print(e);
     }
+    setBusy(false);
   }
 
-  Future<void> getPreviousHourRequests(BuildContext context) async {
-    assignCommittee(context);
-
+  Future<void> getPreviousHourRequests() async {
     try {
       await hourService
           .getPreviousHourRequests(currentCommittee.id)
@@ -150,6 +156,7 @@ class HoursRequestViewModel extends BaseViewModel {
 
     previousRequests.sort((a, b) => b.createdAtMillis - a.createdAtMillis);
 
+    await _getWeek(upcoming: false);
     await _getWeek(upcoming: false);
     notifyListeners();
   }

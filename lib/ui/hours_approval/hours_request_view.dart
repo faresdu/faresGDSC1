@@ -6,6 +6,7 @@ import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:stacked/stacked.dart';
 
+import '../widgets/custom_tab_bar.dart';
 import 'hours_request_viewmodel.dart';
 
 class HoursRequestView extends StatefulWidget {
@@ -22,42 +23,11 @@ class _HoursRequestViewState extends State<HoursRequestView>
     return ViewModelBuilder<HoursRequestViewModel>.reactive(
         viewModelBuilder: () => HoursRequestViewModel(),
         builder: (context, viewmodel, _) {
-          return DefaultTabController(
+          return const DefaultTabController(
               length: 2,
               child: Scaffold(
                 appBar: CustomAppBar(
                   title: 'الطلبات',
-                  preferredSize: const Size.fromHeight(110),
-                  bottom: PreferredSize(
-                    preferredSize: const Size.fromHeight(60),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(25)),
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 2),
-                        child: TabBar(
-                          unselectedLabelStyle: Constants.mediumText.copyWith(
-                              color: Colors.black, fontWeight: FontWeight.w700),
-                          labelStyle: Constants.mediumText.copyWith(
-                              color: Colors.white, fontWeight: FontWeight.w700),
-                          unselectedLabelColor: Colors.black,
-                          indicator: BoxDecoration(
-                              color: Constants.blueButton,
-                              borderRadius: BorderRadius.circular(25)),
-                          tabs: const <Widget>[
-                            Tab(
-                              text: 'القادمة',
-                            ),
-                            Tab(
-                              text: 'السابقة',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
                 ),
                 backgroundColor: Constants.grayBackGround,
                 body: HoursRequestBody(),
@@ -73,50 +43,58 @@ class HoursRequestBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HoursRequestViewModel>.reactive(
         onViewModelReady: (viewModel) => viewModel.init(context),
-        viewModelBuilder: () => HoursRequestViewModel(),
+        viewModelBuilder: () => HoursRequestViewModel.init(context),
         builder: (context, viewmodel, _) {
           return SafeArea(
             child: BusyOverlay(
               isBusy: viewmodel.isBusy,
               child: Column(
                 children: [
+                  CustomTapBar(
+                    widget: Container(
+                        margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        decoration: BoxDecoration(
+                          color: viewmodel.selectedSemesterWeeksList.isNotEmpty
+                              ? Constants.lightBlue.withOpacity(0.4)
+                              : null,
+                          border: viewmodel.selectedSemesterWeeksList.isNotEmpty
+                              ? Border.all(
+                                  color: Constants.primaryLightBlue,
+                                  width: 2,
+                                )
+                              : null,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: IconButton(
+                          onPressed: () => viewmodel.openFilterDialog(context),
+                          icon: Icon(
+                            Icons.filter_alt_outlined,
+                            size: 25,
+                            color:
+                                viewmodel.selectedSemesterWeeksList.isNotEmpty
+                                    ? Constants.blueButton
+                                    : Constants.black,
+                          ),
+                          constraints: BoxConstraints(),
+                          padding: EdgeInsets.all(8),
+                        )),
+                    tabBarWidthMultiplier: 0.775,
+                    tabs: const [
+                      Tab(
+                        text: 'الطلبات القادمة',
+                      ),
+                      Tab(
+                        text: 'الطلبات السابقة',
+                      ),
+                    ],
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Container(
-                          margin: const EdgeInsets.fromLTRB(10, 16, 10, 0),
-                          decoration: BoxDecoration(
-                            color:
-                                viewmodel.selectedSemesterWeeksList.isNotEmpty
-                                    ? Constants.lightBlue.withOpacity(0.4)
-                                    : null,
-                            border:
-                                viewmodel.selectedSemesterWeeksList.isNotEmpty
-                                    ? Border.all(
-                                        color: Constants.primaryLightBlue,
-                                        width: 2,
-                                      )
-                                    : null,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: IconButton(
-                            onPressed: () =>
-                                viewmodel.openFilterDialog(context),
-                            icon: Icon(
-                              Icons.filter_alt_outlined,
-                              size: 25,
-                              color:
-                                  viewmodel.selectedSemesterWeeksList.isNotEmpty
-                                      ? Constants.blueButton
-                                      : Constants.black,
-                            ),
-                            constraints: BoxConstraints(),
-                            padding: EdgeInsets.all(8),
-                          )),
                       // container that shows the number of weeks selected
                       if (viewmodel.selectedSemesterWeeksList.isNotEmpty)
                         Container(
-                          margin: const EdgeInsets.fromLTRB(10, 16, 10, 0),
+                          margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           decoration: BoxDecoration(
                             color: Constants.lightBlue.withOpacity(0.4),
                             borderRadius: BorderRadius.circular(10),

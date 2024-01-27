@@ -11,4 +11,6 @@ class GDSCTables {
   static const volunteerHours = 'volenteer_hours';
   static const semesters = 'semesters';
   static const semesterBreaks = 'semester_breaks';
+  static const receipts = 'receipts';
+  static const bankAccounts = 'bank_accounts';
 }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/profile/profile_timeline/profile_timeline_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
-import 'package:gdsc_app/ui/widgets/post_card.dart';
+import 'package:gdsc_app/ui/widgets/custom_tab_bar.dart';
+import 'package:gdsc_app/ui/timeline/components/post_card.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
@@ -40,58 +41,26 @@ class _ProfileTimelineViewState extends State<ProfileTimelineView> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Container(
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: 16, horizontal: 10),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        boxShadow: Constants.shadow3,
-                                        color: Constants.white,
-                                        borderRadius:
-                                            BorderRadius.circular(25)),
-                                    width: viewmodel.isUser
-                                        ? MediaQuery.of(context).size.width *
-                                            0.75
-                                        : MediaQuery.of(context).size.width *
-                                            0.93,
-                                    child: TabBar(
-                                      unselectedLabelStyle: Constants.smallText
-                                          .copyWith(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w700),
-                                      labelStyle: Constants.smallText.copyWith(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w700),
-                                      unselectedLabelColor: Colors.black,
-                                      indicator: BoxDecoration(
-                                          color: Constants.blueButton,
-                                          borderRadius:
-                                              BorderRadius.circular(25)),
-                                      tabs: <Widget>[
-                                        Tab(
-                                          text: viewmodel.isUser
-                                              ? 'منشوراتي'
-                                              : 'المنشورات',
-                                        ),
-                                        Tab(
-                                          text: viewmodel.isUser
-                                              ? 'المعجب بها'
-                                              : 'الاعجابات',
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  if (viewmodel.isUser)
-                                    CircleButton(
+                            CustomTapBar(
+                              tabs: [
+                                Tab(
+                                  text: viewmodel.isUser
+                                      ? 'منشوراتي'
+                                      : 'المنشورات',
+                                ),
+                                Tab(
+                                  text: viewmodel.isUser
+                                      ? 'المعجب بها'
+                                      : 'الاعجابات',
+                                ),
+                              ],
+                              widget: viewmodel.isUser
+                                  ? CircleButton(
                                       onPressed: () {
                                         viewmodel.navigateToAddPosts(context);
                                       },
-                                    ),
-                                ],
-                              ),
+                                    )
+                                  : null,
                             ),
                             Expanded(
                                 child: TabBarView(

@@ -1,17 +1,18 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/models/semester.dart';
 import 'package:gdsc_app/core/services/hour_service.dart';
 import 'package:gdsc_app/core/services/notification_service.dart';
 import 'package:gdsc_app/core/services/semester_service.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
-
-import '../../core/models/event.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
+
 import '../../core/app/app.locator.dart';
 import '../../core/app/app.router.dart';
+import '../../core/models/event.dart';
 import '../../core/models/event_type.dart';
 import '../../core/models/notifications.dart';
 import '../../core/services/event_service.dart';
@@ -25,6 +26,8 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   final notificationService = locator<NotificationService>();
   final hourService = locator<HourService>();
   final semesterService = locator<SemesterService>();
+
+  late GDSCUser user;
 
   @override
   void onData(List<Event>? data) {
@@ -43,19 +46,32 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   Notifications? featuredNotification;
   List<Notifications> notifications = [];
   List<Notifications> fullNotifications = [];
+  late StreamSubscription userStream;
   late StreamSubscription semesterStream;
   int? currentWeek;
+
   Future init() async {
     setBusy(true);
-    semesterService.semesterSubject
+    user = userService.user;
+    userStream = userService.userSubject.listen((value) => user = value);
+    semesterStream = semesterService.semesterSubject
         .listen((value) => currentWeek = getWeek(value));
-    fullNotifications = await notificationService.getNotifications(limit: 3);
-    featuredNotification = await getFeaturedNotification();
+    await setupNotifications();
+    notifyListeners();
+    setBusy(false);
+  }
+
+  Future<void> setupNotifications() async {
+    await Future.wait([
+      notificationService.getNotifications(limit: 3),
+      getFeaturedNotification()
+    ]).then((value) {
+      fullNotifications = value[0] as List<Notifications>;
+      featuredNotification = value[1] as Notifications?;
+    });
     if (fullNotifications.isNotEmpty) {
       notifications = fullNotifications.take(4).toList();
     }
-    notifyListeners();
-    setBusy(false);
   }
 
   int getWeek(Semester semester) {
@@ -64,7 +80,7 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
 
   @override
   void dispose() async {
-    await semesterStream.cancel();
+    await Future.wait([userStream.cancel(), semesterStream.cancel()]);
     super.dispose();
   }
 
@@ -74,14 +90,18 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   }
 
   Future<Notifications?> getFeaturedNotification() async {
-    int hours = await hourService.getCumulativeHours();
-    int committeeHours = await hourService.getCumulativeCommitteeHours();
-
-    return Notifications(
-      userId: '',
-      title: "أكملت $hours ساعة تطوعية",
-      name: "أكملت لجنتك $committeeHours ساعة تطوعية",
-    );
+    return Future.wait([
+      hourService.getCumulativeHours(),
+      hourService.getCumulativeCommitteeHours()
+    ]).then((value) {
+      int hours = value[0];
+      int committeeHours = value[1];
+      return Notifications(
+        userId: '',
+        title: "أكملت $hours ساعة تطوعية",
+        name: "أكملت لجنتك $committeeHours ساعة تطوعية",
+      );
+    });
   }
 
   void navigateToCommitteesRequestsPage() {

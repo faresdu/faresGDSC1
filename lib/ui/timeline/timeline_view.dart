@@ -4,7 +4,7 @@ import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/ui/timeline/timeline_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
-import 'package:gdsc_app/ui/widgets/post_card.dart';
+import 'package:gdsc_app/ui/timeline/components/post_card.dart';
 import 'package:stacked/stacked.dart';
 import 'package:provider/provider.dart';
 
@@ -52,7 +52,7 @@ class _TimeLineViewState extends State<TimeLineView> {
                     onRefresh: viewmodel.refreshPost,
                     child: ListView.builder(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 20),
+                          horizontal: 0, vertical: 16),
                       itemCount: viewmodel.posts.length + 1,
                       controller: viewmodel.scrollController,
                       itemBuilder: ((context, index) {
