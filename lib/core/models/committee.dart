@@ -5,14 +5,15 @@ class Committee {
   final String? coLeaderID;
   final String? consultantID;
   final String? picture;
-
+  final String? responsibleCommittee;
   Committee(
       {required this.id,
       required this.name,
       this.picture,
       this.leaderID,
       this.coLeaderID,
-      this.consultantID});
+      this.consultantID,
+      this.responsibleCommittee});
 
   factory Committee.anonymous() {
     return Committee(
@@ -28,6 +29,7 @@ class Committee {
         leaderID: map['leader_id'],
         coLeaderID: map['co_leader_id'],
         consultantID: map['consultant_id'],
-        picture: map['picture']);
+        picture: map['picture'],
+        responsibleCommittee: map['responsible_committee']);
   }
 }

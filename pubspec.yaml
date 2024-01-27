@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: "none"
 
-version: 1.4.0+3
+version: 1.5.0+1
 
 environment:
   sdk: ">=2.17.0-51.0.dev <3.0.0"
@@ -24,7 +24,7 @@ dependencies:
   stacked_services: ^1.0.4
   rxdart:
   provider:
-# Supabase
+  # Supabase
   supabase: ^0.3.6
   shared_preferences: ^2.0.15
   url_launcher: ^6.1.8
@@ -43,6 +43,8 @@ dependencies:
   sentry_flutter: ^7.10.1
   flutter_dotenv: ^5.1.0
   flutter_slidable: ^3.0.0
+  onesignal_flutter: ^5.0.4
+  filter_list: ^1.0.2
 
 dev_dependencies:
   flutter_lints: ^2.0.0

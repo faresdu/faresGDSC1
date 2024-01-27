@@ -8,6 +8,7 @@ import 'package:gdsc_app/ui/committee_members/committe_members_view.dart';
 import 'package:gdsc_app/ui/events/event_details/event_details_view.dart';
 import 'package:gdsc_app/ui/events/event_participants/event_participants_view.dart';
 import 'package:gdsc_app/ui/hierarchy/hierarchy_view.dart';
+import 'package:gdsc_app/ui/hours_approval/committees_hours_view.dart';
 import 'package:gdsc_app/ui/hours_approval/hours_request_view.dart';
 import 'package:gdsc_app/ui/login/login_view.dart';
 import 'package:gdsc_app/ui/notifications/notifications_view.dart';
@@ -54,6 +55,7 @@ import '../services/event_service.dart';
     MaterialRoute(page: ProfileSocialsView),
     MaterialRoute(page: EventParticipantsView),
     MaterialRoute(page: ProfileReceiptsView),
+    MaterialRoute(page: CommitteesHoursView),
     MaterialRoute(page: BankAccountView)
   ],
   // flutter pub run build_runner build

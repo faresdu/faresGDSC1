@@ -1,18 +1,18 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/models/semester.dart';
 import 'package:gdsc_app/core/services/hour_service.dart';
 import 'package:gdsc_app/core/services/notification_service.dart';
 import 'package:gdsc_app/core/services/semester_service.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
-
-import '../../core/models/event.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
+
 import '../../core/app/app.locator.dart';
 import '../../core/app/app.router.dart';
+import '../../core/models/event.dart';
 import '../../core/models/event_type.dart';
 import '../../core/models/notifications.dart';
 import '../../core/services/event_service.dart';
@@ -85,7 +85,8 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
   }
 
   bool isHrAdmin() {
-    return user.isLeaderOrCoLeader() && (user.isHr() | user.isAdmin);
+    return userService.user.isLeaderOrCoLeader() ||
+        (userService.user.isHr() || userService.user.isAdmin);
   }
 
   Future<Notifications?> getFeaturedNotification() async {
@@ -103,8 +104,8 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     });
   }
 
-  void navigateToRequestsPage() {
-    navService.navigateTo(Routes.hoursRequestView);
+  void navigateToCommitteesRequestsPage() {
+    navService.navigateTo(Routes.committeesHoursView);
   }
 
   void navigateToNotifications() {

@@ -92,25 +92,25 @@ class Constants {
   ];
 
   static TextStyle veryLargeText = GoogleFonts.cairo().copyWith(
-    fontSize: 24,
+    fontSize: 23,
   );
 
   static TextStyle largeText = GoogleFonts.cairo().copyWith(
-    fontSize: 22,
+    fontSize: 21,
   );
   static TextStyle mediumText = GoogleFonts.cairo().copyWith(
-    fontSize: 19,
+    fontSize: 18,
   );
   static TextStyle smallText = GoogleFonts.cairo().copyWith(
-    fontSize: 17,
+    fontSize: 16,
   );
   static TextStyle verySmallText = GoogleFonts.cairo().copyWith(
-    fontSize: 15,
+    fontSize: 14,
   );
   static TextStyle extraSmallText = GoogleFonts.cairo().copyWith(
-    fontSize: 13,
+    fontSize: 12,
   );
   static TextStyle superSmallText = GoogleFonts.cairo().copyWith(
-    fontSize: 11,
+    fontSize: 10,
   );
 }

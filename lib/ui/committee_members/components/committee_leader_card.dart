@@ -107,8 +107,14 @@ class CommitteeLeaderCard extends StatelessWidget {
 
   getRoleText() {
     if (isCoLeader != null) {
-      return isCoLeader! ? 'النائب' : 'القائد';
+      return isCoLeader!
+          ? member.isFemale()
+              ? 'النائبة'
+              : 'النائب'
+          : member.isFemale()
+              ? 'القائدة'
+              : 'القائد';
     }
-    return "مستشار";
+    return member.isFemale() ? "مستشارة" : "مستشار";
   }
 }

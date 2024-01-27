@@ -14,6 +14,7 @@ class SemesterService {
   final _supabaseService = locator<SupabaseService>();
   final BehaviorSubject<Semester> semesterSubject =
       BehaviorSubject.seeded(Semester.anonymous());
+
   Future<Semester> getCurrentSemester() async {
     try {
       final PostgrestResponse<dynamic> res = await _supabaseService
@@ -51,7 +52,7 @@ class SemesterService {
   }
 
   Future<int> getWeek(DateTime date) async {
-    Semester semester = await semesterSubject.single;
+    Semester semester = await semesterSubject.first;
     return DateHelper.getSemesterWeek(semester, date: date);
   }
 }

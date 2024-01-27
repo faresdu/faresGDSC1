@@ -63,17 +63,25 @@ class Member {
 
   bool isLeaderOrCoLeader() => isLeader() || isCoLeader() || isAdmin;
 
+  bool isHrAdmin() => (isLeader() || isCoLeader()) && isHr();
+
   bool isHr() => role == "hr";
 
   bool isMale() => gender == "male";
 
   bool isFemale() => gender == "female";
 
-  String getRole() {
+  String getRole({bool short = false}) {
     if (isLeader()) {
       return isFemale() ? "قائدة" : "قائد";
     } else if (isCoLeader()) {
-      return isFemale() ? "نائبة قائد" : "نائب قائد";
+      return isFemale()
+          ? short
+              ? "نائبة"
+              : "نائبة قائد"
+          : short
+              ? "نائب"
+              : "نائب قائد";
     } else if (isConsultant()) {
       return isFemale() ? "مستشارة" : "مستشار";
     }
