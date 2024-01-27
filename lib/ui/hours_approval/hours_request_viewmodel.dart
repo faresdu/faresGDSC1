@@ -157,6 +157,7 @@ class HoursRequestViewModel extends BaseViewModel {
     previousRequests.sort((a, b) => b.createdAtMillis - a.createdAtMillis);
 
     await _getWeek(upcoming: false);
+    await _getWeek(upcoming: false);
     notifyListeners();
   }
 
