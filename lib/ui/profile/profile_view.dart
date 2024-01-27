@@ -4,6 +4,7 @@ import 'package:gdsc_app/ui/profile/components/profile_section_button.dart';
 import 'package:gdsc_app/ui/profile/profile_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:stacked/stacked.dart';
+
 import '../../core/utils/constants.dart';
 import '../widgets/custom_app_bar.dart';
 import 'components/profile_card.dart';
@@ -109,7 +110,7 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
                         onTap: () => viewmodel.navigateToProfileSocials(),
                       ),
-                      if (viewmodel.isUser)
+                      if (false && viewmodel.isUser)
                         ProfileSectionButton(
                           title: 'الفواتير',
                           color: Constants.green,
