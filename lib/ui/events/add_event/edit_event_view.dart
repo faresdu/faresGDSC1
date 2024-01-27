@@ -13,6 +13,7 @@ import 'package:stacked/stacked.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/form_validators.dart';
 import '../../widgets/custom_text_form_field.dart';
+import '../../widgets/show_snackbar.dart';
 
 class EditEventView extends StatefulWidget {
   const EditEventView({Key? key, required this.eventDetails}) : super(key: key);
@@ -263,6 +264,10 @@ class _AddEventViewState extends State<EditEventView> {
                                           await viewmodel.editEvent();
                                           if (viewmodel.added) {
                                             Navigator.pop(context);
+                                            showSnackBar(context,
+                                                success: true,
+                                                message:
+                                                    'تم تعديل الفعاليه بنجاح');
                                           }
                                         }),
                               ),
