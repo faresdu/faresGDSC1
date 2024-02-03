@@ -37,7 +37,7 @@ class _ProfileUserHoursViewState extends State<ProfileUserHoursView> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     if (viewmodel.isUser)
-                      CustomTapBar(
+                      CustomTabBar(
                         tabs: const [
                           Tab(
                             text: 'مقبولة',

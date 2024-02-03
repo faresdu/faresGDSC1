@@ -15,15 +15,12 @@ class HierarchyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          elevation: 10,
-          padding: const EdgeInsets.all(10),
-          backgroundColor: Constants.white,
-          foregroundColor: Constants.darkGrey,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
+      child: MaterialButton(
+        elevation: 10,
+        padding: const EdgeInsets.all(10),
+        color: Constants.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
         ),
         onPressed: onPressed,
         child: Stack(alignment: Alignment.center, children: [

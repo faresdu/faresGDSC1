@@ -21,41 +21,41 @@ class ActivityCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
+      child: SizedBox(
+        width: 160,
+        child: MaterialButton(
           padding: const EdgeInsets.all(8),
-          backgroundColor: Colors.white,
-          fixedSize: const Size.fromWidth(160),
+          color: Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           elevation: 3,
-        ),
-        onPressed: onTap,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Spacer(),
-            HelperFunctions.eventImage(
-              imageUrl: event.flyer,
-              height: 90,
-              width: 90,
-            ),
-            Text(
-              event.title,
-              style: Constants.extraSmallText.copyWith(
-                color: Constants.black,
-                fontWeight: FontWeight.bold,
-                overflow: TextOverflow.ellipsis,
+          onPressed: onTap,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Spacer(),
+              HelperFunctions.eventImage(
+                imageUrl: event.flyer,
+                height: 90,
+                width: 90,
               ),
-            ),
-            Text(
-              "${DateHelper.getDate(event.startDate)}  -  ${event.isOnline ? "اونلاين" : "حضوري"}",
-              style: Constants.superSmallText
-                  .copyWith(color: Constants.grey, fontWeight: FontWeight.bold),
-            ),
-            signUpButton,
-            const Spacer()
-          ],
+              Text(
+                event.title,
+                style: Constants.extraSmallText.copyWith(
+                  color: Constants.black,
+                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Text(
+                "${DateHelper.getDate(event.startDate)}  -  ${event.isOnline ? "اونلاين" : "حضوري"}",
+                style: Constants.superSmallText.copyWith(
+                    color: Constants.grey, fontWeight: FontWeight.bold),
+              ),
+              signUpButton,
+              const Spacer()
+            ],
+          ),
         ),
       ),
     );

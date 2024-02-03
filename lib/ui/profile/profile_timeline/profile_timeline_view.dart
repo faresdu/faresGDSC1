@@ -41,7 +41,7 @@ class _ProfileTimelineViewState extends State<ProfileTimelineView> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            CustomTapBar(
+                            CustomTabBar(
                               tabs: [
                                 Tab(
                                   text: viewmodel.isUser

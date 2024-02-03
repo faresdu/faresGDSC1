@@ -50,7 +50,7 @@ class HoursRequestBody extends StatelessWidget {
               isBusy: viewmodel.isBusy,
               child: Column(
                 children: [
-                  CustomTapBar(
+                  CustomTabBar(
                     widget: Container(
                         margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                         decoration: BoxDecoration(

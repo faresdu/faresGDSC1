@@ -23,14 +23,13 @@ class CommitteeLeaderCard extends StatelessWidget {
             top: 25,
             left: 0,
             right: 0,
-            child: ElevatedButton(
+            child: MaterialButton(
               onPressed: () => onTap!(member.id),
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.zero,
-                elevation: 3,
-                backgroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
+              padding: EdgeInsets.zero,
+              elevation: 3,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
               ),
               child: Row(
                 children: [

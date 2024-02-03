@@ -24,16 +24,13 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
-          fixedSize: const Size.fromWidth(double.maxFinite),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          elevation: 3,
-        ),
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      child: MaterialButton(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        elevation: 4,
         onPressed: onPressed,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
