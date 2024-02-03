@@ -30,7 +30,7 @@ class ProfileEventsView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CustomTapBar(
+                    CustomTabBar(
                         tabs: [
                           const Tab(
                             text: 'المشارك بها',

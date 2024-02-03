@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../core/utils/constants.dart';
 
-class CustomTapBar extends StatelessWidget {
-  const CustomTapBar(
+class CustomTabBar extends StatelessWidget {
+  const CustomTabBar(
       {Key? key, this.widget, required this.tabs, this.tabBarWidthMultiplier})
       : super(key: key);
 
@@ -30,6 +30,7 @@ class CustomTapBar extends StatelessWidget {
                   : MediaQuery.of(context).size.width *
                       (tabBarWidthMultiplier ?? 0.75),
               child: TabBar(
+                indicatorSize: TabBarIndicatorSize.tab,
                   unselectedLabelStyle: Constants.smallText.copyWith(
                       color: Colors.black, fontWeight: FontWeight.w700),
                   labelStyle: Constants.smallText.copyWith(

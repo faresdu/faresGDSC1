@@ -48,49 +48,46 @@ class SocialMediaCard extends StatelessWidget {
             ),
             Expanded(
               flex: 4,
-              child: Container(
-                color: Constants.white,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            socialMedia.name,
-                            style: GoogleFonts.cairo(
-                              textStyle: const TextStyle(
-                                color: Constants.black,
-                                height: 1.7,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 28,
-                              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          socialMedia.name,
+                          style: GoogleFonts.cairo(
+                            textStyle: const TextStyle(
+                              color: Constants.black,
+                              height: 1.7,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 28,
                             ),
                           ),
-                          Text(
-                            "@${socialMedia.username}",
-                            textDirection: TextDirection.ltr,
-                            style: GoogleFonts.cairo(
-                              textStyle: const TextStyle(
-                                color: Constants.black,
-                                height: 1,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 16,
-                              ),
+                        ),
+                        Text(
+                          "@${socialMedia.username}",
+                          textDirection: TextDirection.ltr,
+                          style: GoogleFonts.cairo(
+                            textStyle: const TextStyle(
+                              color: Constants.black,
+                              height: 1,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: HelperFunctions.socialMediaImage(
-                        url: socialMedia.image,
-                        height: 55,
-                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: HelperFunctions.socialMediaImage(
+                      url: socialMedia.image,
+                      height: 55,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
