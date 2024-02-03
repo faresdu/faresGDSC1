@@ -6,7 +6,7 @@ import 'package:gdsc_app/ui/widgets/custom_bottom_modal_sheet.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:stacked/stacked.dart';
 
-import '../widgets/custom_wide_tab_bar.dart';
+import '../widgets/custom_tab_bar_controller.dart';
 
 class EventsView extends StatefulWidget {
   const EventsView({Key? key}) : super(key: key);
@@ -45,7 +45,7 @@ class _EventsViewState extends State<EventsView> {
             ),
             body: SafeArea(
               child: viewmodel.isAdmin()
-                  ? CustomWideTabBar(
+                  ? CustomTabBarController(
                       length: 2,
                       tabs: const [
                         Tab(text: 'الفعاليات الجديدة'),

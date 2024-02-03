@@ -57,7 +57,10 @@ class LeaderboardView extends StatelessWidget {
                   Expanded(
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 15),
-
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                      ),
+                      clipBehavior: Clip.antiAlias,
                       child: ListView.builder(
                         shrinkWrap: true,
                         itemCount: viewmodel.members.length,

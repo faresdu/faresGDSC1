@@ -18,8 +18,8 @@ class SectionTitle extends StatelessWidget {
             style: const TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, letterSpacing: 0.25),
           ),
-          InkWell(
-            onTap: onPressed,
+          TextButton(
+            onPressed: onPressed,
             child: Text(
               "عرض المزيد",
               style: Constants.smallText.copyWith(

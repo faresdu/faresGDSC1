@@ -17,19 +17,16 @@ class SocialMediaCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(15),
-      child: ElevatedButton(
+      child: MaterialButton(
         onPressed: () async {
           if (socialMedia.link != null) {
             HelperFunctions.openUrl(socialMedia.link!);
           }
         },
         clipBehavior: Clip.antiAlias,
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.zero,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          backgroundColor: Constants.white,
-        ),
+        padding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        color: Constants.white,
         child: Row(
           children: [
             Expanded(
