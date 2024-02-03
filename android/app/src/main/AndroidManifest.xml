@@ -1,5 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
     package="com.example.gdsc_app">
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
     <uses-permission android:name="android.permission.INTERNET" />
     <queries>
         <intent>
@@ -9,7 +10,7 @@
         </intent>
     </queries>
    <application
-        android:label="GDSC"
+        android:label="GDSC App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
