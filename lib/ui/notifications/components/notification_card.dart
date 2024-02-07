@@ -31,42 +31,43 @@ class NotificationCard extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(right: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    child: Text(
-                      notification.title,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        letterSpacing: 0.4,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Expanded(
-                        child: Text(
-                          notification.name,
-                          style: const TextStyle(
-                            height: 1.6,
-                            fontSize: 16,
-                            letterSpacing: -0.25,
-                            color: Constants.black2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ),
                       if (notification.createdAt != null)
                         Text(
                           DateHelper.postDateText(notification.createdAt!),
                           style: Constants.superSmallText,
                         ),
                     ],
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Text(
+                      notification.title,
+                      style: const TextStyle(
+                        height: 1,
+                        fontSize: 20,
+                        letterSpacing: 0.4,
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    notification.name,
+                    style: const TextStyle(
+                      height: 1.6,
+                      fontSize: 16,
+                      letterSpacing: -0.25,
+                      color: Constants.black2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
