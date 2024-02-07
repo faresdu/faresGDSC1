@@ -59,9 +59,7 @@ class PostInfo extends StatelessWidget {
         Column(
           children: [
             Text(
-              DateHelper.daysSinceDate(post.createdAt) >= 30
-                  ? DateHelper.getDate(post.createdAt)
-                  : DateHelper.sincePosted(post.createdAt),
+              DateHelper.postDateText(post.createdAt),
               style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
