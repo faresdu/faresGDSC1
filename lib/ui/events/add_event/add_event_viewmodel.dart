@@ -104,7 +104,7 @@ class AddEventViewModel extends BaseViewModel {
 
   Event? makeEvent() {
     if (dateTime != null && timeOfDay != null) {
-      DateTime d = DateHelper.DateTimeAndTimeOfDay(dateTime!, timeOfDay!);
+      DateTime d = DateHelper.dateTimeAndTimeOfDay(dateTime!, timeOfDay!);
       return Event(
           eventID: eventID,
           instructorID: userService.user.id,
