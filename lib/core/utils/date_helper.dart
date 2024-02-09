@@ -98,7 +98,7 @@ class DateHelper {
     return dur.inDays;
   }
 
-  static DateTimeAndTimeOfDay(DateTime dateTime, TimeOfDay timeOfDay) {
+  static DateTime dateTimeAndTimeOfDay(DateTime dateTime, TimeOfDay timeOfDay) {
     return DateTime(dateTime.year, dateTime.month, dateTime.day, timeOfDay.hour,
         timeOfDay.minute);
   }
@@ -123,5 +123,11 @@ class DateHelper {
     final adjustedDays = totalDays - breakDuration.inDays;
     final currentWeek = (adjustedDays / 7).ceil();
     return currentWeek;
+  }
+
+  static String postDateText(DateTime dateTime) {
+    return DateHelper.daysSinceDate(dateTime) >= 30
+        ? DateHelper.getDate(dateTime)
+        : DateHelper.sincePosted(dateTime);
   }
 }

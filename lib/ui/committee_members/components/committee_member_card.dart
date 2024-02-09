@@ -14,15 +14,12 @@ class CommitteeMemberCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
-      child: ElevatedButton(
+      child: MaterialButton(
         onPressed: () => onTap!(member.id),
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.zero,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          backgroundColor: Colors.white,
-          elevation: 3,
-        ),
+        padding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        color: Colors.white,
+        elevation: 4,
         child: Row(
           children: [
             Container(

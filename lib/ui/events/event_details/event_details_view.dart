@@ -167,6 +167,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
           ),
           if (link != null)
             InkWell(
+              borderRadius: BorderRadius.circular(10),
               onTap: () async {
                 HelperFunctions.openUrl(link);
               },

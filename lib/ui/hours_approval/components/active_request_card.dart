@@ -56,11 +56,85 @@ class ActiveRequestCard extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    Text(request.createdAt ?? "السبت ، 2023-20-6",
-                        style: Constants.superSmallText.copyWith(
-                          color: Constants.grey.withOpacity(0.7),
-                          fontWeight: FontWeight.w700,
-                        )),
+                    Column(
+                      children: [
+                        Text(request.createdAt ?? "السبت ، 2023-20-6",
+                            style: Constants.superSmallText.copyWith(
+                              color: Constants.grey.withOpacity(0.7),
+                              fontWeight: FontWeight.w700,
+                            )),
+                        if (request.approved != null)
+                          SizedBox(
+                            height: 20,
+                            child: PopupMenuButton(
+                                icon: const Icon(Icons.more_horiz),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(14)),
+                                onSelected: (value) async {
+                                  if (value == 'reject') {
+                                    bool? confirmed =
+                                        await HelperFunctions.warningDialog(
+                                            context,
+                                            title: 'رفض الطلب',
+                                            content:
+                                                'هل انت متاكد من رفض الطلب؟',
+                                            confirmButtonText: 'تاكيد');
+                                    if (confirmed != null &&
+                                        confirmed == true &&
+                                        onUpdate != null) {
+                                      onUpdate!(request, false);
+                                    }
+                                  } else if (value == 'approve') {
+                                    bool? confirmed =
+                                        await HelperFunctions.warningDialog(
+                                      context,
+                                      title: 'قبول الطلب',
+                                      content: 'هل انت متاكد من قبول الطلب؟',
+                                      confirmButtonText: 'تاكيد',
+                                    );
+                                    if (confirmed != null &&
+                                        confirmed == true &&
+                                        onUpdate != null) {
+                                      onUpdate!(request, true);
+                                    }
+                                  }
+                                },
+                                itemBuilder: (context) => [
+                                      request.approved!
+                                          ? PopupMenuItem(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8),
+                                              value: 'reject',
+                                              child: Text(
+                                                'رفض الطلب',
+                                                textAlign: TextAlign.center,
+                                                style: Constants.verySmallText
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Constants.red),
+                                              ),
+                                            )
+                                          : PopupMenuItem(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8),
+                                              value: 'approve',
+                                              child: Text(
+                                                'قبول الطلب',
+                                                textAlign: TextAlign.center,
+                                                style: Constants.verySmallText
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Constants.green),
+                                              ),
+                                            )
+                                    ]),
+                          )
+                      ],
+                    ),
                   ],
                 ),
                 const SizedBox(

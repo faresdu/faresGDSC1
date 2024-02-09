@@ -37,7 +37,7 @@ class ProfileReceiptsView extends StatelessWidget {
                   length: 2,
                   child: Column(
                     children: [
-                      CustomTapBar(
+                      CustomTabBar(
                         tabs: const [
                           Tab(
                             text: 'الحاليه',

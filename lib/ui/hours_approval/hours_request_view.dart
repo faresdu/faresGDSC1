@@ -7,6 +7,7 @@ import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:stacked/stacked.dart';
 
 import '../widgets/custom_tab_bar.dart';
+import '../widgets/custom_tab_bar.dart';
 import 'hours_request_viewmodel.dart';
 
 class HoursRequestView extends StatefulWidget {
@@ -50,7 +51,7 @@ class HoursRequestBody extends StatelessWidget {
               isBusy: viewmodel.isBusy,
               child: Column(
                 children: [
-                  CustomTapBar(
+                  CustomTabBar(
                     widget: Container(
                         margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                         decoration: BoxDecoration(
@@ -118,6 +119,7 @@ class HoursRequestBody extends StatelessWidget {
                       ),
                       PreviousHoursRequestView(
                         previousRequests: viewmodel.getPreviousRequests,
+                        onApproveOrReject: viewmodel.onApproveOrReject,
                       )
                     ]),
                   ),

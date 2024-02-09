@@ -6,8 +6,8 @@ import 'package:gdsc_app/ui/widgets/custom_bottom_modal_sheet.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../core/utils/constants.dart';
-import 'components/notification_card.dart';
 import 'add_notifitcaion_view.dart';
+import 'components/notification_card.dart';
 
 class NotificationView extends StatelessWidget {
   const NotificationView({super.key});
@@ -37,8 +37,7 @@ class NotificationView extends StatelessWidget {
             child: Container(
               color: Constants.background,
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+                padding: const EdgeInsets.symmetric(vertical: 18),
                 child: Column(
                   children: [
                     Row(

@@ -5,8 +5,7 @@ import '../../../core/models/notifications.dart';
 import '../../../core/utils/constants.dart';
 
 class NotificationCard extends StatelessWidget {
-  const NotificationCard(
-      {super.key, required this.notification});
+  const NotificationCard({super.key, required this.notification});
 
   final Notifications notification;
 
@@ -29,13 +28,12 @@ class NotificationCard extends StatelessWidget {
             children: [
               const Spacer(),
               SizedBox(
-                width: MediaQuery.of(context).size.width* 0.63,
+                width: MediaQuery.of(context).size.width * 0.65,
                 child: Text(
                   //"أكملت 30 ساعة تطوعية",
                   notification.title,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 22,
+                  style: Constants.largeText.copyWith(
                     letterSpacing: 0.4,
                     fontWeight: FontWeight.bold,
                   ),
@@ -44,9 +42,8 @@ class NotificationCard extends StatelessWidget {
               Text(
                 //"أكملت لجنتك 500 ساعة تطوعية",
                 notification.name,
-                style: const TextStyle(
-                  height: 1.6,
-                  fontSize: 17,
+                style: Constants.mediumText.copyWith(
+                  height: 1.5,
                   letterSpacing: -0.25,
                   color: Constants.black2,
                   overflow: TextOverflow.ellipsis,
@@ -57,8 +54,9 @@ class NotificationCard extends StatelessWidget {
           ),
           HelperFunctions.notificationImage(
               imageUrl: notification.picture ?? '',
-              height: 60,
-              width: 60,
+              width: 60 > MediaQuery.of(context).size.width * 0.2
+                  ? MediaQuery.of(context).size.width * 0.2
+                  : 60,
               fit: BoxFit.contain),
         ],
       ),

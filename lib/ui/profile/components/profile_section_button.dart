@@ -18,13 +18,12 @@ class ProfileSectionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 13),
-      child: ElevatedButton(
+      child: MaterialButton(
+        padding: const EdgeInsets.all(12),
+        color: Constants.white,
         onPressed: onTap,
-        style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.all(12),
-            backgroundColor: Constants.white,
-            shape: RoundedRectangleBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(15)))),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
