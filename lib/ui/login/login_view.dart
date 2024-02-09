@@ -112,7 +112,7 @@ class LoginView extends StatelessWidget {
       builder: (context) => AlertDialog(
         backgroundColor: Constants.background,
         scrollable: true,
-        content: Container(
+        content: SizedBox(
           width: MediaQuery.of(context).size.width * 0.7,
           height: MediaQuery.of(context).size.height * 0.16,
           child: Form(
@@ -149,7 +149,7 @@ class LoginView extends StatelessWidget {
                 }
               },
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 4),
+                padding: const EdgeInsets.symmetric(vertical: 4),
                 decoration: BoxDecoration(
                   color: Constants.blueButton,
                   borderRadius: BorderRadius.circular(10),
@@ -158,7 +158,7 @@ class LoginView extends StatelessWidget {
                 child: Center(
                   child: Text(
                     isBusy ? 'جاري الارسال' : 'ارسال',
-                    style: TextStyle(color: Constants.white, fontSize: 18),
+                    style: const TextStyle(color: Constants.white, fontSize: 18),
                   ),
                 ),
               ),

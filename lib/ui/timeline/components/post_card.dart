@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
-import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:gdsc_app/ui/timeline/components/post_content.dart';
 import 'package:gdsc_app/ui/timeline/components/post_info.dart';
 import 'package:gdsc_app/ui/timeline/components/post_options.dart';
 import '../../../core/models/post.dart';
-import '../../../core/utils/date_helper.dart';
 
 class PostCard extends StatelessWidget {
   final Post post;

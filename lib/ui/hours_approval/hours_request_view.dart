@@ -75,8 +75,8 @@ class HoursRequestBody extends StatelessWidget {
                                     ? Constants.blueButton
                                     : Constants.black,
                           ),
-                          constraints: BoxConstraints(),
-                          padding: EdgeInsets.all(8),
+                          constraints: const BoxConstraints(),
+                          padding: const EdgeInsets.all(8),
                         )),
                     tabBarWidthMultiplier: 0.775,
                     tabs: const [

@@ -10,7 +10,7 @@ Widget NotificationsCard({required Notifications notification}) {
           borderRadius: BorderRadius.circular(20),
           boxShadow: const [
             BoxShadow(
-                color: Color(0xFC1C1C1), blurRadius: 6, offset: Offset(0, 2))
+                color: Color(0x0fc1c1c1), blurRadius: 6, offset: Offset(0, 2))
           ]),
       height: 135,
       width: 385,

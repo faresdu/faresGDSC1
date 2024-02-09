@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
-import '../../../core/models/gdsc_user.dart';
 import '../../../core/models/member.dart';
-import '../../../core/models/semester.dart';
 import '../../../core/utils/constants.dart';
-import 'package:provider/provider.dart';
 
 import 'calender_week.dart';
 

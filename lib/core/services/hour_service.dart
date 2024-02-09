@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:gdsc_app/core/enums/tables.dart';
 import 'package:gdsc_app/core/enums/views.dart';
-import 'package:gdsc_app/core/models/committee.dart';
 import 'package:gdsc_app/core/models/hour_request.dart';
 import 'package:gdsc_app/core/models/volunteer_hours.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';

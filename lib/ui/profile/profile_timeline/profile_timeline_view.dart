@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../core/models/gdsc_user.dart';
-import '../../../core/utils/constants.dart';
 import '../../widgets/circle_button.dart';
 
 class ProfileTimelineView extends StatefulWidget {

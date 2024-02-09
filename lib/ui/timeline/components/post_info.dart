@@ -87,7 +87,7 @@ class PostInfo extends StatelessWidget {
                     },
                     itemBuilder: (context) => [
                           PopupMenuItem(
-                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
                             value: 'delete',
                             child: Text(
                               'حذف المنشوره',

@@ -69,7 +69,7 @@ class _AddEventViewState extends State<EditEventView> {
                                 children: [
                                   Container(
                                     margin:
-                                        EdgeInsets.only(right: 4, bottom: 4),
+                                        const EdgeInsets.only(right: 4, bottom: 4),
                                     child: SubmitButton(
                                       text: "حذف الفعاليه",
                                       color: Constants.red.withOpacity(0.85),

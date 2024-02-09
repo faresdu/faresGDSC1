@@ -45,7 +45,7 @@ class ActiveRequestCard extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.45,
                       child: Text(
                         request.userName,
@@ -128,7 +128,7 @@ class ActiveRequestCard extends StatelessWidget {
                     const SizedBox(
                       width: 10,
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.58,
                       child: Text(
                         request.reasoning,

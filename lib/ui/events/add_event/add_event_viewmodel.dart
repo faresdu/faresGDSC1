@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/enums/s3.dart';
 import 'package:gdsc_app/core/services/s3_service.dart';
-import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:image_picker/image_picker.dart';
