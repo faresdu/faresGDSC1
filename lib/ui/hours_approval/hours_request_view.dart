@@ -118,6 +118,7 @@ class HoursRequestBody extends StatelessWidget {
                       ),
                       PreviousHoursRequestView(
                         previousRequests: viewmodel.getPreviousRequests,
+                        onApproveOrReject: viewmodel.onApproveOrReject,
                       )
                     ]),
                   ),

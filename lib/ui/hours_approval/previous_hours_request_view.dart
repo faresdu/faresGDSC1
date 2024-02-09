@@ -4,9 +4,13 @@ import '../../core/models/hour_request.dart';
 import 'components/active_request_card.dart';
 
 class PreviousHoursRequestView extends StatelessWidget {
-  const PreviousHoursRequestView({Key? key, required this.previousRequests})
+  const PreviousHoursRequestView(
+      {Key? key,
+      required this.previousRequests,
+      required this.onApproveOrReject})
       : super(key: key);
   final List<HourRequest> previousRequests;
+  final void Function(HourRequest request, bool status) onApproveOrReject;
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +19,10 @@ class PreviousHoursRequestView extends StatelessWidget {
       child: ListView.builder(
           shrinkWrap: true,
           itemCount: previousRequests.length,
-          itemBuilder: (context, index) =>
-              ActiveRequestCard(request: previousRequests[index])),
+          itemBuilder: (context, index) => ActiveRequestCard(
+                request: previousRequests[index],
+                onUpdate: onApproveOrReject,
+              )),
     );
   }
 }

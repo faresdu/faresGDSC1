@@ -19,7 +19,11 @@ class CustomTabBar extends StatelessWidget {
         children: [
           Flexible(
             flex: widget == null ? 1 : 0,
-            child: SizedBox(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                boxShadow: Constants.shadow3,
+              ),
               width: widget == null
                   ? null
                   : MediaQuery.of(context).size.width *

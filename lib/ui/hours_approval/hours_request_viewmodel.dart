@@ -78,6 +78,10 @@ class HoursRequestViewModel extends BaseViewModel {
     }
   }
 
+  onApproveOrReject(HourRequest request, bool status) {
+    updateHourRequest(request, status);
+  }
+
   getRelatedCommittees() async {
     setBusy(true);
     await appService.getCommittees().then((value) => committees = value);
@@ -131,13 +135,18 @@ class HoursRequestViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> updateHourRequest(HourRequest request, bool status) async {
+  Future<void> updateHourRequest(HourRequest request, bool status,
+      {bool isPrevious = false}) async {
     try {
       setBusy(true);
       await hourService.updateHourRequest(request.id, status);
-      upcomingRequests.remove(request);
-      request.approved = status;
-      previousRequests.add(request);
+      if (isPrevious) {
+        request.approved = status;
+      } else {
+        upcomingRequests.remove(request);
+        request.approved = status;
+        previousRequests.add(request);
+      }
       notifyListeners();
     } catch (e) {
       print(e);
