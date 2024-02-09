@@ -4,6 +4,8 @@ import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:gdsc_app/ui/widgets/custom_tab_bar.dart';
 import 'package:gdsc_app/ui/timeline/components/post_card.dart';
+import 'package:gdsc_app/ui/widgets/custom_tab_bar.dart';
+import 'package:gdsc_app/ui/timeline/components/post_card.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 

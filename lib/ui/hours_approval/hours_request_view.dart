@@ -7,6 +7,7 @@ import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:stacked/stacked.dart';
 
 import '../widgets/custom_tab_bar.dart';
+import '../widgets/custom_tab_bar.dart';
 import 'hours_request_viewmodel.dart';
 
 class HoursRequestView extends StatefulWidget {
