@@ -55,7 +55,7 @@ class _FeaturedNotificationsState extends State<FeaturedNotifications> {
         const SizedBox(height: 10),
         DotsIndicator(
             dotsCount: widget.notifications.length,
-            position: _current.toDouble(),
+            position: _current,
             decorator: const DotsDecorator(
               color: Constants.inactiveDotColor,
               activeColor: Constants.primaryLightBlue,

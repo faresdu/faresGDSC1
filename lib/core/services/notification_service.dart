@@ -12,22 +12,20 @@ class NotificationService {
 
   Future<List<Notifications>> getNotifications({int? limit}) async {
     try {
-      PostgrestResponse<dynamic> res;
+      List<Map<String, dynamic>> res;
       if (limit != null) {
         res = await _supabaseService.supabaseClient
             .from(GDSCViews.notifications)
             .select()
             .limit(limit)
-            .order('created_at')
-            .execute();
+            .order('created_at');
       } else {
         res = await _supabaseService.supabaseClient
             .from(GDSCViews.notifications)
             .select()
-            .order('created_at')
-            .execute();
+            .order('created_at');
       }
-      return (res.data as List).map((e) => Notifications.fromJson(e)).toList();
+      return res.map((e) => Notifications.fromJson(e)).toList();
     } catch (e, sT) {
       await Sentry.captureException(
         e,
@@ -42,13 +40,8 @@ class NotificationService {
       final PostgrestResponse<dynamic> res = await _supabaseService
           .supabaseClient
           .from(GDSCTables.notifications)
-          .insert(notification.toJson())
-          .execute();
-      print('added notification code: ${res.status}');
-      if (res.hasError) {
-        print(res.error!.message);
-        throw res.error!.message;
-      }
+          .insert(notification.toJson());
+      // print('added notification code: ${res.status}');
     } catch (e, sT) {
       await Sentry.captureException(
         e,
@@ -64,11 +57,7 @@ class NotificationService {
           .supabaseClient
           .from(GDSCTables.notifications)
           .delete()
-          .eq('notification_id', id)
-          .execute();
-      if (res.hasError) {
-        throw res.error!.message;
-      }
+          .eq('notification_id', id);
     } catch (e, sT) {
       await Sentry.captureException(
         e,

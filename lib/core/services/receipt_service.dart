@@ -14,8 +14,7 @@ class ReceiptService {
   Future<Receipt> sendReceipt(Receipt receipt, String bankId) async {
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
         .from(GDSCTables.receipts)
-        .insert(receipt.toJson(bankId: bankId))
-        .execute();
+        .insert(receipt.toJson(bankId: bankId));
 
     return Receipt.fromJson(res.data.first);
   }
@@ -25,10 +24,7 @@ class ReceiptService {
       final PostgrestResponse<dynamic> res = await _supabaseService
           .supabaseClient
           .from(GDSCTables.receipts)
-          .update({'status': status}).match({'id': id}).execute();
-      if (res.hasError) {
-        throw 'Unable to update Receipt: ${res.error}';
-      }
+          .update({'status': status}).match({'id': id});
     } catch (e, sT) {
       await Sentry.captureException(
         e,
@@ -43,16 +39,11 @@ class ReceiptService {
 
   Future<List<Receipt>> fetchAllReceipts() async {
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService
+      final List<Map<String, dynamic>> res = await _supabaseService
           .supabaseClient
           .from(GDSCTables.receipts)
-          .select('*')
-          .execute();
-      if (res.hasError) {
-        throw 'Unable to fetch all Receipts: ${res.error}';
-      }
-
-      return (res.data as List).map((e) => Receipt.fromJson(e)).toList();
+          .select('*');
+      return res.map((e) => Receipt.fromJson(e)).toList();
     } catch (e, sT) {
       await Sentry.captureException(
         e,
@@ -68,24 +59,19 @@ class ReceiptService {
   Future<BankAccount> createBankAccount(BankAccount bankAccount) async {
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
         .from(GDSCTables.bankAccounts)
-        .insert(bankAccount.toJson())
-        .execute();
+        .insert(bankAccount.toJson());
     return BankAccount.fromJson(res.data.first);
   }
 
   Future<List<BankAccount>> fetchBankAccounts(String userId) async {
     try {
-      final PostgrestResponse<dynamic> res =
-          await _supabaseService.supabaseClient
-              .from(GDSCTables.bankAccounts)
-              .select('*')
-              .eq('user_id', userId)
-              // .eq('deleted_at', null)
-              .execute();
-      if (res.hasError) {
-        throw 'Unable to fetch all BankAccounts: ${res.error}';
-      }
-      return (res.data as List).map((e) => BankAccount.fromJson(e)).toList();
+      final List<Map<String, dynamic>> res = await _supabaseService
+          .supabaseClient
+          .from(GDSCTables.bankAccounts)
+          .select('*')
+          .eq('user_id', userId);
+      // .eq('deleted_at', null)
+      return res.map((e) => BankAccount.fromJson(e)).toList();
     } catch (e, sT) {
       await Sentry.captureException(
         e,

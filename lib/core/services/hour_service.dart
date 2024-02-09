@@ -17,24 +17,22 @@ class HourService {
 
   Future<List<HourRequest>> getUpcomingHourRequests(String committeeId) async {
     final Map<String, dynamic> payload = {'committee_id': committeeId};
-    final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
+    final List<Map<String, dynamic>> res = await _supabaseService.supabaseClient
         .from(GDSCTables.volunteerHours)
         .select('*, Users!inner(name, profile_picture)')
-        .is_('approved', null)
-        .match(payload)
-        .execute();
-    return (res.data as List).map((e) => HourRequest.fromJson(e)).toList();
+        .isFilter('approved', null)
+        .match(payload);
+    return res.map((e) => HourRequest.fromJson(e)).toList();
   }
 
   Future<List<HourRequest>> getPreviousHourRequests(String committeeId) async {
     final Map<String, dynamic> payload = {'committee_id': committeeId};
-    final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
+    final List<Map<String, dynamic>> res = await _supabaseService.supabaseClient
         .from(GDSCTables.volunteerHours)
         .select('*, Users!inner(name, profile_picture)')
         .not('approved', 'is', null)
-        .match(payload)
-        .execute();
-    return (res.data as List).map((e) => HourRequest.fromJson(e)).toList();
+        .match(payload);
+    return res.map((e) => HourRequest.fromJson(e)).toList();
   }
 
   Future<VolunteerHours> sendHourRequest(String reason, int hours) async {
@@ -46,28 +44,21 @@ class HourService {
     };
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
         .from(GDSCTables.volunteerHours)
-        .insert(payload)
-        .execute();
+        .insert(payload);
     return VolunteerHours.fromJson(res.data.first);
   }
 
   Future<void> updateHourRequest(String id, bool status) async {
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
         .from(GDSCTables.volunteerHours)
-        .update({'approved': status}).match({'volunteer_id': id}).execute();
-    if (res.status != null && (res.status! < 200 || res.status! > 299)) {
-      throw 'Unable to update Hour Request';
-    }
+        .update({'approved': status}).match({'volunteer_id': id});
   }
 
   Future<void> removeHourRequest(String id) async {
     final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
         .from(GDSCTables.volunteerHours)
         .delete()
-        .match({'volunteer_id': id}).execute();
-    if (res.status != null && (res.status! < 200 || res.status! > 299)) {
-      throw 'Unable to update Hour Request';
-    }
+        .match({'volunteer_id': id});
   }
 
   Future<int> getCumulativeCommitteeHours() async {
@@ -75,13 +66,12 @@ class HourService {
       'committee_id': _userService.user.committee.id
     };
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService
+      final List<Map<String, dynamic>> res = await _supabaseService
           .supabaseClient
           .from(GDSCViews.leaderboard)
           .select('hours')
-          .match(payload)
-          .execute();
-      final hours = (res.data as List)
+          .match(payload);
+      final hours = res
           .map((e) => (e['hours']).toString().parseInt)
           .fold(0, (int p, c) => p + c);
       return hours;
@@ -100,13 +90,12 @@ class HourService {
   Future<int> getCumulativeHours() async {
     final Map<String, dynamic> payload = {'user_id': _userService.user.id};
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService
+      final List<Map<String, dynamic>> res = await _supabaseService
           .supabaseClient
           .from(GDSCViews.leaderboard)
           .select('hours')
-          .match(payload)
-          .execute();
-      return res.data.first['hours'].toString().parseInt;
+          .match(payload);
+      return res.first['hours'].toString().parseInt;
     } catch (e, sT) {
       await Sentry.captureException(
         e,

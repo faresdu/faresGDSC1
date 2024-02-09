@@ -13,13 +13,9 @@ class SocialMediaService {
     try {
       final res = await _supabaseService.supabaseClient
           .from(GDSCTables.socialMedia)
-          .select('*')
-          .execute();
-      if (res.error != null) {
-        throw res.error!.message;
-      }
-      print(res.toJson());
-      return (res.data as List).map((e) => SocialMedia.fromJson(e)).toList();
+          .select('*');
+      // print(res.toJson());
+      return res.map((e) => SocialMedia.fromJson(e)).toList();
     } catch (e, sT) {
       await Sentry.captureException(
         e,
@@ -35,8 +31,7 @@ class SocialMediaService {
       userSocialMedia.userId = _userService.user.id;
       final res = await _supabaseService.supabaseClient
           .from(GDSCTables.userSocials)
-          .insert(userSocialMedia.toJson(toUserSocials: true))
-          .execute();
+          .insert(userSocialMedia.toJson(toUserSocials: true));
       if (res.error != null) {
         throw res.error!.message;
       }
@@ -56,9 +51,7 @@ class SocialMediaService {
       final res = await _supabaseService.supabaseClient
           .from(GDSCTables.userSocials)
           .delete()
-          .match(payload)
-          .execute();
-
+          .match(payload);
       if (res.error != null) {
         throw res.error!.message;
       }

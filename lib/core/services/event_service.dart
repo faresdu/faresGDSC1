@@ -26,22 +26,20 @@ class EventService {
 
   Future<List<Event>> getEvents({bool filtered = false}) async {
     try {
-      PostgrestResponse<dynamic> res;
+      List<Map<String, dynamic>> res;
       if (filtered) {
         res = await _supabaseService.supabaseClient
             .from(GDSCViews.events)
             .select()
             .gte('start_date', DateTime.now())
-            .order('start_date', ascending: true)
-            .execute();
+            .order('start_date', ascending: true);
       } else {
         res = await _supabaseService.supabaseClient
             .from(GDSCViews.events)
             .select()
-            .order('start_date', ascending: true)
-            .execute();
+            .order('start_date', ascending: true);
       }
-      return (res.data as List).map((e) => Event.fromJson(e)).toList();
+      return res.map((e) => Event.fromJson(e)).toList();
     } catch (e) {
       throw 'Failed to get Events, ERROR : $e';
     }
@@ -52,15 +50,13 @@ class EventService {
       final PostgrestResponse<dynamic> res = await _supabaseService
           .supabaseClient
           .from(GDSCTables.events)
-          .insert(event.toJson())
-          .execute();
-      if (res.error != null) {
-        throw res.error!.message;
-      }
+          .insert(event.toJson());
       final eId = res.data[0]["event_id"];
       if (eId != null) {
         await showEvent(eId);
       }
+    } on PostgrestException catch (e) {
+      throw 'Failed to add Event, ERROR : $e';
     } catch (e) {
       throw 'Failed to add Event, ERROR : $e';
     }
@@ -77,11 +73,7 @@ class EventService {
           .supabaseClient
           .from(GDSCTables.events)
           .update(event.toJson())
-          .eq('event_id', event.eventID)
-          .execute();
-      if (res.error != null) {
-        throw res.error!.message;
-      }
+          .eq('event_id', event.eventID);
       final eId = res.data[0]["event_id"];
       final editedEvent =
           events.firstWhere((element) => element.eventID == eId);
@@ -106,17 +98,13 @@ class EventService {
           .supabaseClient
           .from(GDSCTables.events)
           .delete()
-          .eq('event_id', id)
-          .execute();
-      print(res.data);
+          .eq('event_id', id);
+      // print(res.data);
       final deletedEvent = Event.fromJson(res.data[0]);
       if (deletedEvent.flyer != null &&
           deletedEvent.flyer!.contains(APIConfig.s3BucketName)) {
         _s3Service.deleteFile(
             "${S3FolderPaths.events}/${deletedEvent.flyer!.split("/").last}");
-      }
-      if (res.error != null) {
-        throw res.error!.message;
       }
     } catch (e, sT) {
       await Sentry.captureException(
@@ -135,10 +123,7 @@ class EventService {
           .insert({
         'event_id': eId,
         'user_id': _userService.user.id,
-      }).execute();
-      if (res.error != null) {
-        throw res.error!.message;
-      }
+      });
     } catch (e, sT) {
       await Sentry.captureException(
         e,
@@ -155,11 +140,7 @@ class EventService {
           .supabaseClient
           .from(GDSCTables.eventAttendees)
           .delete()
-          .match(payload)
-          .execute();
-      if (res.error != null) {
-        throw res.error!.message;
-      }
+          .match(payload);
     } catch (e, sT) {
       await Sentry.captureException(
         e,
@@ -172,11 +153,9 @@ class EventService {
   Stream<List<Event>> subscribeToEvents() {
     return _supabaseService.supabaseClient
         .from(GDSCTables.eventAttendees)
-        .stream(['event_id'])
-        .execute()
-        .asyncMap<List<Event>>((event) {
-          return getEvents();
-        });
+        .stream(primaryKey: ['event_id']).asyncMap<List<Event>>((event) {
+      return getEvents();
+    });
   }
 
   Future<void> listenToAllEvents() async {

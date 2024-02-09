@@ -12,6 +12,7 @@ import '../models/leaderboard_member.dart';
 
 class SupabaseService {
   static late SupabaseClient _supabaseClient;
+
   SupabaseClient get supabaseClient => _supabaseClient;
 
   static Future<void> initialize() async {
@@ -32,32 +33,31 @@ class SupabaseService {
   }
 
   static Future<void> _restoreCurrentUser() async {
-    //Pull PERSIST_SESSION_KEY
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? session = prefs.getString('PERSIST_SESSION_KEY');
+    try {
+      //Pull PERSIST_SESSION_KEY
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? session = prefs.getString('PERSIST_SESSION_KEY');
 
-    if (session != null) {
-      //Recover Session
-      GotrueSessionResponse response =
-          await _supabaseClient.auth.recoverSession(session);
+      if (session != null) {
+        //Recover Session
+        AuthResponse response =
+            await _supabaseClient.auth.recoverSession(session);
 
-      //Error Occurred
-      if (response.error != null) {
-        prefs.remove('PERSIST_SESSION_KEY');
-      } else {
-        prefs.setString(
-            'PERSIST_SESSION_KEY', response.data!.persistSessionString);
+        prefs.setString('PERSIST_SESSION_KEY', response.session!.accessToken);
       }
       print(
           'Recovered Successfully : ${_supabaseClient.auth.currentUser?.email}');
+    } on AuthException {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.remove('PERSIST_SESSION_KEY');
     }
   }
 
   Future<List<Committee>> getCommittees() async {
     try {
-      final PostgrestResponse<dynamic> res =
-          await supabaseClient.from(GDSCTables.committees).select().execute();
-      return (res.data as List).map((e) => Committee.fromJson(e)).toList();
+      final List<Map<String, dynamic>> res =
+          await supabaseClient.from(GDSCTables.committees).select();
+      return res.map((e) => Committee.fromJson(e)).toList();
     } catch (e, sT) {
       await Sentry.captureException(
         e,
@@ -69,14 +69,10 @@ class SupabaseService {
 
   Future<List<LeaderboardMember>> getLeaderboardMembers() async {
     try {
-      final PostgrestResponse<dynamic> res = await supabaseClient
+      final List<Map<String, dynamic>> res = await supabaseClient
           .from(GDSCViews.leaderboard)
-          .select('*, Committees:committee_id(*)')
-          .neq('name', null)
-          .execute();
-      return (res.data as List)
-          .map((e) => LeaderboardMember.fromJson(e))
-          .toList();
+          .select('*, Committees:committee_id(*)');
+      return (res).map((e) => LeaderboardMember.fromJson(e)).toList();
     } catch (e, sT) {
       await Sentry.captureException(
         e,
@@ -88,13 +84,12 @@ class SupabaseService {
 
   Future<List<Member>> getCommitteeMembers(String cId) async {
     try {
-      final PostgrestResponse<dynamic> res = await supabaseClient
+      final List<Map<String, dynamic>> res = await supabaseClient
           .from(GDSCViews.member)
           .select('*')
-          .eq('committee_id', cId)
-          .execute();
+          .eq('committee_id', cId);
       // print(res.data);
-      return (res.data as List).map((e) => Member.fromJson(e)).toList();
+      return res.map((e) => Member.fromJson(e)).toList();
     } catch (e, sT) {
       await Sentry.captureException(
         e,
@@ -107,11 +102,9 @@ class SupabaseService {
   Stream<GDSCUser> subscribeToUser(String id) {
     return supabaseClient
         .from(GDSCViews.profile)
-        .stream([id])
-        .execute()
-        .asyncMap<GDSCUser>((event) {
-          return getUser(id);
-        });
+        .stream(primaryKey: [id]).asyncMap<GDSCUser>((event) {
+      return getUser(id);
+    });
   }
 
   Future<GDSCUser> getUser(String id) async {
@@ -120,10 +113,9 @@ class SupabaseService {
           .from(GDSCViews.profile)
           .select('*')
           .eq('user_id', id)
-          .single()
-          .execute();
-      print(res.data);
-      return GDSCUser.fromJson(res.data);
+          .single();
+      // print(res.data);
+      return GDSCUser.fromJson(res);
     } catch (e, sT) {
       await Sentry.captureException(
         e,
@@ -139,9 +131,8 @@ class SupabaseService {
           .from(GDSCViews.profile)
           .select('*')
           .eq('user_id', id)
-          .single()
-          .execute();
-      return Member.fromJson(res.data);
+          .single();
+      return Member.fromJson(res);
     } catch (e, sT) {
       await Sentry.captureException(
         e,
@@ -156,10 +147,9 @@ class SupabaseService {
       final res = await supabaseClient
           .from(GDSCTables.users)
           .select('*')
-          .in_('user_id', memberIds)
-          .execute();
+          .inFilter('user_id', memberIds);
       // print(res.data);
-      return (res.data as List).map((e) => Member.fromJson(e)).toList();
+      return res.map((e) => Member.fromJson(e)).toList();
     } catch (e, sT) {
       await Sentry.captureException(
         e,

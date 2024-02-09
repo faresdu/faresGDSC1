@@ -41,10 +41,7 @@ class UserService {
           .supabaseClient
           .from(GDSCTables.users)
           .update(payload)
-          .match({'user_id': user.id}).execute();
-      if (res.hasError) {
-        throw res.error!.message;
-      }
+          .match({'user_id': user.id});
     } catch (e, sT) {
       await Sentry.captureException(
         e,

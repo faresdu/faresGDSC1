@@ -13,36 +13,24 @@ class AuthenticationService {
   Future<void> loginWithEmail(
       {required String email, required String password}) async {
     try {
-      GotrueSessionResponse response =
-          await _supabaseService.supabaseClient.auth.signIn(
+      AuthResponse response =
+          await _supabaseService.supabaseClient.auth.signInWithPassword(
         email: email,
         password: password,
       );
 
-      bool errorOccurred = response.error != null;
-
-      //Authentication Error Occurred
-      if (errorOccurred) {
-        throw response.error!;
-
-        //SignIn Successfully
-      } else {
-        //Store Current Session
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString(
-          'PERSIST_SESSION_KEY',
-          response.data!.persistSessionString,
-        );
-        await setUser();
-        // _userService.initUser(supabaseClient.auth.currentUser!.id);
-
-        print('Login Successfully : ${response.user?.email}');
-      }
-
-      //Authentication Error Catch
-    } on GotrueError catch (e) {
+      //Store Current Session
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString(
+        'PERSIST_SESSION_KEY',
+        response.session!.accessToken,
+      );
+      await setUser();
+      print('Login Successfully : ${response.user?.email}');
+    }
+    //Authentication Error Catch
+    on AuthException catch (e) {
       throw 'Authentication Failed : ${e.message}';
-
       //Unknown Error
     } catch (e, sT) {
       await Sentry.captureException(
@@ -53,21 +41,13 @@ class AuthenticationService {
     }
   }
 
-  User? getCurrentUser() {
-    return _supabaseService.supabaseClient.auth.currentUser;
-  }
-
   Future setUser() async {
-    try {
-      User? u = getCurrentUser();
-      if (u != null) {
-        await _userService.initUser(u.id);
-      } else {
-        print('user not initialized');
-        throw '';
-      }
-    } catch (e) {
-      rethrow;
+    User? u = _supabaseService.supabaseClient.auth.currentUser;
+    if (u != null) {
+      await _userService.initUser(u.id);
+    } else {
+      print('user not initialized');
+      throw '';
     }
   }
 
@@ -90,8 +70,7 @@ class AuthenticationService {
   Future<void> resetPassword(email) async {
     print(email);
     try {
-      await _supabaseService.supabaseClient.auth.api
-          .resetPasswordForEmail(email);
+      await _supabaseService.supabaseClient.auth.resetPasswordForEmail(email);
     } catch (e) {
       print(e);
       throw 'Failed to reset password, ERROR : $e';

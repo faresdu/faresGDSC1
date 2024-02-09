@@ -6,7 +6,6 @@ import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:supabase/supabase.dart';
 
 import '../app/app.locator.dart';
 
@@ -17,18 +16,14 @@ class SemesterService {
 
   Future<Semester> getCurrentSemester() async {
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService
+      final List<Map<String, dynamic>> res = await _supabaseService
           .supabaseClient
           .from(GDSCTables.semesters)
-          .select('*, ${GDSCTables.semesterBreaks}:semester_breaks(*)')
-          .execute();
-      if (res.hasError) {
-        throw "Failed to get Semester, ERROR: ${res.error?.message}";
-      }
+          .select('*, ${GDSCTables.semesterBreaks}:semester_breaks(*)');
 
       /// supabase gte lte doesn't work with dates for some reason so im doing it clientside
-      print(res.data);
-      final List<Semester> semesters = (res.data as List).map((s) {
+      // print(res.data);
+      final List<Semester> semesters = res.map((s) {
         print(s);
         return Semester.fromJson(s);
       }).toList();
