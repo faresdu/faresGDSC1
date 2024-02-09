@@ -9,7 +9,7 @@ import '../../../widgets/custom_text_form_field.dart';
 import 'add_bank_account_viewmodel.dart';
 
 class AddBankAccountView extends StatefulWidget {
-  const AddBankAccountView({Key? key, this.onSubmit}) : super(key: key);
+  const AddBankAccountView({super.key, this.onSubmit});
   final void Function(BankAccount bank)? onSubmit;
 
   @override

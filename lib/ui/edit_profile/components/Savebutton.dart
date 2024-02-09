@@ -4,7 +4,7 @@ import '../../../core/utils/constants.dart';
 
 class SaveButton extends StatefulWidget {
   SaveButton(
-      {Key? key,
+      {super.key,
       this.onPressed,
       required this.color,
       required this.text,
@@ -12,8 +12,7 @@ class SaveButton extends StatefulWidget {
       this.padding,
       this.height,
       this.fontSize,
-      this.isLoading = false})
-      : super(key: key);
+      this.isLoading = false});
   final Function()? onPressed;
   final EdgeInsets? padding;
   final bool disabled;

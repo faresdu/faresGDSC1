@@ -14,14 +14,14 @@ class PostCard extends StatelessWidget {
   final void Function()? onUserTap;
 
   const PostCard({
-    Key? key,
+    super.key,
     required this.post,
     required this.onLike,
     required this.onUnLike,
     required this.userId,
     this.onUserTap,
     this.onDelete,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

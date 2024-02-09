@@ -8,8 +8,7 @@ class SocialsDropDownMenu extends StatelessWidget {
       {required this.title,
       required this.socialMedias,
       this.onChanged,
-      Key? key})
-      : super(key: key);
+      super.key});
   final String title;
 
   final List<SocialMedia> socialMedias;

@@ -16,7 +16,7 @@ import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/show_snackbar.dart';
 
 class EditEventView extends StatefulWidget {
-  const EditEventView({Key? key, required this.eventDetails}) : super(key: key);
+  const EditEventView({super.key, required this.eventDetails});
   final Event eventDetails;
 
   @override

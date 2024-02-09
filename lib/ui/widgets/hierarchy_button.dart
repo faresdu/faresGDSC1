@@ -8,8 +8,7 @@ class HierarchyButton extends StatelessWidget {
   final Committee committee;
 
   const HierarchyButton(
-      {Key? key, required this.onPressed, required this.committee})
-      : super(key: key);
+      {super.key, required this.onPressed, required this.committee});
 
   @override
   Widget build(BuildContext context) {

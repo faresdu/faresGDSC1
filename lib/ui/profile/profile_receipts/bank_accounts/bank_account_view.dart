@@ -8,7 +8,7 @@ import '../../../../core/utils/constants.dart';
 import 'bank_account_viewmodel.dart';
 
 class BankAccountView extends StatelessWidget {
-  const BankAccountView({Key? key}) : super(key: key);
+  const BankAccountView({super.key});
 
   @override
   Widget build(BuildContext context) {

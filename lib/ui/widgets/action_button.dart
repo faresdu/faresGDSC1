@@ -8,11 +8,11 @@ class ActionButton extends StatelessWidget {
   final bool isApprove;
 
   const ActionButton({
-    Key? key,
+    super.key,
     required this.onTap,
     required this.isApprove,
     this.text,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

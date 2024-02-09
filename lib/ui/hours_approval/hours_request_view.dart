@@ -10,7 +10,7 @@ import '../widgets/custom_tab_bar.dart';
 import 'hours_request_viewmodel.dart';
 
 class HoursRequestView extends StatefulWidget {
-  const HoursRequestView({Key? key}) : super(key: key);
+  const HoursRequestView({super.key});
 
   @override
   State<HoursRequestView> createState() => _HoursRequestViewState();

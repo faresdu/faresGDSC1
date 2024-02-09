@@ -6,9 +6,9 @@ import '../../../core/utils/helper_functions.dart';
 
 class EventAttendees extends StatelessWidget {
   const EventAttendees({
-    Key? key,
+    super.key,
     required this.attendees,
-  }) : super(key: key);
+  });
   final List<Member> attendees;
 
   @override

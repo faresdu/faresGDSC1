@@ -4,7 +4,7 @@ import 'package:gdsc_app/core/utils/constants.dart';
 class LoginButton extends StatelessWidget {
   final void Function() onPressed;
 
-  const LoginButton({Key? key, required this.onPressed}) : super(key: key);
+  const LoginButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

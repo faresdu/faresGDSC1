@@ -8,7 +8,7 @@ import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
 class AddSocialMediaView extends StatefulWidget {
-  const AddSocialMediaView({this.onSubmit, Key? key}) : super(key: key);
+  const AddSocialMediaView({this.onSubmit, super.key});
   final void Function(UserSocialMedia userSocialMedia)? onSubmit;
 
   @override

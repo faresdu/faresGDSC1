@@ -9,8 +9,7 @@ import '../../notifications/components/notification_card.dart';
 
 class FeaturedNotifications extends StatefulWidget {
   const FeaturedNotifications(
-      {Key? key, required this.onPressed, required this.notifications})
-      : super(key: key);
+      {super.key, required this.onPressed, required this.notifications});
   final void Function() onPressed;
   final List<Notifications> notifications;
 

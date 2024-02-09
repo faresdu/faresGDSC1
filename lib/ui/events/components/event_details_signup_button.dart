@@ -5,10 +5,10 @@ import '../../../core/utils/constants.dart';
 
 class EventDetailsSignupButton extends StatefulWidget {
   EventDetailsSignupButton({
-    Key? key,
+    super.key,
     this.isLoading = false,
     required this.eventType,
-  }) : super(key: key);
+  });
   EventType eventType;
   bool isLoading = false;
 

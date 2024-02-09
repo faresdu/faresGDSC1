@@ -13,8 +13,7 @@ class CircleButton extends StatelessWidget {
       this.padding,
       this.foregroundColor,
       this.backgroundColor,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   @override
   Widget build(BuildContext context) {

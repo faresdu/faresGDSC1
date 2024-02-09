@@ -13,7 +13,7 @@ import 'package:stacked/stacked.dart';
 import '../../widgets/show_snackbar.dart';
 
 class AddEventView extends StatefulWidget {
-  const AddEventView({Key? key}) : super(key: key);
+  const AddEventView({super.key});
 
   @override
   State<AddEventView> createState() => _AddEventViewState();

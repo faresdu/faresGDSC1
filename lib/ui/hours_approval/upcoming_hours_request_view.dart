@@ -5,10 +5,9 @@ import '../../core/models/hour_request.dart';
 
 class UpcomingHoursRequestView extends StatelessWidget {
   const UpcomingHoursRequestView(
-      {Key? key,
+      {super.key,
       required this.upcomingRequests,
-      required this.updateHourRequest})
-      : super(key: key);
+      required this.updateHourRequest});
   final List<HourRequest> upcomingRequests;
   final void Function(HourRequest request, bool status) updateHourRequest;
 

@@ -9,12 +9,11 @@ class SubmitButton extends StatelessWidget {
       this.disabled = false,
       required this.onPressed,
       this.isBusy = false,
-      Key? key,
+      super.key,
       this.borderRadius,
       this.width,
       this.height,
-      this.color})
-      : super(key: key);
+      this.color});
   final String text;
   final bool disabled;
   final bool isBusy;

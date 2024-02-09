@@ -13,7 +13,7 @@ class CustomInputField extends StatelessWidget {
   final Iterable<String>? autofillHints;
 
   const CustomInputField({
-    Key? key,
+    super.key,
     required this.hintText,
     this.validator,
     this.onSaved,
@@ -22,7 +22,7 @@ class CustomInputField extends StatelessWidget {
     this.focusNode,
     this.autofocus = false,
     this.autofillHints,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

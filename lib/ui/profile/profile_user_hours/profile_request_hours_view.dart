@@ -8,7 +8,7 @@ import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
 class ProfileRequestHoursView extends StatefulWidget {
-  const ProfileRequestHoursView({this.onSubmit, Key? key}) : super(key: key);
+  const ProfileRequestHoursView({this.onSubmit, super.key});
   final void Function(VolunteerHours volunteerHours)? onSubmit;
   @override
   State<ProfileRequestHoursView> createState() =>

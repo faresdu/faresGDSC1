@@ -9,7 +9,7 @@ import 'package:stacked/stacked.dart';
 import '../widgets/custom_tab_bar_controller.dart';
 
 class EventsView extends StatefulWidget {
-  const EventsView({Key? key}) : super(key: key);
+  const EventsView({super.key});
 
   @override
   State<EventsView> createState() => _EventsViewState();

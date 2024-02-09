@@ -7,7 +7,7 @@ import 'package:stacked/stacked.dart';
 import 'committee_members_viewmodel.dart';
 
 class CommitteeMembersView extends StatelessWidget {
-  const CommitteeMembersView({Key? key}) : super(key: key);
+  const CommitteeMembersView({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -4,8 +4,7 @@ import '../../core/utils/constants.dart';
 
 class CustomTabBar extends StatelessWidget {
   const CustomTabBar(
-      {Key? key, this.widget, required this.tabs, this.tabBarWidthMultiplier})
-      : super(key: key);
+      {super.key, this.widget, required this.tabs, this.tabBarWidthMultiplier});
 
   final Widget? widget;
   final List<Tab> tabs;

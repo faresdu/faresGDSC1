@@ -11,12 +11,12 @@ import '../../../core/utils/constants.dart';
 
 class EventCard extends StatelessWidget {
   const EventCard({
-    Key? key,
+    super.key,
     required this.event,
     required this.onPressed,
     required this.signUpButton,
     required this.canEdit,
-  }) : super(key: key);
+  });
   final Event event;
   final Function() onPressed;
   final Widget signUpButton;

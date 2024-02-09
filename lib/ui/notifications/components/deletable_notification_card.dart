@@ -5,8 +5,7 @@ import 'package:gdsc_app/ui/widgets/deletable_item_card.dart';
 
 class DeletableNotificationCard extends StatelessWidget {
   const DeletableNotificationCard(
-      {Key? key, required this.notification, required this.onDelete})
-      : super(key: key);
+      {super.key, required this.notification, required this.onDelete});
   final Notifications notification;
   final void Function(Notifications notification) onDelete;
 

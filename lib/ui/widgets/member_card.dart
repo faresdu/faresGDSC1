@@ -8,8 +8,7 @@ class MemberCard extends StatelessWidget {
   final String? role;
 
   const MemberCard(
-      {Key? key, required this.onPressed, required this.member, this.role})
-      : super(key: key);
+      {super.key, required this.onPressed, required this.member, this.role});
 
   @override
   Widget build(BuildContext context) {

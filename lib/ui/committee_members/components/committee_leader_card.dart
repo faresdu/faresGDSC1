@@ -9,8 +9,7 @@ class CommitteeLeaderCard extends StatelessWidget {
   final void Function(String id)? onTap;
 
   const CommitteeLeaderCard(
-      {required this.member, this.isCoLeader, this.onTap, Key? key})
-      : super(key: key);
+      {required this.member, this.isCoLeader, this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {

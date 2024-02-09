@@ -11,7 +11,7 @@ import 'package:stacked/stacked.dart';
 import '../components/social_media_card.dart';
 
 class ProfileSocialsView extends StatefulWidget {
-  const ProfileSocialsView({Key? key}) : super(key: key);
+  const ProfileSocialsView({super.key});
 
   @override
   State<ProfileSocialsView> createState() => _ProfileSocialsViewState();

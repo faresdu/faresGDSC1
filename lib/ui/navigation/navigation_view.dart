@@ -6,7 +6,7 @@ import 'navigation_button.dart';
 import 'navigation_viewmodel.dart';
 
 class NavigationView extends StatefulWidget {
-  const NavigationView({Key? key}) : super(key: key);
+  const NavigationView({super.key});
 
   @override
   State<NavigationView> createState() => _NavigationViewState();

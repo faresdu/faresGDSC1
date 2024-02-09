@@ -7,7 +7,7 @@ import 'package:gdsc_app/ui/widgets/hierarchy_button.dart';
 import 'package:stacked/stacked.dart';
 
 class HierarchyView extends StatefulWidget {
-  const HierarchyView({Key? key}) : super(key: key);
+  const HierarchyView({super.key});
 
   @override
   State<HierarchyView> createState() => _HierarchyViewState();

@@ -5,11 +5,10 @@ import '../../../core/utils/constants.dart';
 
 class EventCardButton extends StatefulWidget {
   EventCardButton(
-      {Key? key,
+      {super.key,
       required this.eventType,
       this.fontSize,
-      this.isLoading = false})
-      : super(key: key);
+      this.isLoading = false});
   final double? fontSize;
   final EventType eventType;
   bool isLoading = false;

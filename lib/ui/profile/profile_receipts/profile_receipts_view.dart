@@ -9,7 +9,7 @@ import 'package:stacked/stacked.dart';
 import '../../widgets/custom_tab_bar.dart';
 
 class ProfileReceiptsView extends StatelessWidget {
-  const ProfileReceiptsView({Key? key}) : super(key: key);
+  const ProfileReceiptsView({super.key});
 
   @override
   Widget build(BuildContext context) {

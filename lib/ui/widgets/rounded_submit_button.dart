@@ -8,8 +8,7 @@ class RoundedSubmitButton extends StatelessWidget {
       required this.onPressed,
       this.isBusy = false,
       this.fixedSize = const Size(90, 40),
-      Key? key})
-      : super(key: key);
+      super.key});
   final Size? fixedSize;
   final String text;
   final bool isBusy;

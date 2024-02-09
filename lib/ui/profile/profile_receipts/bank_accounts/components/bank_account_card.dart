@@ -4,8 +4,7 @@ import 'package:gdsc_app/core/models/bank_account.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
 
 class BankAccountCard extends StatelessWidget {
-  const BankAccountCard({required this.bankAccount, Key? key})
-      : super(key: key);
+  const BankAccountCard({required this.bankAccount, super.key});
 
   final BankAccount bankAccount;
 

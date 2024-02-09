@@ -10,7 +10,7 @@ import 'package:gdsc_app/ui/widgets/custom_tab_bar_controller.dart';
 import 'package:stacked/stacked.dart';
 
 class ProfileEventsView extends StatelessWidget {
-  const ProfileEventsView({Key? key}) : super(key: key);
+  const ProfileEventsView({super.key});
 
   @override
   Widget build(BuildContext context) {

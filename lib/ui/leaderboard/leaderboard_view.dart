@@ -10,8 +10,8 @@ import 'package:stacked/stacked.dart';
 
 class LeaderboardView extends StatelessWidget {
   const LeaderboardView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LeaderboardViewModel>.reactive(

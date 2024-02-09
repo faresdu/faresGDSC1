@@ -4,8 +4,7 @@ import '../../core/models/hour_request.dart';
 import 'components/active_request_card.dart';
 
 class PreviousHoursRequestView extends StatelessWidget {
-  const PreviousHoursRequestView({Key? key, required this.previousRequests})
-      : super(key: key);
+  const PreviousHoursRequestView({super.key, required this.previousRequests});
   final List<HourRequest> previousRequests;
 
   @override

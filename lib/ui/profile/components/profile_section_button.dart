@@ -7,8 +7,7 @@ class ProfileSectionButton extends StatelessWidget {
       required this.color,
       required this.icon,
       this.onTap,
-      Key? key})
-      : super(key: key);
+      super.key});
   final void Function()? onTap;
   final String title;
   final Color color;

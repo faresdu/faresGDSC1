@@ -5,11 +5,10 @@ import 'package:gdsc_app/core/utils/helper_functions.dart';
 
 class LeaderboardItem extends StatelessWidget {
   const LeaderboardItem(
-      {Key? key,
+      {super.key,
       required this.member,
       required this.index,
-      this.navigateToProfile})
-      : super(key: key);
+      this.navigateToProfile});
   final LeaderboardMember member;
   final int index;
   final void Function(String id)? navigateToProfile;

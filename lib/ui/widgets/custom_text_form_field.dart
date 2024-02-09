@@ -17,9 +17,9 @@ class CustomTextFormField extends StatelessWidget {
     this.onTap,
     this.enableInteractiveSelection,
     this.autoValidate = true,
-    Key? key,
+    super.key,
     this.style,
-  }) : super(key: key);
+  });
   final String? title;
   final TextStyle? style;
   final String? hintText;

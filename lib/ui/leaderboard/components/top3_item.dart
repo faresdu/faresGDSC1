@@ -6,7 +6,7 @@ import '../../../core/utils/helper_functions.dart';
 
 class Top3Item extends StatelessWidget {
   const Top3Item(
-      {Key? key,
+      {super.key,
       required this.member,
       required this.position,
       required this.width,
@@ -33,8 +33,7 @@ class Top3Item extends StatelessWidget {
       this.numSize = 37,
       this.top = 130,
       this.right = 38,
-      this.color})
-      : super(key: key);
+      this.color});
   final LeaderboardMember member;
   final void Function(String id)? navigateToProfile;
   final int position;

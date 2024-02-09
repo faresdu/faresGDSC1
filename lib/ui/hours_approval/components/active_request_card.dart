@@ -9,8 +9,7 @@ class ActiveRequestCard extends StatelessWidget {
   final Function(HourRequest request, bool status)? onUpdate;
   final HourRequest request;
 
-  const ActiveRequestCard({this.onUpdate, required this.request, Key? key})
-      : super(key: key);
+  const ActiveRequestCard({this.onUpdate, required this.request, super.key});
 
   @override
   Widget build(BuildContext context) {

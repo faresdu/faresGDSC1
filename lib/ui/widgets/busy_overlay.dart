@@ -7,8 +7,7 @@ class BusyOverlay extends StatefulWidget {
   final Widget child;
   final Color? background;
   const BusyOverlay(
-      {Key? key, required this.isBusy, required this.child, this.background})
-      : super(key: key);
+      {super.key, required this.isBusy, required this.child, this.background});
 
   @override
   State<BusyOverlay> createState() => _BusyOverlayState();

@@ -10,7 +10,7 @@ import 'components/welcome_widget.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({required this.updateScreen, Key? key}) : super(key: key);
+  const HomeView({required this.updateScreen, super.key});
   final void Function(int index) updateScreen;
 
   @override

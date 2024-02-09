@@ -1,46 +1,27 @@
 import 'package:gdsc_app/core/models/member.dart';
-import 'package:gdsc_app/core/models/post.dart';
-import 'package:gdsc_app/core/models/user_social_media.dart';
 import 'package:gdsc_app/core/models/volunteer_hours.dart';
 
-import 'committee.dart';
-import 'event.dart';
 
 class GDSCUser extends Member {
   GDSCUser(
-      {required String id,
-      required String sID,
-      required String name,
-      String? major,
-      String? photo,
-      String? role,
-      required Committee committee,
-      required List<UserSocialMedia> socials,
-      required List<Event> events,
-      required List<Post> posts,
+      {required super.id,
+      required super.sID,
+      required super.name,
+      super.major,
+      super.photo,
+      super.role,
+      required super.committee,
+      required super.socials,
+      required super.events,
+      required super.posts,
       required List<VolunteerHours> volunteers,
-      required int hours,
-      String? gender,
-      String? email,
-      String? phoneNumber,
-      bool isAdmin = false})
+      required super.hours,
+      super.gender,
+      super.email,
+      super.phoneNumber,
+      super.isAdmin})
       : super(
-            id: id,
-            sID: sID,
-            name: name,
-            email: email,
-            phoneNumber: phoneNumber,
-            photo: photo,
-            major: major,
-            committee: committee,
-            socials: socials,
-            events: events,
-            posts: posts,
-            volunteerHours: volunteers,
-            hours: hours,
-            role: role,
-            isAdmin: isAdmin,
-            gender: gender);
+            volunteerHours: volunteers);
 
   factory GDSCUser.anonymous() {
     Member m = Member.anonymous();

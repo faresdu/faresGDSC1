@@ -7,8 +7,7 @@ class CommitteeMemberCard extends StatelessWidget {
   final Member member;
   final void Function(String id)? onTap;
 
-  const CommitteeMemberCard({required this.member, this.onTap, Key? key})
-      : super(key: key);
+  const CommitteeMemberCard({required this.member, this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {

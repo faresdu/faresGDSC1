@@ -9,7 +9,7 @@ import 'package:stacked/stacked.dart';
 import 'package:provider/provider.dart';
 
 class TimeLineView extends StatefulWidget {
-  const TimeLineView({Key? key}) : super(key: key);
+  const TimeLineView({super.key});
 
   @override
   State<TimeLineView> createState() => _TimeLineViewState();

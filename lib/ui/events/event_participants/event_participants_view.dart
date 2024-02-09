@@ -6,7 +6,7 @@ import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:stacked/stacked.dart';
 
 class EventParticipantsView extends StatelessWidget {
-  const EventParticipantsView({Key? key}) : super(key: key);
+  const EventParticipantsView({super.key});
 
   @override
   Widget build(BuildContext context) {

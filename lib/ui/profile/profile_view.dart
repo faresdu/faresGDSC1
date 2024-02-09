@@ -10,7 +10,7 @@ import '../widgets/custom_app_bar.dart';
 import 'components/profile_card.dart';
 
 class ProfileView extends StatefulWidget {
-  const ProfileView({Key? key}) : super(key: key);
+  const ProfileView({super.key});
 
   @override
   State<ProfileView> createState() => _ProfileViewState();

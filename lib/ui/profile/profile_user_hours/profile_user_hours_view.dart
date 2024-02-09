@@ -11,7 +11,7 @@ import 'package:gdsc_app/ui/widgets/custom_tab_bar.dart';
 import 'package:stacked/stacked.dart';
 
 class ProfileUserHoursView extends StatefulWidget {
-  const ProfileUserHoursView({Key? key}) : super(key: key);
+  const ProfileUserHoursView({super.key});
 
   @override
   State<ProfileUserHoursView> createState() => _ProfileUserHoursViewState();

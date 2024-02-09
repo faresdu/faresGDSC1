@@ -11,7 +11,7 @@ import '../../../core/models/gdsc_user.dart';
 import '../../widgets/circle_button.dart';
 
 class ProfileTimelineView extends StatefulWidget {
-  const ProfileTimelineView({Key? key}) : super(key: key);
+  const ProfileTimelineView({super.key});
 
   @override
   State<ProfileTimelineView> createState() => _ProfileTimelineViewState();

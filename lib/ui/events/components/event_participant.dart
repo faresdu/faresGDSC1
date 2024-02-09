@@ -5,8 +5,7 @@ import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
 
 class EventParticipant extends StatelessWidget {
-  const EventParticipant({required this.member, this.onPressed, Key? key})
-      : super(key: key);
+  const EventParticipant({required this.member, this.onPressed, super.key});
   final Member member;
   final void Function()? onPressed;
   @override

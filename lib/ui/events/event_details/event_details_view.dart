@@ -11,7 +11,7 @@ TextStyle titleStyle =
     const TextStyle(fontSize: 24, fontWeight: FontWeight.w700, height: 3);
 
 class EventDetailsView extends StatefulWidget {
-  const EventDetailsView({Key? key}) : super(key: key);
+  const EventDetailsView({super.key});
 
   @override
   State<EventDetailsView> createState() => _EventDetailsViewState();
