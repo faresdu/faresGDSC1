@@ -4,7 +4,7 @@ import 'package:gdsc_app/core/utils/constants.dart';
 class LoginButton extends StatelessWidget {
   final void Function() onPressed;
 
-  const LoginButton({super.key, required this.onPressed});
+  const LoginButton({Key? key, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,16 +12,15 @@ class LoginButton extends StatelessWidget {
       width: double.infinity,
       height: 50,
       margin: const EdgeInsets.symmetric(horizontal: 80),
-      child: ElevatedButton(
+      child: TextButton(
         onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
+        style: TextButton.styleFrom(
           backgroundColor: Constants.darkBlue,
           shape: const StadiumBorder(),
         ),
         child: Text('سجل الدخول',
-            style: Constants.mediumText.copyWith(
-              fontWeight: FontWeight.w700,
-            )),
+            style: Constants.mediumText
+                .copyWith(fontWeight: FontWeight.w700, color: Colors.white)),
       ),
     );
   }
