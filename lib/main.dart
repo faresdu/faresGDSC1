@@ -62,9 +62,14 @@ class MyApp extends StatelessWidget {
         },
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-          fontFamily: GoogleFonts.cairo().fontFamily,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
+            useMaterial3: true,
+            primarySwatch: Colors.blue,
+            fontFamily: GoogleFonts.cairo().fontFamily,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            floatingActionButtonTheme: const FloatingActionButtonThemeData(
+              foregroundColor: Colors.white,
+              shape: CircleBorder(),
+            ),
         ),
         navigatorKey: StackedService.navigatorKey,
         onGenerateRoute: StackedRouter().onGenerateRoute,
