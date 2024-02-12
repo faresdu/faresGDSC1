@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../core/utils/constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -8,11 +9,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.bottom,
       this.leading,
       this.actions,
-      this.elevation = 3,
+      this.elevation = 0,
       this.roundedBorder = true,
       this.radius = 10,
       this.leadingWidth,
       this.preferredSize = const Size.fromHeight(65)});
+
   @override
   final Size preferredSize;
   final PreferredSizeWidget? bottom;
@@ -26,25 +28,30 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      elevation: elevation,
-      backgroundColor: Constants.white,
-      foregroundColor: Constants.black,
-      shape: roundedBorder
-          ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius))
-          : null,
-      leading: leading,
-      leadingWidth: leadingWidth,
-      title: Text(
-        title,
-        style: Constants.veryLargeText.copyWith(
-          fontWeight: FontWeight.bold,
-          color: Constants.black,
+    return Container(
+      decoration: BoxDecoration(boxShadow: kElevationToShadow[3]),
+      child: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        elevation: elevation,
+        backgroundColor: Constants.white,
+        foregroundColor: Constants.black,
+        shape: roundedBorder
+            ? RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(radius))
+            : null,
+        leading: leading,
+        leadingWidth: leadingWidth,
+        title: Text(
+          title,
+          style: Constants.veryLargeText.copyWith(
+            fontWeight: FontWeight.bold,
+            color: Constants.black,
+          ),
         ),
+        actions: actions,
+        centerTitle: true,
+        bottom: bottom,
       ),
-      actions: actions,
-      centerTitle: true,
-      bottom: bottom,
     );
   }
 }
