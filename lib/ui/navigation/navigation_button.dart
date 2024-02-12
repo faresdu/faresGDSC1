@@ -11,7 +11,7 @@ class NavigationButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      minWidth: 10,
+      minWidth: 20,
       onPressed: onPressed,
       shape: const CircleBorder(eccentricity: 0),
       child: Column(
@@ -19,7 +19,7 @@ class NavigationButton extends StatelessWidget {
         children: [
           SvgPicture.asset(
             imagePath,
-            height: 18,
+            height: 20,
             color: color,
           ),
           Text(text,

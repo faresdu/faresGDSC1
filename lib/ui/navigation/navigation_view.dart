@@ -26,15 +26,15 @@ class _NavigationViewState extends State<NavigationView> {
                 children: viewmodel.pages,
               ),
             ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-            bottomNavigationBar: BottomAppBar(
-              child: Container(
-                height: 65,
-                clipBehavior: Clip.antiAlias,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+            bottomNavigationBar: Container(
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(15),
                 ),
+                boxShadow: kElevationToShadow[4],
+              ),
+              child: BottomAppBar(
+                elevation: 0,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -59,22 +59,17 @@ class _NavigationViewState extends State<NavigationView> {
                         imagePath: 'assets/icons/navigation2/timeline.svg'),
                     MaterialButton(
                       minWidth: 20,
-                      height: double.infinity,
+                      visualDensity: VisualDensity.compact,
                       shape: const CircleBorder(eccentricity: 0),
                       onPressed: () {
                         viewmodel.updateScreen(0);
                       },
-                      child: CircleAvatar(
-                        backgroundColor: Colors.grey[200],
-                        radius: 27,
+                      child: Center(
                         child: CircleAvatar(
                           backgroundColor: Constants.blueButton,
-                          radius: 25,
-                          child: Padding(
-                            padding: const EdgeInsets.all(13.5),
-                            child: SvgPicture.asset(
-                                'assets/icons/navigation2/home.svg'),
-                          ),
+                          radius: 20,
+                          child: SvgPicture.asset(
+                              'assets/icons/navigation2/home.svg'),
                         ),
                       ),
                     ),
@@ -104,3 +99,31 @@ class _NavigationViewState extends State<NavigationView> {
         });
   }
 }
+// NavigationBar(
+// backgroundColor: Colors.white,
+// selectedIndex: viewmodel.currentTab,
+// onDestinationSelected: viewmodel.updateScreen,
+// destinations: [
+// NavigationDestination(
+// icon: SvgPicture.asset('assets/icons/navigation2/events.svg'),
+// label: 'الفعاليات',
+// ),
+// NavigationDestination(
+// icon:
+// SvgPicture.asset('assets/icons/navigation2/timeline.svg'),
+// label: 'المنشورات',
+// ),
+// NavigationDestination(
+// icon: Image.asset('assets/images/GDSC/GDSC.png', width: 65,),
+// label: 'الرئيسية',
+// ),
+// NavigationDestination(
+// icon: SvgPicture.asset('assets/icons/navigation2/leaderboard.svg'),
+// label: 'المتصدرين',
+// ),
+// NavigationDestination(
+// icon: SvgPicture.asset('assets/icons/navigation2/profile.svg'),
+// label: 'حسابي',
+// ),
+// ],
+// )
