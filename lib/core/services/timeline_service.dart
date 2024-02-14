@@ -80,7 +80,7 @@ class TimelineService {
   likePost(String postId, String userId) async {
     try {
       final payload = {'post_id': postId, 'user_id': userId};
-      final res = await _supabaseService.supabaseClient
+      await _supabaseService.supabaseClient
           .from(GDSCTables.postLikes)
           .insert(payload);
     } catch (e, sT) {
@@ -95,7 +95,7 @@ class TimelineService {
   unLikePost(String postId, String userId) async {
     try {
       final payload = {'post_id': postId, 'user_id': userId};
-      final res = await _supabaseService.supabaseClient
+      await _supabaseService.supabaseClient
           .from(GDSCTables.postLikes)
           .delete()
           .match(payload);

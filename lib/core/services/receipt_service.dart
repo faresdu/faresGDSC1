@@ -21,8 +21,7 @@ class ReceiptService {
 
   Future<void> updateReceipt(String id, bool status) async {
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService
-          .supabaseClient
+      await _supabaseService.supabaseClient
           .from(GDSCTables.receipts)
           .update({'status': status}).match({'id': id});
     } catch (e, sT) {

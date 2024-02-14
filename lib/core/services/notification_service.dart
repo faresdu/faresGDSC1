@@ -2,7 +2,6 @@ import 'package:gdsc_app/core/enums/tables.dart';
 import 'package:gdsc_app/core/enums/views.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:supabase/supabase.dart';
 
 import '../app/app.locator.dart';
 import '../models/notifications.dart';
@@ -37,8 +36,7 @@ class NotificationService {
 
   Future<void> addNotification(Notifications notification) async {
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService
-          .supabaseClient
+      await _supabaseService.supabaseClient
           .from(GDSCTables.notifications)
           .insert(notification.toJson());
       // print('added notification code: ${res.status}');
@@ -53,8 +51,7 @@ class NotificationService {
 
   Future<void> deleteNotification(String id) async {
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService
-          .supabaseClient
+      await _supabaseService.supabaseClient
           .from(GDSCTables.notifications)
           .delete()
           .eq('notification_id', id);

@@ -37,8 +37,7 @@ class UserService {
     Map<String, dynamic> payload = {"name": name};
     if (avatar != null) payload.addAll({'profile_picture': avatar});
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService
-          .supabaseClient
+      await _supabaseService.supabaseClient
           .from(GDSCTables.users)
           .update(payload)
           .match({'user_id': user.id});

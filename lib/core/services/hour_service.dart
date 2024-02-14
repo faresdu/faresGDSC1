@@ -49,16 +49,24 @@ class HourService {
   }
 
   Future<void> updateHourRequest(String id, bool status) async {
-    final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
-        .from(GDSCTables.volunteerHours)
-        .update({'approved': status}).match({'volunteer_id': id});
+    try {
+      await _supabaseService.supabaseClient
+          .from(GDSCTables.volunteerHours)
+          .update({'approved': status}).match({'volunteer_id': id});
+    } catch (e) {
+      throw 'Failed to updateHourRequest, ERROR : $e';
+    }
   }
 
   Future<void> removeHourRequest(String id) async {
-    final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
-        .from(GDSCTables.volunteerHours)
-        .delete()
-        .match({'volunteer_id': id});
+    try {
+      await _supabaseService.supabaseClient
+          .from(GDSCTables.volunteerHours)
+          .delete()
+          .match({'volunteer_id': id});
+    } catch (e) {
+      throw 'Failed to removeHourRequest, ERROR : $e';
+    }
   }
 
   Future<int> getCumulativeCommitteeHours() async {

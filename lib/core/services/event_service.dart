@@ -117,8 +117,7 @@ class EventService {
 
   Future<void> signUpToEvent(String eId) async {
     try {
-      final PostgrestResponse<dynamic> res = await _supabaseService
-          .supabaseClient
+      await _supabaseService.supabaseClient
           .from(GDSCTables.eventAttendees)
           .insert({
         'event_id': eId,
@@ -136,8 +135,7 @@ class EventService {
   Future<void> signOutFromEvent(String eId) async {
     try {
       final payload = {'event_id': eId, 'user_id': _userService.user.id};
-      final PostgrestResponse<dynamic> res = await _supabaseService
-          .supabaseClient
+      await _supabaseService.supabaseClient
           .from(GDSCTables.eventAttendees)
           .delete()
           .match(payload);
