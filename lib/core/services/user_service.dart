@@ -4,7 +4,6 @@ import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:supabase/supabase.dart';
 
 import '../app/app.locator.dart';
 
