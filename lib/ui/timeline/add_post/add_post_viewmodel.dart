@@ -37,6 +37,7 @@ class AddPostViewModel extends BaseViewModel {
     formKey.currentState?.save();
     String? postId;
     try {
+      print("$description   ${user.id}");
       postId = await timelineService.addPost(description!, user.id);
       await _addToPosts(postId);
     } catch (e) {

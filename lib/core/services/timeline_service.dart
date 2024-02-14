@@ -69,11 +69,12 @@ class TimelineService {
 
   Future<String> addPost(String content, String userId) async {
     final payload = {'user_id': userId, 'post_content': content};
-
-    final PostgrestResponse<dynamic> res = await _supabaseService.supabaseClient
+    final PostgrestList res = await _supabaseService.supabaseClient
         .from(GDSCTables.posts)
-        .insert(payload);
-    return ((res.data as List).first)['post_id'];
+        .insert(payload)
+        .select();
+
+    return res[0]['post_id'];
   }
 
   likePost(String postId, String userId) async {
@@ -109,13 +110,10 @@ class TimelineService {
 
   deletePost(String postId) async {
     try {
-      final res = await _supabaseService.supabaseClient
+      await _supabaseService.supabaseClient
           .from(GDSCTables.posts)
           .delete()
           .eq("post_id", postId);
-      if (res.error != null) {
-        throw res.error!;
-      }
     } catch (e, sT) {
       await Sentry.captureException(
         e,
