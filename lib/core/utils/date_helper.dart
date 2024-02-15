@@ -105,6 +105,20 @@ class DateHelper {
 
   static int getSemesterWeek(Semester semester, {DateTime? date}) {
     final currentDate = date ?? DateTime.now();
+    // Find the number of Sundays since the start of the semester
+    final startDateSunday = semester.startDate.weekday == DateTime.sunday
+        ? semester.startDate
+        : semester.startDate.add(
+            Duration(days: DateTime.sunday - semester.startDate.weekday + 7));
+    final sundaysPassed = currentDate.difference(startDateSunday).inDays ~/ 7;
+
+    return sundaysPassed + 1;
+  }
+
+  /// UNTESTED: needs modification
+  static int getSemesterWeekWithBreaks(Semester semester, {DateTime? date}) {
+    final currentDate = date ?? DateTime.now();
+
     Duration breakDuration = const Duration();
     List<SemesterBreak> relevantBreaks = semester.semesterBreaks
         .where((b) =>
@@ -121,8 +135,26 @@ class DateHelper {
 
     final totalDays = currentDate.difference(semester.startDate).inDays;
     final adjustedDays = totalDays - breakDuration.inDays;
-    final currentWeek = (adjustedDays / 7).ceil();
-    return currentWeek;
+
+    // Find the first Sunday on or after the start of the semester
+    final startDateSunday = semester.startDate.weekday == DateTime.sunday
+        ? semester.startDate
+        : semester.startDate.add(
+            Duration(days: DateTime.sunday - semester.startDate.weekday + 7));
+
+    // Calculate the number of Sundays that have passed since startDateSunday
+    int sundaysPassed = 0;
+    for (int i = 0; i <= adjustedDays; i++) {
+      final currentDay = startDateSunday.add(Duration(days: i));
+      if (currentDay.weekday == DateTime.sunday &&
+          !relevantBreaks.any((b) =>
+              currentDay.isAfter(b.breakStartDate) &&
+              currentDay.isBefore(b.breakEndDate))) {
+        sundaysPassed++;
+      }
+    }
+
+    return sundaysPassed + 1;
   }
 
   static String postDateText(DateTime dateTime) {

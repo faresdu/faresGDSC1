@@ -6,7 +6,7 @@ import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:stacked/stacked.dart';
 
-import '../widgets/custom_tab_bar.dart';
+import '../../core/models/committee.dart';
 import '../widgets/custom_tab_bar.dart';
 import 'hours_request_viewmodel.dart';
 
@@ -24,11 +24,13 @@ class _HoursRequestViewState extends State<HoursRequestView>
     return ViewModelBuilder<HoursRequestViewModel>.reactive(
         viewModelBuilder: () => HoursRequestViewModel(),
         builder: (context, viewmodel, _) {
-          return const DefaultTabController(
+          final currentCommittee = (ModalRoute.of(context)!.settings.arguments
+              as List<Committee>)[0];
+          return DefaultTabController(
               length: 2,
               child: Scaffold(
                 appBar: CustomAppBar(
-                  title: 'الطلبات',
+                  title: "${currentCommittee.name}",
                 ),
                 backgroundColor: Constants.grayBackGround,
                 body: HoursRequestBody(),
