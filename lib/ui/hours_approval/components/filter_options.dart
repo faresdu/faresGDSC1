@@ -22,14 +22,14 @@ class FilterOptions extends StatelessWidget {
           Container(
             margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             decoration: BoxDecoration(
-              color: Constants.lightBlue.withOpacity(0.4),
+              color: Constants.infoLight.withOpacity(0.4),
               borderRadius: BorderRadius.circular(10),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: Text(
               selectedWeeksText,
               style: Constants.smallText.copyWith(
-                  color: Constants.blueButton, fontWeight: FontWeight.w700),
+                  color: Constants.primary, fontWeight: FontWeight.w700),
             ),
           ),
       ],

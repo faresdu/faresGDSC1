@@ -55,8 +55,8 @@ class RequestPopUpMenu extends StatelessWidget {
                           style: Constants.verySmallText.copyWith(
                               fontWeight: FontWeight.bold,
                               color: request.approved!
-                                  ? Constants.red
-                                  : Constants.green),
+                                  ? Constants.negative
+                                  : Constants.positive),
                         ),
                       )
                     ]),

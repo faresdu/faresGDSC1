@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:provider/provider.dart';
+
 import '../../../core/models/member.dart';
 import '../../../core/utils/constants.dart';
 
@@ -12,6 +13,7 @@ class ProfileCard extends StatelessWidget {
     required this.member,
     this.edit,
   });
+
   final Function()? edit;
   final Member member;
 
@@ -88,7 +90,7 @@ class ProfileCard extends StatelessWidget {
                   bottomText: 'المشاركات',
                   icon: const Icon(
                     Icons.event_note_rounded,
-                    color: Constants.green,
+                    color: Constants.positive,
                     size: 20,
                   )),
               buildProfileInfoBox(
@@ -100,7 +102,7 @@ class ProfileCard extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 4, bottom: 2),
                     child: SvgPicture.asset(
                       'assets/icons/profile/timeline.svg',
-                      color: Constants.red,
+                      color: Constants.negative,
                       height: 16,
                       width: 16,
                     ),
@@ -110,7 +112,7 @@ class ProfileCard extends StatelessWidget {
                   bottomText: 'الساعات',
                   icon: const Icon(
                     Icons.access_time,
-                    color: Constants.primaryLightBlue,
+                    color: Constants.primary,
                     size: 20,
                   )),
             ],

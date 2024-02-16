@@ -15,7 +15,7 @@ class LoginButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Constants.darkBlue,
+          backgroundColor: Constants.primary,
           shape: const StadiumBorder(),
         ),
         child: Text('سجل الدخول',

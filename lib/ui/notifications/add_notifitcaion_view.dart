@@ -138,7 +138,7 @@ Widget SubmitButton(
     onPressed: onPressed,
     style: TextButton.styleFrom(
       fixedSize: Size(sizeX, sizeY),
-      backgroundColor: Constants.blueButton,
+      backgroundColor: Constants.primary,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     ),
     child: Text(

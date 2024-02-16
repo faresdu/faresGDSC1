@@ -53,7 +53,7 @@ class _ProfileSocialsViewState extends State<ProfileSocialsView> {
                                 setState(() => viewmodel.socials.add(val)),
                           ));
                     },
-                    backgroundColor: Constants.blueButton,
+                    backgroundColor: Constants.primary,
                     heroTag: 'addSocialTag',
                     child: const Icon(
                       Icons.add,

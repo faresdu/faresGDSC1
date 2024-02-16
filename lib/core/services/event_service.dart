@@ -199,7 +199,7 @@ class EventService {
     if (event.isSignedUp(_userService.user.id)) {
       return EventType(
         text: 'سجل خروج',
-        color: Constants.red,
+        color: Constants.negative,
         onPressed: () async {
           await signOutFromEvent(event.eventID);
         },
@@ -215,14 +215,14 @@ class EventService {
     if (event.getPercentage() >= 75) {
       return EventType(
           text: 'احجز مقعدك',
-          color: Constants.blueButton,
+          color: Constants.primary,
           onPressed: () async {
             await signUpToEvent(event.eventID);
           });
     }
     return EventType(
         text: 'احجز مقعدك',
-        color: Constants.green,
+        color: Constants.positive,
         onPressed: () async {
           await signUpToEvent(event.eventID);
         });

@@ -51,8 +51,8 @@ class RequestFooter extends StatelessWidget {
                   // padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
                       color: request.approved!
-                          ? Constants.lightGreen.withOpacity(0.35)
-                          : Constants.red.withOpacity(0.35),
+                          ? Constants.positiveLight.withOpacity(0.35)
+                          : Constants.negative.withOpacity(0.35),
                       borderRadius: BorderRadius.circular(10)),
                   child: Padding(
                     padding:
@@ -63,8 +63,8 @@ class RequestFooter extends StatelessWidget {
                       style: Constants.smallText.copyWith(
                           fontWeight: FontWeight.bold,
                           color: request.approved!
-                              ? Constants.green
-                              : Constants.red),
+                              ? Constants.positive
+                              : Constants.negative),
                     ),
                   ),
                 ),

@@ -45,15 +45,15 @@ class CustomInputField extends StatelessWidget {
             borderRadius: BorderRadius.circular(50),
           ),
           errorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(width: 3, color: Constants.red),
+            borderSide: const BorderSide(width: 3, color: Constants.negative),
             borderRadius: BorderRadius.circular(50),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(width: 3, color: Constants.darkBlue),
+            borderSide: const BorderSide(width: 3, color: Constants.primary),
             borderRadius: BorderRadius.circular(50),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(width: 3, color: Constants.darkBlue),
+            borderSide: const BorderSide(width: 3, color: Constants.primary),
             borderRadius: BorderRadius.circular(50),
           )),
       validator: validator,

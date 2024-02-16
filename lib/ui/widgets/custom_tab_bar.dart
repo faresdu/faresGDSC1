@@ -40,7 +40,7 @@ class CustomTabBar extends StatelessWidget {
                       color: Colors.white, fontWeight: FontWeight.w700),
                   unselectedLabelColor: Colors.black,
                   indicator: BoxDecoration(
-                    color: Constants.blueButton,
+                    color: Constants.primary,
                     borderRadius: BorderRadius.circular(25),
                   ),
                   splashBorderRadius: BorderRadius.circular(25),

@@ -51,7 +51,7 @@ class PostOptions extends StatelessWidget {
                         ),
                         const Icon(
                           Icons.favorite,
-                          color: Constants.red,
+                          color: Constants.negative,
                         )
                       ],
                     ))

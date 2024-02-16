@@ -49,7 +49,7 @@ class ProfileEventCard extends StatelessWidget {
           TextButton(
             onPressed: onPressed,
             style: TextButton.styleFrom(
-              backgroundColor: Constants.darkBlue,
+              backgroundColor: Constants.primary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),

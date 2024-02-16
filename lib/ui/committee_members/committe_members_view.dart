@@ -4,6 +4,7 @@ import 'package:gdsc_app/ui/committee_members/components/committee_leader_card.d
 import 'package:gdsc_app/ui/committee_members/components/committee_member_card.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:stacked/stacked.dart';
+
 import 'committee_members_viewmodel.dart';
 
 class CommitteeMembersView extends StatelessWidget {
@@ -57,7 +58,7 @@ class CommitteeMembersView extends StatelessWidget {
                                 topRight: Radius.circular(15),
                                 topLeft: Radius.circular(15),
                               ),
-                              color: Constants.lightBlue,
+                              color: Constants.infoLight,
                             ),
                             child: Center(
                               child: Text(

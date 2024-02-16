@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
+
 import '../../core/utils/constants.dart';
 import 'navigation_button.dart';
 import 'navigation_viewmodel.dart';
@@ -44,7 +45,7 @@ class _NavigationViewState extends State<NavigationView> {
                           viewmodel.updateScreen(4);
                         },
                         color: viewmodel.currentTab == 4
-                            ? Constants.red
+                            ? Constants.negative
                             : Constants.darkGrey,
                         text: 'الفعاليات',
                         imagePath: 'assets/icons/navigation2/events.svg'),
@@ -53,7 +54,7 @@ class _NavigationViewState extends State<NavigationView> {
                           viewmodel.updateScreen(3);
                         },
                         color: viewmodel.currentTab == 3
-                            ? Constants.blueButton
+                            ? Constants.primary
                             : Constants.darkGrey,
                         text: 'المنشورات',
                         imagePath: 'assets/icons/navigation2/timeline.svg'),
@@ -68,7 +69,7 @@ class _NavigationViewState extends State<NavigationView> {
                         backgroundColor: Colors.grey[200],
                         radius: 27,
                         child: CircleAvatar(
-                          backgroundColor: Constants.blueButton,
+                          backgroundColor: Theme.of(context).primaryColor,
                           radius: 25,
                           child: Padding(
                             padding: const EdgeInsets.all(13.5),
@@ -83,7 +84,7 @@ class _NavigationViewState extends State<NavigationView> {
                           viewmodel.updateScreen(2);
                         },
                         color: viewmodel.currentTab == 2
-                            ? Constants.yellow
+                            ? Constants.warning
                             : Constants.darkGrey,
                         text: 'المتصدرين',
                         imagePath: 'assets/icons/navigation2/leaderboard.svg'),
@@ -92,7 +93,7 @@ class _NavigationViewState extends State<NavigationView> {
                           viewmodel.updateScreen(1);
                         },
                         color: viewmodel.currentTab == 1
-                            ? Constants.green
+                            ? Constants.positive
                             : Constants.darkGrey,
                         text: 'حسابي',
                         imagePath: 'assets/icons/navigation2/profile.svg'),

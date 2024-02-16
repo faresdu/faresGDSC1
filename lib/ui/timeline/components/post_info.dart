@@ -90,7 +90,7 @@ class PostInfo extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: Constants.verySmallText.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: Constants.red),
+                                  color: Constants.negative),
                             ),
                           )
                         ]),

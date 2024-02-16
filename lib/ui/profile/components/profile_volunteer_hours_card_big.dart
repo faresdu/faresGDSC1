@@ -80,7 +80,7 @@ class ProfileVolunteerHoursCardBig extends StatelessWidget {
                       icon: SvgPicture.asset(
                         'assets/icons/profile/trash.svg',
                         height: 25,
-                        color: Constants.red,
+                        color: Constants.negative,
                       ))
               ],
             )
@@ -92,10 +92,10 @@ class ProfileVolunteerHoursCardBig extends StatelessWidget {
 
   _getColor() {
     if (volunteerHours.isPending()) {
-      return Constants.yellow;
+      return Constants.warning;
     } else if (volunteerHours.isAccepted()) {
-      return Constants.green;
+      return Constants.positive;
     }
-    return Constants.red;
+    return Constants.negative;
   }
 }

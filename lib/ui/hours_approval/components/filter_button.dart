@@ -18,11 +18,11 @@ class FilterButton extends StatelessWidget {
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         decoration: BoxDecoration(
           color: selectedSemesterWeeksList.isNotEmpty
-              ? Constants.lightBlue.withOpacity(0.4)
+              ? Constants.infoLight.withOpacity(0.4)
               : null,
           border: selectedSemesterWeeksList.isNotEmpty
               ? Border.all(
-                  color: Constants.primaryLightBlue,
+                  color: Constants.primary,
                   width: 2,
                 )
               : null,
@@ -34,7 +34,7 @@ class FilterButton extends StatelessWidget {
             Icons.filter_alt_outlined,
             size: 25,
             color: selectedSemesterWeeksList.isNotEmpty
-                ? Constants.blueButton
+                ? Constants.primary
                 : Constants.black,
           ),
           constraints: BoxConstraints(),

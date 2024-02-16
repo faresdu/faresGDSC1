@@ -33,7 +33,7 @@ class SocialMediaCard extends StatelessWidget {
               child: Container(
                 height: 80,
                 decoration: const BoxDecoration(
-                  color: Constants.darkBlue,
+                  color: Constants.primary,
                 ),
                 child: const Icon(
                   Icons.navigate_next,

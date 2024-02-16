@@ -33,7 +33,7 @@ class BankAccountView extends StatelessWidget {
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () => viewmodel.navigateToAddBankAccount(context),
-              backgroundColor: Constants.blueButton,
+              backgroundColor: Constants.primary,
               heroTag: 'addBankTag',
               child: const Icon(
                 Icons.add,

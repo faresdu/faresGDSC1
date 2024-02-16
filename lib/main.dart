@@ -8,6 +8,7 @@ import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/services/event_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
+import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 import 'core/app/app.locator.dart';
 import 'core/app/app.router.dart';
+import 'core/utils/helper_functions.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,9 +64,13 @@ class MyApp extends StatelessWidget {
         },
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: Constants.primary,
           fontFamily: GoogleFonts.cairo().fontFamily,
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          colorScheme: ColorScheme.fromSwatch(
+                  primarySwatch:
+                      HelperFunctions.createMaterialColor(Constants.primary))
+              .copyWith(background: Constants.background),
         ),
         navigatorKey: StackedService.navigatorKey,
         onGenerateRoute: StackedRouter().onGenerateRoute,

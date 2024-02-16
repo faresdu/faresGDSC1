@@ -71,7 +71,8 @@ class _AddEventViewState extends State<EditEventView> {
                                         EdgeInsets.only(right: 4, bottom: 4),
                                     child: SubmitButton(
                                       text: "حذف الفعاليه",
-                                      color: Constants.red.withOpacity(0.85),
+                                      color:
+                                          Constants.negative.withOpacity(0.85),
                                       onPressed: () async {
                                         bool? confirmed = await viewmodel
                                             .confirmDeletionDialog(context);
