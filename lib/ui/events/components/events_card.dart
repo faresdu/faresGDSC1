@@ -28,7 +28,7 @@ class EventCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
       margin: const EdgeInsets.symmetric(horizontal: 4),
       child: MaterialButton(
-        color: Colors.white,
+        color: Constants.cardBackground(context),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 4,
         onPressed: onPressed,
@@ -66,7 +66,7 @@ class EventCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: Constants.largeText.copyWith(
                               fontWeight: FontWeight.bold,
-                              color: Constants.black,
+                              color: Constants.black(context),
                             ),
                           ),
                         ),
@@ -74,7 +74,7 @@ class EventCard extends StatelessWidget {
                           event.instructorName,
                           style: Constants.verySmallText.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: Constants.black,
+                            color: Constants.black(context),
                           ),
                         ),
                       ],
@@ -90,9 +90,9 @@ class EventCard extends StatelessWidget {
                                 context, EditEventView(eventDetails: event),
                                 heightFactor: 0.92);
                           },
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.edit,
-                            color: Constants.black,
+                            color: Constants.black(context),
                           ),
                         ),
                       ),
@@ -133,7 +133,7 @@ class EventCard extends StatelessWidget {
                                       event.location),
                                   style: Constants.smallText.copyWith(
                                     fontWeight: FontWeight.normal,
-                                    color: Constants.black,
+                                    color: Constants.black(context),
                                   ),
                                 ),
                               ],

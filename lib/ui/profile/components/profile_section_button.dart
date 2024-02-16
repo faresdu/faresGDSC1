@@ -20,7 +20,7 @@ class ProfileSectionButton extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 13),
       child: MaterialButton(
         padding: const EdgeInsets.all(12),
-        color: Constants.white,
+        color: Constants.cardBackground(context),
         onPressed: onTap,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15))),
@@ -40,11 +40,12 @@ class ProfileSectionButton extends StatelessWidget {
                 Text(
                   title,
                   style: Constants.largeText.copyWith(
-                      color: Constants.black, fontWeight: FontWeight.w600),
+                      color: Constants.black(context),
+                      fontWeight: FontWeight.w600),
                 )
               ],
             ),
-            const Icon(
+            Icon(
               Icons.arrow_forward_ios,
               color: Constants.lightGrey,
             )

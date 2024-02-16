@@ -30,7 +30,7 @@ class CustomDropDownMenu extends StatelessWidget {
           Text(
             title,
             style: Constants.smallText.copyWith(
-              color: Colors.black,
+              color: Constants.black(context),
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -43,11 +43,22 @@ class CustomDropDownMenu extends StatelessWidget {
                   decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 5),
-                      fillColor: Colors.white,
+                      hintStyle: Constants.smallText.copyWith(
+                        color: Constants.black3(context),
+                      ),
+                      fillColor: Constants.isDarkMode(context)
+                          ? Colors.black.withOpacity(0.5)
+                          : Constants.white,
                       filled: true,
                       disabledBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(20),
+                      ),
+                      counterStyle: Constants.smallText.copyWith(
+                        color: Constants.black3(context),
+                      ),
+                      errorStyle: Constants.smallText.copyWith(
+                        color: Constants.negative,
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
@@ -72,9 +83,11 @@ class CustomDropDownMenu extends StatelessWidget {
                     }
                     return null;
                   },
+                  dropdownColor: Constants.cardBackground(context),
                   hint: Text(hint ?? 'اختر',
                       style: Constants.mediumText.copyWith(
                         fontWeight: FontWeight.w700,
+                        color: Constants.black3(context),
                       )),
                   items: items))
         ],

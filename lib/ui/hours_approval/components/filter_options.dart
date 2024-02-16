@@ -29,7 +29,8 @@ class FilterOptions extends StatelessWidget {
             child: Text(
               selectedWeeksText,
               style: Constants.smallText.copyWith(
-                  color: Constants.primary, fontWeight: FontWeight.w700),
+                  color: Constants.primary(context),
+                  fontWeight: FontWeight.w700),
             ),
           ),
       ],

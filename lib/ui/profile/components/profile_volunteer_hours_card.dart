@@ -28,13 +28,13 @@ class ProfileVolunteerHoursCard extends StatelessWidget {
             child: Center(
               child: Text(
                 volunteerHours.reasoning ?? 'no reason',
-                style: const TextStyle(color: Constants.black),
+                style: TextStyle(color: Constants.black(context)),
               ),
             ),
           ),
           Container(
             width: double.maxFinite,
-            color: Constants.primary,
+            color: Constants.primary(context),
             child: Text(
               volunteerHours.hours.toString(),
               style: const TextStyle(color: Constants.white),

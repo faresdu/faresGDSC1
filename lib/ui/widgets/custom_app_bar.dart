@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../core/utils/constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -13,6 +14,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.radius = 10,
       this.leadingWidth,
       this.preferredSize = const Size.fromHeight(65)});
+
   @override
   final Size preferredSize;
   final PreferredSizeWidget? bottom;
@@ -28,8 +30,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: elevation,
-      backgroundColor: Constants.white,
-      foregroundColor: Constants.black,
+      backgroundColor: Constants.cardBackground(context),
+      foregroundColor: Constants.black(context),
       shape: roundedBorder
           ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius))
           : null,
@@ -39,7 +41,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: Constants.veryLargeText.copyWith(
           fontWeight: FontWeight.bold,
-          color: Constants.black,
+          color: Constants.black(context),
         ),
       ),
       actions: actions,

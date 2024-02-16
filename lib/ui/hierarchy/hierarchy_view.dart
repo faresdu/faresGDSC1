@@ -23,7 +23,9 @@ class _HierarchyViewState extends State<HierarchyView> {
             appBar: const CustomAppBar(
               title: 'الهيكلة',
             ),
-            backgroundColor: Constants.grayBackGround.withOpacity(0.95),
+            backgroundColor: Constants.isDarkMode(context)
+                ? Constants.background(context)
+                : Constants.grayBackGround(context),
             body: SafeArea(
               child: BusyOverlay(
                 isBusy: viewmodel.isBusy,

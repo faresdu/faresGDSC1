@@ -18,7 +18,7 @@ class ExpandableActiveRequestCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpandableCard(
-        color: Constants.white,
+        color: Constants.cardBackground(context),
         title: RequestHeader(request: request, onUpdate: onUpdate),
         expandedSection: RequestBody(request: request),
         footer: RequestFooter(request: request, onUpdate: onUpdate));

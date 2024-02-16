@@ -20,7 +20,6 @@ class BankAccountView extends StatelessWidget {
             appBar: const CustomAppBar(
               title: "حساباتي البنكيه",
             ),
-            backgroundColor: Constants.background,
             body: SafeArea(
               child: BusyOverlay(
                 isBusy: viewmodel.isBusy,
@@ -33,7 +32,7 @@ class BankAccountView extends StatelessWidget {
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () => viewmodel.navigateToAddBankAccount(context),
-              backgroundColor: Constants.primary,
+              backgroundColor: Constants.primary(context),
               heroTag: 'addBankTag',
               child: const Icon(
                 Icons.add,

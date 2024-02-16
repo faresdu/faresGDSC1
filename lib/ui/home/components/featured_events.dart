@@ -15,7 +15,7 @@ class FeaturedEvents extends StatelessWidget {
 
   final void Function(int index) updateScreen;
   final void Function(Event event) navigateToEvent;
-  final Widget Function(Event event) getSignUpButton;
+  final Widget Function(BuildContext context, Event event) getSignUpButton;
   final List<Event> events;
 
   @override
@@ -37,7 +37,7 @@ class FeaturedEvents extends StatelessWidget {
                     onTap: () {
                       navigateToEvent(e);
                     },
-                    signUpButton: getSignUpButton(e),
+                    signUpButton: getSignUpButton(context, e),
                     event: e))
                 .toList(),
           ))

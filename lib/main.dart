@@ -42,7 +42,13 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp(
+      {Key? key,
+      this.primary = const Color(0xFF4285F4),
+      this.secondary = const Color(0xFF212A40)})
+      : super(key: key);
+  final Color primary;
+  final Color secondary;
 
   @override
   Widget build(BuildContext context) {
@@ -64,13 +70,26 @@ class MyApp extends StatelessWidget {
         },
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Constants.primary,
+          primaryColor: primary,
+          textTheme: GoogleFonts.cairoTextTheme().apply(
+              bodyColor: Constants.black(context),
+              displayColor: Constants.black(context)),
           fontFamily: GoogleFonts.cairo().fontFamily,
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Constants.background(context),
+            selectedItemColor: primary,
+            unselectedItemColor: Constants.black(context),
+          ),
+          scaffoldBackgroundColor: Constants.background(context),
           visualDensity: VisualDensity.adaptivePlatformDensity,
           colorScheme: ColorScheme.fromSwatch(
-                  primarySwatch:
-                      HelperFunctions.createMaterialColor(Constants.primary))
-              .copyWith(background: Constants.background),
+                  primarySwatch: HelperFunctions.createMaterialColor(primary))
+              .copyWith(
+                  background: Constants.background(context),
+                  secondary: secondary,
+                  error: Constants.negative),
+          bottomAppBarTheme:
+              BottomAppBarTheme(color: Constants.cardBackground(context)),
         ),
         navigatorKey: StackedService.navigatorKey,
         onGenerateRoute: StackedRouter().onGenerateRoute,

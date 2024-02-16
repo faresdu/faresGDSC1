@@ -21,7 +21,7 @@ class ActiveRequestCard extends StatelessWidget {
         decoration: BoxDecoration(
           // boxShadow: Constants.shadow,
           borderRadius: BorderRadius.circular(20),
-          color: Constants.white,
+          color: Constants.cardBackground(context),
         ),
         child: Column(
           children: [

@@ -25,7 +25,7 @@ class ActivityCard extends StatelessWidget {
         width: 160,
         child: MaterialButton(
           padding: const EdgeInsets.all(8),
-          color: Colors.white,
+          color: Constants.cardBackground(context),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           elevation: 3,
@@ -42,7 +42,7 @@ class ActivityCard extends StatelessWidget {
               Text(
                 event.title,
                 style: Constants.extraSmallText.copyWith(
-                  color: Constants.black,
+                  color: Constants.black(context),
                   fontWeight: FontWeight.bold,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -50,7 +50,8 @@ class ActivityCard extends StatelessWidget {
               Text(
                 "${DateHelper.getDate(event.startDate)}  -  ${event.isOnline ? "اونلاين" : "حضوري"}",
                 style: Constants.superSmallText.copyWith(
-                    color: Constants.grey, fontWeight: FontWeight.bold),
+                    color: Constants.black2(context),
+                    fontWeight: FontWeight.bold),
               ),
               signUpButton,
               const Spacer()

@@ -18,7 +18,6 @@ class CommitteeMembersView extends StatelessWidget {
         builder: (context, viewmodel, _) {
           return Scaffold(
             appBar: CustomAppBar(title: viewmodel.committee.name),
-            backgroundColor: Constants.background,
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: SingleChildScrollView(

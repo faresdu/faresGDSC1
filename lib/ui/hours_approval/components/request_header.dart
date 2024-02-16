@@ -31,7 +31,7 @@ class RequestHeader extends StatelessWidget {
             Text(
               request.userName,
               style: Constants.smallText.copyWith(
-                color: Constants.black,
+                color: Constants.black(context),
                 fontWeight: FontWeight.w700,
               ),
             )

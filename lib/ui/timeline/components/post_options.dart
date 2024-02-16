@@ -27,9 +27,9 @@ class PostOptions extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.only(right: 15),
-            child: const Icon(
+            child: Icon(
               Icons.comments_disabled_outlined,
-              color: Constants.black2,
+              color: Constants.black2(context),
             ),
           ),
           Row(
@@ -44,7 +44,7 @@ class PostOptions extends StatelessWidget {
                         Text(
                           '${post.likes}',
                           style: Constants.smallText
-                              .copyWith(color: Constants.black),
+                              .copyWith(color: Constants.black(context)),
                         ),
                         const SizedBox(
                           width: 12,
@@ -65,14 +65,14 @@ class PostOptions extends StatelessWidget {
                         Text(
                           '${post.likes}',
                           style: Constants.smallText
-                              .copyWith(color: Constants.black),
+                              .copyWith(color: Constants.black(context)),
                         ),
                         const SizedBox(
                           width: 12,
                         ),
-                        const Icon(
+                        Icon(
                           Icons.favorite_border,
-                          color: Constants.black,
+                          color: Constants.black(context),
                         )
                       ],
                     )),

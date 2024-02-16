@@ -6,6 +6,7 @@ class BusyOverlay extends StatefulWidget {
   final bool isBusy;
   final Widget child;
   final Color? background;
+
   const BusyOverlay(
       {Key? key, required this.isBusy, required this.child, this.background})
       : super(key: key);
@@ -25,12 +26,12 @@ class _BusyOverlayState extends State<BusyOverlay> {
             opacity: 0.5,
             child: ModalBarrier(
                 dismissible: false,
-                color: (widget.background ?? Constants.background)),
+                color: (widget.background ?? Constants.background(context))),
           ),
         if (widget.isBusy)
-          const Center(
+          Center(
             child: SpinKitFadingCircle(
-              color: Constants.black3,
+              color: Constants.black3(context),
             ),
           ),
       ],

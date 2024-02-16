@@ -25,7 +25,9 @@ class SectionTitle extends StatelessWidget {
             child: Text(
               "عرض المزيد",
               style: Constants.smallText.copyWith(
-                  height: 1.6, letterSpacing: -0.25, color: Constants.black2),
+                  height: 1.6,
+                  letterSpacing: -0.25,
+                  color: Constants.black2(context)),
             ),
           ),
         ],

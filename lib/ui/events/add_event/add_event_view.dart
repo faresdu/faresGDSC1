@@ -54,7 +54,7 @@ class _AddEventViewState extends State<AddEventView> {
                               Text(
                                 'إضافة فعالية',
                                 style: Constants.largeText.copyWith(
-                                  color: Colors.black,
+                                  color: Constants.black(context),
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -164,9 +164,13 @@ class _AddEventViewState extends State<AddEventView> {
                                               !viewmodel.isOnline;
                                         });
                                       },
-                                      child: Text(viewmodel.isOnline
-                                          ? 'اون لاين'
-                                          : 'حضوري'),
+                                      child: Text(
+                                        viewmodel.isOnline
+                                            ? 'اون لاين'
+                                            : 'حضوري',
+                                        style: Constants.verySmallText.copyWith(
+                                            color: Constants.black(context)),
+                                      ),
                                     ),
                                   ),
                                   Expanded(
@@ -259,7 +263,7 @@ class _AddEventViewState extends State<AddEventView> {
           Text(
             title,
             style: Constants.mediumText.copyWith(
-              color: Colors.black,
+              color: Constants.black(context),
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -286,9 +290,11 @@ class _AddEventViewState extends State<AddEventView> {
         onPressed: onPressed,
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: Colors.white,
+        color: Constants.background(context),
         child: Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Constants.background(context)),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(

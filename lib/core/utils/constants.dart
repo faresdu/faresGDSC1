@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/utils/light_constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 @immutable
 class Constants {
   const Constants._();
 
-  static const Color grey = Color(0xFF666C74);
+  static Color get grey => const Color(0xFF666C74);
   static const Color greyDivider = Color(0xFFB7B3B3);
   static const Color lightGrey = Color(0xff94979B);
   static const Color darkGrey = Color(0xFF303030);
 
+  static isDarkMode(BuildContext context) {
+    return !(Theme.of(context).brightness == Brightness.dark);
+  }
+
   // static const Color negative = Color(0xFFD93F37);
-  static const Color primary = Color(0xFF4285F4);
-  static const Color secondary = Color(0xFF212A40);
+  static Color primary(BuildContext context) => Theme.of(context).primaryColor;
+
+  static Color secondary(BuildContext context) =>
+      Theme.of(context).colorScheme.secondary;
 
   static const Color info = Color(0xFF4285F4);
   static const Color infoLight = Color(0xFFBFDEF5);
@@ -26,14 +33,32 @@ class Constants {
   static const Color negative = Color(0xFFEA4335);
   static const Color lightNegative = Color(0xFFF4938F);
 
-  static const Color black = Colors.black;
-  static const Color black2 = Color(0xFF9A9A9A);
-  static const Color black3 = Color(0xFF4D4D4D);
+  // static Color get black => Colors.black;
+  //
+  // static Color get black2 => Color(0xFF9A9A9A);
+  //
+  // static Color get black3 => Color(0xFF4D4D4D);
 
-  static const Color background = Color(0xfff4f5f9);
-  static const Color grayBackGround = Color(0xFFF1F1F1);
-  static const Color greyBackground1 = Color(0xFFF5F5F5);
-  static const Color navigationBackground = Color(0xFFF5FCFF);
+  static Color black(BuildContext context) =>
+      isDarkMode(context) ? DarkConstants.black : LightConstants.black;
+
+  static Color black2(BuildContext context) =>
+      isDarkMode(context) ? DarkConstants.black2 : LightConstants.black2;
+
+  static Color black3(BuildContext context) =>
+      isDarkMode(context) ? DarkConstants.black3 : LightConstants.black3;
+
+  static Color background(BuildContext context) => isDarkMode(context)
+      ? DarkConstants.background
+      : LightConstants.background;
+
+  static Color grayBackGround(BuildContext context) => isDarkMode(context)
+      ? DarkConstants.grayBackGround
+      : LightConstants.grayBackGround;
+
+  static Color cardBackground(BuildContext context) => isDarkMode(context)
+      ? DarkConstants.cardBackground
+      : LightConstants.cardBackground;
 
   static const Color blue = Color(0xFF547DBF);
   static const Color white = Colors.white;

@@ -22,19 +22,18 @@ class _EventsViewState extends State<EventsView> {
         viewModelBuilder: () => EventsViewModel(),
         builder: (context, viewmodel, _) {
           return Scaffold(
-            backgroundColor: Constants.background,
             floatingActionButton: viewmodel.isAdmin()
                 ? FloatingActionButton(
-              onPressed: () {
-                CustomModalBottomSheet(context, const AddEventView(),
-                    heightFactor: 0.92);
-              },
-              backgroundColor: Constants.primary,
-              child: const Icon(
-                Icons.add,
-                size: 30,
-              ),
-            )
+                    onPressed: () {
+                      CustomModalBottomSheet(context, const AddEventView(),
+                          heightFactor: 0.92);
+                    },
+                    backgroundColor: Constants.primary(context),
+                    child: const Icon(
+                      Icons.add,
+                      size: 30,
+                    ),
+                  )
                 : null,
             appBar: CustomAppBar(
               title: "الفعاليات",
@@ -46,23 +45,23 @@ class _EventsViewState extends State<EventsView> {
             body: SafeArea(
               child: viewmodel.isAdmin()
                   ? CustomTabBarController(
-                length: 2,
-                tabs: const [
-                  Tab(text: 'الفعاليات الجديدة'),
-                  Tab(text: 'جميع الفعاليات'),
-                ],
-                children: [
-                  ListView(
-                    children: viewmodel.getNewCards(),
-                  ),
-                  ListView(
-                    children: viewmodel.getAllCards(),
-                  ),
-                ],
-              )
+                      length: 2,
+                      tabs: const [
+                        Tab(text: 'الفعاليات الجديدة'),
+                        Tab(text: 'جميع الفعاليات'),
+                      ],
+                      children: [
+                        ListView(
+                          children: viewmodel.getNewCards(context),
+                        ),
+                        ListView(
+                          children: viewmodel.getAllCards(context),
+                        ),
+                      ],
+                    )
                   : ListView(
-                children: viewmodel.getNewCards(),
-              ),
+                      children: viewmodel.getNewCards(context),
+                    ),
             ),
           );
         });

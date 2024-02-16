@@ -56,9 +56,9 @@ class _FeaturedNotificationsState extends State<FeaturedNotifications> {
         DotsIndicator(
             dotsCount: widget.notifications.length,
             position: _current.toDouble(),
-            decorator: const DotsDecorator(
+            decorator: DotsDecorator(
               color: Constants.infoLight,
-              activeColor: Constants.primary,
+              activeColor: Constants.primary(context),
             ),
             onTap: (position) {
               setState(() {

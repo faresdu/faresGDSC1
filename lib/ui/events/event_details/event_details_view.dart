@@ -24,9 +24,9 @@ class _EventDetailsViewState extends State<EventDetailsView> {
         builder: (context, viewmodel, _) {
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: Constants.white,
+              backgroundColor: Constants.cardBackground(context),
               elevation: 0,
-              foregroundColor: Constants.black,
+              foregroundColor: Constants.black(context),
               actions: [
                 if (viewmodel.isOwner)
                   Container(
@@ -118,7 +118,8 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        viewmodel.getSignUpButton(viewmodel.eventDetails),
+                        viewmodel.getSignUpButton(
+                            context, viewmodel.eventDetails),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,

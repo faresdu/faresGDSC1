@@ -116,7 +116,7 @@ class _ExpandableCardState extends State<ExpandableCard>
             child: Icon(
               Icons.keyboard_arrow_up,
               size: 38,
-              color: Constants.black,
+              color: Constants.black(context),
               key: UniqueKey(),
             ),
           );

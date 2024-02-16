@@ -35,7 +35,7 @@ class RequestBody extends StatelessWidget {
                 Text(
                   getHoursString(),
                   style: Constants.verySmallText.copyWith(
-                    color: Constants.grey,
+                    color: Constants.black2(context),
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -59,7 +59,7 @@ class RequestBody extends StatelessWidget {
                 Text(
                   "اسبوع ${request.semesterWeek}",
                   style: Constants.verySmallText.copyWith(
-                    color: Constants.grey,
+                    color: Constants.black2(context),
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -87,7 +87,7 @@ class RequestBody extends StatelessWidget {
                 child: Text(
                   request.reasoning,
                   style: Constants.verySmallText.copyWith(
-                    color: Constants.grey,
+                    color: Constants.black2(context),
                     fontWeight: FontWeight.w400,
                   ),
                 ),

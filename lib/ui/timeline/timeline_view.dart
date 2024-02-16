@@ -25,13 +25,12 @@ class _TimeLineViewState extends State<TimeLineView> {
         final user = Provider.of<GDSCUser>(context);
 
         return Scaffold(
-          backgroundColor: Constants.background,
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               viewmodel.navigateToAddPosts(context);
             },
-            backgroundColor: Constants.primary,
+            backgroundColor: Constants.primary(context),
             heroTag: 'addPostTag',
             child: const Icon(
               Icons.add,

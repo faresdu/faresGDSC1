@@ -26,14 +26,14 @@ class SocialMediaCard extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        color: Constants.white,
+        color: Constants.cardBackground(context),
         child: Row(
           children: [
             Expanded(
               child: Container(
                 height: 80,
-                decoration: const BoxDecoration(
-                  color: Constants.primary,
+                decoration: BoxDecoration(
+                  color: Constants.primary(context),
                 ),
                 child: const Icon(
                   Icons.navigate_next,
@@ -54,7 +54,7 @@ class SocialMediaCard extends StatelessWidget {
                         Text(
                           socialMedia.name,
                           style: Constants.veryLargeText.copyWith(
-                            color: Constants.black,
+                            color: Constants.black(context),
                             height: 1.7,
                             fontWeight: FontWeight.w700,
                           ),
@@ -64,7 +64,7 @@ class SocialMediaCard extends StatelessWidget {
                           textDirection: TextDirection.ltr,
                           style: GoogleFonts.cairo(
                             textStyle: Constants.mediumText.copyWith(
-                              color: Constants.black,
+                              color: Constants.black(context),
                               height: 1,
                               fontWeight: FontWeight.w700,
                             ),

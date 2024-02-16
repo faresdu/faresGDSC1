@@ -31,7 +31,7 @@ class SocialsDropDownMenu extends StatelessWidget {
                     Text(
                       e.name,
                       style: Constants.mediumText.copyWith(
-                        color: Colors.black,
+                        color: Constants.black(context),
                         fontWeight: FontWeight.w700,
                       ),
                     ),

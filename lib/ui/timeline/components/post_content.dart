@@ -27,7 +27,7 @@ class PostContent extends StatelessWidget {
                   child: Text(
                     post.content,
                     style: Constants.verySmallText
-                        .copyWith(color: Constants.black),
+                        .copyWith(color: Constants.black(context)),
                   )),
             ],
           ),

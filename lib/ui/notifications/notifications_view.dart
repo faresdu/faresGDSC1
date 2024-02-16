@@ -27,7 +27,7 @@ class NotificationView extends StatelessWidget {
                   onPressed: () {
                     CustomModalBottomSheet(context, const AddNotification());
                   },
-                  backgroundColor: Constants.primary,
+                  backgroundColor: Constants.primary(context),
                   child: const Icon(
                     Icons.add,
                     size: 30,
@@ -35,7 +35,7 @@ class NotificationView extends StatelessWidget {
                 ),
           body: SafeArea(
             child: Container(
-              color: Constants.background,
+              color: Constants.background(context),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 18),
                 child: Column(

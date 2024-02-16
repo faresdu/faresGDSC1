@@ -47,7 +47,7 @@ class _AddSocialMediaViewState extends State<AddSocialMediaView> {
                         Text(
                           'اضافه منصة تواصل',
                           style: Constants.mediumText.copyWith(
-                            color: Colors.black,
+                            color: Constants.black(context),
                             fontWeight: FontWeight.w700,
                           ),
                         ),

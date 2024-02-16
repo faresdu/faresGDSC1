@@ -50,7 +50,7 @@ class _ProfileRequestHoursViewState extends State<ProfileRequestHoursView> {
                           Text(
                             'طلب ساعات',
                             style: Constants.mediumText.copyWith(
-                              color: Colors.black,
+                              color: Constants.black(context),
                               fontWeight: FontWeight.w700,
                             ),
                           ),

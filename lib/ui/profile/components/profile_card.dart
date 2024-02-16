@@ -26,7 +26,7 @@ class ProfileCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
       decoration: BoxDecoration(
-        color: Constants.white,
+        color: Constants.cardBackground(context),
         boxShadow: Constants.shadow4,
         borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(63), bottomRight: Radius.circular(63)),
@@ -41,9 +41,9 @@ class ProfileCard extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: IconButton(
                     onPressed: edit,
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.edit,
-                      color: Colors.black,
+                      color: Constants.black(context),
                     ),
                   ),
                 ),
@@ -68,14 +68,16 @@ class ProfileCard extends StatelessWidget {
           if (member.isLeaderOrCoLeader() || member.isConsultant())
             Text(
               "${member.getRole()} ${member.committee.name}",
-              style: Constants.smallText
-                  .copyWith(color: Constants.grey, fontWeight: FontWeight.bold),
+              style: Constants.smallText.copyWith(
+                  color: Constants.black2(context),
+                  fontWeight: FontWeight.bold),
             )
           else
             Text(
               member.committee.name,
-              style: Constants.smallText
-                  .copyWith(color: Constants.grey, fontWeight: FontWeight.bold),
+              style: Constants.smallText.copyWith(
+                  color: Constants.black2(context),
+                  fontWeight: FontWeight.bold),
             ),
 
           const SizedBox(
@@ -110,9 +112,9 @@ class ProfileCard extends StatelessWidget {
               buildProfileInfoBox(
                   number: member.hours,
                   bottomText: 'الساعات',
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.access_time,
-                    color: Constants.primary,
+                    color: Constants.primary(context),
                     size: 20,
                   )),
             ],
@@ -158,7 +160,7 @@ class ProfileCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         if (trailingDivider)
-          const SizedBox(
+          SizedBox(
             height: 16,
             child: VerticalDivider(
               color: Constants.lightGrey,
@@ -183,7 +185,7 @@ class ProfileCard extends StatelessWidget {
         ),
         if (icon != null) icon,
         if (leadingDivider)
-          const SizedBox(
+          SizedBox(
             height: 16,
             child: VerticalDivider(
               color: Constants.lightGrey,

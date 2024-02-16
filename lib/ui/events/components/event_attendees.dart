@@ -27,7 +27,7 @@ class EventAttendees extends StatelessWidget {
                 '0',
                 style: Constants.superSmallText.copyWith(
                   fontWeight: FontWeight.w500,
-                  color: Constants.black,
+                  color: Colors.black,
                 ),
               ),
             ),
@@ -47,7 +47,7 @@ class EventAttendees extends StatelessWidget {
                 '+${attendees.length - 3}',
                 style: Constants.superSmallText.copyWith(
                   fontWeight: FontWeight.w500,
-                  color: Constants.black,
+                  color: Colors.black,
                 ),
               ),
             ),
@@ -85,8 +85,8 @@ class EventAttendees extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 7),
           child: Text(
             'المشاركين',
-            style: Constants.extraSmallText
-                .copyWith(fontWeight: FontWeight.w500, color: Constants.black),
+            style: Constants.extraSmallText.copyWith(
+                fontWeight: FontWeight.w500, color: Constants.black(context)),
           ),
         ),
         Row(children: images.reversed.toList()),

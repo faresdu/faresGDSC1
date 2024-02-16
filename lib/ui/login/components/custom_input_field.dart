@@ -37,11 +37,11 @@ class CustomInputField extends StatelessWidget {
             fontWeight: FontWeight.w700,
           ),
           disabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(width: 1, color: Constants.grey),
+            borderSide: BorderSide(width: 1, color: Constants.grey),
             borderRadius: BorderRadius.circular(50),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(width: 1, color: Constants.grey),
+            borderSide: BorderSide(width: 1, color: Constants.grey),
             borderRadius: BorderRadius.circular(50),
           ),
           errorBorder: OutlineInputBorder(
@@ -49,11 +49,11 @@ class CustomInputField extends StatelessWidget {
             borderRadius: BorderRadius.circular(50),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(width: 3, color: Constants.primary),
+            borderSide: BorderSide(width: 3, color: Constants.primary(context)),
             borderRadius: BorderRadius.circular(50),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(width: 3, color: Constants.primary),
+            borderSide: BorderSide(width: 3, color: Constants.primary(context)),
             borderRadius: BorderRadius.circular(50),
           )),
       validator: validator,

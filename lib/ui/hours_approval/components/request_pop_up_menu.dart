@@ -22,7 +22,7 @@ class RequestPopUpMenu extends StatelessWidget {
           padding: const EdgeInsets.only(left: 8.0),
           child: Text(request.createdAt ?? "السبت ، 2023-20-6",
               style: Constants.superSmallText.copyWith(
-                color: Constants.grey.withOpacity(0.7),
+                color: Constants.black3(context),
                 fontWeight: FontWeight.w700,
               )),
         ),
@@ -30,7 +30,10 @@ class RequestPopUpMenu extends StatelessWidget {
           SizedBox(
             height: 25,
             child: PopupMenuButton(
-                icon: const Icon(Icons.more_horiz),
+                icon: Icon(
+                  Icons.more_horiz,
+                  color: Constants.black(context),
+                ),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14)),
                 onSelected: (value) async {

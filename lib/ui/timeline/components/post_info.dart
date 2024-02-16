@@ -48,7 +48,8 @@ class PostInfo extends StatelessWidget {
                           .copyWith(fontWeight: FontWeight.w900)),
                   Text("${post.committee?.name}",
                       style: Constants.extraSmallText.copyWith(
-                          fontWeight: FontWeight.bold, color: Constants.grey)),
+                          fontWeight: FontWeight.bold,
+                          color: Constants.black3(context))),
                 ],
               ),
             ),
@@ -58,8 +59,9 @@ class PostInfo extends StatelessWidget {
           children: [
             Text(
               DateHelper.postDateText(post.createdAt),
-              style: Constants.extraSmallText
-                  .copyWith(fontWeight: FontWeight.bold, color: Constants.grey),
+              style: Constants.extraSmallText.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Constants.black3(context)),
             ),
             if (post.posterId == userId)
               SizedBox(

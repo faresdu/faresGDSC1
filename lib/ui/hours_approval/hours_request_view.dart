@@ -34,7 +34,9 @@ class _HoursRequestViewState extends State<HoursRequestView>
                 appBar: CustomAppBar(
                   title: currentCommittee.name,
                 ),
-                backgroundColor: Constants.grayBackGround,
+                backgroundColor: Constants.isDarkMode(context)
+                    ? Constants.background(context)
+                    : Constants.grayBackGround(context),
                 body: const HoursRequestBody(),
               ));
         });

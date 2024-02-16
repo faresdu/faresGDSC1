@@ -22,7 +22,7 @@ class FilterButton extends StatelessWidget {
               : null,
           border: selectedSemesterWeeksList.isNotEmpty
               ? Border.all(
-                  color: Constants.primary,
+                  color: Constants.primary(context),
                   width: 2,
                 )
               : null,
@@ -34,8 +34,8 @@ class FilterButton extends StatelessWidget {
             Icons.filter_alt_outlined,
             size: 25,
             color: selectedSemesterWeeksList.isNotEmpty
-                ? Constants.primary
-                : Constants.black,
+                ? Constants.primary(context)
+                : Constants.black(context),
           ),
           constraints: BoxConstraints(),
           padding: EdgeInsets.all(8),

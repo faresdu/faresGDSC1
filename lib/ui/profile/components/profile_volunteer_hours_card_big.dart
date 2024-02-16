@@ -23,7 +23,7 @@ class ProfileVolunteerHoursCardBig extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(20)),
-        color: Constants.white,
+        color: Constants.cardBackground(context),
         boxShadow: Constants.cardShadow,
       ),
       child: Padding(
@@ -49,8 +49,8 @@ class ProfileVolunteerHoursCardBig extends StatelessWidget {
                 ),
                 Text(
                   DateHelper.sincePosted(volunteerHours.createdAt),
-                  style:
-                      Constants.verySmallText.copyWith(color: Constants.grey),
+                  style: Constants.verySmallText
+                      .copyWith(color: Constants.black3(context)),
                 ),
               ],
             ),

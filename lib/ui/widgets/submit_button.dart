@@ -36,7 +36,7 @@ class SubmitButton extends StatelessWidget {
             ? null
             : disabled
                 ? Constants.lightGrey
-                : color ?? Constants.primary,
+                : color ?? Constants.primary(context),
         shape: RoundedRectangleBorder(
             borderRadius: borderRadius ?? BorderRadius.circular(10)),
       ),
@@ -47,7 +47,8 @@ class SubmitButton extends StatelessWidget {
               softWrap: true,
               textAlign: TextAlign.center,
               style: (style ?? Constants.verySmallText).copyWith(
-                  color: outlined ? Constants.primary : Constants.white,
+                  color:
+                      outlined ? Constants.primary(context) : Constants.white,
                   fontWeight: FontWeight.w700),
             ),
     );

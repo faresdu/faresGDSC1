@@ -29,7 +29,9 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
     user = userService.user;
   }
 
-  get isOwner => eventDetails.instructorID == user.id || userService.user.isLeaderOrCoLeader();
+  get isOwner =>
+      eventDetails.instructorID == user.id ||
+      userService.user.isLeaderOrCoLeader();
 
   @override
   void onData(List<Event>? data) {
@@ -44,8 +46,8 @@ class EventsDetailsViewModel extends StreamViewModel<List<Event>> {
         arguments: eventDetails.attendees.map((e) => e.id).toList());
   }
 
-  Widget getSignUpButton(Event event) {
-    EventType type = eventService.getEventType(event);
+  Widget getSignUpButton(BuildContext context, Event event) {
+    EventType type = eventService.getEventType(context, event);
     return EventDetailsSignupButton(
       eventType: type,
     );

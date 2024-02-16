@@ -22,12 +22,14 @@ class ActionButton extends StatelessWidget {
           height: 30,
           width: 90,
           decoration: BoxDecoration(
-            color: isApprove ? Constants.positive : Constants.white,
+            color: isApprove
+                ? Constants.positive
+                : Constants.cardBackground(context),
             border: isApprove
                 ? null
                 : Border.all(
-              color: Constants.negative,
-            ),
+                    color: Constants.negative,
+                  ),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
@@ -35,8 +37,8 @@ class ActionButton extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 3),
                 child: CircleAvatar(
-                  backgroundColor: isApprove ? Colors.white30 : Constants
-                      .negative,
+                  backgroundColor:
+                      isApprove ? Colors.white30 : Constants.negative,
                   child: Icon(
                     isApprove ? Icons.check : Icons.remove,
                     color: Constants.white,
@@ -50,7 +52,7 @@ class ActionButton extends StatelessWidget {
               Text(
                 text ?? (isApprove ? 'قبول' : 'رفض'),
                 style: Constants.verySmallText.copyWith(
-                  color: isApprove ? Constants.white : Constants.black,
+                  color: isApprove ? Constants.white : Constants.black(context),
                   fontWeight: FontWeight.w700,
                 ),
               )

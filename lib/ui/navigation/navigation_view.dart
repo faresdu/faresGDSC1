@@ -46,7 +46,7 @@ class _NavigationViewState extends State<NavigationView> {
                         },
                         color: viewmodel.currentTab == 4
                             ? Constants.negative
-                            : Constants.darkGrey,
+                            : Constants.black2(context),
                         text: 'الفعاليات',
                         imagePath: 'assets/icons/navigation2/events.svg'),
                     NavigationButton(
@@ -54,8 +54,8 @@ class _NavigationViewState extends State<NavigationView> {
                           viewmodel.updateScreen(3);
                         },
                         color: viewmodel.currentTab == 3
-                            ? Constants.primary
-                            : Constants.darkGrey,
+                            ? Constants.primary(context)
+                            : Constants.black2(context),
                         text: 'المنشورات',
                         imagePath: 'assets/icons/navigation2/timeline.svg'),
                     MaterialButton(
@@ -66,7 +66,7 @@ class _NavigationViewState extends State<NavigationView> {
                         viewmodel.updateScreen(0);
                       },
                       child: CircleAvatar(
-                        backgroundColor: Colors.grey[200],
+                        backgroundColor: Constants.cardBackground(context),
                         radius: 27,
                         child: CircleAvatar(
                           backgroundColor: Theme.of(context).primaryColor,
@@ -85,7 +85,7 @@ class _NavigationViewState extends State<NavigationView> {
                         },
                         color: viewmodel.currentTab == 2
                             ? Constants.warning
-                            : Constants.darkGrey,
+                            : Constants.black2(context),
                         text: 'المتصدرين',
                         imagePath: 'assets/icons/navigation2/leaderboard.svg'),
                     NavigationButton(
@@ -94,7 +94,7 @@ class _NavigationViewState extends State<NavigationView> {
                         },
                         color: viewmodel.currentTab == 1
                             ? Constants.positive
-                            : Constants.darkGrey,
+                            : Constants.black2(context),
                         text: 'حسابي',
                         imagePath: 'assets/icons/navigation2/profile.svg'),
                   ],

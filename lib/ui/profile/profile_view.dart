@@ -24,7 +24,7 @@ class _ProfileViewState extends State<ProfileView> {
         onViewModelReady: (viewModel) => viewModel.setUser(context),
         builder: (context, viewmodel, _) {
           return Scaffold(
-            backgroundColor: Constants.background,
+            // backgroundColor: Constants.background,
             appBar: CustomAppBar(
                 title: 'المـلـف الـشـخـصـي',
                 elevation: 0,
@@ -40,10 +40,10 @@ class _ProfileViewState extends State<ProfileView> {
                                 await viewmodel.signOut();
                               }
                             },
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.logout_rounded,
                               size: 40,
-                              color: Constants.black,
+                              color: Constants.black(context),
                             ),
                           )
                         : null),
@@ -102,10 +102,10 @@ class _ProfileViewState extends State<ProfileView> {
                       ),
                       ProfileSectionButton(
                         title: 'منصات التواصل',
-                        color: Constants.primary,
-                        icon: const Icon(
+                        color: Constants.primary(context),
+                        icon: Icon(
                           Icons.chat_rounded,
-                          color: Constants.primary,
+                          color: Constants.primary(context),
                           size: 30,
                         ),
                         onTap: () => viewmodel.navigateToProfileSocials(),

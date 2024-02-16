@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:gdsc_app/core/enums/s3.dart';
 import 'package:gdsc_app/core/enums/tables.dart';
 import 'package:gdsc_app/core/enums/views.dart';
@@ -191,7 +192,7 @@ class EventService {
     });
   }
 
-  EventType getEventType(Event event) {
+  EventType getEventType(BuildContext context, Event event) {
     if (event.startDate.isBefore(DateTime.now())) {
       return EventType(
           text: 'الفعاليه منتهية', color: Constants.grey, onPressed: null);
@@ -215,7 +216,7 @@ class EventService {
     if (event.getPercentage() >= 75) {
       return EventType(
           text: 'احجز مقعدك',
-          color: Constants.primary,
+          color: Constants.primary(context),
           onPressed: () async {
             await signUpToEvent(event.eventID);
           });

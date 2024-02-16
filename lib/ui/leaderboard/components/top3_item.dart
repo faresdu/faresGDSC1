@@ -62,6 +62,7 @@ class Top3Item extends StatelessWidget {
   final double top;
   final double right;
   final Color? color;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -96,7 +97,7 @@ class Top3Item extends StatelessWidget {
                             spreadRadius: 0,
                           ),
                         ],
-                        color: Constants.white,
+                        color: Constants.cardBackground(context),
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(topLeft!),
                             topRight: Radius.circular(topRight!),
@@ -117,6 +118,7 @@ class Top3Item extends StatelessWidget {
                               member.name,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
+                                  color: Constants.black(context),
                                   fontSize: fontSize,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -127,6 +129,7 @@ class Top3Item extends StatelessWidget {
                               Text(
                                 "${member.hours}",
                                 style: TextStyle(
+                                    color: Constants.black(context),
                                     fontSize: fontSize,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -138,7 +141,7 @@ class Top3Item extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: fontSize,
                                     fontWeight: FontWeight.bold,
-                                    color: Constants.black3),
+                                    color: Constants.black3(context)),
                               ),
                             ],
                           )
