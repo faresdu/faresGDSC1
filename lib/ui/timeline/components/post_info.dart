@@ -44,13 +44,11 @@ class PostInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(post.posterName,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w900)),
+                      style: Constants.mediumText
+                          .copyWith(fontWeight: FontWeight.w900)),
                   Text("${post.committee?.name}",
-                      style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Constants.grey)),
+                      style: Constants.extraSmallText.copyWith(
+                          fontWeight: FontWeight.bold, color: Constants.grey)),
                 ],
               ),
             ),
@@ -60,10 +58,8 @@ class PostInfo extends StatelessWidget {
           children: [
             Text(
               DateHelper.postDateText(post.createdAt),
-              style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: Constants.grey),
+              style: Constants.extraSmallText
+                  .copyWith(fontWeight: FontWeight.bold, color: Constants.grey),
             ),
             if (post.posterId == userId)
               SizedBox(

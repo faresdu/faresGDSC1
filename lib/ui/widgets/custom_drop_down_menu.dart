@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/utils/constants.dart';
 
 class CustomDropDownMenu extends StatelessWidget {
   const CustomDropDownMenu(
@@ -28,10 +29,9 @@ class CustomDropDownMenu extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: Constants.smallText.copyWith(
               color: Colors.black,
               fontWeight: FontWeight.w700,
-              fontSize: 16,
             ),
           ),
           const SizedBox(
@@ -73,9 +73,8 @@ class CustomDropDownMenu extends StatelessWidget {
                     return null;
                   },
                   hint: Text(hint ?? 'اختر',
-                      style: const TextStyle(
+                      style: Constants.mediumText.copyWith(
                         fontWeight: FontWeight.w700,
-                        fontSize: 16,
                       )),
                   items: items))
         ],

@@ -60,10 +60,8 @@ class _EventDetailsSignupButtonState extends State<EventDetailsSignupButton> {
               )
             : Text(
                 widget.eventType.text,
-                style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Constants.white),
+                style: Constants.extraSmallText.copyWith(
+                    fontWeight: FontWeight.w700, color: Constants.white),
               ),
       ),
     );

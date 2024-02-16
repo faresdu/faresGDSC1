@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../core/models/notifications.dart';
+import '../../core/utils/constants.dart';
 
 Widget NotificationsCard({required Notifications notification}) {
   return Padding(
@@ -28,14 +30,14 @@ Widget NotificationsCard({required Notifications notification}) {
             children: [
               Text(
                 notification.title,
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
+                style: Constants.veryLargeText
+                    .copyWith(fontWeight: FontWeight.w900),
               ),
               Text(
                 notification.name,
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.normal,
-                    fontFamily: 'Cairo'),
+                style: Constants.mediumText.copyWith(
+                  fontWeight: FontWeight.normal,
+                ),
               )
             ],
           )

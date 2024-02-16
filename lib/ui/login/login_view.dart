@@ -158,7 +158,8 @@ class LoginView extends StatelessWidget {
                 child: Center(
                   child: Text(
                     isBusy ? 'جاري الارسال' : 'ارسال',
-                    style: TextStyle(color: Constants.white, fontSize: 18),
+                    style:
+                        Constants.mediumText.copyWith(color: Constants.white),
                   ),
                 ),
               ),

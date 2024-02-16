@@ -10,6 +10,7 @@ import 'package:gdsc_app/ui/widgets/custom_text_form_field.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../core/utils/constants.dart';
 import '../../widgets/show_snackbar.dart';
 
 class AddEventView extends StatefulWidget {
@@ -50,11 +51,10 @@ class _AddEventViewState extends State<AddEventView> {
                           key: viewmodel.formKey,
                           child: Column(
                             children: [
-                              const Text(
+                              Text(
                                 'إضافة فعالية',
-                                style: TextStyle(
+                                style: Constants.largeText.copyWith(
                                   color: Colors.black,
-                                  fontSize: 18,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -258,10 +258,9 @@ class _AddEventViewState extends State<AddEventView> {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: Constants.mediumText.copyWith(
               color: Colors.black,
               fontWeight: FontWeight.w700,
-              fontSize: 16,
             ),
           ),
           const SizedBox(

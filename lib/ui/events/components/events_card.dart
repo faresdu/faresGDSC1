@@ -64,8 +64,7 @@ class EventCard extends StatelessWidget {
                           child: Text(
                             event.title,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 20,
+                            style: Constants.largeText.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Constants.black,
                             ),
@@ -73,8 +72,7 @@ class EventCard extends StatelessWidget {
                         ),
                         Text(
                           event.instructorName,
-                          style: const TextStyle(
-                            fontSize: 14,
+                          style: Constants.verySmallText.copyWith(
                             fontWeight: FontWeight.bold,
                             color: Constants.black,
                           ),
@@ -111,9 +109,8 @@ class EventCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       child: Text(
                         "${DateHelper.getDate(event.startDate)}  -  ${event.isOnline ? "اونلاين" : "حضوري"}",
-                        style: const TextStyle(
+                        style: Constants.extraSmallText.copyWith(
                           color: Constants.grey,
-                          fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -134,8 +131,7 @@ class EventCard extends StatelessWidget {
                                 Text(
                                   EventsViewModel.locationEventName(
                                       event.location),
-                                  style: const TextStyle(
-                                    fontSize: 16,
+                                  style: Constants.smallText.copyWith(
                                     fontWeight: FontWeight.normal,
                                     color: Constants.black,
                                   ),

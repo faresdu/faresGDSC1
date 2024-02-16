@@ -48,10 +48,9 @@ class ActionButton extends StatelessWidget {
               ),
               Text(
                 text ?? (isApprove ? 'قبول' : 'رفض'),
-                style: TextStyle(
+                style: Constants.verySmallText.copyWith(
                   color: isApprove ? Constants.white : Constants.black,
                   fontWeight: FontWeight.w700,
-                  fontSize: 14,
                 ),
               )
             ],

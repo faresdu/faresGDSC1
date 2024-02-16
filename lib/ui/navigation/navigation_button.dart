@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../core/utils/constants.dart';
+
 class NavigationButton extends StatelessWidget {
-  const NavigationButton({Key? key, required this.onPressed, required this.color, required this.text, required this.imagePath}) : super(key: key);
+  const NavigationButton(
+      {Key? key,
+      required this.onPressed,
+      required this.color,
+      required this.text,
+      required this.imagePath})
+      : super(key: key);
   final void Function()? onPressed;
   final String imagePath;
   final Color color;
@@ -23,8 +31,7 @@ class NavigationButton extends StatelessWidget {
             color: color,
           ),
           Text(text,
-              style: TextStyle(
-                fontSize: 10,
+              style: Constants.superSmallText.copyWith(
                 fontWeight: FontWeight.bold,
                 color: color,
               )),

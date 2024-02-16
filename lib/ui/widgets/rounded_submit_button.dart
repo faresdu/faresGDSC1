@@ -30,9 +30,8 @@ class RoundedSubmitButton extends StatelessWidget {
             )
           : Text(
               text,
-              style: const TextStyle(
+              style: Constants.verySmallText.copyWith(
                 color: Colors.white,
-                fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),
             ),

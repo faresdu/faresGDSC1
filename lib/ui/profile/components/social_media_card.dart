@@ -53,24 +53,20 @@ class SocialMediaCard extends StatelessWidget {
                       children: [
                         Text(
                           socialMedia.name,
-                          style: GoogleFonts.cairo(
-                            textStyle: const TextStyle(
-                              color: Constants.black,
-                              height: 1.7,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 28,
-                            ),
+                          style: Constants.veryLargeText.copyWith(
+                            color: Constants.black,
+                            height: 1.7,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         Text(
                           "@${socialMedia.username}",
                           textDirection: TextDirection.ltr,
                           style: GoogleFonts.cairo(
-                            textStyle: const TextStyle(
+                            textStyle: Constants.mediumText.copyWith(
                               color: Constants.black,
                               height: 1,
                               fontWeight: FontWeight.w700,
-                              fontSize: 16,
                             ),
                           ),
                         ),

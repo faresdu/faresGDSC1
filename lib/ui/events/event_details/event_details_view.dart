@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
+
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/helper_functions.dart';
 import '../components/event_attendees.dart';
 import 'event_details_viewmodel.dart';
-
-TextStyle titleStyle =
-    const TextStyle(fontSize: 24, fontWeight: FontWeight.w700, height: 3);
 
 class EventDetailsView extends StatefulWidget {
   const EventDetailsView({Key? key}) : super(key: key);
@@ -61,7 +59,8 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                       flex: 1,
                       child: Text(
                         viewmodel.eventDetails.title,
-                        style: titleStyle,
+                        style: Constants.veryLargeText
+                            .copyWith(fontWeight: FontWeight.w700, height: 3),
                       ),
                     ),
                     Row(
@@ -101,7 +100,8 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                       flex: 1,
                       child: Text(
                         'عن الفعالية',
-                        style: titleStyle,
+                        style: Constants.veryLargeText
+                            .copyWith(fontWeight: FontWeight.w700, height: 3),
                       ),
                     ),
                     Expanded(
@@ -109,8 +109,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                       child: SingleChildScrollView(
                         child: Text(
                           viewmodel.eventDetails.description ?? 'لا يوجد وصف',
-                          style: const TextStyle(
-                              fontSize: 20,
+                          style: Constants.largeText.copyWith(
                               fontWeight: FontWeight.w600,
                               color: Constants.grey),
                         ),
@@ -131,8 +130,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                               padding: const EdgeInsets.only(right: 30),
                               child: Text(
                                 'المقاعد المتبقية ${viewmodel.eventDetails.getRemainingSeats()}',
-                                style: const TextStyle(
-                                    fontSize: 12,
+                                style: Constants.extraSmallText.copyWith(
                                     fontWeight: FontWeight.w700,
                                     color: Constants.grey),
                               ),
@@ -224,13 +222,13 @@ class BuildEventDateBox extends StatelessWidget {
         child: Column(children: [
           Text(
             '$day',
-            style: const TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w700, height: 1),
+            style: Constants.mediumText
+                .copyWith(fontWeight: FontWeight.w700, height: 1),
           ),
           Text(
             month,
-            style: const TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w700, height: 1),
+            style: Constants.mediumText
+                .copyWith(fontWeight: FontWeight.w700, height: 1),
           )
         ]),
       ),

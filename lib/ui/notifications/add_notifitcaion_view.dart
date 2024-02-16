@@ -67,14 +67,13 @@ class _AddPostViewState extends State<AddNotification> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(viewmodel.user.name,
-                                            style: const TextStyle(
-                                                fontSize: 16,
+                                            style: Constants.smallText.copyWith(
                                                 fontWeight: FontWeight.w900)),
                                         Text(viewmodel.user.committee.name,
-                                            style: const TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold,
-                                                color: Constants.grey)),
+                                            style: Constants.extraSmallText
+                                                .copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Constants.grey)),
                                       ],
                                     ),
                                   ],
@@ -116,10 +115,9 @@ Widget _TextWithChild({required String title, required Widget child}) {
       children: [
         Text(
           title,
-          style: const TextStyle(
+          style: Constants.mediumText.copyWith(
             color: Colors.black,
             fontWeight: FontWeight.w700,
-            fontSize: 16,
           ),
         ),
         const SizedBox(
@@ -145,9 +143,8 @@ Widget SubmitButton(
     ),
     child: Text(
       text,
-      style: const TextStyle(
+      style: Constants.verySmallText.copyWith(
         color: Colors.white,
-        fontSize: 14,
         fontWeight: FontWeight.w700,
       ),
     ),

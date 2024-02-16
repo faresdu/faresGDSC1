@@ -55,11 +55,10 @@ class _AddEventViewState extends State<EditEventView> {
                           key: viewmodel.formKey,
                           child: Column(
                             children: [
-                              const Text(
+                              Text(
                                 'تعديل فعالية',
-                                style: TextStyle(
+                                style: Constants.largeText.copyWith(
                                   color: Colors.black,
-                                  fontSize: 18,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -292,7 +291,7 @@ class _AddEventViewState extends State<EditEventView> {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: Constants.mediumText.copyWith(
               color: Colors.black,
               fontWeight: FontWeight.w700,
               fontSize: 16,

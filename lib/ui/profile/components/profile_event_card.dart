@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/date_helper.dart';
+
 import '../../../core/utils/constants.dart';
 
 class ProfileEventCard extends StatelessWidget {
@@ -9,6 +10,7 @@ class ProfileEventCard extends StatelessWidget {
     required this.event,
     this.onPressed,
   });
+
   final Function()? onPressed;
   final Event event;
 
@@ -30,18 +32,16 @@ class ProfileEventCard extends StatelessWidget {
             children: [
               Text(
                 event.title,
-                style: const TextStyle(
+                style: Constants.verySmallText.copyWith(
                   color: Constants.black,
                   fontWeight: FontWeight.w800,
-                  fontSize: 14,
                 ),
               ),
               Text(
                 DateHelper.getDate(event.startDate),
-                style: const TextStyle(
+                style: Constants.extraSmallText.copyWith(
                   color: Constants.grey,
                   fontWeight: FontWeight.w700,
-                  fontSize: 12,
                 ),
               ),
             ],

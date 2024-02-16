@@ -52,7 +52,7 @@ class LeaderboardItem extends StatelessWidget {
                     child: Text(
                       "${index + 4}",
                       style:
-                          const TextStyle(fontSize: 20, color: Colors.black54),
+                          Constants.largeText.copyWith(color: Colors.black54),
                     ),
                   ),
                   ClipOval(
@@ -85,8 +85,7 @@ class LeaderboardItem extends StatelessWidget {
                           ),
                         ),
                         Text("${member.committee?.name}",
-                            style: const TextStyle(
-                                fontSize: 12,
+                            style: Constants.extraSmallText.copyWith(
                                 fontWeight: FontWeight.w600,
                                 color: Constants.grey))
                       ],
@@ -106,10 +105,8 @@ class LeaderboardItem extends StatelessWidget {
                 child: Center(
                     child: Text(
                   "${member.hours}",
-                  style: const TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600),
+                  style: Constants.superLargeText.copyWith(
+                      color: Colors.white, fontWeight: FontWeight.w600),
                 )),
               ),
             ],

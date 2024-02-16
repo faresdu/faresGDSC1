@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/utils/constants.dart';
+
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     this.title,
@@ -51,10 +53,9 @@ class CustomTextFormField extends StatelessWidget {
           if (title != null)
             Text(
               title!,
-              style: const TextStyle(
+              style: Constants.smallText.copyWith(
                 color: Colors.black,
                 fontWeight: FontWeight.w700,
-                fontSize: 16,
               ),
             ),
           const SizedBox(

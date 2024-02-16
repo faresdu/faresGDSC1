@@ -43,23 +43,22 @@ class NotificationView extends StatelessWidget {
                     Row(
                       children: [
                         const SizedBox(width: 18),
-                        const Text(
+                        Text(
                           "التنبيهات",
-                          style: TextStyle(
-                              fontSize: 26, fontWeight: FontWeight.w700),
+                          style: Constants.extraLargeText
+                              .copyWith(fontWeight: FontWeight.w700),
                         ),
                         const Spacer(),
                         TextButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
                                 "الصفحة الرئيسية",
-                                style: TextStyle(
-                                  fontSize: 16,
+                                style: Constants.mediumText.copyWith(
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),

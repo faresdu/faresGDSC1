@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/social_media.dart';
 
+import '../../../core/utils/constants.dart';
 import '../../widgets/custom_drop_down_menu.dart';
 
 class SocialsDropDownMenu extends StatelessWidget {
@@ -29,10 +30,9 @@ class SocialsDropDownMenu extends StatelessWidget {
                   children: [
                     Text(
                       e.name,
-                      style: const TextStyle(
+                      style: Constants.mediumText.copyWith(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
-                        fontSize: 16,
                       ),
                     ),
                     const SizedBox(

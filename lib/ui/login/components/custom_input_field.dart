@@ -28,7 +28,7 @@ class CustomInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       textAlign: TextAlign.right,
-      style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+      style: Constants.mediumText.copyWith(fontWeight: FontWeight.w400),
       obscureText: obscureText,
       decoration: InputDecoration(
           hintText: hintText,
