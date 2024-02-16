@@ -8,6 +8,8 @@ import 'package:stacked/stacked.dart';
 
 import '../../core/models/committee.dart';
 import '../widgets/custom_tab_bar.dart';
+import 'components/filter_button.dart';
+import 'components/filter_options.dart';
 import 'hours_request_viewmodel.dart';
 
 class HoursRequestView extends StatefulWidget {
@@ -30,10 +32,10 @@ class _HoursRequestViewState extends State<HoursRequestView>
               length: 2,
               child: Scaffold(
                 appBar: CustomAppBar(
-                  title: "${currentCommittee.name}",
+                  title: currentCommittee.name,
                 ),
                 backgroundColor: Constants.grayBackGround,
-                body: HoursRequestBody(),
+                body: const HoursRequestBody(),
               ));
         });
   }
@@ -54,34 +56,12 @@ class HoursRequestBody extends StatelessWidget {
               child: Column(
                 children: [
                   CustomTabBar(
-                    widget: Container(
-                        margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        decoration: BoxDecoration(
-                          color: viewmodel.selectedSemesterWeeksList.isNotEmpty
-                              ? Constants.lightBlue.withOpacity(0.4)
-                              : null,
-                          border: viewmodel.selectedSemesterWeeksList.isNotEmpty
-                              ? Border.all(
-                                  color: Constants.primaryLightBlue,
-                                  width: 2,
-                                )
-                              : null,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: IconButton(
-                          onPressed: () => viewmodel.openFilterDialog(context),
-                          icon: Icon(
-                            Icons.filter_alt_outlined,
-                            size: 25,
-                            color:
-                                viewmodel.selectedSemesterWeeksList.isNotEmpty
-                                    ? Constants.blueButton
-                                    : Constants.black,
-                          ),
-                          constraints: BoxConstraints(),
-                          padding: EdgeInsets.all(8),
-                        )),
                     tabBarWidthMultiplier: 0.775,
+                    widget: FilterButton(
+                      onPressed: () => viewmodel.openFilterDialog(context),
+                      selectedSemesterWeeksList:
+                          viewmodel.selectedSemesterWeeksList,
+                    ),
                     tabs: const [
                       Tab(
                         text: 'الطلبات القادمة',
@@ -91,27 +71,10 @@ class HoursRequestBody extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      // container that shows the number of weeks selected
-                      if (viewmodel.selectedSemesterWeeksList.isNotEmpty)
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          decoration: BoxDecoration(
-                            color: Constants.lightBlue.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          child: Text(
-                            viewmodel.selectedWeeksText,
-                            style: Constants.smallText.copyWith(
-                                color: Constants.blueButton,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                    ],
+                  FilterOptions(
+                    selectedSemesterWeeksList:
+                        viewmodel.selectedSemesterWeeksList,
+                    selectedWeeksText: viewmodel.selectedWeeksText,
                   ),
                   Expanded(
                     child: TabBarView(children: [
