@@ -12,6 +12,7 @@ class LeaderboardView extends StatelessWidget {
   const LeaderboardView({
     Key? key,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LeaderboardViewModel>.reactive(
@@ -58,7 +59,8 @@ class LeaderboardView extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 15),
                       decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(20)),
                       ),
                       clipBehavior: Clip.antiAlias,
                       child: ListView.builder(

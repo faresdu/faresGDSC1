@@ -18,7 +18,7 @@ class FilterButton extends StatelessWidget {
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         decoration: BoxDecoration(
           color: selectedSemesterWeeksList.isNotEmpty
-              ? Constants.infoLight.withOpacity(0.4)
+              ? Constants.infoLight(context).withOpacity(0.4)
               : null,
           border: selectedSemesterWeeksList.isNotEmpty
               ? Border.all(

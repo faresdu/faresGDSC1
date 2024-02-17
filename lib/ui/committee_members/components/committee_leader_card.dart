@@ -36,9 +36,9 @@ class CommitteeLeaderCard extends StatelessWidget {
                   Container(
                     height: 86,
                     width: 50,
-                    decoration: const BoxDecoration(
-                        color: Constants.infoLight,
-                        borderRadius: BorderRadius.only(
+                    decoration: BoxDecoration(
+                        color: Constants.infoLight(context),
+                        borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(15),
                           bottomRight: Radius.circular(15),
                         )),

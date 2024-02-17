@@ -22,7 +22,7 @@ class FilterOptions extends StatelessWidget {
           Container(
             margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             decoration: BoxDecoration(
-              color: Constants.infoLight.withOpacity(0.4),
+              color: Constants.infoLight(context).withOpacity(0.4),
               borderRadius: BorderRadius.circular(10),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),

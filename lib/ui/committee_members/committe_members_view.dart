@@ -52,12 +52,12 @@ class CommitteeMembersView extends StatelessWidget {
                           child: Container(
                             height: 49,
                             width: MediaQuery.of(context).size.width * 0.62,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(15),
                                 topLeft: Radius.circular(15),
                               ),
-                              color: Constants.infoLight,
+                              color: Constants.infoLight(context),
                             ),
                             child: Center(
                               child: Text(

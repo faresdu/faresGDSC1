@@ -54,16 +54,16 @@ class DarkConstants {
   static const Color secondary = Color(0xFF212A40);
 
   static const Color info = Color(0xFF4285F4);
-  static const Color infoLight = Color(0xFFBFDEF5);
+  static const Color infoLight = Color(0xFF86C2EE);
 
   static const Color positive = Color(0xFF34A853);
-  static const Color positiveLight = Color(0xFFA4D0A2);
+  static const Color positiveLight = Color(0xFF76BE74);
 
   static const Color warning = Color(0xFFFBBC05);
-  static const Color lightWarning = Color(0xFFFFC107);
+  static const Color lightWarning = Color(0xFFF8D670);
 
   static const Color negative = Color(0xFFEA4335);
-  static const Color lightNegative = Color(0xFFF4938F);
+  static const Color lightNegative = Color(0xFFE06F6A);
 
   static const Color black = Color.fromRGBO(255, 255, 255, 0.85);
   static const Color black2 = Color.fromRGBO(255, 255, 255, 0.67);

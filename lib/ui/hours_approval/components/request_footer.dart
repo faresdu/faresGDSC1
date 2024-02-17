@@ -51,7 +51,7 @@ class RequestFooter extends StatelessWidget {
                   // padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
                       color: request.approved!
-                          ? Constants.positiveLight.withOpacity(0.35)
+                          ? Constants.positiveLight(context).withOpacity(0.35)
                           : Constants.negative.withOpacity(0.35),
                       borderRadius: BorderRadius.circular(10)),
                   child: Padding(

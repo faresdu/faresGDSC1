@@ -30,6 +30,7 @@ class _NavigationViewState extends State<NavigationView> {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: BottomAppBar(
+              color: Constants.cardBackground(context),
               child: Container(
                 height: 65,
                 clipBehavior: Clip.antiAlias,

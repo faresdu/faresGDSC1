@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/ui/events/add_event/add_event_view.dart';
 import 'package:gdsc_app/ui/events/events_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
@@ -28,7 +27,6 @@ class _EventsViewState extends State<EventsView> {
                       CustomModalBottomSheet(context, const AddEventView(),
                           heightFactor: 0.92);
                     },
-                    backgroundColor: Constants.primary(context),
                     child: const Icon(
                       Icons.add,
                       size: 30,

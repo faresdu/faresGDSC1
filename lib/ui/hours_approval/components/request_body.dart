@@ -25,9 +25,9 @@ class RequestBody extends StatelessWidget {
           Row(
             children: [
               Row(children: [
-                const Icon(
+                Icon(
                   Icons.access_time_filled,
-                  color: Colors.black,
+                  color: Constants.black(context),
                 ),
                 const SizedBox(
                   width: 10,
@@ -35,7 +35,7 @@ class RequestBody extends StatelessWidget {
                 Text(
                   getHoursString(),
                   style: Constants.verySmallText.copyWith(
-                    color: Constants.black2(context),
+                    color: Constants.black(context),
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -49,9 +49,9 @@ class RequestBody extends StatelessWidget {
             //Semester week
             Row(
               children: [
-                const Icon(
+                Icon(
                   Icons.calendar_month,
-                  color: Colors.black,
+                  color: Constants.black(context),
                 ),
                 const SizedBox(
                   width: 10,
@@ -59,7 +59,7 @@ class RequestBody extends StatelessWidget {
                 Text(
                   "اسبوع ${request.semesterWeek}",
                   style: Constants.verySmallText.copyWith(
-                    color: Constants.black2(context),
+                    color: Constants.black(context),
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -75,9 +75,9 @@ class RequestBody extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(
+              Icon(
                 Icons.description,
-                color: Colors.black,
+                color: Constants.black(context),
               ),
               const SizedBox(
                 width: 10,
@@ -87,7 +87,7 @@ class RequestBody extends StatelessWidget {
                 child: Text(
                   request.reasoning,
                   style: Constants.verySmallText.copyWith(
-                    color: Constants.black2(context),
+                    color: Constants.black(context),
                     fontWeight: FontWeight.w400,
                   ),
                 ),

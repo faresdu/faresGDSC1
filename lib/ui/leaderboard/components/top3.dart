@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:gdsc_app/core/utils/constants.dart';
+import 'package:gdsc_app/core/utils/dynamic_constants.dart';
 import 'package:gdsc_app/ui/leaderboard/components/top3_item.dart';
 
 import '../../../core/models/leaderboard_member.dart';
@@ -26,7 +27,7 @@ class Top3 extends StatelessWidget {
             smWidth: 115,
             smHeight: 40,
             smTopRight: 20,
-            color: Constants.positiveLight,
+            color: Constants.positiveLight(context),
             numColor: Constants.positive),
         Top3Item(
             position: 1,
@@ -46,7 +47,9 @@ class Top3 extends StatelessWidget {
             profileRaduis: 90,
             profileTop: 0,
             profileRight: 17,
-            color: Constants.lightWarning.withOpacity(0.43),
+            color: Constants.isDarkMode(context)
+                ? DarkConstants.lightWarning
+                : LightConstants.lightWarning.withOpacity(0.43),
             numColor: Constants.warning),
         Top3Item(
             position: 2,
@@ -58,7 +61,7 @@ class Top3 extends StatelessWidget {
             smWidth: 115,
             smHeight: 40,
             smTopLeft: 20,
-            color: Constants.lightNegative,
+            color: Constants.lightNegative(context),
             numColor: Constants.negative),
       ],
     );

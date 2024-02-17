@@ -180,6 +180,29 @@ class HoursRequestViewModel extends BaseViewModel {
       hideSearchField: true,
       hideSelectedTextCount: true,
       backgroundColor: Constants.background(context),
+      themeData: FilterListThemeData(context).copyWith(
+          backgroundColor: Constants.background(context),
+          controlBarButtonTheme: ControlButtonBarThemeData(context).copyWith(
+              backgroundColor: Constants.background(context),
+              controlButtonTheme:
+                  ControlButtonThemeData.light(context).copyWith(
+                primaryButtonTextStyle: Constants.smallText.copyWith(
+                    color: Constants.white, fontWeight: FontWeight.bold),
+              )),
+          brightness: Theme.of(context).brightness,
+          headerTheme: HeaderThemeData.dark().copyWith(
+              closeIconColor: Constants.black(context),
+              backgroundColor: Constants.cardBackground(context),
+              headerTextStyle: Constants.mediumText
+                  .copyWith(color: Constants.black(context))),
+          choiceChipTheme: ChoiceChipThemeData.light(context).copyWith(
+              elevation: 3,
+              backgroundColor: Constants.cardBackground(context),
+              textStyle: Constants.smallText.copyWith(
+                  color: Constants.black(context), fontWeight: FontWeight.bold),
+              selectedBackgroundColor: Constants.primary(context),
+              selectedTextStyle: Constants.smallText.copyWith(
+                  color: Constants.white, fontWeight: FontWeight.bold))),
       headlineText: "اختر الاسابيع",
       resetButtonText: "إعادة ضبط",
       applyButtonText: "تطبيق",

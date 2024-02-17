@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/Home/home_view.dart';
 import 'package:stacked/stacked.dart';
+
 import '../events/events_view.dart';
 import '../leaderboard/leaderboard_view.dart';
 import '../profile/profile_view.dart';

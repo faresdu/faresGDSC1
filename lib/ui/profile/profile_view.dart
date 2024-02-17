@@ -24,10 +24,24 @@ class _ProfileViewState extends State<ProfileView> {
         onViewModelReady: (viewModel) => viewModel.setUser(context),
         builder: (context, viewmodel, _) {
           return Scaffold(
-            // backgroundColor: Constants.background,
             appBar: CustomAppBar(
                 title: 'المـلـف الـشـخـصـي',
                 elevation: 0,
+                actions: [
+                  // dark mode button
+                  if (viewmodel.isUser)
+                    IconButton(
+                      onPressed: () => setState(() {
+                        viewmodel.toggleDarkMode(context);
+                      }),
+                      icon: Icon(
+                        Constants.isDarkMode(context)
+                            ? Icons.dark_mode
+                            : Icons.light_mode,
+                        color: Constants.black(context),
+                      ),
+                    ),
+                ],
                 roundedBorder: false,
                 leading: !viewmodel.fromLogin
                     ? null

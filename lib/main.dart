@@ -1,3 +1,4 @@
+import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,7 @@ import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/services/event_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
-import 'package:gdsc_app/core/utils/constants.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:gdsc_app/core/utils/themes.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -17,7 +17,6 @@ import 'package:stacked_services/stacked_services.dart';
 
 import 'core/app/app.locator.dart';
 import 'core/app/app.router.dart';
-import 'core/utils/helper_functions.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +32,7 @@ Future<void> main() async {
       // We recommend adjusting this value in production.
       options.tracesSampleRate = 0.01;
     },
-    appRunner: () => runApp(const MyApp()),
+    appRunner: () => runApp(EasyDynamicThemeWidget(child: const MyApp())),
   );
   //Remove this method to stop OneSignal Debugging
   kDebugMode ? OneSignal.Debug.setLogLevel(OSLogLevel.verbose) : false;
@@ -69,28 +68,9 @@ class MyApp extends StatelessWidget {
           );
         },
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryColor: primary,
-          textTheme: GoogleFonts.cairoTextTheme().apply(
-              bodyColor: Constants.black(context),
-              displayColor: Constants.black(context)),
-          fontFamily: GoogleFonts.cairo().fontFamily,
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: Constants.background(context),
-            selectedItemColor: primary,
-            unselectedItemColor: Constants.black(context),
-          ),
-          scaffoldBackgroundColor: Constants.background(context),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          colorScheme: ColorScheme.fromSwatch(
-                  primarySwatch: HelperFunctions.createMaterialColor(primary))
-              .copyWith(
-                  background: Constants.background(context),
-                  secondary: secondary,
-                  error: Constants.negative),
-          bottomAppBarTheme:
-              BottomAppBarTheme(color: Constants.cardBackground(context)),
-        ),
+        theme: lightThemeData(primary, secondary),
+        darkTheme: darkThemeData(primary, secondary),
+        themeMode: EasyDynamicTheme.of(context).themeMode,
         navigatorKey: StackedService.navigatorKey,
         onGenerateRoute: StackedRouter().onGenerateRoute,
         localizationsDelegates: const [DefaultCupertinoLocalizations.delegate],

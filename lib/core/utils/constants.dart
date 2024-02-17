@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/core/utils/light_constants.dart';
+import 'package:gdsc_app/core/utils/dynamic_constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 @immutable
@@ -12,7 +12,7 @@ class Constants {
   static const Color darkGrey = Color(0xFF303030);
 
   static isDarkMode(BuildContext context) {
-    return !(Theme.of(context).brightness == Brightness.dark);
+    return (Theme.of(context).brightness == Brightness.dark);
   }
 
   // static const Color negative = Color(0xFFD93F37);
@@ -22,22 +22,27 @@ class Constants {
       Theme.of(context).colorScheme.secondary;
 
   static const Color info = Color(0xFF4285F4);
-  static const Color infoLight = Color(0xFFBFDEF5);
+
+  static Color infoLight(BuildContext context) =>
+      isDarkMode(context) ? DarkConstants.infoLight : LightConstants.infoLight;
 
   static const Color positive = Color(0xFF34A853);
-  static const Color positiveLight = Color(0xFFA4D0A2);
+
+  static Color positiveLight(BuildContext context) => isDarkMode(context)
+      ? DarkConstants.positiveLight
+      : LightConstants.positiveLight;
 
   static const Color warning = Color(0xFFFBBC05);
-  static const Color lightWarning = Color(0xFFFFC107);
+
+  static Color lightWarning(BuildContext context) => isDarkMode(context)
+      ? DarkConstants.lightWarning
+      : LightConstants.lightWarning;
 
   static const Color negative = Color(0xFFEA4335);
-  static const Color lightNegative = Color(0xFFF4938F);
 
-  // static Color get black => Colors.black;
-  //
-  // static Color get black2 => Color(0xFF9A9A9A);
-  //
-  // static Color get black3 => Color(0xFF4D4D4D);
+  static Color lightNegative(BuildContext context) => isDarkMode(context)
+      ? DarkConstants.lightNegative
+      : LightConstants.lightNegative;
 
   static Color black(BuildContext context) =>
       isDarkMode(context) ? DarkConstants.black : LightConstants.black;

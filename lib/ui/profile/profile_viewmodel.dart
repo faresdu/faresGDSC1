@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/services/authentication_service.dart';
@@ -8,11 +9,13 @@ import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+
 import '../../core/app/app.locator.dart';
 import '../../core/app/app.router.dart';
 import '../../core/models/member.dart';
 import '../../core/services/s3_service.dart';
 import '../../core/services/user_service.dart';
+import '../../core/utils/constants.dart';
 
 class ProfileViewModel extends BaseViewModel {
   final authService = locator<AuthenticationService>();
@@ -57,6 +60,12 @@ class ProfileViewModel extends BaseViewModel {
       });
     }
     setBusy(false);
+  }
+
+  toggleDarkMode(BuildContext context) {
+    EasyDynamicTheme.of(context)
+        .changeTheme(dark: !Constants.isDarkMode(context));
+    notifyListeners();
   }
 
   Future<bool?> showWarningDialog(BuildContext context) async {
