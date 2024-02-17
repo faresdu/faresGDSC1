@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/utils/constants.dart';
+
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     this.title,
@@ -51,21 +53,25 @@ class CustomTextFormField extends StatelessWidget {
           if (title != null)
             Text(
               title!,
-              style: const TextStyle(
-                color: Colors.black,
+              style: Constants.smallText.copyWith(
+                color: Constants.black(context),
                 fontWeight: FontWeight.w700,
-                fontSize: 16,
               ),
             ),
           const SizedBox(
             height: 7,
           ),
           Container(
-            decoration: BoxDecoration(boxShadow: shadow),
+            decoration: BoxDecoration(
+              boxShadow: shadow,
+            ),
             child: TextFormField(
               style: style,
               maxLength: maxLength,
               keyboardType: type,
+              keyboardAppearance: Constants.isDarkMode(context)
+                  ? Brightness.dark
+                  : Brightness.light,
               maxLines: maxLines,
               autofocus: autofocus,
               controller: controller,
@@ -82,6 +88,9 @@ class CustomTextFormField extends StatelessWidget {
                   : onTap,
               decoration: InputDecoration(
                   hintText: hintText,
+                  hintStyle: Constants.smallText.copyWith(
+                    color: Constants.black3(context),
+                  ),
                   prefixIcon: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 10),
@@ -92,11 +101,19 @@ class CustomTextFormField extends StatelessWidget {
                   contentPadding: (maxLines > 1
                       ? const EdgeInsets.symmetric(vertical: 10)
                       : EdgeInsets.zero),
-                  fillColor: Colors.white,
+                  fillColor: Constants.isDarkMode(context)
+                      ? Colors.black.withOpacity(0.5)
+                      : Constants.white,
                   filled: true,
                   disabledBorder: OutlineInputBorder(
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(20),
+                  ),
+                  counterStyle: Constants.smallText.copyWith(
+                    color: Constants.black3(context),
+                  ),
+                  errorStyle: Constants.smallText.copyWith(
+                    color: Constants.negative,
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide.none,

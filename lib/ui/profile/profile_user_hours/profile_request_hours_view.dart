@@ -7,9 +7,12 @@ import 'package:gdsc_app/ui/widgets/custom_text_form_field.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../core/utils/constants.dart';
+
 class ProfileRequestHoursView extends StatefulWidget {
   const ProfileRequestHoursView({this.onSubmit, Key? key}) : super(key: key);
   final void Function(VolunteerHours volunteerHours)? onSubmit;
+
   @override
   State<ProfileRequestHoursView> createState() =>
       _ProfileRequestHoursViewState();
@@ -44,11 +47,10 @@ class _ProfileRequestHoursViewState extends State<ProfileRequestHoursView> {
                       key: viewmodel.formKey,
                       child: Column(
                         children: [
-                          const Text(
+                          Text(
                             'طلب ساعات',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
+                            style: Constants.mediumText.copyWith(
+                              color: Constants.black(context),
                               fontWeight: FontWeight.w700,
                             ),
                           ),

@@ -4,6 +4,7 @@ import 'package:gdsc_app/ui/committee_members/components/committee_leader_card.d
 import 'package:gdsc_app/ui/committee_members/components/committee_member_card.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
 import 'package:stacked/stacked.dart';
+
 import 'committee_members_viewmodel.dart';
 
 class CommitteeMembersView extends StatelessWidget {
@@ -17,7 +18,6 @@ class CommitteeMembersView extends StatelessWidget {
         builder: (context, viewmodel, _) {
           return Scaffold(
             appBar: CustomAppBar(title: viewmodel.committee.name),
-            backgroundColor: Constants.background,
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: SingleChildScrollView(
@@ -52,12 +52,12 @@ class CommitteeMembersView extends StatelessWidget {
                           child: Container(
                             height: 49,
                             width: MediaQuery.of(context).size.width * 0.62,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(15),
                                 topLeft: Radius.circular(15),
                               ),
-                              color: Constants.lightBlue,
+                              color: Constants.infoLight(context),
                             ),
                             child: Center(
                               child: Text(

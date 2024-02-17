@@ -67,14 +67,13 @@ class _AddPostViewState extends State<AddNotification> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(viewmodel.user.name,
-                                            style: const TextStyle(
-                                                fontSize: 16,
+                                            style: Constants.smallText.copyWith(
                                                 fontWeight: FontWeight.w900)),
                                         Text(viewmodel.user.committee.name,
-                                            style: const TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold,
-                                                color: Constants.grey)),
+                                            style: Constants.extraSmallText
+                                                .copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Constants.grey)),
                                       ],
                                     ),
                                   ],
@@ -106,97 +105,4 @@ class _AddPostViewState extends State<AddNotification> {
           );
         });
   }
-}
-
-Widget _TextWithChild({required String title, required Widget child}) {
-  return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 10),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w700,
-            fontSize: 16,
-          ),
-        ),
-        const SizedBox(
-          height: 7,
-        ),
-        child,
-      ],
-    ),
-  );
-}
-
-Widget SubmitButton(
-    {required Function() onPressed,
-    required String text,
-    required double sizeX,
-    required double sizeY}) {
-  return TextButton(
-    onPressed: onPressed,
-    style: TextButton.styleFrom(
-      fixedSize: Size(sizeX, sizeY),
-      backgroundColor: Constants.blueButton,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-    ),
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: Colors.white,
-        fontSize: 14,
-        fontWeight: FontWeight.w700,
-      ),
-    ),
-  );
-}
-
-Widget CustomTextField(
-    {required String title,
-    required TextEditingController controller,
-    autofocus = false,
-    int maxLines = 1,
-    Widget? icon,
-    TextInputType? type}) {
-  return _TextWithChild(
-    title: title,
-    child: TextField(
-      maxLength: 125,
-      maxLines: maxLines,
-      autofocus: autofocus,
-      controller: controller,
-      decoration: InputDecoration(
-          prefixIcon: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: icon,
-          ),
-          prefixIconConstraints: const BoxConstraints(maxWidth: 22 + 30),
-          contentPadding: EdgeInsets.zero,
-          fillColor: Colors.white,
-          filled: true,
-          disabledBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(20),
-          )),
-    ),
-  );
 }

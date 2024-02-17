@@ -24,10 +24,24 @@ class _ProfileViewState extends State<ProfileView> {
         onViewModelReady: (viewModel) => viewModel.setUser(context),
         builder: (context, viewmodel, _) {
           return Scaffold(
-            backgroundColor: Constants.background,
             appBar: CustomAppBar(
                 title: 'المـلـف الـشـخـصـي',
                 elevation: 0,
+                actions: [
+                  // dark mode button
+                  if (viewmodel.isUser)
+                    IconButton(
+                      onPressed: () => setState(() {
+                        viewmodel.toggleDarkMode(context);
+                      }),
+                      icon: Icon(
+                        Constants.isDarkMode(context)
+                            ? Icons.dark_mode
+                            : Icons.light_mode,
+                        color: Constants.black(context),
+                      ),
+                    ),
+                ],
                 roundedBorder: false,
                 leading: !viewmodel.fromLogin
                     ? null
@@ -40,10 +54,10 @@ class _ProfileViewState extends State<ProfileView> {
                                 await viewmodel.signOut();
                               }
                             },
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.logout_rounded,
                               size: 40,
-                              color: Constants.black,
+                              color: Constants.black(context),
                             ),
                           )
                         : null),
@@ -68,32 +82,32 @@ class _ProfileViewState extends State<ProfileView> {
                       ),
                       ProfileSectionButton(
                         title: 'الفعاليات',
-                        color: Constants.green,
+                        color: Constants.positive,
                         icon: const Icon(
                           Icons.event_note,
-                          color: Constants.green,
+                          color: Constants.positive,
                           size: 30,
                         ),
                         onTap: () => viewmodel.navigateToProfileEvents(),
                       ),
                       ProfileSectionButton(
                         title: 'الساعات',
-                        color: Constants.yellow,
+                        color: Constants.warning,
                         icon: const Icon(
                           Icons.access_time_filled,
-                          color: Constants.yellow,
+                          color: Constants.warning,
                           size: 30,
                         ),
                         onTap: () => viewmodel.navigateToProfileUserHours(),
                       ),
                       ProfileSectionButton(
                         title: 'المنشورات',
-                        color: Constants.red,
+                        color: Constants.negative,
                         icon: Padding(
                           padding: const EdgeInsets.all(4),
                           child: SvgPicture.asset(
                             'assets/icons/profile/timeline.svg',
-                            color: Constants.red,
+                            color: Constants.negative,
                             height: 20,
                             width: 20,
                           ),
@@ -102,10 +116,10 @@ class _ProfileViewState extends State<ProfileView> {
                       ),
                       ProfileSectionButton(
                         title: 'منصات التواصل',
-                        color: Constants.primaryLightBlue,
-                        icon: const Icon(
+                        color: Constants.primary(context),
+                        icon: Icon(
                           Icons.chat_rounded,
-                          color: Constants.primaryLightBlue,
+                          color: Constants.primary(context),
                           size: 30,
                         ),
                         onTap: () => viewmodel.navigateToProfileSocials(),
@@ -113,10 +127,10 @@ class _ProfileViewState extends State<ProfileView> {
                       if (false && viewmodel.isUser)
                         ProfileSectionButton(
                           title: 'الفواتير',
-                          color: Constants.green,
+                          color: Constants.positive,
                           icon: const Icon(
                             Icons.receipt,
-                            color: Constants.green,
+                            color: Constants.positive,
                             size: 30,
                           ),
                           onTap: () => viewmodel.navigateToProfileReceipts(),

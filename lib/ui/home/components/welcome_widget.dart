@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/core/utils/date_helper.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
-import '../../../core/models/gdsc_user.dart';
-import '../../../core/models/member.dart';
-import '../../../core/models/semester.dart';
-import '../../../core/utils/constants.dart';
-import 'package:provider/provider.dart';
 
+import '../../../core/models/member.dart';
+import '../../../core/utils/constants.dart';
 import 'calender_week.dart';
 
 class Welcome extends StatelessWidget {
   final int? currentWeek;
   final Member user;
+
   const Welcome({
     required this.user,
     this.currentWeek,
@@ -22,9 +19,9 @@ class Welcome extends StatelessWidget {
   Widget build(BuildContext context) {
     String getName() {
       if (user.name.split(" ").length > 2 && user.name.length > 18) {
-        return "أهلا ${user.name.split(" ").first} ${user.name.split(" ").last}";
+        return " ${user.name.split(" ").first} ${user.name.split(" ").last}";
       }
-      return "أهلا ${user.name}";
+      return " ${user.name}";
     }
 
     return Row(
@@ -48,10 +45,18 @@ class Welcome extends StatelessWidget {
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.53,
-                  child: Text(
-                    getName(),
-                    style: Constants.largeText
-                        .copyWith(fontWeight: FontWeight.bold),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text("أهلا",
+                          style: Constants.largeText
+                              .copyWith(fontWeight: FontWeight.w400)),
+                      Text(
+                        getName(),
+                        style: Constants.largeText
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                 ),
                 Text(

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gdsc_app/core/models/event.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
 import 'package:provider/provider.dart';
+
 import '../../../core/models/member.dart';
 import '../../../core/utils/constants.dart';
 
@@ -12,6 +13,7 @@ class ProfileCard extends StatelessWidget {
     required this.member,
     this.edit,
   });
+
   final Function()? edit;
   final Member member;
 
@@ -24,7 +26,7 @@ class ProfileCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
       decoration: BoxDecoration(
-        color: Constants.white,
+        color: Constants.cardBackground(context),
         boxShadow: Constants.shadow4,
         borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(63), bottomRight: Radius.circular(63)),
@@ -39,9 +41,9 @@ class ProfileCard extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: IconButton(
                     onPressed: edit,
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.edit,
-                      color: Colors.black,
+                      color: Constants.black(context),
                     ),
                   ),
                 ),
@@ -66,14 +68,16 @@ class ProfileCard extends StatelessWidget {
           if (member.isLeaderOrCoLeader() || member.isConsultant())
             Text(
               "${member.getRole()} ${member.committee.name}",
-              style: Constants.smallText
-                  .copyWith(color: Constants.grey, fontWeight: FontWeight.bold),
+              style: Constants.smallText.copyWith(
+                  color: Constants.black2(context),
+                  fontWeight: FontWeight.bold),
             )
           else
             Text(
               member.committee.name,
-              style: Constants.smallText
-                  .copyWith(color: Constants.grey, fontWeight: FontWeight.bold),
+              style: Constants.smallText.copyWith(
+                  color: Constants.black2(context),
+                  fontWeight: FontWeight.bold),
             ),
 
           const SizedBox(
@@ -88,7 +92,7 @@ class ProfileCard extends StatelessWidget {
                   bottomText: 'المشاركات',
                   icon: const Icon(
                     Icons.event_note_rounded,
-                    color: Constants.green,
+                    color: Constants.positive,
                     size: 20,
                   )),
               buildProfileInfoBox(
@@ -100,7 +104,7 @@ class ProfileCard extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 4, bottom: 2),
                     child: SvgPicture.asset(
                       'assets/icons/profile/timeline.svg',
-                      color: Constants.red,
+                      color: Constants.negative,
                       height: 16,
                       width: 16,
                     ),
@@ -108,9 +112,9 @@ class ProfileCard extends StatelessWidget {
               buildProfileInfoBox(
                   number: member.hours,
                   bottomText: 'الساعات',
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.access_time,
-                    color: Constants.primaryLightBlue,
+                    color: Constants.primary(context),
                     size: 20,
                   )),
             ],
@@ -156,7 +160,7 @@ class ProfileCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         if (trailingDivider)
-          const SizedBox(
+          SizedBox(
             height: 16,
             child: VerticalDivider(
               color: Constants.lightGrey,
@@ -181,7 +185,7 @@ class ProfileCard extends StatelessWidget {
         ),
         if (icon != null) icon,
         if (leadingDivider)
-          const SizedBox(
+          SizedBox(
             height: 16,
             child: VerticalDivider(
               color: Constants.lightGrey,

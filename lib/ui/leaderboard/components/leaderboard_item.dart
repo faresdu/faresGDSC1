@@ -28,7 +28,7 @@ class LeaderboardItem extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Constants.cardBackground(context),
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(index == 0 ? 20 : 0),
         ),
@@ -51,8 +51,8 @@ class LeaderboardItem extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 4),
                     child: Text(
                       "${index + 4}",
-                      style:
-                          const TextStyle(fontSize: 20, color: Colors.black54),
+                      style: Constants.largeText
+                          .copyWith(color: Constants.black3(context)),
                     ),
                   ),
                   ClipOval(
@@ -80,15 +80,15 @@ class LeaderboardItem extends StatelessWidget {
                           child: Text(
                             member.name,
                             overflow: TextOverflow.ellipsis,
-                            style: Constants.verySmallText
-                                .copyWith(fontWeight: FontWeight.bold),
+                            style: Constants.verySmallText.copyWith(
+                                color: Constants.black(context),
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                         Text("${member.committee?.name}",
-                            style: const TextStyle(
-                                fontSize: 12,
+                            style: Constants.extraSmallText.copyWith(
                                 fontWeight: FontWeight.w600,
-                                color: Constants.grey))
+                                color: Constants.black3(context)))
                       ],
                     ),
                   )
@@ -98,7 +98,7 @@ class LeaderboardItem extends StatelessWidget {
                 width: 75,
                 height: 75,
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: Constants.primary(context),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(index == 0 ? 20 : 0),
                   ),
@@ -106,10 +106,8 @@ class LeaderboardItem extends StatelessWidget {
                 child: Center(
                     child: Text(
                   "${member.hours}",
-                  style: const TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600),
+                  style: Constants.superLargeText.copyWith(
+                      color: Colors.white, fontWeight: FontWeight.w600),
                 )),
               ),
             ],

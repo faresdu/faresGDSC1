@@ -20,15 +20,14 @@ class EventAttendees extends StatelessWidget {
           widthFactor: .75,
           child: Container(
             decoration: BoxDecoration(boxShadow: Constants.shadow),
-            child: const CircleAvatar(
+            child: CircleAvatar(
               backgroundColor: Constants.white,
               radius: 11,
               child: Text(
                 '0',
-                style: TextStyle(
-                  fontSize: 10,
+                style: Constants.superSmallText.copyWith(
                   fontWeight: FontWeight.w500,
-                  color: Constants.black,
+                  color: Colors.black,
                 ),
               ),
             ),
@@ -46,10 +45,9 @@ class EventAttendees extends StatelessWidget {
               radius: 11,
               child: Text(
                 '+${attendees.length - 3}',
-                style: const TextStyle(
-                  fontSize: 10,
+                style: Constants.superSmallText.copyWith(
                   fontWeight: FontWeight.w500,
-                  color: Constants.black,
+                  color: Colors.black,
                 ),
               ),
             ),
@@ -67,7 +65,8 @@ class EventAttendees extends StatelessWidget {
               radius: 11,
               backgroundColor: Constants.white,
               child: CircleAvatar(
-                backgroundImage: HelperFunctions.avatarImageProvider(imageUrl: attendees[i].photo ?? ''),
+                backgroundImage: HelperFunctions.avatarImageProvider(
+                    imageUrl: attendees[i].photo ?? ''),
                 backgroundColor: Colors.transparent,
                 radius: 10,
               ),
@@ -84,15 +83,13 @@ class EventAttendees extends StatelessWidget {
         Image.asset('assets/icons/events/event-attendees.png', width: 13),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 7),
-          child: const Text(
+          child: Text(
             'المشاركين',
-            style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: Constants.black),
+            style: Constants.extraSmallText.copyWith(
+                fontWeight: FontWeight.w500, color: Constants.black(context)),
           ),
         ),
-        Row(children: images),
+        Row(children: images.reversed.toList()),
       ],
     );
   }

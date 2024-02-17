@@ -18,7 +18,7 @@ class CommitteeMemberCard extends StatelessWidget {
         onPressed: () => onTap!(member.id),
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        color: Colors.white,
+        color: Constants.cardBackground(context),
         elevation: 4,
         child: Row(
           children: [
@@ -35,7 +35,7 @@ class CommitteeMemberCard extends StatelessWidget {
             Text(
               member.name,
               style: Constants.mediumText.copyWith(
-                color: Colors.black,
+                color: Constants.black(context),
                 overflow: TextOverflow.ellipsis,
                 fontWeight: FontWeight.w700,
               ),
@@ -44,8 +44,8 @@ class CommitteeMemberCard extends StatelessWidget {
             Container(
               height: 80,
               width: 80,
-              decoration: const BoxDecoration(
-                  color: Constants.primaryLightBlue,
+              decoration: BoxDecoration(
+                  color: Constants.primary(context),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(15),
                     bottomLeft: Radius.circular(15),

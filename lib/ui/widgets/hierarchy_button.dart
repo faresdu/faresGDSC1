@@ -18,7 +18,7 @@ class HierarchyButton extends StatelessWidget {
       child: MaterialButton(
         elevation: 10,
         padding: const EdgeInsets.all(10),
-        color: Constants.white,
+        color: Constants.cardBackground(context),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -32,13 +32,14 @@ class HierarchyButton extends StatelessWidget {
             ),
           Text(committee.name,
               style: Constants.veryLargeText.copyWith(
+                color: Constants.black(context),
                 fontWeight: FontWeight.bold,
               )),
-          const Align(
+          Align(
             alignment: Alignment.centerLeft,
             child: Icon(
               Icons.arrow_forward_ios_rounded,
-              color: Constants.lightGrey,
+              color: Constants.black3(context),
               size: 30,
             ),
           )

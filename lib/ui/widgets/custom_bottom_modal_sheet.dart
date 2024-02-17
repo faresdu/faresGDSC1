@@ -6,7 +6,7 @@ Future CustomModalBottomSheet(BuildContext context, Widget? child,
   await showModalBottomSheet(
     context: context,
     isScrollControlled: isScrollControlled,
-    backgroundColor: Constants.grayBackGround,
+    backgroundColor: Constants.grayBackGround(context),
     clipBehavior: Clip.antiAlias,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(

@@ -9,6 +9,7 @@ class EventParticipant extends StatelessWidget {
       : super(key: key);
   final Member member;
   final void Function()? onPressed;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +17,7 @@ class EventParticipant extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(20)),
-          color: Constants.white,
+          color: Constants.cardBackground(context),
           boxShadow: Constants.shadow),
       child: Row(
         children: [
@@ -48,9 +49,9 @@ class EventParticipant extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.email_outlined,
-                          color: Constants.black,
+                          color: Constants.black(context),
                           size: 17,
                         ),
                         const SizedBox(
@@ -86,9 +87,9 @@ class EventParticipant extends StatelessWidget {
                       member.phoneNumber!.isNotEmpty)
                     Row(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.phone,
-                          color: Constants.black,
+                          color: Constants.black(context),
                           size: 17,
                         ),
                         const SizedBox(

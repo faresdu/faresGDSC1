@@ -1,3 +1,4 @@
+import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:gdsc_app/core/models/gdsc_user.dart';
 import 'package:gdsc_app/core/services/event_service.dart';
 import 'package:gdsc_app/core/services/supabase_service.dart';
 import 'package:gdsc_app/core/services/user_service.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:gdsc_app/core/utils/themes.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -31,7 +32,7 @@ Future<void> main() async {
       // We recommend adjusting this value in production.
       options.tracesSampleRate = 0.01;
     },
-    appRunner: () => runApp(const MyApp()),
+    appRunner: () => runApp(EasyDynamicThemeWidget(child: const MyApp())),
   );
   //Remove this method to stop OneSignal Debugging
   kDebugMode ? OneSignal.Debug.setLogLevel(OSLogLevel.verbose) : false;
@@ -40,7 +41,13 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp(
+      {Key? key,
+      this.primary = const Color(0xFF4285F4),
+      this.secondary = const Color(0xFF212A40)})
+      : super(key: key);
+  final Color primary;
+  final Color secondary;
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +68,9 @@ class MyApp extends StatelessWidget {
           );
         },
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          fontFamily: GoogleFonts.cairo().fontFamily,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
+        theme: lightThemeData(primary, secondary),
+        darkTheme: darkThemeData(primary, secondary),
+        themeMode: EasyDynamicTheme.of(context).themeMode,
         navigatorKey: StackedService.navigatorKey,
         onGenerateRoute: StackedRouter().onGenerateRoute,
         localizationsDelegates: const [DefaultCupertinoLocalizations.delegate],

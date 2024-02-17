@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/models/hour_request.dart';
-import 'components/active_request_card.dart';
+import 'components/expandable_request_card.dart';
 
 class PreviousHoursRequestView extends StatelessWidget {
   const PreviousHoursRequestView(
@@ -19,7 +19,7 @@ class PreviousHoursRequestView extends StatelessWidget {
       child: ListView.builder(
           shrinkWrap: true,
           itemCount: previousRequests.length,
-          itemBuilder: (context, index) => ActiveRequestCard(
+          itemBuilder: (context, index) => ExpandableActiveRequestCard(
                 request: previousRequests[index],
                 onUpdate: onApproveOrReject,
               )),

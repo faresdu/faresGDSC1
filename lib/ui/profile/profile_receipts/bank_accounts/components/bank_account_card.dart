@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/bank_account.dart';
-
 import 'package:gdsc_app/core/utils/constants.dart';
 
 class BankAccountCard extends StatelessWidget {
@@ -27,7 +26,7 @@ class BankAccountCard extends StatelessWidget {
             style: Constants.largeText
                 .copyWith(fontWeight: FontWeight.w700, height: 1.4),
           ),
-          const SizedBox(
+          SizedBox(
             width: 30,
             height: 40,
             child: VerticalDivider(

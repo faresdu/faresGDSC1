@@ -10,6 +10,7 @@ import 'package:gdsc_app/ui/widgets/custom_text_form_field.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../core/utils/constants.dart';
 import '../../widgets/show_snackbar.dart';
 
 class AddEventView extends StatefulWidget {
@@ -50,11 +51,10 @@ class _AddEventViewState extends State<AddEventView> {
                           key: viewmodel.formKey,
                           child: Column(
                             children: [
-                              const Text(
+                              Text(
                                 'إضافة فعالية',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
+                                style: Constants.largeText.copyWith(
+                                  color: Constants.black(context),
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -164,9 +164,13 @@ class _AddEventViewState extends State<AddEventView> {
                                               !viewmodel.isOnline;
                                         });
                                       },
-                                      child: Text(viewmodel.isOnline
-                                          ? 'اون لاين'
-                                          : 'حضوري'),
+                                      child: Text(
+                                        viewmodel.isOnline
+                                            ? 'اون لاين'
+                                            : 'حضوري',
+                                        style: Constants.verySmallText.copyWith(
+                                            color: Constants.black(context)),
+                                      ),
                                     ),
                                   ),
                                   Expanded(
@@ -258,10 +262,9 @@ class _AddEventViewState extends State<AddEventView> {
         children: [
           Text(
             title,
-            style: const TextStyle(
-              color: Colors.black,
+            style: Constants.mediumText.copyWith(
+              color: Constants.black(context),
               fontWeight: FontWeight.w700,
-              fontSize: 16,
             ),
           ),
           const SizedBox(
@@ -287,9 +290,11 @@ class _AddEventViewState extends State<AddEventView> {
         onPressed: onPressed,
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: Colors.white,
+        color: Constants.background(context),
         child: Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Constants.background(context)),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(

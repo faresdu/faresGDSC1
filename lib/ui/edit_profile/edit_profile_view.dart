@@ -9,6 +9,7 @@ import 'package:gdsc_app/ui/widgets/custom_bottom_modal_sheet.dart';
 import 'package:gdsc_app/ui/widgets/custom_text_form_field.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
+
 import '../../core/utils/constants.dart';
 import '../widgets/custom_app_bar.dart';
 import 'edit_profile_viewmodel.dart';
@@ -30,7 +31,6 @@ class _EditProfileViewState extends State<EditProfileView> {
           return GestureDetector(
             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
             child: Scaffold(
-              backgroundColor: Constants.background,
               appBar: const CustomAppBar(
                 title: "تعديل الملف الشخصي",
               ),

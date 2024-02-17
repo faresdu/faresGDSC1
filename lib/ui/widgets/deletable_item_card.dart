@@ -10,6 +10,7 @@ class DeletableItemCard<T> extends StatelessWidget {
       required this.onDelete,
       required this.widget,
       this.endAction = false});
+
   final T item;
   final void Function(T item) onDelete;
   final bool endAction;
@@ -29,7 +30,7 @@ class DeletableItemCard<T> extends StatelessWidget {
             },
             style: ElevatedButton.styleFrom(
               shape: const CircleBorder(),
-              backgroundColor: Constants.red.withOpacity(0.9),
+              backgroundColor: Constants.negative.withOpacity(0.9),
               padding: const EdgeInsets.all(14),
             ),
             child: const Icon(

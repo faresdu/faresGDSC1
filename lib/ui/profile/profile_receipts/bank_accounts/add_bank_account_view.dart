@@ -5,6 +5,7 @@ import 'package:gdsc_app/core/utils/form_validators.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../../core/utils/constants.dart';
 import '../../../widgets/custom_text_form_field.dart';
 import 'add_bank_account_viewmodel.dart';
 
@@ -44,11 +45,10 @@ class _AddBankAccountViewState extends State<AddBankAccountView> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 15),
                               child: Column(children: [
-                                const Text(
+                                Text(
                                   'اضافه حساب بنكي',
-                                  style: TextStyle(
+                                  style: Constants.mediumText.copyWith(
                                     color: Colors.black,
-                                    fontSize: 18,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),

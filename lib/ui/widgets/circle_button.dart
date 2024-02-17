@@ -7,6 +7,7 @@ class CircleButton extends StatelessWidget {
   final void Function() onPressed;
   final Color? foregroundColor;
   final Color? backgroundColor;
+
   const CircleButton(
       {this.child,
       required this.onPressed,
@@ -22,7 +23,7 @@ class CircleButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
-        backgroundColor: Constants.primaryLightBlue,
+        backgroundColor: Constants.primary(context),
         shape: const CircleBorder(),
         padding: padding ?? const EdgeInsets.all(10),
       ),

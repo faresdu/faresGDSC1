@@ -27,7 +27,7 @@ class CommitteeLeaderCard extends StatelessWidget {
               onPressed: () => onTap!(member.id),
               padding: EdgeInsets.zero,
               elevation: 3,
-              color: Colors.white,
+              color: Constants.cardBackground(context),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
@@ -36,9 +36,9 @@ class CommitteeLeaderCard extends StatelessWidget {
                   Container(
                     height: 86,
                     width: 50,
-                    decoration: const BoxDecoration(
-                        color: Constants.lightBlue,
-                        borderRadius: BorderRadius.only(
+                    decoration: BoxDecoration(
+                        color: Constants.infoLight(context),
+                        borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(15),
                           bottomRight: Radius.circular(15),
                         )),
@@ -51,7 +51,7 @@ class CommitteeLeaderCard extends StatelessWidget {
                                   ? Constants.mediumText
                                   : Constants.veryLargeText)
                               .copyWith(
-                                  color: Colors.white,
+                                  color: Constants.white,
                                   fontWeight: FontWeight.w600),
                         ),
                       ),
@@ -63,7 +63,7 @@ class CommitteeLeaderCard extends StatelessWidget {
                   Text(
                     member.name,
                     style: Constants.mediumText.copyWith(
-                      color: Colors.black,
+                      color: Constants.black(context),
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -71,8 +71,8 @@ class CommitteeLeaderCard extends StatelessWidget {
                   Container(
                     height: 86,
                     width: 80,
-                    decoration: const BoxDecoration(
-                        color: Constants.primaryLightBlue,
+                    decoration: BoxDecoration(
+                        color: Constants.primary(context),
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(15),
                           bottomLeft: Radius.circular(15),

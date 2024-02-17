@@ -82,7 +82,7 @@ class LoginView extends StatelessWidget {
                                     "استعادة كلمة المرور",
                                     style: Constants.verySmallText.copyWith(
                                       fontWeight: FontWeight.w700,
-                                      color: Constants.darkBlue,
+                                      color: Constants.primary(context),
                                     ),
                                   ),
                                 )),
@@ -110,7 +110,7 @@ class LoginView extends StatelessWidget {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: Constants.background,
+        backgroundColor: Constants.background(context),
         scrollable: true,
         content: Container(
           width: MediaQuery.of(context).size.width * 0.7,
@@ -151,14 +151,15 @@ class LoginView extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 4),
                 decoration: BoxDecoration(
-                  color: Constants.blueButton,
+                  color: Constants.primary(context),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: Center(
                   child: Text(
                     isBusy ? 'جاري الارسال' : 'ارسال',
-                    style: TextStyle(color: Constants.white, fontSize: 18),
+                    style:
+                        Constants.mediumText.copyWith(color: Constants.white),
                   ),
                 ),
               ),

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/models/gdsc_user.dart';
-import 'package:gdsc_app/core/utils/constants.dart';
+import 'package:gdsc_app/ui/timeline/components/post_card.dart';
 import 'package:gdsc_app/ui/timeline/timeline_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
-import 'package:gdsc_app/ui/timeline/components/post_card.dart';
-import 'package:stacked/stacked.dart';
 import 'package:provider/provider.dart';
+import 'package:stacked/stacked.dart';
 
 class TimeLineView extends StatefulWidget {
   const TimeLineView({Key? key}) : super(key: key);
@@ -25,13 +24,11 @@ class _TimeLineViewState extends State<TimeLineView> {
         final user = Provider.of<GDSCUser>(context);
 
         return Scaffold(
-          backgroundColor: Constants.background,
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               viewmodel.navigateToAddPosts(context);
             },
-            backgroundColor: Constants.blueButton,
             heroTag: 'addPostTag',
             child: const Icon(
               Icons.add,

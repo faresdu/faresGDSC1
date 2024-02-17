@@ -21,7 +21,8 @@ class RoundedSubmitButton extends StatelessWidget {
       onPressed: isBusy ? null : onPressed,
       style: TextButton.styleFrom(
         fixedSize: fixedSize,
-        backgroundColor: isBusy ? Constants.greyDivider : Constants.blueButton,
+        backgroundColor:
+            isBusy ? Constants.greyDivider : Constants.primary(context),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
       child: isBusy
@@ -30,9 +31,8 @@ class RoundedSubmitButton extends StatelessWidget {
             )
           : Text(
               text,
-              style: const TextStyle(
+              style: Constants.verySmallText.copyWith(
                 color: Colors.white,
-                fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),
             ),

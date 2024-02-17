@@ -22,7 +22,7 @@ class CalenderWeek extends StatelessWidget {
       child: Text(
         "${currentWeek!}",
         style: Constants.largeText
-            .copyWith(fontWeight: FontWeight.bold, color: Constants.black),
+            .copyWith(fontWeight: FontWeight.bold, color: Colors.black),
       ),
     );
   }

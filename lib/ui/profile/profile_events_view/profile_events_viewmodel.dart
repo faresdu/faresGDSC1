@@ -21,6 +21,7 @@ class ProfileEventsViewModel extends StreamViewModel<List<Event>> {
 
   List<Event> events = [];
   late Member user;
+
   ProfileEventsViewModel(BuildContext context) {
     Member? member = (ModalRoute.of(context)!.settings.arguments as Member?);
     if (member != null) {
@@ -40,8 +41,8 @@ class ProfileEventsViewModel extends StreamViewModel<List<Event>> {
     }
   }
 
-  Widget getSignUpButton(Event event) {
-    EventType type = eventService.getEventType(event);
+  Widget getSignUpButton(BuildContext context, Event event) {
+    EventType type = eventService.getEventType(context, event);
     return EventCardButton(
       eventType: type,
     );

@@ -17,7 +17,7 @@ class NotificationCard extends StatelessWidget {
       height: 100,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Constants.white,
+          color: Constants.cardBackground(context),
           boxShadow: Constants.shadow),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,7 +45,7 @@ class NotificationCard extends StatelessWidget {
                 style: Constants.mediumText.copyWith(
                   height: 1.5,
                   letterSpacing: -0.25,
-                  color: Constants.black2,
+                  color: Constants.black2(context),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

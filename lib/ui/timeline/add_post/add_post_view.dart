@@ -74,14 +74,15 @@ class _AddPostViewState extends State<AddPostView> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(user.name,
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w900)),
+                                            style: Constants.mediumText
+                                                .copyWith(
+                                                    fontWeight:
+                                                        FontWeight.w900)),
                                         Text(user.committee.name,
-                                            style: const TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold,
-                                                color: Constants.grey)),
+                                            style: Constants.extraSmallText
+                                                .copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Constants.grey)),
                                       ],
                                     ),
                                   ],

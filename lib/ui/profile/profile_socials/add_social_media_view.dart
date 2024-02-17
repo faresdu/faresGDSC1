@@ -7,6 +7,8 @@ import 'package:gdsc_app/ui/widgets/custom_text_form_field.dart';
 import 'package:gdsc_app/ui/widgets/submit_button.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../core/utils/constants.dart';
+
 class AddSocialMediaView extends StatefulWidget {
   const AddSocialMediaView({this.onSubmit, Key? key}) : super(key: key);
   final void Function(UserSocialMedia userSocialMedia)? onSubmit;
@@ -42,11 +44,10 @@ class _AddSocialMediaViewState extends State<AddSocialMediaView> {
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
                       children: [
-                        const Text(
+                        Text(
                           'اضافه منصة تواصل',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
+                          style: Constants.mediumText.copyWith(
+                            color: Constants.black(context),
                             fontWeight: FontWeight.w700,
                           ),
                         ),

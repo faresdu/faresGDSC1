@@ -19,7 +19,9 @@ class CommitteesHoursView extends StatelessWidget {
             appBar: const CustomAppBar(
               title: 'طلبات ساعات اللجان',
             ),
-            backgroundColor: Constants.grayBackGround.withOpacity(0.95),
+            backgroundColor: Constants.isDarkMode(context)
+                ? Constants.background(context)
+                : Constants.grayBackGround(context),
             body: SafeArea(
               child: BusyOverlay(
                 isBusy: viewmodel.isBusy,

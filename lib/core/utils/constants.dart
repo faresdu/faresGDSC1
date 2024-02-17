@@ -1,40 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/utils/dynamic_constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 @immutable
 class Constants {
   const Constants._();
 
-  static const Color grey = Color(0xFF666C74);
+  static Color get grey => const Color(0xFF666C74);
   static const Color greyDivider = Color(0xFFB7B3B3);
   static const Color lightGrey = Color(0xff94979B);
   static const Color darkGrey = Color(0xFF303030);
-  static const Color red = Color(0xFFD93F37);
-  static const Color redTOP = Color(0xFFF4938F);
-  static const Color redNumber = Color(0xFFEA4335);
-  static const Color pink = Color(0xFFF15C55);
-  static const Color green = Color(0xFF34A853);
-  static const Color greenTOP = Color(0xFFA4D0A2);
-  static const Color lightGreen = Color(0xFFA4D0A2);
-  static const Color yellow = Color(0xFFF8BC18);
-  static const Color yellowTOP = Color(0xFFFFC107);
-  static const Color yellowNumber = Color(0xFFFBBC05);
-  static const Color lightYellow = Color(0xFFFADC86);
-  static const Color lightBlue = Color(0xFFBFDEF5);
+
+  static isDarkMode(BuildContext context) {
+    return (Theme.of(context).brightness == Brightness.dark);
+  }
+
+  // static const Color negative = Color(0xFFD93F37);
+  static Color primary(BuildContext context) => Theme.of(context).primaryColor;
+
+  static Color secondary(BuildContext context) =>
+      Theme.of(context).colorScheme.secondary;
+
+  static const Color info = Color(0xFF4285F4);
+
+  static Color infoLight(BuildContext context) =>
+      isDarkMode(context) ? DarkConstants.infoLight : LightConstants.infoLight;
+
+  static const Color positive = Color(0xFF34A853);
+
+  static Color positiveLight(BuildContext context) => isDarkMode(context)
+      ? DarkConstants.positiveLight
+      : LightConstants.positiveLight;
+
+  static const Color warning = Color(0xFFFBBC05);
+
+  static Color lightWarning(BuildContext context) => isDarkMode(context)
+      ? DarkConstants.lightWarning
+      : LightConstants.lightWarning;
+
+  static const Color negative = Color(0xFFEA4335);
+
+  static Color lightNegative(BuildContext context) => isDarkMode(context)
+      ? DarkConstants.lightNegative
+      : LightConstants.lightNegative;
+
+  static Color black(BuildContext context) =>
+      isDarkMode(context) ? DarkConstants.black : LightConstants.black;
+
+  static Color black2(BuildContext context) =>
+      isDarkMode(context) ? DarkConstants.black2 : LightConstants.black2;
+
+  static Color black3(BuildContext context) =>
+      isDarkMode(context) ? DarkConstants.black3 : LightConstants.black3;
+
+  static Color background(BuildContext context) => isDarkMode(context)
+      ? DarkConstants.background
+      : LightConstants.background;
+
+  static Color grayBackGround(BuildContext context) => isDarkMode(context)
+      ? DarkConstants.grayBackGround
+      : LightConstants.grayBackGround;
+
+  static Color cardBackground(BuildContext context) => isDarkMode(context)
+      ? DarkConstants.cardBackground
+      : LightConstants.cardBackground;
+
   static const Color blue = Color(0xFF547DBF);
-  static const Color darkBlue = Color(0xFF4285F4);
-  static const Color blueButton = Color(0xFF4285F4); //same as above
-  static const Color cyan = Color(0xFF7CB9E5);
-  static const Color greyBackground1 = Color(0xFFF5F5F5);
   static const Color white = Colors.white;
-  static const Color black = Colors.black;
-  static const Color black2 = Color(0xFF9A9A9A);
-  static const Color black3 = Color(0xFF4D4D4D);
-  static const Color background = Color(0xfff4f5f9);
-  static const Color grayBackGround = Color(0xFFF1F1F1);
-  static const Color navigationBackground = Color(0xFFF5FCFF);
-  static const Color primaryLightBlue = Color(0xFF4285F4);
-  static const Color inactiveDotColor = Color(0xFFBFDEF5);
 
   static List<BoxShadow> shadow = [
     BoxShadow(color: Colors.black.withOpacity(.3), blurRadius: 8),
@@ -91,18 +123,26 @@ class Constants {
     ),
   ];
 
+  static TextStyle superLargeText = GoogleFonts.cairo().copyWith(
+    fontSize: 26,
+  );
+
+  static TextStyle extraLargeText = GoogleFonts.cairo().copyWith(
+    fontSize: 24,
+  );
+
   static TextStyle veryLargeText = GoogleFonts.cairo().copyWith(
-    fontSize: 23,
+    fontSize: 22,
   );
 
   static TextStyle largeText = GoogleFonts.cairo().copyWith(
-    fontSize: 21,
+    fontSize: 20,
   );
   static TextStyle mediumText = GoogleFonts.cairo().copyWith(
-    fontSize: 18,
+    fontSize: 17,
   );
   static TextStyle smallText = GoogleFonts.cairo().copyWith(
-    fontSize: 16,
+    fontSize: 15,
   );
   static TextStyle verySmallText = GoogleFonts.cairo().copyWith(
     fontSize: 14,

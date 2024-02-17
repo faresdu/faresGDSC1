@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/core/utils/helper_functions.dart';
+
 import '../../core/models/member.dart';
+import '../../core/utils/constants.dart';
 
 class MemberCard extends StatelessWidget {
   final void Function() onPressed;
@@ -19,11 +21,11 @@ class MemberCard extends StatelessWidget {
         borderRadius: const BorderRadius.all(
           Radius.circular(12), //was 20
         ),
-        color:
-            cardBackgroundColor(), //(role=="قائد")? Color(0xFFF9EEED):(role=="نائب القائد")? Color(0xFFFDF9EE): Color(0xFFF6FAFC),
+        color: cardBackgroundColor(),
+        //(role=="قائد")? Color(0xFFF9EEED):(role=="نائب القائد")? Color(0xFFFDF9EE): Color(0xFFF6FAFC),
         border: Border.all(
-          color:
-              borderColor(), //(role=="قائد")? Color(0xFFA0461A):(role=="نائب القائد")? Color(0xFFE7B94A): Color(0xFF0682BC),
+          color: borderColor(),
+          //(role=="قائد")? Color(0xFFA0461A):(role=="نائب القائد")? Color(0xFFE7B94A): Color(0xFF0682BC),
           width: 0.5,
         ),
         boxShadow: const [
@@ -54,8 +56,8 @@ class MemberCard extends StatelessWidget {
                     //container to add the colored border with shadow
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color:
-                            borderColor(), //(role=="قائد")? Color(0xFFA0461A):(role=="نائب القائد")? Color(0xFFE7B94A): Color(0xFF0682BC),
+                        color: borderColor(),
+                        //(role=="قائد")? Color(0xFFA0461A):(role=="نائب القائد")? Color(0xFFE7B94A): Color(0xFF0682BC),
                         width: 0.5,
                       ),
                       shape: BoxShape.circle,
@@ -77,10 +79,8 @@ class MemberCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(member.name,
-                        style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold)),
+                        style: Constants.mediumText.copyWith(
+                            color: Colors.black, fontWeight: FontWeight.bold)),
                     Text(role ?? 'عضو',
                         style:
                             const TextStyle(fontSize: 13, color: Colors.black)),
@@ -127,8 +127,10 @@ class MemberCard extends StatelessWidget {
       return HelperFunctions.profileImage(
           imageUrl: member.photo!,
           gender: member.gender ?? "",
-          height: 65, //was 50
-          width: 65, //was 50
+          height: 65,
+          //was 50
+          width: 65,
+          //was 50
           fit: BoxFit.cover);
     }
     return Image.asset(

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_app/core/utils/constants.dart';
 import 'package:gdsc_app/ui/events/add_event/add_event_view.dart';
 import 'package:gdsc_app/ui/events/events_viewmodel.dart';
-import 'package:gdsc_app/ui/widgets/custom_bottom_modal_sheet.dart';
 import 'package:gdsc_app/ui/widgets/custom_app_bar.dart';
+import 'package:gdsc_app/ui/widgets/custom_bottom_modal_sheet.dart';
 import 'package:stacked/stacked.dart';
 
 import '../widgets/custom_tab_bar_controller.dart';
@@ -22,14 +21,12 @@ class _EventsViewState extends State<EventsView> {
         viewModelBuilder: () => EventsViewModel(),
         builder: (context, viewmodel, _) {
           return Scaffold(
-            backgroundColor: Constants.background,
             floatingActionButton: viewmodel.isAdmin()
                 ? FloatingActionButton(
                     onPressed: () {
                       CustomModalBottomSheet(context, const AddEventView(),
                           heightFactor: 0.92);
                     },
-                    backgroundColor: Constants.blueButton,
                     child: const Icon(
                       Icons.add,
                       size: 30,
@@ -53,15 +50,15 @@ class _EventsViewState extends State<EventsView> {
                       ],
                       children: [
                         ListView(
-                          children: viewmodel.getNewCards(),
+                          children: viewmodel.getNewCards(context),
                         ),
                         ListView(
-                          children: viewmodel.getAllCards(),
+                          children: viewmodel.getAllCards(context),
                         ),
                       ],
                     )
                   : ListView(
-                      children: viewmodel.getNewCards(),
+                      children: viewmodel.getNewCards(context),
                     ),
             ),
           );

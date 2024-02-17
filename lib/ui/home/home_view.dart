@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_app/ui/Home/home_viewmodel.dart';
 import 'package:gdsc_app/ui/widgets/busy_overlay.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:stacked/stacked.dart';
-import '../../core/utils/constants.dart';
+
 import '../notifications/components/notification_card.dart';
 import 'components/featured_events.dart';
 import 'components/featured_notifications.dart';
 import 'components/welcome_widget.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({required this.updateScreen, Key? key}) : super(key: key);
@@ -23,7 +23,6 @@ class HomeView extends StatelessWidget {
         onViewModelReady: (model) => model.init(),
         builder: (context, viewmodel, _) {
           return Scaffold(
-            backgroundColor: Constants.background,
             body: SafeArea(
               child: BusyOverlay(
                 isBusy: viewmodel.isBusy,
@@ -72,10 +71,8 @@ class HomeView extends StatelessWidget {
                 ? null
                 : FloatingActionButton(
                     heroTag: null,
-                    backgroundColor: Constants.primaryLightBlue,
-                    onPressed: () {
-                      viewmodel.navigateToCommitteesRequestsPage();
-                    },
+                    onPressed: () =>
+                        viewmodel.navigateToCommitteesRequestsPage(),
                     child: const Icon(Icons.menu),
                   ),
           );

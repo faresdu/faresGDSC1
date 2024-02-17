@@ -8,7 +8,7 @@ void showSnackBar(context,
     SnackBar(
       duration: duration ?? const Duration(milliseconds: 4000),
       showCloseIcon: true,
-      backgroundColor: success ? Constants.green : Constants.red,
+      backgroundColor: success ? Constants.positive : Constants.negative,
       content: Text(message,
           textAlign: TextAlign.center,
           style: Constants.mediumText.copyWith(color: Constants.white)),

@@ -28,7 +28,7 @@ class EventCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
       margin: const EdgeInsets.symmetric(horizontal: 4),
       child: MaterialButton(
-        color: Colors.white,
+        color: Constants.cardBackground(context),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 4,
         onPressed: onPressed,
@@ -64,19 +64,17 @@ class EventCard extends StatelessWidget {
                           child: Text(
                             event.title,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 20,
+                            style: Constants.largeText.copyWith(
                               fontWeight: FontWeight.bold,
-                              color: Constants.black,
+                              color: Constants.black(context),
                             ),
                           ),
                         ),
                         Text(
                           event.instructorName,
-                          style: const TextStyle(
-                            fontSize: 14,
+                          style: Constants.verySmallText.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: Constants.black,
+                            color: Constants.black(context),
                           ),
                         ),
                       ],
@@ -92,9 +90,9 @@ class EventCard extends StatelessWidget {
                                 context, EditEventView(eventDetails: event),
                                 heightFactor: 0.92);
                           },
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.edit,
-                            color: Constants.black,
+                            color: Constants.black(context),
                           ),
                         ),
                       ),
@@ -111,9 +109,8 @@ class EventCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       child: Text(
                         "${DateHelper.getDate(event.startDate)}  -  ${event.isOnline ? "اونلاين" : "حضوري"}",
-                        style: const TextStyle(
+                        style: Constants.extraSmallText.copyWith(
                           color: Constants.grey,
-                          fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -134,10 +131,9 @@ class EventCard extends StatelessWidget {
                                 Text(
                                   EventsViewModel.locationEventName(
                                       event.location),
-                                  style: const TextStyle(
-                                    fontSize: 16,
+                                  style: Constants.smallText.copyWith(
                                     fontWeight: FontWeight.normal,
-                                    color: Constants.black,
+                                    color: Constants.black(context),
                                   ),
                                 ),
                               ],

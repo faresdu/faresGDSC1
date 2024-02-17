@@ -48,8 +48,8 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
     }
   }
 
-  Widget getSignUpButton(Event event) {
-    EventType type = eventService.getEventType(event);
+  Widget getSignUpButton(BuildContext context, Event event) {
+    EventType type = eventService.getEventType(context, event);
     return EventCardButton(
       eventType: type,
     );
@@ -78,14 +78,14 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
     return userService.user.isLeaderOrCoLeader();
   }
 
-  List<Widget> getNewCards() {
+  List<Widget> getNewCards(BuildContext context) {
     List<Event> eventList =
         events.where((e) => e.startDate.isAfter(DateTime.now())).toList();
     return eventList
         .map(
           (e) => EventCard(
             event: e,
-            signUpButton: getSignUpButton(e),
+            signUpButton: getSignUpButton(context, e),
             canEdit: canEditEvent(e),
             onPressed: () {
               navigateToEvent(e);
@@ -95,12 +95,12 @@ class EventsViewModel extends StreamViewModel<List<Event>> {
         .toList();
   }
 
-  List<Widget> getAllCards() {
+  List<Widget> getAllCards(BuildContext context) {
     return events
         .map(
           (e) => EventCard(
             event: e,
-            signUpButton: getSignUpButton(e),
+            signUpButton: getSignUpButton(context, e),
             canEdit: canEditEvent(e),
             onPressed: () {
               navigateToEvent(e);

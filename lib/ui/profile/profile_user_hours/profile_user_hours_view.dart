@@ -28,7 +28,6 @@ class _ProfileUserHoursViewState extends State<ProfileUserHoursView> {
             appBar: const CustomAppBar(
               title: 'طلبات تسجيل الساعات',
             ),
-            backgroundColor: Constants.background,
             body: SafeArea(
               child: DefaultTabController(
                 length: 2,

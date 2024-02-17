@@ -31,7 +31,6 @@ class ProfileReceiptsView extends StatelessWidget {
                   ),
                 ],
               ),
-              backgroundColor: Constants.background,
               body: SafeArea(
                 child: DefaultTabController(
                   length: 2,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_app/core/utils/constants.dart';
 
 class CustomDropDownMenu extends StatelessWidget {
   const CustomDropDownMenu(
@@ -28,10 +29,9 @@ class CustomDropDownMenu extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
-              color: Colors.black,
+            style: Constants.smallText.copyWith(
+              color: Constants.black(context),
               fontWeight: FontWeight.w700,
-              fontSize: 16,
             ),
           ),
           const SizedBox(
@@ -43,11 +43,22 @@ class CustomDropDownMenu extends StatelessWidget {
                   decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 5),
-                      fillColor: Colors.white,
+                      hintStyle: Constants.smallText.copyWith(
+                        color: Constants.black3(context),
+                      ),
+                      fillColor: Constants.isDarkMode(context)
+                          ? Colors.black.withOpacity(0.5)
+                          : Constants.white,
                       filled: true,
                       disabledBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(20),
+                      ),
+                      counterStyle: Constants.smallText.copyWith(
+                        color: Constants.black3(context),
+                      ),
+                      errorStyle: Constants.smallText.copyWith(
+                        color: Constants.negative,
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
@@ -72,10 +83,11 @@ class CustomDropDownMenu extends StatelessWidget {
                     }
                     return null;
                   },
+                  dropdownColor: Constants.cardBackground(context),
                   hint: Text(hint ?? 'اختر',
-                      style: const TextStyle(
+                      style: Constants.mediumText.copyWith(
                         fontWeight: FontWeight.w700,
-                        fontSize: 16,
+                        color: Constants.black3(context),
                       )),
                   items: items))
         ],

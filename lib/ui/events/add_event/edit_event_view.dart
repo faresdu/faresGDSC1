@@ -55,11 +55,10 @@ class _AddEventViewState extends State<EditEventView> {
                           key: viewmodel.formKey,
                           child: Column(
                             children: [
-                              const Text(
+                              Text(
                                 'تعديل فعالية',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
+                                style: Constants.largeText.copyWith(
+                                  color: Constants.black(context),
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -72,7 +71,8 @@ class _AddEventViewState extends State<EditEventView> {
                                         EdgeInsets.only(right: 4, bottom: 4),
                                     child: SubmitButton(
                                       text: "حذف الفعاليه",
-                                      color: Constants.red.withOpacity(0.85),
+                                      color:
+                                          Constants.negative.withOpacity(0.85),
                                       onPressed: () async {
                                         bool? confirmed = await viewmodel
                                             .confirmDeletionDialog(context);
@@ -198,9 +198,13 @@ class _AddEventViewState extends State<EditEventView> {
                                               !viewmodel.isOnline;
                                         });
                                       },
-                                      child: Text(viewmodel.isOnline
-                                          ? 'اون لاين'
-                                          : 'حضوري'),
+                                      child: Text(
+                                        viewmodel.isOnline
+                                            ? 'اون لاين'
+                                            : 'حضوري',
+                                        style: Constants.verySmallText.copyWith(
+                                            color: Constants.black(context)),
+                                      ),
                                     ),
                                   ),
                                   Expanded(
@@ -292,10 +296,9 @@ class _AddEventViewState extends State<EditEventView> {
         children: [
           Text(
             title,
-            style: const TextStyle(
-              color: Colors.black,
+            style: Constants.mediumText.copyWith(
+              color: Constants.black(context),
               fontWeight: FontWeight.w700,
-              fontSize: 16,
             ),
           ),
           const SizedBox(
@@ -321,9 +324,11 @@ class _AddEventViewState extends State<EditEventView> {
         onPressed: onPressed,
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: Colors.white,
+        color: Constants.background(context),
         child: Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Constants.background(context)),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(

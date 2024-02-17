@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
+
 import '../../core/utils/constants.dart';
 import 'navigation_button.dart';
 import 'navigation_viewmodel.dart';
@@ -29,6 +30,7 @@ class _NavigationViewState extends State<NavigationView> {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: BottomAppBar(
+              color: Constants.cardBackground(context),
               child: Container(
                 height: 65,
                 clipBehavior: Clip.antiAlias,
@@ -44,8 +46,8 @@ class _NavigationViewState extends State<NavigationView> {
                           viewmodel.updateScreen(4);
                         },
                         color: viewmodel.currentTab == 4
-                            ? Constants.red
-                            : Constants.darkGrey,
+                            ? Constants.negative
+                            : Constants.black2(context),
                         text: 'الفعاليات',
                         imagePath: 'assets/icons/navigation2/events.svg'),
                     NavigationButton(
@@ -53,8 +55,8 @@ class _NavigationViewState extends State<NavigationView> {
                           viewmodel.updateScreen(3);
                         },
                         color: viewmodel.currentTab == 3
-                            ? Constants.blueButton
-                            : Constants.darkGrey,
+                            ? Constants.primary(context)
+                            : Constants.black2(context),
                         text: 'المنشورات',
                         imagePath: 'assets/icons/navigation2/timeline.svg'),
                     MaterialButton(
@@ -65,10 +67,10 @@ class _NavigationViewState extends State<NavigationView> {
                         viewmodel.updateScreen(0);
                       },
                       child: CircleAvatar(
-                        backgroundColor: Colors.grey[200],
+                        backgroundColor: Constants.cardBackground(context),
                         radius: 27,
                         child: CircleAvatar(
-                          backgroundColor: Constants.blueButton,
+                          backgroundColor: Theme.of(context).primaryColor,
                           radius: 25,
                           child: Padding(
                             padding: const EdgeInsets.all(13.5),
@@ -83,8 +85,8 @@ class _NavigationViewState extends State<NavigationView> {
                           viewmodel.updateScreen(2);
                         },
                         color: viewmodel.currentTab == 2
-                            ? Constants.yellow
-                            : Constants.darkGrey,
+                            ? Constants.warning
+                            : Constants.black2(context),
                         text: 'المتصدرين',
                         imagePath: 'assets/icons/navigation2/leaderboard.svg'),
                     NavigationButton(
@@ -92,8 +94,8 @@ class _NavigationViewState extends State<NavigationView> {
                           viewmodel.updateScreen(1);
                         },
                         color: viewmodel.currentTab == 1
-                            ? Constants.green
-                            : Constants.darkGrey,
+                            ? Constants.positive
+                            : Constants.black2(context),
                         text: 'حسابي',
                         imagePath: 'assets/icons/navigation2/profile.svg'),
                   ],

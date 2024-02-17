@@ -16,7 +16,10 @@ class ProfileVolunteerHoursCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(15),
       height: 55,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Constants.white, boxShadow: Constants.cardShadow),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Constants.white,
+          boxShadow: Constants.cardShadow),
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
@@ -25,13 +28,13 @@ class ProfileVolunteerHoursCard extends StatelessWidget {
             child: Center(
               child: Text(
                 volunteerHours.reasoning ?? 'no reason',
-                style: const TextStyle(color: Constants.black),
+                style: TextStyle(color: Constants.black(context)),
               ),
             ),
           ),
           Container(
             width: double.maxFinite,
-            color: Constants.darkBlue,
+            color: Constants.primary(context),
             child: Text(
               volunteerHours.hours.toString(),
               style: const TextStyle(color: Constants.white),
@@ -50,13 +53,13 @@ class ProfileVolunteerHoursCard extends StatelessWidget {
     if (volunteerHours.isAccepted()) {
       return const Icon(
         Icons.done,
-        color: Constants.green,
+        color: Constants.positive,
       );
     }
     if (volunteerHours.isRejected()) {
       return const Icon(
         Icons.close,
-        color: Constants.red,
+        color: Constants.negative,
       );
     }
   }

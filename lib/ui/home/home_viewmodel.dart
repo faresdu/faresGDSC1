@@ -112,8 +112,8 @@ class HomeViewModel extends StreamViewModel<List<Event>> {
     navService.navigateTo(Routes.notificationView);
   }
 
-  Widget getSignUpButton(Event event) {
-    EventType type = eventService.getEventType(event);
+  Widget getSignUpButton(BuildContext context, Event event) {
+    EventType type = eventService.getEventType(context, event);
     return EventCardButton(
       eventType: type,
     );

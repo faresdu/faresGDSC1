@@ -25,6 +25,7 @@ class SubmitButton extends StatelessWidget {
   final BorderRadiusGeometry? borderRadius;
   final TextStyle? style;
   final void Function() onPressed;
+
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -35,7 +36,7 @@ class SubmitButton extends StatelessWidget {
             ? null
             : disabled
                 ? Constants.lightGrey
-                : color ?? Constants.blueButton,
+                : color ?? Constants.primary(context),
         shape: RoundedRectangleBorder(
             borderRadius: borderRadius ?? BorderRadius.circular(10)),
       ),
@@ -46,7 +47,8 @@ class SubmitButton extends StatelessWidget {
               softWrap: true,
               textAlign: TextAlign.center,
               style: (style ?? Constants.verySmallText).copyWith(
-                  color: outlined ? Constants.blueButton : Constants.white,
+                  color:
+                      outlined ? Constants.primary(context) : Constants.white,
                   fontWeight: FontWeight.w700),
             ),
     );

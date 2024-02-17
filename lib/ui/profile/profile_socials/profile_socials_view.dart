@@ -27,7 +27,6 @@ class _ProfileSocialsViewState extends State<ProfileSocialsView> {
             appBar: const CustomAppBar(
               title: 'منصات التواصل الاجتماعي',
             ),
-            backgroundColor: Constants.background,
             body: SafeArea(
               child: BusyOverlay(
                 isBusy: viewmodel.isBusy,
@@ -53,7 +52,7 @@ class _ProfileSocialsViewState extends State<ProfileSocialsView> {
                                 setState(() => viewmodel.socials.add(val)),
                           ));
                     },
-                    backgroundColor: Constants.blueButton,
+                    backgroundColor: Constants.primary(context),
                     heroTag: 'addSocialTag',
                     child: const Icon(
                       Icons.add,
