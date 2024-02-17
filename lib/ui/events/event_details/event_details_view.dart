@@ -168,7 +168,7 @@ class _EventDetailsViewState extends State<EventDetailsView> {
             InkWell(
               borderRadius: BorderRadius.circular(10),
               onTap: () async {
-                HelperFunctions.openUrl(link);
+                await HelperFunctions.openUrl(link);
               },
               child: Container(
                 padding: const EdgeInsets.only(bottom: 1),

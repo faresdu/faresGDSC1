@@ -185,7 +185,7 @@ abstract class HelperFunctions {
   }
 
   static openUrl(String url) async {
-    if (!url.startsWith('https://') || !url.startsWith('http://')) {
+    if (!url.startsWith(RegExp(r'(http|https)://'))) {
       url = 'https://$url';
     }
     Uri uri = Uri.parse(url);
