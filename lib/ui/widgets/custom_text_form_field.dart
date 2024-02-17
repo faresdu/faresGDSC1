@@ -69,6 +69,9 @@ class CustomTextFormField extends StatelessWidget {
               style: style,
               maxLength: maxLength,
               keyboardType: type,
+              keyboardAppearance: Constants.isDarkMode(context)
+                  ? Brightness.dark
+                  : Brightness.light,
               maxLines: maxLines,
               autofocus: autofocus,
               controller: controller,

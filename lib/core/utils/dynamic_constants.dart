@@ -60,7 +60,7 @@ class DarkConstants {
   static const Color positiveLight = Color(0xFF76BE74);
 
   static const Color warning = Color(0xFFFBBC05);
-  static const Color lightWarning = Color(0xFFF8D670);
+  static const Color lightWarning = Color(0xFFD0B35B);
 
   static const Color negative = Color(0xFFEA4335);
   static const Color lightNegative = Color(0xFFE06F6A);

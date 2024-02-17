@@ -61,6 +61,8 @@ class CustomInputField extends StatelessWidget {
       onFieldSubmitted: onFieldSubmitted,
       focusNode: focusNode,
       autofocus: autofocus,
+      keyboardAppearance:
+          Constants.isDarkMode(context) ? Brightness.dark : Brightness.light,
       autofillHints: autofillHints,
       onTapOutside: (PointerDownEvent pointerDownEvent) {
         if (focusNode != null) {
