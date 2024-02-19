@@ -10,8 +10,8 @@ workflows:
             PACKAGE_NAME: "io.codemagic.sample.androidnative"
         scripts:
           - name: Build android release
-          script: |
-            ./gradlew assembleRelease
+            script: |
+              ./gradlew assembleRelease
           - name: Set Android SDK location
-          script: | 
-            echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+            script: | 
+              echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
