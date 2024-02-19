@@ -6,5 +6,5 @@ workflows:
         environment:
           android_signing:
             - GDSC1
-            vars:
-                PACKAGE_NAME: "io.codemagic.sample.androidnative"
+          vars:
+            PACKAGE_NAME: "io.codemagic.sample.androidnative"
